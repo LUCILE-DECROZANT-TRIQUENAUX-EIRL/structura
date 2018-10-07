@@ -1,0 +1,84 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+            {% if app.user.username == user.username %}
+                Mon profil
+            {% else %}
+                Profil de {{ user.username }}
+            {% endif %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if app.user.username == user.username %}
+            Éditer mon profil
+        {% else %}
+            Éditer le profil de {{ user.username }}
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Édition de {{ profileLabel }}</h1>
+            </div>
+            <div class="col text-right">
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Supprimer {{ profileLabel }}" class="btn btn-outline-danger">
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
+            <div class="form-group">
+                {{ form_label(edit_form.username) }}
+                {{ form_widget(edit_form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(edit_form.plainPassword) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(edit_form.responsabilities) }}
+                {% for responsability in edit_form.responsabilities %}
+                    <div class="form-group">
+                        {{ form_widget(responsability) }}
+                        {{ form_label(responsability) }}
+                        <span class="text-muted">
+                            {{ responsability.vars.attr['data-responsability-description'] }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_widget(edit_form) }}
+        {{ form_end(edit_form) }}
+    </div>
+</div>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('user_list') }}" class="btn btn-outline-secondary">Retourner à la liste des utilisateurices</a>
+        </div>
+        <div class="col text-right">
+            <input type="submit" form="form-edit-user" value="Enregistrer les modifications" class="btn btn-outline-primary"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
