@@ -1,0 +1,79 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Liste des utilisateurices
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Liste des utilisateurices</h1>
+            </div>
+            <div class="col text-right">
+                <a href="{{ path('user_create') }}" class="btn btn-outline-primary">Enregistrer un.e nouvel.le utilisateurice</a>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Nom d'utilisateurice</th>
+                    <th>Rôles</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="align-middle"><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                        <td class="align-middle">{{ user.username }}</td>
+                        <td class="align-middle">
+                            {{ user.roles is empty ? '-' : '' }}
+                            {% for responsability in user.responsabilities %}
+                                <p>
+                                    <span 
+                                        class="badge badge-pill badge-secondary"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="{{ responsability is not empty ? responsability.description : "Ce compte n'a pas de rôle." }}"
+                                        >
+                                        {{ responsability is not empty ? responsability.label : '-' }}
+                                    </span>
+                                </p>
+                            {% endfor %}
+                        </td>
+                        <td class="align-middle">
+                            <a 
+                                href="{{ path('user_show', { 'id': user.id }) }}"
+                                class="btn btn-outline-secondary"
+                                >
+                                Voir le profil
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a
+                                href="{{ path('user_edit', { 'id': user.id }) }}"
+                                class="btn btn-outline-secondary"
+                                >
+                                Éditer le profil
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+            
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if app.user.username == user.username %}
+            Mon profil
+        {% else %}
+            Profil de {{ user.username }}
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{ user.username }}</h1>
+            </div>
+            <div class="col text-right">
+                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-outline-primary">
+                    Éditer {{ profileLabel }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th>Identifiant</th>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom d'utilisateurice</th>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Rôles</th>
+                    <td>
+                        {{ user.roles is empty ? '-' : '' }}
+                        {% for role in user.roles %}
+                            <p>
+                                <span class="badge badge-pill badge-secondary">
+                                    {{ role is not empty ? role : '-' }}
+                                </span>
+                            </p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('user_list') }}" class="btn btn-outline-secondary">Retourner à la liste des utilisateurices</a>
+            </div>
+            <div class="col text-right">
+                {{ form_start(delete_form) }}
+                <input class="btn btn-outline-danger" type="submit" value="Supprimer {{ profileLabel }}">
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
