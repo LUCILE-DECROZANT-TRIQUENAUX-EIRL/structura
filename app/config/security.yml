@@ -2,23 +2,42 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    # define the algorythm used to hash the password
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
+    # define the class used to login
     providers:
-        in_memory:
-            memory: ~
+        db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
+        # disable authentication for assets and the profiler
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+            # activate the login page as page to authenticate
+            form_login:
+                login_path: login
+                check_path: login
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+            # activate the logout page as page to logout
+            logout:
+                path: /logout
+                target: /
+
+            # logout when the user changes
+            logout_on_user_change: true
+
+    access_control:
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/administration, roles: ROLE_ADMIN }

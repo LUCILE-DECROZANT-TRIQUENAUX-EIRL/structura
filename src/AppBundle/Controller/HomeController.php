@@ -1,21 +1,26 @@
 <?php
-
 namespace AppBundle\Controller;
 
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class DefaultController extends Controller
+
+class HomeController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="home")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, UserInterface $user = null)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        if (is_null($user))
+        {
+            return $this->render('@App/Login/login.html.twig', []);
+        }
+        else
+        {
+            return $this->render('@App/Home/index.html.twig', []);
+        }
     }
 }

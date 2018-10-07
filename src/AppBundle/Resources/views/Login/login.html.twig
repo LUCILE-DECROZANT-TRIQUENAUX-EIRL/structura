@@ -1,13 +1,57 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+{% extends '@App/Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Connexion</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <p class="text-center lead">
+                Bienvenue sur la base de données de l'association <strong>Huntington Avenir</strong>.
+            </p>
+            <p class="text-center lead">
+                Pour accéder au lociciel, identifiez-vous
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center">
+            <form action="{{ path('login') }}" method="post">
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="_username"
+                        placeholder="Nom d'utilisateurice"
+                        value="{% if username is defined %}{{ username }}{% endif %}"
+                    >
+                </div>
+                <div class="form-group">
+                    <input type="password"
+                        class="form-control"
+                        id="password"
+                        name="_password"
+                        placeholder="Mot de passe"
+                    >
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-primary center-block"
+                >
+                    Connexion
+                </button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
