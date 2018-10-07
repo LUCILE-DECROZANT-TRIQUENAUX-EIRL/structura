@@ -49,10 +49,15 @@
                     <th>Rôles</th>
                     <td>
                         {{ user.roles is empty ? '-' : '' }}
-                        {% for role in user.roles %}
+                        {% for responsability in user.responsabilities %}
                             <p>
-                                <span class="badge badge-pill badge-secondary">
-                                    {{ role is not empty ? role : '-' }}
+                                <span
+                                    class="badge badge-pill badge-secondary"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{ responsability is not empty ? responsability.description : "Ce compte n'a pas de rôle." }}"
+                                    >
+                                    {{ responsability is not empty ? responsability.label : '-' }}
                                 </span>
                             </p>
                         {% endfor %}
