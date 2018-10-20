@@ -46,3 +46,6 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# IDE configs
+.idea/*
