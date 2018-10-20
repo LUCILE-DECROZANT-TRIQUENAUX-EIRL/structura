@@ -17,7 +17,7 @@
                 <h1>Liste des utilisateurices</h1>
             </div>
             <div class="col text-right">
-                <a href="{{ path('user_create') }}" class="btn btn-outline-primary">Enregistrer un.e nouvel.le utilisateurice</a>
+                <a href="{{ path('user_create') }}" class="btn btn-outline-primary"><i class="icon ion-md-add"></i>&nbsp;Enregistrer un.e nouvel.le utilisateurice</a>
             </div>
         </div>
     </div>
@@ -54,20 +54,24 @@
                                 </p>
                             {% endfor %}
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle column-action">
                             <a 
                                 href="{{ path('user_show', { 'id': user.id }) }}"
                                 class="btn btn-outline-secondary"
+                                data-toggle="tooltip"
+                                title="Voir le profil"
                                 >
-                                Voir le profil
+                                <i class="icon ion-md-eye"></i>
                             </a>
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle column-action">
                             <a
                                 href="{{ path('user_edit', { 'id': user.id }) }}"
                                 class="btn btn-outline-secondary"
+                                data-toggle="tooltip"
+                                title="Éditer le profil"
                                 >
-                                Éditer le profil
+                                <i class="icon ion-md-create"></i>
                             </a>
                         </td>
                     </tr>

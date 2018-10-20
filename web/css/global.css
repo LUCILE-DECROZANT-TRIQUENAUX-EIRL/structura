@@ -3,3 +3,7 @@ body
     /* Avoid to hide content with footer */
     padding-bottom: 100px;
 }
+
+.column-action {
+    width: 36px;
+}
