@@ -36,7 +36,7 @@
             </div>
             <div class="col text-right">
                 {{ form_start(delete_form) }}
-                <input type="submit" value="Supprimer {{ profileLabel }}" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
                 {{ form_end(delete_form) }}
             </div>
         </div>
@@ -74,10 +74,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a href="{{ path('user_list') }}" class="btn btn-outline-secondary">Retourner à la liste des utilisateurices</a>
+            <a href="{{ path('user_list') }}" class="btn btn-outline-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
         </div>
         <div class="col text-right">
-            <input type="submit" form="form-edit-user" value="Enregistrer les modifications" class="btn btn-outline-primary"/>
+            <button type="submit" form="form-edit-user" class="btn btn-outline-primary"><i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications</button>
         </div>
     </div>
 </div>
