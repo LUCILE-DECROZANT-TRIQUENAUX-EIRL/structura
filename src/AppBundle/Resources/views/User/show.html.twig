@@ -27,7 +27,7 @@
             </div>
             <div class="col text-right">
                 <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-outline-primary">
-                    Éditer {{ profileLabel }}
+                    <i class="icon ion-md-create"></i>&nbsp;Éditer {{ profileLabel }}
                 </a>
             </div>
         </div>
@@ -71,11 +71,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ path('user_list') }}" class="btn btn-outline-secondary">Retourner à la liste des utilisateurices</a>
+                <a href="{{ path('user_list') }}" class="btn btn-outline-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
             </div>
             <div class="col text-right">
                 {{ form_start(delete_form) }}
-                <input class="btn btn-outline-danger" type="submit" value="Supprimer {{ profileLabel }}">
+                <button class="btn btn-outline-danger" type="submit"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
                 {{ form_end(delete_form) }}
             </div>
         </div>
