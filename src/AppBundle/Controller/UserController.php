@@ -118,9 +118,13 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $username = $user->getUsername();
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+            $this->addFlash(
+                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a bien été supprimé.e.', $username)
+            );
         }
 
         return $this->redirectToRoute('user_list');
