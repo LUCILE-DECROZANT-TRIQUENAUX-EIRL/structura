@@ -1,4 +1,6 @@
 #container-alert-messages
 {
     min-height: 50px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
