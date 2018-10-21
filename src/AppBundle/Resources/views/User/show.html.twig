@@ -74,9 +74,30 @@
                 <a href="{{ path('user_list') }}" class="btn btn-outline-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
             </div>
             <div class="col text-right">
-                {{ form_start(delete_form) }}
-                <button class="btn btn-outline-danger" type="submit"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
-                {{ form_end(delete_form) }}
+                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-outline-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Souhaitez-vous réellement supprimer ce profil ?</p>
+                    <div class="alert alert-danger" role="alert">
+                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                    </div>
+                    <div class="col text-right">
+                        {{ form_start(delete_form) }}
+                        <button type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+                        {{ form_end(delete_form) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
