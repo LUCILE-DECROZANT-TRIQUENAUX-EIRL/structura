@@ -66,19 +66,19 @@
                 {% endfor %}
             </div>
             {{ form_widget(edit_form) }}
-        {{ form_end(edit_form) }}
+            {{ form_end(edit_form) }}
+        </div>
     </div>
-</div>
-<br>
+    <br>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <a href="{{ path('user_list') }}" class="btn btn-outline-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
-        </div>
-        <div class="col text-right">
-            <button type="submit" form="form-edit-user" class="btn btn-outline-primary"><i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications</button>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('user_list') }}" class="btn btn-outline-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+            </div>
+            <div class="col text-right">
+                <button type="submit" form="form-edit-user" class="btn btn-outline-primary"><i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications</button>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
