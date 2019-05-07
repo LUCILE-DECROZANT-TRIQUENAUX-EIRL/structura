@@ -23,6 +23,26 @@ class Version20190507092354 extends AbstractMigration
         $this->addSql('CREATE TABLE responsability (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(255) NOT NULL, label VARCHAR(255) NOT NULL, description VARCHAR(1000) DEFAULT NULL, UNIQUE INDEX UNIQ_5AA1C46F77153098 (code), UNIQUE INDEX UNIQ_5AA1C46FEA750E8 (label), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE users_responsabilities ADD CONSTRAINT FK_E2742A2EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE users_responsabilities ADD CONSTRAINT FK_E2742A2E2B8DC843 FOREIGN KEY (responsability_id) REFERENCES responsability (id)');
+
+        // populate the database with sample data to make dev easier
+        $this->addSql(
+                "INSERT INTO `responsability` VALUES "
+                . "(1,'ROLE_ADMIN','Administrateurice de la base de données','Permet à l\'utilisateurice de créer, éditer et supprimer les comptes utilisateurs de la base de données.'),"
+                . "(2,'ROLE_GESTIONNAIRE_1','Gestionnaire de niveau 1','Permet à l\'utilisateurice de voir toutes les informations de la base de données, de les éditer, de les supprimer et d\'en enregistrer de nouvelles (mis à part les comptes utilisateurices).'),"
+                . "(3,'ROLE_GESTIONNAIRE_2','Gestionnaire de niveau 2','Permet à l\'utilisateurice de voir les informations des adhérent.e.s, de les éditer, de les archiver et d\'en enregistrer de nouvelles (mis à part le parcours médical)'),"
+                . "(4,'ROLE_INFORMATEURICE','Informateurice','Permet à l\'utilisateurice d\'envoyer des mails automatiquement depuis le logiciel (relances, newletters...)'),"
+                . "(5,'ROLE_ADHERENT_E','Adhérent.e','Permet à l\'utilisateurice de voir les informations de son compte, de les éditer, de les archiver et d\'en enregistrer de nouvelles');"
+        );
+        $password = password_hash('a', PASSWORD_BCRYPT);
+        $this->addSql(
+                "INSERT INTO `user` VALUES "
+                . "(1, 'admin', '$password'),"
+                . "(2, 'gest1', '$password'),"
+                . "(3, 'gest2', '$password'),"
+                . "(4, 'info', '$password'),"
+                . "(5, 'adhé', '$password');"
+        );
+        $this->addSql("INSERT INTO `users_responsabilities` VALUES (1,1), (2,2), (3,3), (4,4), (5,5);");
     }
 
     /**
