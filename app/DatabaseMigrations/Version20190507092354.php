@@ -1,0 +1,42 @@
+<?php
+
+namespace Application\DatabaseMigrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+class Version20190507092354 extends AbstractMigration
+{
+    /**
+     * @param Schema $schema
+     */
+    public function up(Schema $schema)
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE users_responsabilities (user_id INT NOT NULL, responsability_id INT NOT NULL, INDEX IDX_E2742A2EA76ED395 (user_id), INDEX IDX_E2742A2E2B8DC843 (responsability_id), PRIMARY KEY(user_id, responsability_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE responsability (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(255) NOT NULL, label VARCHAR(255) NOT NULL, description VARCHAR(1000) DEFAULT NULL, UNIQUE INDEX UNIQ_5AA1C46F77153098 (code), UNIQUE INDEX UNIQ_5AA1C46FEA750E8 (label), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE users_responsabilities ADD CONSTRAINT FK_E2742A2EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE users_responsabilities ADD CONSTRAINT FK_E2742A2E2B8DC843 FOREIGN KEY (responsability_id) REFERENCES responsability (id)');
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    public function down(Schema $schema)
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('ALTER TABLE users_responsabilities DROP FOREIGN KEY FK_E2742A2EA76ED395');
+        $this->addSql('ALTER TABLE users_responsabilities DROP FOREIGN KEY FK_E2742A2E2B8DC843');
+        $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE users_responsabilities');
+        $this->addSql('DROP TABLE responsability');
+    }
+}
