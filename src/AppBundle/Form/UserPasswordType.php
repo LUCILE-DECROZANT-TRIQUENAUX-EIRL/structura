@@ -31,6 +31,7 @@ class UserPasswordType extends AbstractType
                     'type' => PasswordType::class,
                     'first_options' => array('label' => 'Nouveau mot de passe'),
                     'second_options' => array('label' => 'Répétez le mot de passe'),
+                    'invalid_message' => 'Les mots de passe doivent être identiques',
                 ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Changer le mot de passe',

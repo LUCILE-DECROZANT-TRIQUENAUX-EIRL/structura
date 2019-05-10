@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Form\FormError;
 
 /**
  * User controller.
@@ -87,27 +88,43 @@ class UserController extends Controller
         $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
         $passwordForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-
+        //submit change of general infos
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                    'success', sprintf('Les informations ont bien été modifiées')
+            );
+            
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
+        //submit change of password
         if ($passwordForm->isSubmitted())
         {
             $oldPassword = $user->getPassword();
             $plainOldPassword = $passwordForm['oldPassword']->getData();
             $plainPassword = $passwordForm['plainPassword']->getData();
 
-            if($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
+            //if a password is entered and the old password typed in is correct
+            if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
                 $password = $passwordEncoder->encodePassword($user, $plainPassword);
                 $user->setPassword($password);
                 $this->getDoctrine()->getManager()->persist($user);
             }
 
+            //error message
+            if (!password_verify($plainOldPassword,$oldPassword))
+            {
+                $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));
+            }
+
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+
+            $this->addFlash(
+                    'success', sprintf('Le mot de passe a bien été modifié')
+            );
         }
 
         return $this->render('@App/User/edit.html.twig', array(
