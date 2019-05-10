@@ -89,12 +89,6 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-            /*if($user->getPlainPassword() !== null) {
-                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($password);
-                $this->getDoctrine()->getManager()->persist($user);
-            }*/
-
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
@@ -102,20 +96,17 @@ class UserController extends Controller
 
         if ($passwordForm->isSubmitted())
         {
-
+            $oldPassword = $user->getPassword();
+            $plainOldPassword = $passwordForm['oldPassword']->getData();
             $plainPassword = $passwordForm['plainPassword']->getData();
 
-            if($plainPassword !== null) {
+            if($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
                 $password = $passwordEncoder->encodePassword($user, $plainPassword);
-                dump ($password);
                 $user->setPassword($password);
-                dump ($user);
                 $this->getDoctrine()->getManager()->persist($user);
             }
 
             $this->getDoctrine()->getManager()->flush();
-            die;
-
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
