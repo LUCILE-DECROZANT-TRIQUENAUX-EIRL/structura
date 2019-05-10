@@ -96,8 +96,8 @@ class UserController extends Controller
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
-            
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+
+            return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
         }
 
         //submit change of password
@@ -111,7 +111,13 @@ class UserController extends Controller
             if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
                 $password = $passwordEncoder->encodePassword($user, $plainPassword);
                 $user->setPassword($password);
+
                 $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash(
+                        'success', sprintf('Le mot de passe a bien été modifié')
+                );
             }
 
             //error message
@@ -120,11 +126,6 @@ class UserController extends Controller
                 $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));
             }
 
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash(
-                    'success', sprintf('Le mot de passe a bien été modifié')
-            );
         }
 
         return $this->render('@App/User/edit.html.twig', array(
