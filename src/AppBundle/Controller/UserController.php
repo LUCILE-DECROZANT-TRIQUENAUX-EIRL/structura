@@ -45,7 +45,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -84,25 +84,45 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm('AppBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
+        $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
+        $passwordForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            
-            if($user->getPlainPassword() !== null) {
+
+            /*if($user->getPlainPassword() !== null) {
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
                 $this->getDoctrine()->getManager()->persist($user);
-            }
-            
+            }*/
+
             $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+        }
+
+        if ($passwordForm->isSubmitted())
+        {
+
+            $plainPassword = $passwordForm['plainPassword']->getData();
+
+            if($plainPassword !== null) {
+                $password = $passwordEncoder->encodePassword($user, $plainPassword);
+                dump ($password);
+                $user->setPassword($password);
+                dump ($user);
+                $this->getDoctrine()->getManager()->persist($user);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+            die;
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
         return $this->render('@App/User/edit.html.twig', array(
             'user' => $user,
-            'edit_form' => $editForm->createView(
-                    
-            ),
+            'edit_form' => $editForm->createView(),
+            'password_form'=> $passwordForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

@@ -22,11 +22,11 @@ class UserType extends AbstractType
                 ->add('username', TextType::class, array(
                     'label' => 'Nom d\'utilisateurice'
                 ))
-                ->add('plainPassword', RepeatedType::class, array(
+                /*->add('plainPassword', RepeatedType::class, array(
                     'type' => PasswordType::class,
                     'first_options' => array('label' => 'Mot de passe'),
                     'second_options' => array('label' => 'Répétez le mot de passe'),
-                ))
+                ))*/
                 ->add('responsabilities', EntityType::class, array(
                     // looks for choices from this entity
                     'class' => 'AppBundle:Responsability',
