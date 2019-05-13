@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use AppBundle\Entity\User;
 
+/**
+ * Form for editing a user's password
+ */
 class UserPasswordType extends AbstractType
 {
 

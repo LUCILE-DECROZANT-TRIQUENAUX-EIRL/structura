@@ -59,7 +59,7 @@ class LoginController extends Controller
     public function logoutAction($param)
     {
         $this->addFlash(
-                'info', 'Vous vous êtes bien déconnecté.'
+                'info', 'Vous vous êtes bien déconnecté.e.'
         );
         $response = $this->redirectToRoute('homepage');
     }

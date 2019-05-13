@@ -51,7 +51,17 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash(
+                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $user->getUsername())
+            );
+
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash(
+                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $user->getUsername())
+            );
         }
 
         return $this->render('@App/User/new.html.twig', array(
@@ -83,31 +93,29 @@ class UserController extends Controller
     public function editAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
+        $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
         $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
         $passwordForm->handleRequest($request);
 
-        //submit change of general infos
+        // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
-
             return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
         }
 
-        //submit change of password
+        // Submit change of password
         if ($passwordForm->isSubmitted())
         {
             $oldPassword = $user->getPassword();
             $plainOldPassword = $passwordForm['oldPassword']->getData();
             $plainPassword = $passwordForm['plainPassword']->getData();
 
-            //if a password is entered and the old password typed in is correct
+            // If a password is entered and the old password typed in is correct
             if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
                 $password = $passwordEncoder->encodePassword($user, $plainPassword);
                 $user->setPassword($password);
@@ -120,7 +128,7 @@ class UserController extends Controller
                 );
             }
 
-            //error message
+            // Error message
             if (!password_verify($plainOldPassword,$oldPassword))
             {
                 $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));

@@ -12,9 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Form with all user's infos
+ * Form for user's infos other than their password
  */
-class UserType extends AbstractType
+class UserGeneralDataType extends AbstractType
 {
 
     /**
@@ -26,16 +26,10 @@ class UserType extends AbstractType
                 ->add('username', TextType::class, [
                     'label' => 'Nom d\'utilisateurice'
                 ])
-                ->add('plainPassword', RepeatedType::class, [
-                    'type' => PasswordType::class,
-                    'first_options' => array('label' => 'Mot de passe'),
-                    'second_options' => array('label' => 'Répétez le mot de passe'),
-                    'invalid_message' => 'Les mots de passe doivent être identiques',
-                ])
                 ->add('responsabilities', EntityType::class, [
-                    // Looks for choices from this entity
+                    // looks for choices from this entity
                     'class' => 'AppBundle:Responsability',
-                    // Uses the Responsability.label property as the visible option string
+                    // uses the Responsability.label property as the visible option string
                     'choice_label' => 'label',
                     'label' => 'Rôles',
                     'multiple' => true,
@@ -44,6 +38,12 @@ class UserType extends AbstractType
                     {
                         return ['data-responsability-description' => $responsability->getDescription()];
                     },
+                ])
+                ->add('submit',SubmitType::class, [
+                'label' => 'Changer les informations',
+                'attr' => [
+                    'class' => 'btn btn-outline-primary float-right'
+                    ]
                 ]);
     }
 
