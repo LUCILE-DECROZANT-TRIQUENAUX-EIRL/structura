@@ -36,20 +36,14 @@ class LoginController extends Controller
                     );
                 }
             }
-            else
-            {
-                $this->addFlash(
-                        'warning', sprintf('Comportement inattendu, veuillez contacter votre administrateurice.')
-                );
-            }
+
+            $response = $this->render('@App/Login/login.html.twig', []);
         }
         else
         {
-            $this->addFlash(
-                    'info', sprintf('Bienvenue %s.', $lastUsername)
-            );
-        }
-        $response = $this->redirectToRoute('home');
+            $response = $this->redirectToRoute('home');
+        }        
+
         return $response;
     }
 

@@ -29,7 +29,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+    # service used to display a greeting message after successfull authentication
+    authentication_success_handler:
+        class: AppBundle\Security\AuthenticationSuccessHandler
+        arguments:
+            - "@security.http_utils"
+            - []
+            - "@session.flash_bag"

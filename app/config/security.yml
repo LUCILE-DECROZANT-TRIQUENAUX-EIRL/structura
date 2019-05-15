@@ -25,8 +25,9 @@ security:
 
             # activate the login page as page to authenticate
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /login
+                check_path: /login
+                success_handler: authentication_success_handler
 
             # activate the logout page as page to logout
             logout:
