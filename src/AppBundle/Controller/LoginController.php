@@ -52,10 +52,7 @@ class LoginController extends Controller
      */
     public function logoutAction($param)
     {
-        $this->addFlash(
-                'info', 'Vous vous êtes bien déconnecté.e.'
-        );
-        $response = $this->redirectToRoute('homepage');
+        throw new \RuntimeException('This should never be called directly.');
     }
 
 }

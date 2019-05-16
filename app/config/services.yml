@@ -36,3 +36,10 @@ services:
             - "@security.http_utils"
             - []
             - "@session.flash_bag"
+    # service used to display a confirmation message after successfull logout
+    logout_success_handler:
+        class: AppBundle\Security\LogoutSuccessHandler
+        arguments:
+            - "@security.http_utils"
+            - "/"
+            - "@session.flash_bag"
