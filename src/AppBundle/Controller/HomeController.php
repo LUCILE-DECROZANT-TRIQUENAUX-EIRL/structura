@@ -14,9 +14,10 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request, UserInterface $user = null)
     {
+        // Si on n'est pas connecté, redirection vers la page de login
         if (is_null($user))
         {
-            return $this->render('@App/Login/login.html.twig', []);
+            return $this->redirectToRoute('login');
         }
         else
         {

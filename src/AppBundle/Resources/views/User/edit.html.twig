@@ -42,15 +42,12 @@
     <br>
 
     <div class="container">
+        <div >
         {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
             <div class="form-group">
                 {{ form_label(edit_form.username) }}
                 {{ form_widget(edit_form.username) }}
             </div>
-            <div class="form-group">
-                {{ form_widget(edit_form.plainPassword) }}
-            </div>
-
             <div class="form-group">
                 {{ form_label(edit_form.responsabilities) }}
                 {% for responsability in edit_form.responsabilities %}
@@ -65,19 +62,21 @@
             </div>
             {{ form_widget(edit_form) }}
         {{ form_end(edit_form) }}
+        </div>
+
+        <div style="margin-top:48px;">
+        <h1>Mot de passe</h1>
+        {{ form_start(password_form)}}
+        {{ form_errors(password_form) }}
+        <div class="form-group">
+            {{ form_widget(password_form) }}
+        </div>
+        {{ form_end(password_form) }}
+        </div>
+
     </div>
     <br>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
-            </div>
-            <div class="col text-right">
-                <button type="submit" form="form-edit-user" class="btn btn-primary"><i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications</button>
-            </div>
-        </div>
-    </div>
     <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

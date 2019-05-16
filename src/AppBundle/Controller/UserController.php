@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Form\FormError;
 
 /**
  * User controller.
@@ -45,12 +46,22 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash(
+                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $user->getUsername())
+            );
+
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash(
+                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $user->getUsername())
+            );
         }
 
         return $this->render('@App/User/new.html.twig', array(
@@ -82,27 +93,53 @@ class UserController extends Controller
     public function editAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
+        $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
+        $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
+        $passwordForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            
-            if($user->getPlainPassword() !== null) {
-                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($password);
-                $this->getDoctrine()->getManager()->persist($user);
-            }
-            
+        // Submit change of general infos
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                    'success', sprintf('Les informations ont bien été modifiées')
+            );
+            return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
+        }
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+        // Submit change of password
+        if ($passwordForm->isSubmitted())
+        {
+            $oldPassword = $user->getPassword();
+            $plainOldPassword = $passwordForm['oldPassword']->getData();
+            $plainPassword = $passwordForm['plainPassword']->getData();
+
+            // If a password is entered and the old password typed in is correct
+            if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
+                $password = $passwordEncoder->encodePassword($user, $plainPassword);
+                $user->setPassword($password);
+
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash(
+                        'success', sprintf('Le mot de passe a bien été modifié')
+                );
+            }
+
+            // Error message
+            if (!password_verify($plainOldPassword,$oldPassword))
+            {
+                $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));
+            }
+
         }
 
         return $this->render('@App/User/edit.html.twig', array(
             'user' => $user,
-            'edit_form' => $editForm->createView(
-                    
-            ),
+            'edit_form' => $editForm->createView(),
+            'password_form'=> $passwordForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
