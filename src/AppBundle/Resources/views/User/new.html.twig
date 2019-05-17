@@ -46,10 +46,10 @@
             <div class="form-group">
                 {{ form_label(form.responsabilities) }}
                 {% for responsability in form.responsabilities %}
-                    <div class="form-group" onclick="selectUserResponsability(this);">
+                    <div class="form-group">
                         {{ form_widget(responsability) }}
                         {{ form_label(responsability) }}
-                        <span class="text-muted clickable">
+                        <span class="text-muted responsability-description">
                             {{ responsability.vars.attr['data-responsability-description'] }}
                         </span>
                     </div>

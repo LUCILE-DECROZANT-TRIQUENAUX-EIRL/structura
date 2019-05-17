@@ -1,7 +1,6 @@
-function selectUserResponsability(event) {
-    event.preventDefault();
-
-    let checkbox = $(event).find('input');
-
-    checkbox.prop("checked", !checkbox.prop("checked"));
-}
+$(document).ready(function() {
+    $('.responsability-description').click(function() {
+        let checkbox = $(this).parent('div').find('input');
+        checkbox.prop("checked", !checkbox.prop("checked"));
+    }); 
+});
