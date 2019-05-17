@@ -1,5 +1,13 @@
 {% extends '@App/Home/base.html.twig' %}
 
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
 {% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
 
 {% block breadcrumb %}
@@ -54,7 +62,7 @@
                     <div class="form-group">
                         {{ form_widget(responsability) }}
                         {{ form_label(responsability) }}
-                        <span class="text-muted">
+                        <span class="text-muted responsability-description">
                             {{ responsability.vars.attr['data-responsability-description'] }}
                         </span>
                     </div>
