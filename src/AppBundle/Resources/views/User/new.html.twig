@@ -1,5 +1,13 @@
 {% extends '@App/Home/base.html.twig' %}
 
+{% block javascript %}
+    <script src="{{ asset('javascript/User/new.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/new.css') }}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
@@ -38,10 +46,10 @@
             <div class="form-group">
                 {{ form_label(form.responsabilities) }}
                 {% for responsability in form.responsabilities %}
-                    <div class="form-group">
+                    <div class="form-group" onclick="selectUserResponsability(this);">
                         {{ form_widget(responsability) }}
                         {{ form_label(responsability) }}
-                        <span class="text-muted">
+                        <span class="text-muted clickable">
                             {{ responsability.vars.attr['data-responsability-description'] }}
                         </span>
                     </div>
