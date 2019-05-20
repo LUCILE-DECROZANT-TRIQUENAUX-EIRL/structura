@@ -105,6 +105,7 @@ class UserController extends Controller
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
+
             return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
         }
 
