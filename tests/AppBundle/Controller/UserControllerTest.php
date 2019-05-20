@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
-        /**
+    /**
      * Connecte au site afin de pouvoir naviguer
      */
     public function connection()
@@ -80,13 +80,20 @@ class UserControllerTest extends WebTestCase
         $client = $editPage[0];
         $crawler = $editPage[1];
 
-        //$button = $crawler->selectButton(' Supprimer l\'utilisateurice');
-        // https://stackoverflow.com/questions/29149124/how-to-click-on-a-button-in-phpunit-symfony2#comment46549861_29149760
-        // https://stackoverflow.com/questions/40222621/domcrawler-how-to-click-button-unable-to-navigate-from-a-button-tag
         $button = $crawler
             ->filter('button:contains(" Supprimer l\'utilisateurice")')
         ;
-        //$crawler = $client->click($button->link());
+
+        $form = $crawler->selectButton('delete_button')->form();
+        $crawler = $client->submit($form);
+
+        //$button = $crawler->selectButton(' Supprimer l\'utilisateurice');
+        // https://stackoverflow.com/questions/29149124/how-to-click-on-a-button-in-phpunit-symfony2#comment46549861_29149760
+        // https://stackoverflow.com/questions/40222621/domcrawler-how-to-click-button-unable-to-navigate-from-a-button-tag
+        // $button = $crawler
+        //     ->filter('button:contains("&nbsp;Supprimer l&#039;utilisateurice")')
+        // ;
+        // $crawler = $client->submit($form->link());
 
         //dump($button->html());
     }
