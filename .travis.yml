@@ -9,5 +9,6 @@ php:
 install:
   - composer install
 
-script: 
+script:
+  - ls ./vendor/bin/simple-phpunit
   - phpunit ./vendor/bin/simple-phpunit
