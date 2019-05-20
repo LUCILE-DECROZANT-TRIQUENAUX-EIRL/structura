@@ -55,6 +55,7 @@ $(document).ready(function () {
             // Instanciate the DataTable
             $table.DataTable({
                 buttons: buttons,
+                dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
             });
         });
     });

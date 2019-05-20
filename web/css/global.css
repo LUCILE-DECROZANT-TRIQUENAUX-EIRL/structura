@@ -19,3 +19,25 @@ body
 {
     border-radius: 0px;
 }
+
+/* Default theme of the DataTables */
+.dataTables_wrapper > .datatable-header
+{
+    display: flex;
+}
+.dataTables_wrapper > .datatable-header > div
+{
+    flex-grow: 1;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div
+{
+    text-align: initial;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons
+{
+    text-align: right;
+}
+.dataTables_wrapper > .datatable-footer > div > ul.pagination
+{
+    justify-content: center !important;
+}
