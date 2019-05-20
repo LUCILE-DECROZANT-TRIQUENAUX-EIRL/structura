@@ -49,6 +49,17 @@ class Responsability
     private $description;
 
     /**
+     *
+     */
+    function __construct($id = -1, $code = NULL, $label = NULL, $description = NULL)
+    {
+        $this->id = $id;
+        $this->code = $code;
+        $this->label = $label;
+        $this->description = $description;
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -126,4 +137,3 @@ class Responsability
     }
 
 }
-

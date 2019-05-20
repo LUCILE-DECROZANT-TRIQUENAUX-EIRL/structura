@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * 
+ *
  * @UniqueEntity(
  *      fields={"username"},
  *      message="Ce nom d'utilisateurice n'est pas disponible."
@@ -48,9 +48,9 @@ class User implements UserInterface
 
     /**
      * @var string Field used to store the plain password in order
-     * to populate the $password var with en encrypted value. 
+     * to populate the $password var with en encrypted value.
      */
-    private $plainPassword;    
+    private $plainPassword;
 
     /**
      * @ORM\ManyToMany(targetEntity="Responsability")
@@ -61,6 +61,18 @@ class User implements UserInterface
      * )
      */
     private $responsabilities;
+
+    /**
+     *
+     */
+    function __construct($id = -1, $username = NULL, $plainPassword = NULL, $responsabilities = [])
+    {
+        $this->id = $id;
+        $this->username = $username;
+        $this->plainPassword = $plainPassword;
+        $this->responsabilities = $responsabilities;
+
+    }
 
     /**
      * Get id
@@ -94,10 +106,10 @@ class User implements UserInterface
     {
         return $this->username;
     }
-    
+
     /**
      * Get plainPassword
-     * 
+     *
      * @return string
      */
     function getPlainPassword()
@@ -107,9 +119,9 @@ class User implements UserInterface
 
     /**
      * Set plainPassword
-     * 
+     *
      * @param string $plainPassword
-     * 
+     *
      * @return User
      */
     function setPlainPassword($plainPassword)
@@ -183,7 +195,7 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-        
+
     }
 
     /**
@@ -204,7 +216,7 @@ class User implements UserInterface
 
     public function getSalt()
     {
-        
+
     }
 
 }
