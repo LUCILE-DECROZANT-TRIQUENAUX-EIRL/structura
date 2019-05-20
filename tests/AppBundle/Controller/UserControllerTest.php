@@ -74,30 +74,6 @@ class UserControllerTest extends WebTestCase
         );
     }*/
 
-    public function testDelete()
-    {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
-
-        $button = $crawler
-            ->filter('button:contains(" Supprimer l\'utilisateurice")')
-        ;
-
-        $form = $crawler->selectButton('delete_button')->form();
-        $crawler = $client->submit($form);
-
-        //$button = $crawler->selectButton(' Supprimer l\'utilisateurice');
-        // https://stackoverflow.com/questions/29149124/how-to-click-on-a-button-in-phpunit-symfony2#comment46549861_29149760
-        // https://stackoverflow.com/questions/40222621/domcrawler-how-to-click-button-unable-to-navigate-from-a-button-tag
-        // $button = $crawler
-        //     ->filter('button:contains("&nbsp;Supprimer l&#039;utilisateurice")')
-        // ;
-        // $crawler = $client->submit($form->link());
-
-        //dump($button->html());
-    }
-
     /**
      * Change la responsabilité de l'utilisateur créé plus tôt
      * Lui affecte la reponsabilité Gestionnaire 1
@@ -156,6 +132,34 @@ class UserControllerTest extends WebTestCase
         $values['appbundle_password']['plainPassword']['second'] = 'password';
         $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
         $this->assertContains('Le mot de passe a bien été modifié',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    public function testDelete()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
+
+        // $button = $crawler
+        //     ->filter('button:contains(" Supprimer l\'utilisateurice")')
+        // ;
+
+        $form = $crawler->selectButton('delete_button')->form();
+        $crawler = $client->submit($form);
+
+        //$button = $crawler->selectButton(' Supprimer l\'utilisateurice');
+        // https://stackoverflow.com/questions/29149124/how-to-click-on-a-button-in-phpunit-symfony2#comment46549861_29149760
+        // https://stackoverflow.com/questions/40222621/domcrawler-how-to-click-button-unable-to-navigate-from-a-button-tag
+        // $button = $crawler
+        //     ->filter('button:contains("&nbsp;Supprimer l&#039;utilisateurice")')
+        // ;
+        // $crawler = $client->submit($form->link());
+
+        //dump($button->html());
+
+        $this->assertContains('Redirecting to /user/',
                 $client->getResponse()->getContent()
         );
     }
