@@ -1,13 +1,7 @@
 language: php
 
-services:
-  - mysql
-
 php:
-  - "7.2"
+  - "7.0"
 
 install:
-  - composer install
-
-script:
-  - ls ./vendor/bin/simple-phpunit
+  - composer install --no-interaction
