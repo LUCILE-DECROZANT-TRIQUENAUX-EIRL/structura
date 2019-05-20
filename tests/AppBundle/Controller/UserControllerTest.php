@@ -51,7 +51,6 @@ class UserControllerTest extends WebTestCase
     /**
      * Create a new user
      */
-     /*
     public function testCreate()
     {
         $client = $this->connection();
@@ -77,33 +76,13 @@ class UserControllerTest extends WebTestCase
                 'Jean',
                 $client->getResponse()->getContent()
         );
-    }*/
-
-    /**
-     * Delete the user created for the test
-     */
-    public function testDelete()
-    {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
-
-        //$button = $crawler->selectButton(' Supprimer l\'utilisateurice');
-        // https://stackoverflow.com/questions/29149124/how-to-click-on-a-button-in-phpunit-symfony2#comment46549861_29149760
-        // https://stackoverflow.com/questions/40222621/domcrawler-how-to-click-button-unable-to-navigate-from-a-button-tag
-        $button = $crawler
-            ->filter('button:contains(" Supprimer l\'utilisateurice")')
-        ;
-        //$crawler = $client->click($button->link());
-
-        //dump($button->html());
     }
 
     /**
      * Change the responsability of the user created for the test
      * Affects the responsability Gestionnaire 1
      */
-    /*public function testEditResponsability()
+    public function testEditResponsability()
     {
         $editPage = $this->accessEditPage();
         $client = $editPage[0];
@@ -121,7 +100,7 @@ class UserControllerTest extends WebTestCase
     /**
      * Chang the username
      */
-    /*public function testEditPseudo()
+    public function testEditPseudo()
     {
         $editPage = $this->accessEditPage();
         $client = $editPage[0];
@@ -143,7 +122,7 @@ class UserControllerTest extends WebTestCase
     /**
      * Change the password
      */
-    /*public function testEditPassword()
+    public function testEditPassword()
     {
         $editPage = $this->accessEditPage();
         $client = $editPage[0];
@@ -158,5 +137,24 @@ class UserControllerTest extends WebTestCase
         $this->assertContains('Le mot de passe a bien été modifié',
                 $client->getResponse()->getContent()
         );
-    }*/
+    }
+
+    /**
+     * Delete the user created for the test
+     */
+    public function testDelete()
+    {
+       $editPage = $this->accessEditPage();
+       $client = $editPage[0];
+       $crawler = $editPage[1];
+
+       $form = $crawler->selectButton('delete_button')->form();
+       $crawler = $client->submit($form);
+       $crawler = $client->followRedirect();
+       $this->assertContains('Liste des utilisateurices',
+               $client->getResponse()->getContent()
+       );
+    }
 }
+
+?>

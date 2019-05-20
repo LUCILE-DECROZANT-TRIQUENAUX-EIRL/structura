@@ -49,3 +49,6 @@
 
 # IDE's configuration
 /nbproject/*
+
+# Fichier de mapping
+path_mapping.ods

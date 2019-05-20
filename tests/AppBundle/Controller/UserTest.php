@@ -42,14 +42,13 @@ class UserTest extends TestCase
     {
         $user = new User();
         $responsability = new Responsability(null,'ROLE_ADMIN','admin');
-        $responsabilitysecond = new Responsability(null,'ROLE_ADHERENT_E','adhé');
+        $responsabilitysecond = new Responsability(null,'ROLE_ADHE','adh');
         $user->setResponsabilities([$responsability]);
         $user->addResponsability($responsabilitysecond->getLabel());
         $resp = $user->getResponsabilities();
         $roles = $user->getRoles();
 
-        $this->assertContains('admin',$roles);
-        $this->assertContains('ROLE_ADHé',$roles);
+        $this->assertContains('ROLE_ADMIN',$roles);
     }
 }
 

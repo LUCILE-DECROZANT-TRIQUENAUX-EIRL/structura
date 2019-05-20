@@ -209,7 +209,7 @@ class User implements UserInterface
         $roles = [];
         foreach ($this->responsabilities as $responsability)
         {
-            $roles[] = $responsability->getLabel();
+            $roles[] = $responsability->getCode();
         }
         return $roles;
     }
