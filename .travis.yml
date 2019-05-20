@@ -1,0 +1,20 @@
+language: php
+
+services:
+  - mysql
+
+php:
+  - "7.2"
+
+before_install:
+  - pecl install php-mbstring
+  - pecl install php-mysql
+  - pecl install php-xml
+  - pecl install php-zip
+
+
+install:
+  - composer install
+
+script: 
+  - phpunit ./vendor/bin/simple-phpunit
