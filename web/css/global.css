@@ -37,6 +37,10 @@ body
 {
     text-align: right;
 }
+.dataTables_wrapper > .datatable-header > .datatable-buttons > div > button
+{
+    margin-left: 10px;
+}
 .dataTables_wrapper > .datatable-footer > div > ul.pagination
 {
     justify-content: center !important;
