@@ -52,8 +52,21 @@ $(document).ready(function () {
                 console.warn('You must define the attribute `data-create-label` in your table.')
             }
 
+            // Check if there is a specific configuration wanted to fix columns
+            let countFixedColumnsRight = 2; // Set default to 2 columns
+            let customCountFixedColumnsRight = $table.data('fixed-columns-right'); // Get the custom settings
+            if (customCountFixedColumnsRight) {
+                if (Number.isInteger(customCountFixedColumnsRight)) { // Check if the parameter is an integer before using it
+                    countFixedColumnsRight = customCountFixedColumnsRight;
+                } else {
+                    console.warn('The attribute `data-fixed-columns-right` has to be an integer.');
+                }
+            }
             // Instanciate the DataTable
             $table.DataTable({
+                colReorder: {
+                    fixedColumnsRight: countFixedColumnsRight,
+                },
                 buttons: buttons,
                 dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
             });
