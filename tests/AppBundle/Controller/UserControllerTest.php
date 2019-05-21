@@ -79,6 +79,35 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
+     * Try to create a new user with the same username as before
+     */
+    public function testCreateFalse()
+    {
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/new');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        // Vérifie si la page affiche le bon texte
+        $this->assertContains(
+                'Enregistrer',
+                $client->getResponse()->getContent()
+        );
+
+        // Select the form and fill its values
+        $form = $crawler->selectButton(' Créer')->form();
+        $values = $form->getPhpValues();
+        $values['appbundle_user']['username'] = 'Jean';
+        $values['appbundle_user']['plainPassword']['first'] = 'motdepasse';
+        $values['appbundle_user']['plainPassword']['second'] = 'motdepasse';
+
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains(
+                'n\'a pas pu être créé.e',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * Change the responsability of the user created for the test
      * Affects the responsability Gestionnaire 1
      */
@@ -98,7 +127,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Chang the username
+     * Change the username
      */
     public function testEditPseudo()
     {
@@ -115,6 +144,25 @@ class UserControllerTest extends WebTestCase
                 $client->getResponse()->getContent()
         );
         $this->assertContains('Les informations ont bien été modifiées',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Change the username to something that already exists
+     * Assumes admin already exists (based on other tests)
+     */
+    public function testEditPseudoFalse()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
+
+        $form = $crawler->selectButton('Changer les informations')->form();
+        $values = $form->getPhpValues();
+        $values['appbundle_user']['username'] = 'admin';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains("est pas disponible.",
                 $client->getResponse()->getContent()
         );
     }
@@ -140,6 +188,37 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
+     * Try to change the password
+     */
+    public function testEditPasswordFalse()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
+
+        $form = $crawler->selectButton('Changer le mot de passe')->form();
+        $values = $form->getPhpValues();
+
+        // oldPassword doesnt correspond
+        $values['appbundle_password']['oldPassword'] = 'motdepasse';
+        $values['appbundle_password']['plainPassword']['first'] = 'password';
+        $values['appbundle_password']['plainPassword']['second'] = 'password';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains('mot de passe ne correspond pas',
+                $client->getResponse()->getContent()
+        );
+
+        // Values of plain password dont correspond
+        $values['appbundle_password']['oldPassword'] = 'password';
+        $values['appbundle_password']['plainPassword']['first'] = 'kldfh';
+        $values['appbundle_password']['plainPassword']['second'] = 'qsdqsd';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains('Les mots de passe doivent être identiques',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * Delete the user created for the test
      */
     public function testDelete()
@@ -154,6 +233,46 @@ class UserControllerTest extends WebTestCase
        $this->assertContains('Liste des utilisateurices',
                $client->getResponse()->getContent()
        );
+    }
+
+    /**
+     * Test everything at once
+     * Delete from another
+     */
+    public function testAll()
+    {
+        $this->testCreate();
+        $this->testEditPseudo();
+        $this->testEditResponsability();
+        $this->testEditPassword();
+
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+                'Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
+        // Select the button of the user created for the test
+        // Wont work if there are already more than 10 users in the database
+        // Only works for me with 8 other users in the database
+        // The id is a link, the show & edit buttons are links
+        $link = $crawler
+            ->filter('tr > td > a:contains("")')
+            ->eq(26)
+            ->link()
+        ;
+        $crawler = $client->click($link);
+        $this->assertContains('Profil de René',
+                $client->getResponse()->getContent()
+        );
+
+        $form = $crawler->selectButton('delete_button')->form();
+        $crawler = $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertContains('Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
     }
 }
 

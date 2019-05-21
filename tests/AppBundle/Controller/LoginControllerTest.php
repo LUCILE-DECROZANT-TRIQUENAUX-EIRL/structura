@@ -32,5 +32,37 @@ class LoginControllerTest extends WebTestCase
                 $client->getResponse()->getContent()
         );
     }
+
+    /*
+     * Tries to login with a user that shouldn't exist
+     * Then tries to login with a user taht exists but wrong password
+     */
+    public function testLoginFalse()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET ");
+        $form = $crawler->selectButton('Connexion')->form();
+        // Use of values so I can redirect with the values
+        $values = $form->getPhpValues();
+
+        $values['_username'] = 'adminnn';
+        $values['_password'] = 'a';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $crawler = $client->followRedirect();
+        $this->assertContains(
+                'utilisateur ou mot de passe invalide.' ,
+                $client->getResponse()->getContent()
+        );
+
+        $values['_username'] = 'admin';
+        $values['_password'] = 'admin';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $crawler = $client->followRedirect();
+        $this->assertContains(
+                'utilisateur ou mot de passe invalide.' ,
+                $client->getResponse()->getContent()
+        );
+    }
 }
 ?>
