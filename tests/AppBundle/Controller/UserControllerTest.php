@@ -255,17 +255,49 @@ class UserControllerTest extends WebTestCase
         );
         // Select the button of the user created for the test
         // Wont work if there are already more than 10 users in the database
-        // Only works for me with 8 other users in the database
-        // The id is a link, the show & edit buttons are links
+        // Only works for me with 5 other users in the database
+        // The id is a link, the delete, show & edit buttons are links
         $link = $crawler
             ->filter('tr > td > a:contains("")')
-            ->eq(26)
+            ->eq(22)
             ->link()
         ;
         $crawler = $client->click($link);
         $this->assertContains('Profil de René',
                 $client->getResponse()->getContent()
         );
+        $form = $crawler->selectButton('delete_button')->form();
+        $crawler = $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertContains('Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Delete from link in the list
+     */
+    public function testDeleteFromList()
+    {
+        $this->testCreate();
+
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+                'Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
+        // Select the button of the user created for the test
+        // Wont work if there are already more than 10 users in the database
+        // Only works for me with 5 other users in the database
+        // The id is a link, the show & edit buttons are links
+        $link = $crawler
+            ->filter('tr > td > a:contains("")')
+            ->eq(21)
+            ->link()
+        ;
+        $crawler = $client->click($link);
 
         $form = $crawler->selectButton('delete_button')->form();
         $crawler = $client->submit($form);

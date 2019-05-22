@@ -74,7 +74,7 @@
                 <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
             </div>
             <div class="col text-right">
-                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger"><i class="icon ion-md-trash" id="delete_button"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger" >><i class="icon ion-md-trash" </i>&nbsp;Supprimer {{ profileLabel }}</button>
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="col text-right">
                         {{ form_start(delete_form) }}
-                        <button type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
                         {{ form_end(delete_form) }}
                     </div>
                 </div>
