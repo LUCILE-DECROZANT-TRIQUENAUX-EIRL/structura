@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body %}
+
+
     <br>
     <div class="container">
         <div class="row">
@@ -42,6 +44,7 @@
                 </tr>
             </thead>
             <tbody>
+            {% set delete_user_form = "" %}
                 {% for user in users %}
                     <tr>
                         <td class="align-middle"><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
@@ -61,7 +64,7 @@
                                 </p>
                             {% endfor %}
                         </td>
-                        <td class="align-middle column-action">
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal">
                             <a
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
@@ -69,9 +72,6 @@
                                 >
                                 <i class="icon ion-md-trash"></i>
                                 {% set delete_user_form = user_deletion_forms[user.id] %}
-                                {{ form_start(delete_user_form) }}
-                                <button type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer </button>
-                                {{ form_end(delete_user_form) }}
                             </a>
                         </td>
                         <td class="align-middle column-action">
@@ -96,6 +96,7 @@
                         </td>
                     </tr>
                 {% endfor %}
+
             </tbody>
         </table>
     </div>
@@ -114,10 +115,9 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
                     </div>
                     <div class="col text-right">
-
-                        {{ form_start(user_deletion_forms) }}
-                        <button type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
-                        {{ form_end(user_deletion_forms) }}
+                    {{ form_start(delete_user_form) }}
+                    <button type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer </button>
+                    {{ form_end(delete_user_form) }}
                     </div>
                 </div>
             </div>
