@@ -27,8 +27,15 @@ class UserController extends Controller
 
         $users = $em->getRepository('AppBundle:User')->findAll();
 
+        $deleteForms = [];
+        foreach ($users as $user) {
+            $deleteForm = $this->createDeleteForm($user);
+            $deleteForms[$user->getId()] = $deleteForm->createView();
+        }
+
         return $this->render('@App/User/list.html.twig', array(
             'users' => $users,
+            'user_deletion_forms' => $deleteForms,
         ));
     }
 
