@@ -25,17 +25,38 @@ body
 {
     display: flex;
 }
-.dataTables_wrapper > .datatable-header > div
+.dataTables_wrapper > .datatable-header > .datatable-filter
 {
     flex-grow: 1;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons
+{
+    flex-grow: 0;
 }
 .dataTables_wrapper > .datatable-header > .datatable-filter > div
 {
     text-align: initial;
+    height: 100%;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label
+{
+    margin-bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label > input
+{
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
 }
 .dataTables_wrapper > .datatable-header > .datatable-buttons
 {
     text-align: right;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons > div > button
+{
+    margin-left: 10px;
 }
 .dataTables_wrapper > .datatable-footer > div > ul.pagination
 {

@@ -67,6 +67,10 @@ $(document).ready(function () {
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
+                language: {
+                    search: '',
+                    searchPlaceholder: 'Rechercher',
+                },
                 buttons: buttons,
                 dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
             });
