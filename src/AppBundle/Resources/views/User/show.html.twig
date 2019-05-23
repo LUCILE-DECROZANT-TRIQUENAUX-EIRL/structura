@@ -6,9 +6,11 @@
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
     </li>
+    {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
     </li>
+    {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
         {% if app.user.username == user.username %}
             Mon profil
@@ -70,9 +72,11 @@
 
     <div class="container">
         <div class="row">
+            {% if is_granted("ROLE_GESTION") %}
             <div class="col">
                 <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
             </div>
+            {% endif %}
             <div class="col text-right">
                 <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger" >><i class="icon ion-md-trash" </i>&nbsp;Supprimer {{ profileLabel }}</button>
             </div>

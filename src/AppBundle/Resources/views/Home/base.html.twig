@@ -48,8 +48,9 @@
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         {% if app.user is not null %}
+                        {% if is_granted("ROLE_GESTION") %}
                         <li class="nav-item dropdown">
-                            <a 
+                            <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 id="dropdown-administration"
@@ -66,8 +67,9 @@
                                 <a class="dropdown-item" href="{{ path('user_create') }}">Enregistrer un nouveau compte</a>
                             </div>
                         </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
-                            <a 
+                            <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 id="dropdown-user"
@@ -90,7 +92,7 @@
             </nav>
         </div>
         </header>
-        
+
         <div id="container-alert-messages" class="container">
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
@@ -101,7 +103,7 @@
                 {% endfor %}
             {% endfor %}
         </div>
-        
+
         <div class="container">
             <nav aria-label="Fil d'ariane">
                 <ol class="breadcrumb">
