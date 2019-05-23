@@ -75,3 +75,9 @@ body
 {
     justify-content: center !important;
 }
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.previous > a,
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.next > a
+{
+    min-width: 85px;
+    text-align: center;
+}
