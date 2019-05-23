@@ -96,11 +96,15 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;Annuler
+                        </button>
                     </div>
                     <div class="col text-right">
                         {{ form_start(delete_form) }}
-                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+                        <button type="submit" class="btn btn-danger" id="delete_button">
+                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
+                        </button>
                         {{ form_end(delete_form) }}
                     </div>
                 </div>
