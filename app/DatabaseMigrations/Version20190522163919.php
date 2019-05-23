@@ -28,16 +28,16 @@ class Version20190522163919 extends AbstractMigration
         d''éditer les rôles d''autres comptes (mis à part les rôles sensibles) et de consulter, modifier et supprimer des informations dans l''annuaire des professionnels de santé.');");
         $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_GESTION_SENSIBLE', 'Gestionnaire des données sensibles', 'Permet d''afficher, éditer, supprimer les données sensibles d''autres comptes et
         d''éditer les rôles liés aux données sensibles.');");
-        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_INFORMATEURICE', 'Informateurice', 'Permet de créer, afficher, éditer et supprimer un événement ou une newletter et d''envoyer les newletters.');");
-        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_ADHERENT_E', 'Adhérent.e', 'Permet de recevoir la newletter, les convocations à l''AG, les invitations aux événements,
-        de consulter les documents des AG des années de cotisation, de voir les événements \"privés\" et de renouveller son adhésion.');");
-        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_EX_ADHERENT_E', 'Ex-adhérent.e', 'Permet de recevoir une relance pour adhérer à l''association, renouveller son adhésion et
+        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_INFORMATEURICE', 'Informateurice', 'Permet de créer, afficher, éditer et supprimer un événement ou une newsletter et d''envoyer les newsletters.');");
+        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_ADHERENT_E', 'Adhérent.e', 'Permet de recevoir la newsletter, les convocations à l''AG, les invitations aux événements,
+        de consulter les documents des AG des années de cotisation, de voir les événements \"privés\" et de renouveler son adhésion.');");
+        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_EX_ADHERENT_E', 'Ex-adhérent.e', 'Permet de recevoir une relance pour adhérer à l''association, renouveler son adhésion et
         consulter les documents des AG des années de cotisation.');");
         $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_MECENE', 'Mécène', 'Peut faire des dons.');");
-        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_SYMPATHISANT_E', 'Sympathisant.e', 'Peut recevoir la newletter et adhérer à l''association.');");
+        $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_SYMPATHISANT_E', 'Sympathisant.e', 'Peut recevoir la newsletter et adhérer à l''association.');");
         $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_CONSULTATION_ANNUAIRE', 'Consultation de l''annuaire', 'Donne l''accès à la consultation de l''annuaire des professionnels de santé.');");
         $this->addSql("INSERT INTO responsability VALUES (0, 'ROLE_INSCRIT_E', 'Inscrit.e', 'Permet de voir les informations de son compte, de les éditer, de les archiver et de demander l''accès à
-        l''annuraire des professionels de santé.');");
+        l''annuaire des professionels de santé.');");
 
         // 3) We trace responsabilities equivalences
         /*
