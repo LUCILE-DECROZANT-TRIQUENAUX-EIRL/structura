@@ -62,11 +62,19 @@ $(document).ready(function () {
                     console.warn('The attribute `data-fixed-columns-right` has to be an integer.');
                 }
             }
+
+            // Check which columns are sortable
+            let columns = [];
+            $table.find('th').each(function (index) {
+                columns.push({orderable: $(this).data('sortable') === true});
+            });
+
             // Instanciate the DataTable
             $table.DataTable({
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
+                columns: columns,
                 language: {
                     search: '',
                     searchPlaceholder: 'Rechercher',
