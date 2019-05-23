@@ -41,7 +41,7 @@ $(document).ready(function () {
                             'class': 'btn btn-primary'
                         },
                         action: function () {
-                            window.location.href = $(this).data('create-path');
+                            window.location.href = $table.data('create-path');
                         }
                     };
                     buttons.push(createButton);

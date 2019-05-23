@@ -25,7 +25,6 @@
         {# ------------- Top menu ------------- #}
         {# ------------------------------------ #}
         <header>
-        <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="/">Accueil <span class="sr-only">(page courante)</span></a>
                 <button
@@ -90,7 +89,6 @@
                     </ul>
                 </div>
             </nav>
-        </div>
         </header>
 
         <div id="container-alert-messages" class="container">
@@ -117,19 +115,17 @@
         {% block body %}{% endblock %}
 
         <footer class="page-footer fixed-bottom">
-            <div class="container-fluid">
-                <nav class="nav bg-light justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link footer-copyright" href="#"><i class="icon ion-md-link"></i>&nbsp;Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Site réalisé sous licence AGPL v3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Voir le code source</a>
-                    </li>
-                </nav>
-            </div>
+            <nav class="nav bg-light justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link footer-copyright" href="#"><i class="icon ion-md-link"></i>&nbsp;Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Site réalisé sous licence AGPL v3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Voir le code source</a>
+                </li>
+            </nav>
         </footer>
 
         {% block javascripts %}{% endblock %}

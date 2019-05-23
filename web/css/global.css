@@ -21,6 +21,14 @@ body
 }
 
 /* Default theme of the DataTables */
+.dataTables_wrapper > table
+{
+    border: 1px solid #ddd;
+}
+.dataTables_wrapper > table > thead > tr > th
+{
+    border: none;
+}
 .dataTables_wrapper > .datatable-header
 {
     display: flex;
@@ -49,6 +57,11 @@ body
     margin-left: 0;
     width: 100%;
     height: 100%;
+    border-color: #ddd;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label > input::placeholder
+{
+    color: #bbb;
 }
 .dataTables_wrapper > .datatable-header > .datatable-buttons
 {
@@ -61,4 +74,10 @@ body
 .dataTables_wrapper > .datatable-footer > div > ul.pagination
 {
     justify-content: center !important;
+}
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.previous > a,
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.next > a
+{
+    min-width: 85px;
+    text-align: center;
 }
