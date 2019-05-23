@@ -3,6 +3,15 @@ $(document).ready(function () {
     $(function () {
         $('[data-toggle="datatable"]').each(function (index) {
             let $table = $(this);
+
+            // Check which columns are exportable
+            let exportableColumns = [];
+            $table.find('th').each(function (index) {
+                if ($(this).data('exportable') === true) {
+                    exportableColumns.push(index);
+                }
+            });
+
             let buttons = [{
                     extend: 'copy',
                     text: '<i class="ion-md-clipboard"></i>',
@@ -10,6 +19,9 @@ $(document).ready(function () {
                         title: 'Copier dans le presse-papier',
                         id: 'copyButton',
                         'data-toggle': 'tooltip',
+                    },
+                    exportOptions: {
+                        columns: exportableColumns,
                     }
                 }, {
                     extend: 'csv',
@@ -18,6 +30,9 @@ $(document).ready(function () {
                         title: 'Exporter au format CSV',
                         id: 'exportCsvButton',
                         'data-toggle': 'tooltip',
+                    },
+                    exportOptions: {
+                        columns: exportableColumns,
                     }
                 }, {
                     extend: 'pdf',
@@ -26,6 +41,9 @@ $(document).ready(function () {
                         title: 'Exporter au format PDF',
                         id: 'exportPdfButton',
                         'data-toggle': 'tooltip',
+                    },
+                    exportOptions: {
+                        columns: exportableColumns,
                     }
                 },
             ];
@@ -64,9 +82,9 @@ $(document).ready(function () {
             }
 
             // Check which columns are sortable
-            let columns = [];
+            let sortableColumns = [];
             $table.find('th').each(function (index) {
-                columns.push({orderable: $(this).data('sortable') === true});
+                sortableColumns.push({orderable: $(this).data('sortable') === true});
             });
 
             // Instanciate the DataTable
@@ -74,7 +92,7 @@ $(document).ready(function () {
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
-                columns: columns,
+                columns: sortableColumns,
                 language: {
                     search: '',
                     searchPlaceholder: 'Rechercher',
