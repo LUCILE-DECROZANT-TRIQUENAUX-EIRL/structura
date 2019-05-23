@@ -61,16 +61,6 @@
                                 </p>
                             {% endfor %}
                         </td>
-                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal">
-                            <a
-                                class="btn btn-secondary"
-                                data-toggle="tooltip"
-                                title="Supprimer le profil"
-                                >
-                                <i class="icon ion-md-trash"></i>
-                                {% set delete_user_form = user_deletion_forms[user.id] %}
-                            </a>
-                        </td>
                         <td class="align-middle column-action">
                             <a
                                 href="{{ path('user_show', { 'id': user.id }) }}"
@@ -89,6 +79,16 @@
                                 title="Éditer le profil"
                                 >
                                 <i class="icon ion-md-create"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal">
+                            <a
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Supprimer le profil"
+                                >
+                                <i class="icon ion-md-trash"></i>
+                                {% set delete_user_form = user_deletion_forms[user.id] %}
                             </a>
                         </td>
                     </tr>
