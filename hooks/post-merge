@@ -1,7 +1,7 @@
 #!/bin/bash
-# Pre pull hook script. This hook is invoked by git-merge[1], which happens when a git pull is done on a local repository.
+# Post pull hook script. This hook is invoked by git-merge[1], which happens when a git pull is done on a local repository.
 # This hook cannot affect the outcome of git merge and is not executed, if the merge failed due to conflicts.
-# This script check the name of the local branch and propose to clean the database if the branch is in the list of dev branches
+# This script check the name of the local branch and propose to update the structure of the database if the branch is in the list of dev branches
 
 # assign standard input to the keyboard to get the confirmation 
 exec < /dev/tty
@@ -10,18 +10,17 @@ branchesDev=("connexion-utilisateurice" "test-pull")
 
 #get path to top level directory of the git repertory
 dir=`git rev-parse --show-cdup`
-#script to exec to clean the BDD
-cleanBDD=$dir"bin/console doctrine:migration:migrate"
+#script to exec to update the BDD
+updateBDD=$dir"bin/console doctrine:migration:migrate"
 
 branch=`git rev-parse --abbrev-ref HEAD`
 for i in ${branchesDev[@]}
 do 
-	echo $i
 	if [ "$i" == "$branch" ]; then
-		read -r -p "You seem to be in a developpement branch, do you want to clean the database ? [y/N] " response
+		read -r -p "You seem to be in a developpement branch, do you want to update the database ? [y/N] " response
 		response=${response,,}    # tolower
 		if [[ "$response" =~ ^(yes|y)$ ]] ; then
-			$cleanBDD
+			$updateBDD
 		fi
 	break
 	fi
