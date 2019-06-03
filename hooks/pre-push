@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Pre push hook script. Called by "git push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+# This script start the phpunit test, log the output and allow the push only if the test are successful
+
+
+#get path to top level directory of the git repertory
+dir=`git rev-parse --show-cdup`
+#path to the test
+phpUnit=$dir'vendor/bin/simple-phpunit'
+outputLog="/tmp/phpunit_output_`date +%s`.log"
+
+echo 'Executing tests before pushing...'
+echo -e  '---------------------------------- \n'
+
+#print output of test in terminal and in log
+$phpUnit| tee $outputLog
+returnCode=${PIPESTATUS[0]}
+
+echo -e '\n-------------------------------- \n'
+echo -e 'Log have been saved in ' $outputLog '\n'
+
+if [ $returnCode != 0 ]; then
+	echo -e  "Test failed, aborting commit\n"
+else
+	echo -e "Test passed, commmtting...\n"
+fi
+exit $returnCode

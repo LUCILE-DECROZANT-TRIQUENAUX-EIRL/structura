@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Base de données Huntington Avenir - {% block title %}{% endblock %}</title>
+        {% block global_css %}
+            <link rel="stylesheet" href="{{ asset('css/library/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('javascript/library/datatables.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/library/theme.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+        {% endblock %}
+        {% block global_js %}
+            <script src="{{ asset('javascript/library/jquery.min.js') }}"></script>
+            <script src="{{ asset('javascript/library/datatables.min.js') }}"></script>
+            <script src="{{ asset('javascript/library/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('javascript/global.js') }}"></script>
+        {% endblock %}
+        {% block javascript %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/Home/base.css') }}">
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {# ------------------------------------ #}
+        {# ------------- Top menu ------------- #}
+        {# ------------------------------------ #}
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">Accueil <span class="sr-only">(page courante)</span></a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbar-top-menu"
+                    aria-controls="navbar-top-menu"
+                    aria-expanded="false"
+                    aria-label="Ouvrir le menu de navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbar-top-menu"
+                >
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if app.user is not null %}
+                        {% if is_granted("ROLE_GESTION") %}
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="dropdown-administration"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                Administration
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-administration">
+                                <a class="dropdown-item" href="{{ path('user_list') }}">Gérer les utilisateurices</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('user_create') }}">Enregistrer un nouveau compte</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="dropdown-user"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                {{ app.user.username }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                                <a class="dropdown-item" href="{{ path('user_show', { 'id': app.user.id }) }}">Mon profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('logout') }}">Me déconnecter</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div id="container-alert-messages" class="container">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        {{ message | raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="container">
+            <nav aria-label="Fil d'ariane">
+                <ol class="breadcrumb">
+                    {% block breadcrumb %}
+                        <li class="breadcrumb-item active" aria-current="page">Accueil</li>
+                    {% endblock %}
+                </ol>
+            </nav>
+        </div>
+
+        {% block body %}{% endblock %}
+
+        <footer class="page-footer fixed-bottom">
+            <nav class="nav bg-light justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link footer-copyright" href="#"><i class="icon ion-md-link"></i>&nbsp;Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Site réalisé sous licence AGPL v3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon ion-md-link"></i>&nbsp;Voir le code source</a>
+                </li>
+            </nav>
+        </footer>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
