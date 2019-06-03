@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Please write in english and read the CoC before writing an issue.
+Please write in english and read the [CoC](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/blob/master/CODE_OF_CONDUCT.md) before writing an issue.
 Check if a similar issue has already been opened before submitting.
 
 --- 

@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Please write in english and read the CoC before writing an issue.
+Please write in english and read the [CoC](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/blob/master/CODE_OF_CONDUCT.md) before writing an issue.
 Check if a similar issue has already been opened before submitting.
 
 ---
@@ -15,6 +15,6 @@ Check if a similar issue has already been opened before submitting.
 # Context
 Where will this new feature be used? Why should it be added, what does it improve?
 
-# Todo 
+# Todo
 - [ ] checklist of things to do to complete the issue
 - [ ] be as precise as possible

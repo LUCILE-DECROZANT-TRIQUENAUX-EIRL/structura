@@ -23,7 +23,7 @@ Un guide de contribution au code complet est présent dans le [wiki](https://git
 
 Pour suggérer une amélioration ou reporter un bug, des templates d'issues sont mis à disposition. 
 
-Merci de suivre le Code of Conduct quand vous contribuez au code ou soumettez une issue.
+Merci de suivre le [Code de Conduite](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/blob/master/CODE_OF_CONDUCT.md) quand vous contribuez au code ou soumettez une issue.
 
 ### Librairies utilisées
 
