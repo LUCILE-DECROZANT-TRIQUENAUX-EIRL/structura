@@ -26,17 +26,17 @@ class UserGeneralDataType extends AbstractType
                 ->add('username', TextType::class, [
                     'label' => 'Nom d\'utilisateurice'
                 ])
-                ->add('responsabilities', EntityType::class, [
+                ->add('responsibilities', EntityType::class, [
                     // looks for choices from this entity
-                    'class' => 'AppBundle:Responsability',
-                    // uses the Responsability.label property as the visible option string
+                    'class' => 'AppBundle:Responsibility',
+                    // uses the Responsibility.label property as the visible option string
                     'choice_label' => 'label',
                     'label' => 'Rôles',
                     'multiple' => true,
                     'expanded' => true,
-                    'choice_attr' => function($responsability)
+                    'choice_attr' => function($responsibility)
                     {
-                        return ['data-responsability-description' => $responsability->getDescription()];
+                        return ['data-responsibility-description' => $responsibility->getDescription()];
                     },
                 ])
                 ->add('submit',SubmitType::class, [

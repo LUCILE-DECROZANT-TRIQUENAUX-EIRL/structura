@@ -51,15 +51,15 @@
                     <th>Rôles</th>
                     <td>
                         {{ user.roles is empty ? '-' : '' }}
-                        {% for responsability in user.responsabilities %}
+                        {% for responsibility in user.responsibilities %}
                             <p>
                                 <span
                                     class="badge badge-pill badge-secondary"
                                     data-toggle="tooltip"
                                     data-placement="top"
-                                    title="{{ responsability is not empty ? responsability.description : "Ce compte n'a pas de rôle." }}"
+                                    title="{{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
                                     >
-                                    {{ responsability is not empty ? responsability.label : '-' }}
+                                    {{ responsibility is not empty ? responsibility.label : '-' }}
                                 </span>
                             </p>
                         {% endfor %}

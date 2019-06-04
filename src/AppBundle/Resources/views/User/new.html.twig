@@ -44,13 +44,13 @@
             </div>
 
             <div class="form-group">
-                {{ form_label(form.responsabilities) }}
-                {% for responsability in form.responsabilities %}
+                {{ form_label(form.responsibilities) }}
+                {% for responsibility in form.responsibilities %}
                     <div class="form-group">
-                        {{ form_widget(responsability) }}
-                        {{ form_label(responsability) }}
-                        <span class="text-muted responsability-description">
-                            {{ responsability.vars.attr['data-responsability-description'] }}
+                        {{ form_widget(responsibility) }}
+                        {{ form_label(responsibility) }}
+                        <span class="text-muted responsibility-description">
+                            {{ responsibility.vars.attr['data-responsibility-description'] }}
                         </span>
                     </div>
                 {% endfor %}

@@ -32,17 +32,17 @@ class UserType extends AbstractType
                     'second_options' => array('label' => 'Répétez le mot de passe'),
                     'invalid_message' => 'Les mots de passe doivent être identiques',
                 ])
-                ->add('responsabilities', EntityType::class, [
+                ->add('responsibilities', EntityType::class, [
                     // Looks for choices from this entity
-                    'class' => 'AppBundle:Responsability',
-                    // Uses the Responsability.label property as the visible option string
+                    'class' => 'AppBundle:Responsibility',
+                    // Uses the Responsibility.label property as the visible option string
                     'choice_label' => 'label',
                     'label' => 'Rôles',
                     'multiple' => true,
                     'expanded' => true,
-                    'choice_attr' => function($responsability)
+                    'choice_attr' => function($responsibility)
                     {
-                        return ['data-responsability-description' => $responsability->getDescription()];
+                        return ['data-responsibility-description' => $responsibility->getDescription()];
                     },
                 ]);
     }

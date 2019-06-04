@@ -108,17 +108,17 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Change the responsability of the user created for the test
-     * Affects the responsability Gestionnaire 1
+     * Change the responsibility of the user created for the test
+     * Affects the responsibility Gestionnaire 1
      */
-    public function testEditResponsability()
+    public function testEditResponsibility()
     {
         $editPage = $this->accessEditPage();
         $client = $editPage[0];
         $crawler = $editPage[1];
 
         $form = $crawler->selectButton('Changer les informations')->form();
-        $form['appbundle_user']['responsabilities'][1]->tick();
+        $form['appbundle_user']['responsibilities'][1]->tick();
         $crawler = $client->submit($form);
         $crawler = $client->followRedirect();
         $this->assertContains('Les informations ont bien été modifiées',
@@ -243,7 +243,7 @@ class UserControllerTest extends WebTestCase
     {
         $this->testCreate();
         $this->testEditPseudo();
-        $this->testEditResponsability();
+        $this->testEditResponsibility();
         $this->testEditPassword();
 
         $client = $this->connection();

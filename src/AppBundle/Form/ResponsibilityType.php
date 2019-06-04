@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ResponsabilityType extends AbstractType
+class ResponsibilityType extends AbstractType
 {
 
     /**
@@ -23,7 +23,7 @@ class ResponsabilityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Responsability'
+            'data_class' => 'AppBundle\Entity\Responsibility'
         ));
     }
 
@@ -32,7 +32,7 @@ class ResponsabilityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_responsability';
+        return 'appbundle_responsibility';
     }
 
 }

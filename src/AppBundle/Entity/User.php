@@ -53,24 +53,24 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Responsability")
+     * @ORM\ManyToMany(targetEntity="Responsibility")
      * @ORM\JoinTable(
-     *      name="users_responsabilities",
+     *      name="users_responsibilities",
      *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="responsability_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@JoinColumn(name="responsibility_id", referencedColumnName="id")}
      * )
      */
-    private $responsabilities;
+    private $responsibilities;
 
     /**
      *
      */
-    function __construct($id = -1, $username = NULL, $plainPassword = NULL, $responsabilities = [])
+    function __construct($id = -1, $username = NULL, $plainPassword = NULL, $responsibilities = [])
     {
         $this->id = $id;
         $this->username = $username;
         $this->plainPassword = $plainPassword;
-        $this->responsabilities = $responsabilities;
+        $this->responsibilities = $responsibilities;
 
     }
 
@@ -154,43 +154,43 @@ class User implements UserInterface
     }
 
     /**
-     * Get user's responsabilities
+     * Get user's responsibilities
      *
-     * @return Responsability[]
+     * @return Responsibility[]
      */
-    function getResponsabilities()
+    function getResponsibilities()
     {
-        return $this->responsabilities;
+        return $this->responsibilities;
     }
 
     /**
-     * Set user's responsabilities
+     * Set user's responsibilities
      *
-     * @param Responsability[] $responsabilities
+     * @param Responsibility[] $responsibilities
      *
      * @return User
      */
-    function setResponsabilities($responsabilities)
+    function setResponsibilities($responsibilities)
     {
-        $this->responsabilities = $responsabilities;
+        $this->responsibilities = $responsibilities;
         return $this;
     }
 
     /**
-     * Add a responsability to the user
+     * Add a responsibility to the user
      *
-     * @param String $responsabilityName Name of the wanted responsability
+     * @param String $responsibilityName Name of the wanted responsibility
      */
-    public function addResponsability($responsabilityName)
+    public function addResponsibility($responsibilityName)
     {
-        $responsabilityNameUpperCase = strtoupper($responsabilityName);
-        if (substr($responsabilityNameUpperCase, 0, 5) !== "ROLE_")
+        $responsibilityNameUpperCase = strtoupper($responsibilityName);
+        if (substr($responsibilityNameUpperCase, 0, 5) !== "ROLE_")
         {
-            $responsabilityNameUpperCase = sprintf('ROLE_%s', $responsabilityNameUpperCase);
+            $responsibilityNameUpperCase = sprintf('ROLE_%s', $responsibilityNameUpperCase);
         }
-        $responsability = new Responsability();
-        $responsability->setLabel($responsabilityNameUpperCase);
-        $this->responsabilities[] = $responsability;
+        $responsibility = new Responsibility();
+        $responsibility->setLabel($responsibilityNameUpperCase);
+        $this->responsibilities[] = $responsibility;
     }
 
     public function eraseCredentials()
@@ -200,16 +200,16 @@ class User implements UserInterface
 
     /**
      * Return an array of strings containing the role list
-     * (each string being a responsability label used by Symfony to define a user's role)
+     * (each string being a responsibility label used by Symfony to define a user's role)
      *
      * @return string[]
      */
     public function getRoles()
     {
         $roles = [];
-        foreach ($this->responsabilities as $responsability)
+        foreach ($this->responsibilities as $responsibility)
         {
-            $roles[] = $responsability->getCode();
+            $roles[] = $responsibility->getCode();
         }
         return $roles;
     }

@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    $('.responsability-description').click(function() {
+    $('.responsibility-description').click(function() {
         let checkbox = $(this).parent('div').find('input');
         checkbox.prop("checked", !checkbox.prop("checked"));
-    }); 
+    });
 });

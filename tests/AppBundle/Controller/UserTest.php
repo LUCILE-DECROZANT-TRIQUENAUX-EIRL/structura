@@ -3,7 +3,7 @@ namespace Tests\AppBundle\Util;
 
 use AppBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
-use AppBundle\Entity\Responsability;
+use AppBundle\Entity\Responsibility;
 
 class UserTest extends TestCase
 {
@@ -38,14 +38,14 @@ class UserTest extends TestCase
         $this->assertContains('bWRwdGVzdA==',$encode);
     }
 
-    public function testResponsabilities()
+    public function testResponsibilities()
     {
         $user = new User();
-        $responsability = new Responsability(null,'ROLE_ADMIN','admin');
-        $responsabilitysecond = new Responsability(null,'ROLE_ADHE','adh');
-        $user->setResponsabilities([$responsability]);
-        $user->addResponsability($responsabilitysecond->getLabel());
-        $resp = $user->getResponsabilities();
+        $responsibility = new Responsibility(null,'ROLE_ADMIN','admin');
+        $responsibilitysecond = new Responsibility(null,'ROLE_ADHE','adh');
+        $user->setResponsibilities([$responsibility]);
+        $user->addResponsibility($responsibilitysecond->getLabel());
+        $resp = $user->getResponsibilities();
         $roles = $user->getRoles();
 
         $this->assertContains('ROLE_ADMIN',$roles);

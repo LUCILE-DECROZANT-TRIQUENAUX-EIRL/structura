@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Responsability
+ * Responsibility
  *
- * @ORM\Table(name="responsability")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ResponsabilityRepository")
+ * @ORM\Table(name="responsibility")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ResponsibilityRepository")
  */
-class Responsability
+class Responsibility
 {
     /**
      * @var int
@@ -22,7 +22,7 @@ class Responsability
     private $id;
 
     /**
-     * Code of the responsability used by Symfony to determine which role it is
+     * Code of the responsibility used by Symfony to determine which role it is
      *
      * @var string
      *
@@ -31,7 +31,7 @@ class Responsability
     private $code;
 
     /**
-     * Name of the responsability
+     * Name of the responsibility
      *
      * @var string
      *
@@ -40,7 +40,7 @@ class Responsability
     private $label;
 
     /**
-     * Description of the responsability
+     * Description of the responsibility
      *
      * @var string
      *
@@ -74,7 +74,7 @@ class Responsability
      *
      * @param string $label
      *
-     * @return Responsability
+     * @return Responsibility
      */
     public function setLabel($label)
     {
@@ -117,7 +117,7 @@ class Responsability
     }
 
     /**
-     * Get the responsability description
+     * Get the responsibility description
      *
      * @return string
      */
@@ -127,7 +127,7 @@ class Responsability
     }
 
     /**
-     * Set the responsability description
+     * Set the responsibility description
      *
      * @param string $description
      */
