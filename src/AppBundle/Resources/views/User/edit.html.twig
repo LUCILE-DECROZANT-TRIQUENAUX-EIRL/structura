@@ -38,18 +38,31 @@
 {% endblock %}
 
 {% block body %}
-    <br>
+
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1>Édition de {{ profileLabel }}</h1>
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('user_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action ">Profil</a>
+                  <a href="#" class="list-group-item list-group-item-action ">Rôles</a>
+                  <a href="{{ path('user_edit', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Édition</a>
+                </ul>
             </div>
-            <div class="col text-right">
-                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+
+
+        <br>
+        <div class="col-12 col-md-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>Édition de {{ profileLabel }}</h1>
+                    </div>
+                    <div class="col text-right">
+                        <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <br>
+        <br>
 
     <div class="container">
         <div >
@@ -85,6 +98,9 @@
         </div>
 
     </div>
+    </div>
+    </div>
+
     <br>
 
     <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">

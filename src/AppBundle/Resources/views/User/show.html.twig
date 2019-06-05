@@ -21,66 +21,75 @@
 {% endblock %}
 
 {% block body %}
+
     <br>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1>{{ user.username }}</h1>
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('user_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
+                  <a href="#" class="list-group-item list-group-item-action ">Rôles</a>
+                  <a href="{{ path('user_edit', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                </ul>
             </div>
-            <div class="col text-right">
-                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary">
-                    <i class="icon ion-md-create"></i>&nbsp;Éditer {{ profileLabel }}
-                </a>
-            </div>
-        </div>
-    </div>
-    <br>
+            <div class="col-12 col-md-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>{{ user.username }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
-    <div class="container">
-        <table class="table table-hover">
-            <tbody>
-                <tr>
-                    <th>Identifiant</th>
-                    <td>{{ user.id }}</td>
-                </tr>
-                <tr>
-                    <th>Nom d'utilisateurice</th>
-                    <td>{{ user.username }}</td>
-                </tr>
-                <tr>
-                    <th>Rôles</th>
-                    <td>
-                        {{ user.roles is empty ? '-' : '' }}
-                        {% for responsibility in user.responsibilities %}
-                            <p>
-                                <span
-                                    class="badge badge-pill badge-secondary"
-                                    data-toggle="tooltip"
-                                    data-placement="top"
-                                    title="{{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
-                                    >
-                                    {{ responsibility is not empty ? responsibility.label : '-' }}
-                                </span>
-                            </p>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br>
+                <div class="container">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Identifiant</th>
+                                <td>{{ user.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom d'utilisateurice</th>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <th>Rôles</th>
+                                <td>
+                                    {{ user.roles is empty ? '-' : '' }}
+                                    {% for responsibility in user.responsibilities %}
+                                        <p>
+                                            <span
+                                                class="badge badge-pill badge-secondary"
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="{{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
+                                                >
+                                                {{ responsibility is not empty ? responsibility.label : '-' }}
+                                            </span>
+                                        </p>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
 
-    <div class="container">
-        <div class="row">
-            {% if is_granted("ROLE_GESTION") %}
-            <div class="col">
-                <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
-            </div>
-            {% endif %}
-            <div class="col text-right">
-                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                    <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
-                </button>
+                <div class="container">
+                    <div class="row">
+                        {% if is_granted("ROLE_GESTION") %}
+                        <div class="col">
+                            <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+                        </div>
+                        {% endif %}
+                        <div class="col text-right">
+                            <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
+                                <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
