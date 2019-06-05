@@ -1,0 +1,106 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Liste des adhérent·es
+    </li>
+{% endblock %}
+
+{% block body %}
+
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Liste des adhérent·es</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-create-label="Enregistrer un·e nouvel·le adhérent·es"
+            data-create-path="{{ path('user_create') }}"
+            data-fixed-columns-right="3"
+            >
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-exportable="true">Nom d'utilisateurice</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set delete_member_form = "" %}
+                {% for member in members %}
+                    <tr>
+                        <td class="align-middle">{{ member.username }}</td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('member_show', { 'id': member.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Voir le profil"
+                                >
+                                <i class="icon ion-md-eye"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('member_edit', { 'id': member.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Éditer le profil"
+                                >
+                                <i class="icon ion-md-create"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal">
+                            <a
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Supprimer le profil"
+                                >
+                                <i class="icon ion-md-trash"></i>
+                                {% set delete_member_form = member_deletion_forms[member.id] %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Souhaitez-vous réellement supprimer cet·te adhérent·e ?</p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                    </div>
+                    <div class="col text-right">
+                    {{ form_start(delete_member_form) }}
+                    <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;Supprimer </button>
+                    {{ form_end(delete_member_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -44,6 +44,11 @@
                     id="navbar-top-menu"
                 >
                     <ul class="navbar-nav mr-auto">
+                        {% if app.user is not null %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('member_list') }}">Adhérent·es</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         {% if app.user is not null %}
