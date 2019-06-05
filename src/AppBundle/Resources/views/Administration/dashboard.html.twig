@@ -1,0 +1,22 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">
+        <a href="{{ path('home') }}">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Administration
+    </li>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <p>Work in progress...</p>
+        <a class="btn btn-primary" href="{{ path('user_list') }}">
+            Liste des comptes utilisateurices
+        </a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
