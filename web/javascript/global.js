@@ -107,4 +107,29 @@ $(document).ready(function () {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+
+    // Toggle all flip cards of the project
+    $(function () {
+        $('[data-toggle="flip-card"]').each(function (index) {
+            // Get all the elements used
+            let $flipCard = $(this);
+            let $inner = $flipCard.find('.flip-card-inner');
+            let $front = $inner.find('.flip-card-front');
+            let $back = $inner.find('.flip-card-back');
+
+            // Get the max height between front and back of the card
+            let flipCardHeight = Math.max($front.outerHeight(), $back.outerHeight());
+
+            // Set the height of all the card to the good one
+            $front.outerHeight(flipCardHeight);
+            $back.outerHeight(flipCardHeight);
+            $inner.outerHeight(flipCardHeight);
+            // Move the back of the card to the right place
+            $back.css('top', -flipCardHeight);
+
+            // Show the card (avoid visible artefacts of resizing of the card)
+            $front.addClass('visible');
+            $back.addClass('visible');
+        });
+    });
 });
