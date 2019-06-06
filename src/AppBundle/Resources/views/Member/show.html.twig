@@ -47,19 +47,30 @@
             <br>
             <div class="container styledtable">
             <br>
-                <h3>Informations personnelles</h3>
+                <h3>Informations de contact</h3>
                 <br>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
                             <th>Mail</th>
-                            <td>{{ member.emailAddress }}</td>
+                            <td>
+                            {{ member.emailAddress }}&nbsp;&nbsp;
+                            {{member.isReceivingNewsletter ?
+                                '<span data-toggle="tooltip" title="Reçoit la newsletter" >
+                                <i class="icon ion-md-paper"></i> </span>' : ''
+                            }}
+                            {{member.newsletterDematerialization ?
+                                '<span data-toggle="tooltip" title="Newsletter envoyée sous format dématérialisé" >
+                                <i class="icon ion-md-mail"></i> </span>' : ''
+                             }}
+                            </td>
                         </tr>
                         <tr>
                             <th>Adresse</th>
                             <td>
                             {% for address in member.addresses %}
                                 {{address.line}}
+                                <br>
                                 {{address.postalCode}}, {{address.city}}, {{address.country}}
                             {% endfor %}
                             </td>
@@ -80,6 +91,13 @@
                             <th>Fax</th>
                             <td>{{ member.workFaxNumber }}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Informations personnelles</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
                         <tr>
                             <th>Observations</th>
                             <td>{{ member.observations}}</td>
