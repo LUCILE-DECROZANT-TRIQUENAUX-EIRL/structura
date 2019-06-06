@@ -48,7 +48,7 @@ class MemberController extends Controller
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
-        $form = $this->createForm('AppBundle\Form\MemberType', $user);
+        $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,9 +103,9 @@ class MemberController extends Controller
     public function editAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\MemberGeneralDataType', $user);
+        $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
-        $passwordForm = $this->createForm('AppBundle\Form\MemberPasswordType', []);
+        $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
         $passwordForm->handleRequest($request);
 
         // Submit change of general infos

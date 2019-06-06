@@ -32,7 +32,9 @@
             >
             <thead>
                 <tr>
-                    <th data-sortable="true" data-exportable="true">Nom d'utilisateurice</th>
+                    <th data-sortable="true" data-exportable="true">Nom</th>
+                    <th data-sortable="true" data-exportable="true">Prénom</th>
+                    <th data-exportable="true">Mail</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -42,7 +44,9 @@
             {% set delete_member_form = "" %}
                 {% for member in members %}
                     <tr>
-                        <td class="align-middle">{{ member.username }}</td>
+                        <td class="align-middle">{{ member.lastname }}</td>
+                        <td class="align-middle">{{ member.firstname }}</td>
+                        <td class="align-middle">{{ member.emailAddress }}</td>
                         <td class="align-middle column-action">
                             <a
                                 href="{{ path('member_show', { 'id': member.id }) }}"

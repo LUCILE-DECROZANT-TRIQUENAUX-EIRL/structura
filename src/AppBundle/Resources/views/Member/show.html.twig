@@ -2,6 +2,10 @@
 
 {% set profileLabel = app.user.username == member.username ? "mon profil" : "l'utilisateurice" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
@@ -24,63 +28,82 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1>{{ member.username }}</h1>
-            </div>
-            <div class="col text-right">
-                <a href="{{ path('member_edit', { 'id': member.id }) }}" class="btn btn-primary">
-                    <i class="icon ion-md-create"></i>&nbsp;Éditer {{ profileLabel }}
-                </a>
-            </div>
-        </div>
-    </div>
-    <br>
 
-    <div class="container">
-        <table class="table table-hover">
-            <tbody>
-                <tr>
-                    <th>Identifiant</th>
-                    <td>{{ member.id }}</td>
-                </tr>
-                <tr>
-                    <th>Nom d'utilisateurice</th>
-                    <td>{{ member.username }}</td>
-                </tr>
-                <tr>
-                    <th>Rôles</th>
-                    <td>
-                        {{ member.roles is empty ? '-' : '' }}
-                        {% for responsibility in member.responsibilities %}
-                            <p>
-                                <span
-                                    class="badge badge-pill badge-secondary"
-                                    data-toggle="tooltip"
-                                    data-placement="top"
-                                    title="{{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
-                                    >
-                                    {{ responsibility is not empty ? responsibility.label : '-' }}
-                                </span>
-                            </p>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br>
-
-    <div class="container">
-        <div class="row">
-            {% if is_granted("ROLE_GESTION") %}
-            <div class="col">
-                <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
+                  <a href="#" class="list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="#" class="list-group-item list-group-item-action">Dons</a>
+                  <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                </ul>
             </div>
-            {% endif %}
-            <div class="col text-right">
-                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                    <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
-                </button>
+
+
+
+        <div class="col-12 col-md-10">
+            <div class="col">
+                <h1>{{ member.denomination }} {{ member.firstname }} {{member.lastname}}</h1>
+            </div>
+            <br>
+            <div class="container">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Mail</th>
+                            <td>{{ member.emailAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Adresse</th>
+                            <td>
+                            {% for address in member.addresses %}
+                                {{address.line}}
+                                {{address.postalCode}}, {{address.city}}, {{address.country}}
+                            {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone fixe</th>
+                            <td>{{ member.homePhoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone portable</th>
+                            <td>{{ member.cellPhoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone professionnel</th>
+                            <td>{{ member.workPhoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fax</th>
+                            <td>{{ member.workFaxNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Observations</th>
+                            <td>{{ member.observations}}</td>
+                        </tr>
+                        <tr>
+                            <th>Détails médicaux</th>
+                            <td>{{ member.medicalDetails }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <br>
+
+            <div class="container">
+                <div class="row">
+                    {% if is_granted("ROLE_GESTION") %}
+                    <div class="col">
+                        <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+                    </div>
+                    {% endif %}
+                    <div class="col text-right">
+                        <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
+                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

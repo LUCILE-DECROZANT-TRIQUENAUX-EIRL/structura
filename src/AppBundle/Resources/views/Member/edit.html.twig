@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
 {% endblock %}
 
-{% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
+{% set profileLabel = app.user.username == member.username ? "mon profil" : "l'utilisateurice" %}
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
@@ -20,93 +20,43 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item">
-        <a href="{{ path('user_show', { 'id': user.id }) }}">
-            {% if app.user.username == user.username %}
+        <a href="{{ path('user_show', { 'id': member.id }) }}">
+            {% if app.user.username == member.username %}
                 Mon profil
             {% else %}
-                Profil de {{ user.username }}
+                Profil de {{ member.username }}
             {% endif %}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% if app.user.username == user.username %}
+        {% if app.user.username == member.username %}
             Éditer mon profil
         {% else %}
-            Éditer le profil de {{ user.username }}
+            Éditer le profil de {{ member.username }}
         {% endif %}
     </li>
 {% endblock %}
 
 {% block body %}
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Édition de {{ profileLabel }}</h1>
-            </div>
-            <div class="col text-right">
-                <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
-            </div>
+<br>
+<div class="container">
+    <div class="row">
+
+        <div class="col-8 col-md-2">
+            <ul class="list-group">
+              <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+              <a href="#" class="list-group-item list-group-item-action">Adhésions</a>
+              <a href="#" class="list-group-item list-group-item-action">Dons</a>
+              <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Édition</a>
+            </ul>
+        </div>
+
+
+
+        <div class="col-12 col-md-10">
+            <p>Work in progress...</p>
         </div>
     </div>
-    <br>
+</div>
 
-    <div class="container">
-        <div >
-        {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
-            <div class="form-group">
-                {{ form_label(edit_form.username) }}
-                {{ form_widget(edit_form.username) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(edit_form.responsibilities) }}
-                {% for responsibility in edit_form.responsibilities %}
-                    <div class="form-group">
-                        {{ form_widget(responsibility) }}
-                        {{ form_label(responsibility) }}
-                        <span class="text-muted responsibility-description">
-                            {{ responsibility.vars.attr['data-responsibility-description'] }}
-                        </span>
-                    </div>
-                {% endfor %}
-            </div>
-            {{ form_widget(edit_form) }}
-        {{ form_end(edit_form) }}
-        </div>
-
-        <div style="margin-top:48px;">
-        <h1>Mot de passe</h1>
-        {{ form_start(password_form)}}
-        {{ form_errors(password_form) }}
-        <div class="form-group">
-            {{ form_widget(password_form) }}
-        </div>
-        {{ form_end(password_form) }}
-        </div>
-
-    </div>
-    <br>
-
-    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Souhaitez-vous réellement supprimer ce profil ?</p>
-                    <div class="alert alert-danger" role="alert">
-                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
-                    </div>
-                    <div class="col text-right">
-                        {{ form_start(delete_form) }}
-                        <button id="delete_button" type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}</button>
-                        {{ form_end(delete_form) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
