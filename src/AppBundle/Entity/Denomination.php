@@ -28,6 +28,14 @@ class Denomination
      */
     private $label;
 
+    /**
+     * Class constructor
+     */
+    public function __construct($label)
+    {
+        $this->label = $label;
+    }
+
 
     /**
      * Get id

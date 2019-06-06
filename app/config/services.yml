@@ -29,6 +29,11 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    # data fixtures are used to provide test data when needed
+    Tests\AppBundle\DataFixtures\ORM\:
+        resource: '../../tests/AppBundle/DataFixtures/ORM'
+        tags: ['doctrine.fixture.orm']
+
     # service used to display a greeting message after successfull authentication
     authentication_success_handler:
         class: AppBundle\Security\AuthenticationSuccessHandler
