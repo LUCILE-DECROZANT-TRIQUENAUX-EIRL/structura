@@ -95,6 +95,22 @@ class UserController extends Controller
     }
 
     /**
+     * Finds and displays history of a user editions
+     *
+     * @Route("/{id}/history", name="user_history", methods={"GET"})
+     * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
+     */
+    public function historyAction(User $user)
+    {
+        $deleteForm = $this->createDeleteForm($user);
+
+        return $this->render('@App/User/history.html.twig', array(
+            'user' => $user,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
      * Displays a form to edit an existing user entity.
      *
      * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})

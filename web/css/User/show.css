@@ -1,0 +1,8 @@
+.styledtable{
+    border-width: thin;
+    border-style: solid;
+    border-color: var(--secondary);
+}
+th{
+    width: 33%;
+}

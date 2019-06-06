@@ -175,7 +175,6 @@ class User implements UserInterface
         $this->username = $username;
         $this->plainPassword = $plainPassword;
         $this->responsibilities = $responsibilities;
-
     }
 
     /**
@@ -283,17 +282,10 @@ class User implements UserInterface
     /**
      * Add a responsibility to the user
      *
-     * @param String $responsibilityName Name of the wanted responsibility
+     * @param Responsibility $responsibility The responsibility to add
      */
-    public function addResponsibility($responsibilityName)
+    public function addResponsibility($responsibility)
     {
-        $responsibilityNameUpperCase = strtoupper($responsibilityName);
-        if (substr($responsibilityNameUpperCase, 0, 5) !== "ROLE_")
-        {
-            $responsibilityNameUpperCase = sprintf('ROLE_%s', $responsibilityNameUpperCase);
-        }
-        $responsibility = new Responsibility();
-        $responsibility->setLabel($responsibilityNameUpperCase);
         $this->responsibilities[] = $responsibility;
     }
 
