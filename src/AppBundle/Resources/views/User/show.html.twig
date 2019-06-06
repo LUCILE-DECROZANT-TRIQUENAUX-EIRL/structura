@@ -49,18 +49,18 @@
                 </div>
                 <br>
 
-                <div class="container roletable">
+                <div class="container styledtable">
                 <br>
-                    <h2>Rôles</h2>
+                    <h3>Rôles</h3>
                     <br>
                     <table class="table table-hover">
                         <tbody>
                             {{ user.roles is empty ? '-' : '' }}
                                     {% for responsibility in user.responsibilities %}
                                         <tr>
-                                            <td>
+                                            <th>
                                                 {{ responsibility is not empty ? responsibility.label : '-' }}
-                                            </td>
+                                            </th>
                                             <td>
                                                 {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
                                             </td>
