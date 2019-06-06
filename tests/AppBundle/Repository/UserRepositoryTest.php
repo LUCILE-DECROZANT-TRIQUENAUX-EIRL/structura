@@ -1,6 +1,5 @@
 <?php
-
-namespace AppBundle\Tests\Controller;
+namespace Tests\AppBundle\Repository;
 
 use Symfony\Bundle\FrameworkBundle\Test\TestCase;
 
