@@ -49,6 +49,16 @@ class Address
      */
     private $country;
 
+    /**
+     * Class constructor
+     */
+    public function __construct($line, $postalCode, $city, $country)
+    {
+        $this->line = $line;
+        $this->postalCode = $postalCode;
+        $this->city = $city;
+        $this->country = $country;
+    }
 
     /**
      * Get id
