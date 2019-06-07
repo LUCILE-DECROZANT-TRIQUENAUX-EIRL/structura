@@ -1,0 +1,16 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Erreur 401</h1>
+    <p class="lead">Authentification nécessaire.</p>
+
+    <hr class="my-4">
+    <br>
+      <a class="btn btn-primary" data-dismiss="modal" href="/login">
+          S'authentifier
+      </a>
+  </div>
+</div>
+{% endblock %}
