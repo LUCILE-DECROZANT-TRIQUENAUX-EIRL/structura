@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Service\Utils\RouteService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -45,8 +46,11 @@ class UserController extends Controller
      *
      * @Route("/new", name="user_create", methods={"GET", "POST"})
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
     {
+        // RouteService usage example
+        $infos = $routeService->getPreviousRouteInfo();
+
         $user = new User();
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
