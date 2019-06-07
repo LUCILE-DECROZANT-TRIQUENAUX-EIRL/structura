@@ -49,26 +49,28 @@
                 </div>
                 <br>
 
-                <div class="container styledtable">
+                {{ user.roles ? '<div class="container styledtable">
                 <br>
-                    <h3>Rôles</h3>
+
+                    <h3>Rôles</h3>': '' }}
                     <br>
                     <table class="table table-hover">
                         <tbody>
-                            {{ user.roles is empty ? '-' : '' }}
+
                                     {% for responsibility in user.responsibilities %}
                                         <tr>
                                             <th>
                                                 {{ responsibility is not empty ? responsibility.label : '-' }}
                                             </th>
                                             <td>
-                                                {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}"
+                                                {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}
                                             </td>
                                         </tr>
                                     {% endfor %}
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
                 <br>
 

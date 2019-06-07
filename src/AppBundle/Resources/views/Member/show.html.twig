@@ -42,7 +42,7 @@
 
         <div class="col-12 col-md-10">
             <div class="col">
-                <h1>{{ member.denomination.label }} {{ member.firstname }} {{member.lastname}}</h1>
+                <h1>{{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{member.lastname}}</h1>
             </div>
             <br>
             <div class="container styledtable">
