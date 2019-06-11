@@ -11,7 +11,7 @@ La base de données permet actuellement de créer des utilisateurices, de leur d
 
 ## Utilisation
 
- Le mode d'emploi de l'application est disponible sur [cette page](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/wiki/Utilisation).
+ Le mode d'emploi de l'application est disponible sur [cette page](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/wiki/A)-Utilisation).
 
 ## Installation
 
@@ -19,7 +19,7 @@ Cette section est actuellement vide car le projet n'est pas encore prêt à êtr
 
 ## Contribution  
 
-Un guide de contribution au code complet est présent dans le [wiki](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/wiki/Contribution).
+Un guide de contribution au code complet est présent dans le [wiki](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/wiki/C)-Contribution).
 
 Pour suggérer une amélioration ou reporter un bug, des templates d'issues sont mis à disposition. 
 
