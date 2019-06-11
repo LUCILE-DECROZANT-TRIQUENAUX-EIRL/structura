@@ -12,6 +12,11 @@
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
     </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">Administration</a>
+    </li>
+    {% endif %}
     {% if from == 'list' %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
