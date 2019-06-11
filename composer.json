@@ -48,6 +48,9 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
+	    "ln -s -f ../../hooks/post-merge .git/hooks/post-merge",
+	    "ln -s -f ../../hooks/pre-push .git/hooks/pre-push",
+
             "@symfony-scripts"
         ],
         "post-update-cmd": [
