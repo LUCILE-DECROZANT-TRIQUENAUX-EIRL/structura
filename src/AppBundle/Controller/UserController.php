@@ -76,8 +76,19 @@ class UserController extends Controller
             );
         }
 
+        // Check the referer to diplay in the view the good breadcrumb
+        if ($infos['_route'] === 'administration_dashboard')
+        {
+            $from = 'administration';
+        }
+        else
+        {
+            $from = 'list';
+        }
+
         return $this->render('@App/User/new.html.twig', array(
             'user' => $user,
+            'from' => $from,
             'form' => $form->createView(),
         ));
     }

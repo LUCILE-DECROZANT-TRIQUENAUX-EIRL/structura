@@ -12,9 +12,11 @@
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
     </li>
+    {% if from == 'list' %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
     </li>
+    {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
         Enregistrer un.e nouvel.le utilisateurice
     </li>
