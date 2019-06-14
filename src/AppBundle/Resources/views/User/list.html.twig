@@ -4,6 +4,11 @@
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
     </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">Administration</a>
+    </li>
+    {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
         Liste des utilisateurices
     </li>

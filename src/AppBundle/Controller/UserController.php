@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Service\Utils\RouteService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -45,8 +46,11 @@ class UserController extends Controller
      *
      * @Route("/new", name="user_create", methods={"GET", "POST"})
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
     {
+        // RouteService usage example
+        $infos = $routeService->getPreviousRouteInfo();
+
         $user = new User();
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
@@ -72,8 +76,19 @@ class UserController extends Controller
             );
         }
 
+        // Check the referer to diplay in the view the good breadcrumb
+        if ($infos['_route'] === 'administration_dashboard')
+        {
+            $from = 'administration';
+        }
+        else
+        {
+            $from = 'list';
+        }
+
         return $this->render('@App/User/new.html.twig', array(
             'user' => $user,
+            'from' => $from,
             'form' => $form->createView(),
         ));
     }

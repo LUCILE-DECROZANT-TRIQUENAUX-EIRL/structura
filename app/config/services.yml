@@ -48,3 +48,10 @@ services:
             - "@security.http_utils"
             - "/"
             - "@session.flash_bag"
+
+    # service used to get extra route informations
+    utils.routes_service:
+        class: AppBundle\Service\Utils\RouteService
+        arguments:
+          - "@router"
+          - "@request_stack"
