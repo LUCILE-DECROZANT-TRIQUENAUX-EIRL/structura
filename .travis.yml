@@ -9,8 +9,8 @@ services:
 install:
   - composer install --no-interaction
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('${MYSQL_PASSWORD}') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - ./bin/console doctrine:database:create
-  - ./bin/console doctrine:migration:migrate --no-interaction
+  - ./bin/console doctrine:database:create --env=travis
+  - ./bin/console doctrine:migration:migrate --env=travis --no-interaction
 
 script:
   - ./vendor/bin/simple-phpunit
