@@ -159,23 +159,29 @@ class MemberController extends Controller
     }
 
     /**
-     * Deletes a user entity.
+     * Deletes a People entity.
      *
      * @Route("/{id}", name="member_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, User $user)
+    public function deleteAction(Request $request, People $individual)
     {
-        $form = $this->createDeleteForm($user);
+        $form = $this->createDeleteForm($individual);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $username = $user->getUsername();
+            $firstname = $individual->getFirstName();
+            $lastname = $individual->getLastName();
             $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
+            $em->remove($individual);
             $em->flush();
+            $confirmationMessage = sprintf(
+                    'Les informations de <strong>%s %s</strong> ont bien été supprimées.',
+                    $firstname,
+                    $lastname
+            );
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a bien été supprimé.e.', $username)
+                    'success', $confirmationMessage
             );
         }
 
