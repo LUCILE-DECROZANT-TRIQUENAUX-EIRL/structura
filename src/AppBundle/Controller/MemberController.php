@@ -96,14 +96,16 @@ class MemberController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing user entity.
+     * Displays a form to edit an existing People entity.
      *
      * @Route("/{id}/edit", name="member_edit", methods={"GET", "POST"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
+    public function editAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $deleteForm = $this->createDeleteForm($user);
+        $user = $individual->getUser();
+
+        $deleteForm = $this->createDeleteForm($individual);
         $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
         $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
