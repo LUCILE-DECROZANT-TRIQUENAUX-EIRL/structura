@@ -80,17 +80,17 @@ class MemberController extends Controller
     }
 
     /**
-     * Finds and displays a user entity.
+     * Finds and displays a People entity.
      *
      * @Route("/{id}", name="member_show", methods={"GET"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showAction(User $user)
+    public function showAction(People $individual)
     {
-        $deleteForm = $this->createDeleteForm($user);
+        $deleteForm = $this->createDeleteForm($individual);
 
         return $this->render('@App/Member/show.html.twig', array(
-            'member' => $user,
+            'member' => $individual,
             'delete_form' => $deleteForm->createView(),
         ));
     }

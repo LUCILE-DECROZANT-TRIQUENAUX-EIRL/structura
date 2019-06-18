@@ -560,4 +560,28 @@ class People
     {
         $this->user = $user;
     }
+
+    /**
+     * Get the value of sensitive observations
+     *
+     * @return string
+     */
+    public function getSensitiveObservations()
+    {
+        return $this->sensitiveObservations;
+    }
+
+    /**
+     * Set the value of sensitive observations
+     *
+     * @param string $sensitiveObservations
+     *
+     * @return User
+     */
+    public function setSensitiveObservations(string $sensitiveObservations)
+    {
+        $this->sensitiveObservations = $sensitiveObservations;
+
+        return $this;
+    }
 }

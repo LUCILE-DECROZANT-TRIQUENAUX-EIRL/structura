@@ -1,6 +1,6 @@
 {% extends '@App/Home/base.html.twig' %}
 
-{% set profileLabel = app.user.username == member.username ? "mon profil" : "l'utilisateurice" %}
+{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
@@ -16,10 +16,10 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% if app.user.username == member.username %}
+        {% if app.user.username == member.user.username %}
             Mon profil
         {% else %}
-            Profil de {{ member.username }}
+            Profil de {{ member.firstName }} {{ member.lastName }}
         {% endif %}
     </li>
 {% endblock %}
@@ -104,7 +104,7 @@
                         </tr>
                         <tr>
                             <th>Détails médicaux</th>
-                            <td>{{ member.medicalDetails }}</td>
+                            <td>{{ member.sensitiveObservations }}</td>
                         </tr>
 
                     </tbody>
