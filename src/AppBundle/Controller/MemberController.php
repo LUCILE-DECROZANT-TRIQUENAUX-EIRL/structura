@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\People;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -26,16 +27,16 @@ class MemberController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $people = $em->getRepository('AppBundle:People')->findAll();
 
         $deleteForms = [];
-        foreach ($users as $user) {
-            $deleteForm = $this->createDeleteForm($user);
-            $deleteForms[$user->getId()] = $deleteForm->createView();
+        foreach ($people as $individual) {
+            $deleteForm = $this->createDeleteForm($individual);
+            $deleteForms[$individual->getId()] = $deleteForm->createView();
         }
 
         return $this->render('@App/Member/list.html.twig', array(
-            'members' => $users,
+            'members' => $people,
             'member_deletion_forms' => $deleteForms,
         ));
     }
@@ -180,16 +181,16 @@ class MemberController extends Controller
     }
 
     /**
-     * Creates a form to delete a user entity.
+     * Creates a form to delete a People entity.
      *
-     * @param User $user The user entity
+     * @param People $individual The People entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(User $user)
+    private function createDeleteForm(People $individual)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('member_delete', array('id' => $user->getId())))
+            ->setAction($this->generateUrl('member_delete', array('id' => $individual->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
