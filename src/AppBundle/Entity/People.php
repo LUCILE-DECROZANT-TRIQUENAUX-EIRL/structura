@@ -36,7 +36,7 @@ class People
      * @var \AppBundle\Entity\User
      *
      * @OneToOne(targetEntity="User", inversedBy="people")
-     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -71,7 +71,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="email_address", type="string", length=255)
+     * @ORM\Column(name="email_address", type="string", length=255, nullable=true)
      */
     private $emailAddress;
 
@@ -82,7 +82,7 @@ class People
      *
      * @ORM\Column(name="is_receiving_newsletter", type="boolean")
      */
-    private $isReceivingNewsletter;
+    private $isReceivingNewsletter = false;
 
     /**
      * A boolean used to check if the people want to receive the newletter
@@ -92,14 +92,14 @@ class People
      *
      * @ORM\Column(name="newsletter_dematerialization", type="boolean")
      */
-    private $newsletterDematerialization;
+    private $newsletterDematerialization = false;
 
     /**
      * The home phone number of the people.
      *
      * @var string
      *
-     * @ORM\Column(name="home_phone_number", type="string", length=10)
+     * @ORM\Column(name="home_phone_number", type="string", length=10, nullable=true)
      */
     private $homePhoneNumber;
 
@@ -108,7 +108,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="cell_phone_number", type="string", length=10)
+     * @ORM\Column(name="cell_phone_number", type="string", length=10, nullable=true)
      */
     private $cellPhoneNumber;
 
@@ -117,7 +117,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="work_phone_number", type="string", length=10)
+     * @ORM\Column(name="work_phone_number", type="string", length=10, nullable=true)
      */
     private $workPhoneNumber;
 
@@ -126,7 +126,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="work_fax_number", type="string", length=10)
+     * @ORM\Column(name="work_fax_number", type="string", length=10, nullable=true)
      */
     private $workFaxNumber;
 
@@ -135,7 +135,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="observations", type="string", length=1000)
+     * @ORM\Column(name="observations", type="string", length=1000, nullable=true)
      */
     private $observations;
 
@@ -145,7 +145,7 @@ class People
      *
      * @var string
      *
-     * @ORM\Column(name="sensitive_observations", type="string", length=1000)
+     * @ORM\Column(name="sensitive_observations", type="string", length=1000, nullable=true)
      */
     private $sensitiveObservations;
 
