@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\User;
+use AppBundle\Entity\People;
 use AppBundle\Entity\Responsibility;
 use AppBundle\Entity\Address;
 use AppBundle\Entity\Denomination;
@@ -143,23 +144,25 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userAdminSensible, 'a');
         $userAdminSensible->setPassword($password);
 
-        $userAdminSensible->setDenomination($monsieur);
-        $userAdminSensible->setFirstName('Administrator');
-        $userAdminSensible->setLastName('Sensible');
-        $userAdminSensible->setEmailAddress('administrator-sensible@fake.mail');
+        $peopleAdminSensible = new People();
 
-        $userAdminSensibleAddress = new Address('10 rue des catacombes', '13001', 'Marseilles', 'France');
-        $manager->persist($userAdminSensibleAddress);
-        $userAdminSensible->addAddress($userAdminSensibleAddress);
+        $peopleAdminSensible->setDenomination($monsieur);
+        $peopleAdminSensible->setFirstName('Administrator');
+        $peopleAdminSensible->setLastName('Sensible');
+        $peopleAdminSensible->setEmailAddress('administrator-sensible@fake.mail');
 
-        $userAdminSensible->setIsReceivingNewsletter(true);
-        $userAdminSensible->setNewsletterDematerialization(true);
-        $userAdminSensible->setHomePhoneNumber('0467654321');
-        $userAdminSensible->setCellPhoneNumber('0687654321');
-        $userAdminSensible->setWorkPhoneNumber('0487654321');
-        $userAdminSensible->setWorkFaxNumber('0409876543');
-        $userAdminSensible->setObservations('Il aime les canards. Vivants.');
-        $userAdminSensible->setMedicalDetails('RAS');
+        $peopleAdminSensibleAddress = new Address('10 rue des catacombes', '13001', 'Marseilles', 'France');
+        $manager->persist($peopleAdminSensibleAddress);
+        $peopleAdminSensible->addAddress($peopleAdminSensibleAddress);
+
+        $peopleAdminSensible->setIsReceivingNewsletter(true);
+        $peopleAdminSensible->setNewsletterDematerialization(true);
+        $peopleAdminSensible->setHomePhoneNumber('0467654321');
+        $peopleAdminSensible->setCellPhoneNumber('0687654321');
+        $peopleAdminSensible->setWorkPhoneNumber('0487654321');
+        $peopleAdminSensible->setWorkFaxNumber('0409876543');
+        $peopleAdminSensible->setObservations('Il aime les canards. Vivants.');
+        $peopleAdminSensible->setSensitiveObservations('RAS');
 
         $userAdminSensible->addResponsibility($roleAdmin);
         $userAdminSensible->addResponsibility($roleAdminSensible);
@@ -170,6 +173,8 @@ class UserFixtures implements FixtureInterface
         $userAdminSensible->addResponsibility($roleInscritE);
 
         $manager->persist($userAdminSensible);
+        $peopleAdminSensible->setUser($userAdminSensible);
+        $manager->persist($peopleAdminSensible);
 
         // Admin user
         $userAdmin = new User();
@@ -178,23 +183,25 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userAdmin, 'a');
         $userAdmin->setPassword($password);
 
-        $userAdmin->setDenomination($mix);
-        $userAdmin->setFirstName('Admin');
-        $userAdmin->setLastName('Istrator');
-        $userAdmin->setEmailAddress('administrator@fake.mail');
+        $peopleAdmin = new People();
 
-        $userAdminAddress = new Address('2 rue de la mine', '34000', 'Montpellier', 'France');
-        $manager->persist($userAdminAddress);
-        $userAdmin->addAddress($userAdminAddress);
+        $peopleAdmin->setDenomination($mix);
+        $peopleAdmin->setFirstName('Admin');
+        $peopleAdmin->setLastName('Istrator');
+        $peopleAdmin->setEmailAddress('administrator@fake.mail');
 
-        $userAdmin->setIsReceivingNewsletter(true);
-        $userAdmin->setNewsletterDematerialization(true);
-        $userAdmin->setHomePhoneNumber('0467123456');
-        $userAdmin->setCellPhoneNumber('0612345678');
-        $userAdmin->setWorkPhoneNumber('0412345678');
-        $userAdmin->setWorkFaxNumber('0434567890');
-        $userAdmin->setObservations('C\'est un.e bon.ne administrateurice.');
-        $userAdmin->setMedicalDetails('RAS');
+        $peopleAdminAddress = new Address('2 rue de la mine', '34000', 'Montpellier', 'France');
+        $manager->persist($peopleAdminAddress);
+        $peopleAdmin->addAddress($peopleAdminAddress);
+
+        $peopleAdmin->setIsReceivingNewsletter(true);
+        $peopleAdmin->setNewsletterDematerialization(true);
+        $peopleAdmin->setHomePhoneNumber('0467123456');
+        $peopleAdmin->setCellPhoneNumber('0612345678');
+        $peopleAdmin->setWorkPhoneNumber('0412345678');
+        $peopleAdmin->setWorkFaxNumber('0434567890');
+        $peopleAdmin->setObservations('C\'est un.e bon.ne administrateurice.');
+        $peopleAdmin->setSensitiveObservations('RAS');
 
         $userAdmin->addResponsibility($roleAdmin);
         $userAdmin->addResponsibility($roleGestion);
@@ -203,6 +210,8 @@ class UserFixtures implements FixtureInterface
         $userAdmin->addResponsibility($roleInscritE);
 
         $manager->persist($userAdmin);
+        $peopleAdmin->setUser($userAdmin);
+        $manager->persist($peopleAdmin);
 
         // Gestionnaire sensible user
         $userGestionnaireSensible = new User();
@@ -211,23 +220,25 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userGestionnaireSensible, 'a');
         $userGestionnaireSensible->setPassword($password);
 
-        $userGestionnaireSensible->setDenomination($mix);
-        $userGestionnaireSensible->setFirstName('Gestionnaire');
-        $userGestionnaireSensible->setLastName('Sensible');
-        $userGestionnaireSensible->setEmailAddress('gestionnaire-sensible@fake.mail');
+        $peopleGestionnaireSensible = new People();
 
-        $userGestionnaireSensibleAddress = new Address('563 rue Olympe de Gouges', '34730', 'Prades-le-Lez', 'France');
-        $manager->persist($userGestionnaireSensibleAddress);
-        $userGestionnaireSensible->addAddress($userGestionnaireSensibleAddress);
+        $peopleGestionnaireSensible->setDenomination($mix);
+        $peopleGestionnaireSensible->setFirstName('Gestionnaire');
+        $peopleGestionnaireSensible->setLastName('Sensible');
+        $peopleGestionnaireSensible->setEmailAddress('gestionnaire-sensible@fake.mail');
 
-        $userGestionnaireSensible->setIsReceivingNewsletter(true);
-        $userGestionnaireSensible->setNewsletterDematerialization(true);
-        $userGestionnaireSensible->setHomePhoneNumber('0167654321');
-        $userGestionnaireSensible->setCellPhoneNumber('0787654321');
-        $userGestionnaireSensible->setWorkPhoneNumber('0187654321');
-        $userGestionnaireSensible->setWorkFaxNumber('0109876543');
-        $userGestionnaireSensible->setObservations('Iel sent bon.');
-        $userGestionnaireSensible->setMedicalDetails('RAS');
+        $peopleGestionnaireSensibleAddress = new Address('563 rue Olympe de Gouges', '34730', 'Prades-le-Lez', 'France');
+        $manager->persist($peopleGestionnaireSensibleAddress);
+        $peopleGestionnaireSensible->addAddress($peopleGestionnaireSensibleAddress);
+
+        $peopleGestionnaireSensible->setIsReceivingNewsletter(true);
+        $peopleGestionnaireSensible->setNewsletterDematerialization(true);
+        $peopleGestionnaireSensible->setHomePhoneNumber('0167654321');
+        $peopleGestionnaireSensible->setCellPhoneNumber('0787654321');
+        $peopleGestionnaireSensible->setWorkPhoneNumber('0187654321');
+        $peopleGestionnaireSensible->setWorkFaxNumber('0109876543');
+        $peopleGestionnaireSensible->setObservations('Iel sent bon.');
+        $peopleGestionnaireSensible->setSensitiveObservations('RAS');
 
         $userGestionnaireSensible->addResponsibility($roleGestion);
         $userGestionnaireSensible->addResponsibility($roleGestionSensible);
@@ -236,6 +247,8 @@ class UserFixtures implements FixtureInterface
         $userGestionnaireSensible->addResponsibility($roleInscritE);
 
         $manager->persist($userGestionnaireSensible);
+        $peopleGestionnaireSensible->setUser($userGestionnaireSensible);
+        $manager->persist($peopleGestionnaireSensible);
 
         // Gestionnaire user
         //gest1
@@ -245,23 +258,25 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userGestionnaire1, 'a');
         $userGestionnaire1->setPassword($password);
 
-        $userGestionnaire1->setDenomination($madame);
-        $userGestionnaire1->setFirstName('Gesti');
-        $userGestionnaire1->setLastName('Onnaire1');
-        $userGestionnaire1->setEmailAddress('gestionnaire1@fake.mail');
+        $peopleGestionnaire1 = new People();
 
-        $userGestionnaire1Address = new Address('4 rue Victor Hugo', '34000', 'Montpellier', 'France');
-        $manager->persist($userGestionnaire1Address);
-        $userGestionnaire1->addAddress($userGestionnaire1Address);
+        $peopleGestionnaire1->setDenomination($madame);
+        $peopleGestionnaire1->setFirstName('Gesti');
+        $peopleGestionnaire1->setLastName('Onnaire1');
+        $peopleGestionnaire1->setEmailAddress('gestionnaire1@fake.mail');
 
-        $userGestionnaire1->setIsReceivingNewsletter(true);
-        $userGestionnaire1->setNewsletterDematerialization(false);
-        $userGestionnaire1->setHomePhoneNumber('0167123456');
-        $userGestionnaire1->setCellPhoneNumber('0712345678');
-        $userGestionnaire1->setWorkPhoneNumber('0112345678');
-        $userGestionnaire1->setWorkFaxNumber('0134567890');
-        $userGestionnaire1->setObservations('C\'est une bonne gestionnaire.');
-        $userGestionnaire1->setMedicalDetails('RAS');
+        $peopleGestionnaire1Address = new Address('4 rue Victor Hugo', '34000', 'Montpellier', 'France');
+        $manager->persist($peopleGestionnaire1Address);
+        $peopleGestionnaire1->addAddress($peopleGestionnaire1Address);
+
+        $peopleGestionnaire1->setIsReceivingNewsletter(true);
+        $peopleGestionnaire1->setNewsletterDematerialization(false);
+        $peopleGestionnaire1->setHomePhoneNumber('0167123456');
+        $peopleGestionnaire1->setCellPhoneNumber('0712345678');
+        $peopleGestionnaire1->setWorkPhoneNumber('0112345678');
+        $peopleGestionnaire1->setWorkFaxNumber('0134567890');
+        $peopleGestionnaire1->setObservations('C\'est une bonne gestionnaire.');
+        $peopleGestionnaire1->setSensitiveObservations('RAS');
 
         $userGestionnaire1->addResponsibility($roleGestion);
         $userGestionnaire1->addResponsibility($roleConsultationAnnuaire);
@@ -269,6 +284,8 @@ class UserFixtures implements FixtureInterface
         $userGestionnaire1->addResponsibility($roleInscritE);
 
         $manager->persist($userGestionnaire1);
+        $peopleGestionnaire1->setUser($userGestionnaire1);
+        $manager->persist($peopleGestionnaire1);
 
         //gest2
         $userGestionnaire2 = new User();
@@ -277,23 +294,25 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userGestionnaire2, 'a');
         $userGestionnaire2->setPassword($password);
 
-        $userGestionnaire2->setDenomination($monsieur);
-        $userGestionnaire2->setFirstName('Gesti');
-        $userGestionnaire2->setLastName('Onnaire2');
-        $userGestionnaire2->setEmailAddress('gestionnaire2@fake.mail');
+        $peopleGestionnaire2 = new People();
 
-        $userGestionnaire2Address = new Address('14 rue Victor Hugo', '34000', 'Montpellier', 'France');
-        $manager->persist($userGestionnaire2Address);
-        $userGestionnaire2->addAddress($userGestionnaire2Address);
+        $peopleGestionnaire2->setDenomination($monsieur);
+        $peopleGestionnaire2->setFirstName('Gesti');
+        $peopleGestionnaire2->setLastName('Onnaire2');
+        $peopleGestionnaire2->setEmailAddress('gestionnaire2@fake.mail');
 
-        $userGestionnaire2->setIsReceivingNewsletter(true);
-        $userGestionnaire2->setNewsletterDematerialization(false);
-        $userGestionnaire2->setHomePhoneNumber('0167123456');
-        $userGestionnaire2->setCellPhoneNumber('0712345678');
-        $userGestionnaire2->setWorkPhoneNumber('0112345678');
-        $userGestionnaire2->setWorkFaxNumber('0134567890');
-        $userGestionnaire2->setObservations('C\'est un gestionnaire moyen mais sympathique.');
-        $userGestionnaire2->setMedicalDetails('RAS');
+        $peopleGestionnaire2Address = new Address('14 rue Victor Hugo', '34000', 'Montpellier', 'France');
+        $manager->persist($peopleGestionnaire2Address);
+        $peopleGestionnaire2->addAddress($peopleGestionnaire2Address);
+
+        $peopleGestionnaire2->setIsReceivingNewsletter(true);
+        $peopleGestionnaire2->setNewsletterDematerialization(false);
+        $peopleGestionnaire2->setHomePhoneNumber('0167123456');
+        $peopleGestionnaire2->setCellPhoneNumber('0712345678');
+        $peopleGestionnaire2->setWorkPhoneNumber('0112345678');
+        $peopleGestionnaire2->setWorkFaxNumber('0134567890');
+        $peopleGestionnaire2->setObservations('C\'est un gestionnaire moyen mais sympathique.');
+        $peopleGestionnaire2->setSensitiveObservations('RAS');
 
         $userGestionnaire2->addResponsibility($roleGestion);
         $userGestionnaire2->addResponsibility($roleConsultationAnnuaire);
@@ -301,6 +320,8 @@ class UserFixtures implements FixtureInterface
         $userGestionnaire2->addResponsibility($roleInscritE);
 
         $manager->persist($userGestionnaire2);
+        $peopleGestionnaire2->setUser($userGestionnaire2);
+        $manager->persist($peopleGestionnaire2);
 
         // Informateurice user
         $userInformateurice = new User();
@@ -309,89 +330,101 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userInformateurice, 'a');
         $userInformateurice->setPassword($password);
 
-        $userInformateurice->setDenomination($madame);
-        $userInformateurice->setFirstName('Info');
-        $userInformateurice->setLastName('Rmateurice');
-        $userInformateurice->setEmailAddress('informateurice-sensible@fake.mail');
+        $peopleInformateurice = new People();
 
-        $userInformateuriceAddress = new Address('137 Avenue Simone Veil', '69150', 'Décines-Charpieu', 'France');
-        $manager->persist($userInformateuriceAddress);
-        $userInformateurice->addAddress($userInformateuriceAddress);
+        $peopleInformateurice->setDenomination($madame);
+        $peopleInformateurice->setFirstName('Info');
+        $peopleInformateurice->setLastName('Rmateurice');
+        $peopleInformateurice->setEmailAddress('informateurice-sensible@fake.mail');
 
-        $userInformateurice->setIsReceivingNewsletter(false);
-        $userInformateurice->setNewsletterDematerialization(false);
-        $userInformateurice->setHomePhoneNumber('0167654321');
-        $userInformateurice->setCellPhoneNumber('0787654321');
-        $userInformateurice->setWorkPhoneNumber('0187654321');
-        $userInformateurice->setWorkFaxNumber('0109876543');
-        $userInformateurice->setObservations('Il serait bien de la faire adhérer.');
-        $userInformateurice->setMedicalDetails('RAS');
+        $peopleInformateuriceAddress = new Address('137 Avenue Simone Veil', '69150', 'Décines-Charpieu', 'France');
+        $manager->persist($peopleInformateuriceAddress);
+        $peopleInformateurice->addAddress($peopleInformateuriceAddress);
+
+        $peopleInformateurice->setIsReceivingNewsletter(false);
+        $peopleInformateurice->setNewsletterDematerialization(false);
+        $peopleInformateurice->setHomePhoneNumber('0167654321');
+        $peopleInformateurice->setCellPhoneNumber('0787654321');
+        $peopleInformateurice->setWorkPhoneNumber('0187654321');
+        $peopleInformateurice->setWorkFaxNumber('0109876543');
+        $peopleInformateurice->setObservations('Il serait bien de la faire adhérer.');
+        $peopleInformateurice->setSensitiveObservations('RAS');
 
         $userInformateurice->addResponsibility($roleInformateurice);
         $userInformateurice->addResponsibility($roleInscritE);
 
         $manager->persist($userInformateurice);
+        $peopleInformateurice->setUser($userInformateurice);
+        $manager->persist($peopleInformateurice);
 
         // Adhérent.e user
         // adhe1
         $userAdherentE1 = new User();
         $userAdherentE1->setUsername('adhe1');
 
+        $peopleAdherentE1 = new People();
+
         $password = $this->encoder->encodePassword($userAdherentE1, 'a');
         $userAdherentE1->setPassword($password);
 
-        $userAdherentE1->setDenomination($madame);
-        $userAdherentE1->setFirstName('Adhe1');
-        $userAdherentE1->setLastName('Rente');
-        $userAdherentE1->setEmailAddress('adherente1@fake.mail');
+        $peopleAdherentE1->setDenomination($madame);
+        $peopleAdherentE1->setFirstName('Adhe1');
+        $peopleAdherentE1->setLastName('Rente');
+        $peopleAdherentE1->setEmailAddress('adherente1@fake.mail');
 
-        $userAdherentE1Address = new Address('15 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
-        $manager->persist($userAdherentE1Address);
-        $userAdherentE1->addAddress($userAdherentE1Address);
+        $peopleAdherentE1Address = new Address('15 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE1Address);
+        $peopleAdherentE1->addAddress($peopleAdherentE1Address);
 
-        $userAdherentE1->setIsReceivingNewsletter(true);
-        $userAdherentE1->setNewsletterDematerialization(false);
-        $userAdherentE1->setHomePhoneNumber('0167123456');
-        $userAdherentE1->setCellPhoneNumber('0712345678');
-        $userAdherentE1->setWorkPhoneNumber('0112345678');
-        $userAdherentE1->setWorkFaxNumber('0134567890');
-        $userAdherentE1->setObservations('A appelé le 17/03/2019.');
-        $userAdherentE1->setMedicalDetails('Probablement à risque');
+        $peopleAdherentE1->setIsReceivingNewsletter(true);
+        $peopleAdherentE1->setNewsletterDematerialization(false);
+        $peopleAdherentE1->setHomePhoneNumber('0167123456');
+        $peopleAdherentE1->setCellPhoneNumber('0712345678');
+        $peopleAdherentE1->setWorkPhoneNumber('0112345678');
+        $peopleAdherentE1->setWorkFaxNumber('0134567890');
+        $peopleAdherentE1->setObservations('A appelé le 17/03/2019.');
+        $peopleAdherentE1->setSensitiveObservations('Probablement à risque');
 
         $userAdherentE1->addResponsibility($roleAdherentE);
         $userAdherentE1->addResponsibility($roleInscritE);
 
         $manager->persist($userAdherentE1);
+        $peopleAdherentE1->setUser($userAdherentE1);
+        $manager->persist($peopleAdherentE1);
 
         // adhe2
         $userAdherentE2 = new User();
         $userAdherentE2->setUsername('adhe2');
 
+        $peopleAdherentE2 = new People();
+
         $password = $this->encoder->encodePassword($userAdherentE2, 'a');
         $userAdherentE2->setPassword($password);
 
-        $userAdherentE2->setDenomination($madame);
-        $userAdherentE2->setFirstName('Adhe2');
-        $userAdherentE2->setLastName('Rente');
-        $userAdherentE2->setEmailAddress('adherente2@fake.mail');
+        $peopleAdherentE2->setDenomination($madame);
+        $peopleAdherentE2->setFirstName('Adhe2');
+        $peopleAdherentE2->setLastName('Rente');
+        $peopleAdherentE2->setEmailAddress('adherente2@fake.mail');
 
-        $userAdherentE2Address = new Address('25 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
-        $manager->persist($userAdherentE2Address);
-        $userAdherentE2->addAddress($userAdherentE2Address);
+        $peopleAdherentE2Address = new Address('25 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE2Address);
+        $peopleAdherentE2->addAddress($peopleAdherentE2Address);
 
-        $userAdherentE2->setIsReceivingNewsletter(true);
-        $userAdherentE2->setNewsletterDematerialization(true);
-        $userAdherentE2->setHomePhoneNumber('0167123456');
-        $userAdherentE2->setCellPhoneNumber('0712345678');
-        $userAdherentE2->setWorkPhoneNumber('0112345678');
-        $userAdherentE2->setWorkFaxNumber('0134567890');
-        $userAdherentE2->setObservations('A appelé le 18/03/2019.');
-        $userAdherentE2->setMedicalDetails('Malade');
+        $peopleAdherentE2->setIsReceivingNewsletter(true);
+        $peopleAdherentE2->setNewsletterDematerialization(true);
+        $peopleAdherentE2->setHomePhoneNumber('0167123456');
+        $peopleAdherentE2->setCellPhoneNumber('0712345678');
+        $peopleAdherentE2->setWorkPhoneNumber('0112345678');
+        $peopleAdherentE2->setWorkFaxNumber('0134567890');
+        $peopleAdherentE2->setObservations('A appelé le 18/03/2019.');
+        $peopleAdherentE2->setSensitiveObservations('Malade');
 
         $userAdherentE2->addResponsibility($roleAdherentE);
         $userAdherentE2->addResponsibility($roleInscritE);
 
         $manager->persist($userAdherentE2);
+        $peopleAdherentE2->setUser($userAdherentE2);
+        $manager->persist($peopleAdherentE2);
 
         // adhe3
         $userAdherentE3 = new User();
@@ -400,28 +433,32 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userAdherentE3, 'a');
         $userAdherentE3->setPassword($password);
 
-        $userAdherentE3->setDenomination($madame);
-        $userAdherentE3->setFirstName('Adhe3');
-        $userAdherentE3->setLastName('Rente');
-        $userAdherentE3->setEmailAddress('adherente3@fake.mail');
+        $peopleAdherentE3 = new People();
 
-        $userAdherentE3Address = new Address('35 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
-        $manager->persist($userAdherentE3Address);
-        $userAdherentE3->addAddress($userAdherentE3Address);
+        $peopleAdherentE3->setDenomination($madame);
+        $peopleAdherentE3->setFirstName('Adhe3');
+        $peopleAdherentE3->setLastName('Rente');
+        $peopleAdherentE3->setEmailAddress('adherente3@fake.mail');
 
-        $userAdherentE3->setIsReceivingNewsletter(true);
-        $userAdherentE3->setNewsletterDematerialization(false);
-        $userAdherentE3->setHomePhoneNumber('0167123456');
-        $userAdherentE3->setCellPhoneNumber('0712345678');
-        $userAdherentE3->setWorkPhoneNumber('0112345678');
-        $userAdherentE3->setWorkFaxNumber('0134567890');
-        $userAdherentE3->setObservations('A appelé le 19/03/2019.');
-        $userAdherentE3->setMedicalDetails('Le père est atteint.');
+        $peopleAdherentE3Address = new Address('35 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE3Address);
+        $peopleAdherentE3->addAddress($peopleAdherentE3Address);
+
+        $peopleAdherentE3->setIsReceivingNewsletter(true);
+        $peopleAdherentE3->setNewsletterDematerialization(false);
+        $peopleAdherentE3->setHomePhoneNumber('0167123456');
+        $peopleAdherentE3->setCellPhoneNumber('0712345678');
+        $peopleAdherentE3->setWorkPhoneNumber('0112345678');
+        $peopleAdherentE3->setWorkFaxNumber('0134567890');
+        $peopleAdherentE3->setObservations('A appelé le 19/03/2019.');
+        $peopleAdherentE3->setSensitiveObservations('Le père est atteint.');
 
         $userAdherentE3->addResponsibility($roleAdherentE);
         $userAdherentE3->addResponsibility($roleInscritE);
 
         $manager->persist($userAdherentE3);
+        $peopleAdherentE3->setUser($userAdherentE3);
+        $manager->persist($peopleAdherentE3);
 
         // adhe4
         $userAdherentE4 = new User();
@@ -430,28 +467,32 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userAdherentE4, 'a');
         $userAdherentE4->setPassword($password);
 
-        $userAdherentE4->setDenomination($docteur);
-        $userAdherentE4->setFirstName('Adhe4');
-        $userAdherentE4->setLastName('Rente');
-        $userAdherentE4->setEmailAddress('adherente4@fake.mail');
+        $peopleAdherentE4 = new People();
 
-        $userAdherentE4Address = new Address('45 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
-        $manager->persist($userAdherentE4Address);
-        $userAdherentE4->addAddress($userAdherentE4Address);
+        $peopleAdherentE4->setDenomination($docteur);
+        $peopleAdherentE4->setFirstName('Adhe4');
+        $peopleAdherentE4->setLastName('Rente');
+        $peopleAdherentE4->setEmailAddress('adherente4@fake.mail');
 
-        $userAdherentE4->setIsReceivingNewsletter(false);
-        $userAdherentE4->setNewsletterDematerialization(false);
-        $userAdherentE4->setHomePhoneNumber('0167123456');
-        $userAdherentE4->setCellPhoneNumber('0712345678');
-        $userAdherentE4->setWorkPhoneNumber('0112345678');
-        $userAdherentE4->setWorkFaxNumber('0134567890');
-        $userAdherentE4->setObservations('A appelé le 20/03/2019.');
-        $userAdherentE4->setMedicalDetails('Non touché par la maladie');
+        $peopleAdherentE4Address = new Address('45 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE4Address);
+        $peopleAdherentE4->addAddress($peopleAdherentE4Address);
+
+        $peopleAdherentE4->setIsReceivingNewsletter(false);
+        $peopleAdherentE4->setNewsletterDematerialization(false);
+        $peopleAdherentE4->setHomePhoneNumber('0167123456');
+        $peopleAdherentE4->setCellPhoneNumber('0712345678');
+        $peopleAdherentE4->setWorkPhoneNumber('0112345678');
+        $peopleAdherentE4->setWorkFaxNumber('0134567890');
+        $peopleAdherentE4->setObservations('A appelé le 20/03/2019.');
+        $peopleAdherentE4->setSensitiveObservations('Non touché par la maladie');
 
         $userAdherentE4->addResponsibility($roleAdherentE);
         $userAdherentE4->addResponsibility($roleInscritE);
 
         $manager->persist($userAdherentE4);
+        $peopleAdherentE4->setUser($userAdherentE4);
+        $manager->persist($peopleAdherentE4);
 
         // adhe5
         $userAdherentE5 = new User();
@@ -460,28 +501,32 @@ class UserFixtures implements FixtureInterface
         $password = $this->encoder->encodePassword($userAdherentE5, 'a');
         $userAdherentE5->setPassword($password);
 
-        $userAdherentE5->setDenomination($docteure);
-        $userAdherentE5->setFirstName('Adhe5');
-        $userAdherentE5->setLastName('Rente');
-        $userAdherentE5->setEmailAddress('adherente5@fake.mail');
+        $peopleAdherentE5 = new People();
 
-        $userAdherentE5Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
-        $manager->persist($userAdherentE5Address);
-        $userAdherentE5->addAddress($userAdherentE5Address);
+        $peopleAdherentE5->setDenomination($docteure);
+        $peopleAdherentE5->setFirstName('Adhe5');
+        $peopleAdherentE5->setLastName('Rente');
+        $peopleAdherentE5->setEmailAddress('adherente5@fake.mail');
 
-        $userAdherentE5->setIsReceivingNewsletter(true);
-        $userAdherentE5->setNewsletterDematerialization(false);
-        $userAdherentE5->setHomePhoneNumber('0167123456');
-        $userAdherentE5->setCellPhoneNumber('0712345678');
-        $userAdherentE5->setWorkPhoneNumber('0112345678');
-        $userAdherentE5->setWorkFaxNumber('0134567890');
-        $userAdherentE5->setObservations('A appelé le 21/03/2019.');
-        $userAdherentE5->setMedicalDetails('Résultat du test en attente');
+        $peopleAdherentE5Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE5Address);
+        $peopleAdherentE5->addAddress($peopleAdherentE5Address);
+
+        $peopleAdherentE5->setIsReceivingNewsletter(true);
+        $peopleAdherentE5->setNewsletterDematerialization(false);
+        $peopleAdherentE5->setHomePhoneNumber('0167123456');
+        $peopleAdherentE5->setCellPhoneNumber('0712345678');
+        $peopleAdherentE5->setWorkPhoneNumber('0112345678');
+        $peopleAdherentE5->setWorkFaxNumber('0134567890');
+        $peopleAdherentE5->setObservations('A appelé le 21/03/2019.');
+        $peopleAdherentE5->setSensitiveObservations('Résultat du test en attente');
 
         $userAdherentE5->addResponsibility($roleAdherentE);
         $userAdherentE5->addResponsibility($roleInscritE);
 
         $manager->persist($userAdherentE5);
+        $peopleAdherentE5->setUser($userAdherentE5);
+        $manager->persist($peopleAdherentE5);
 
         // Final flush
         $manager->flush();
