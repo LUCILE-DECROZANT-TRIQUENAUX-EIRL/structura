@@ -450,30 +450,6 @@ class People
     }
 
     /**
-     * Get the value of medicalDetails
-     *
-     * @return string
-     */
-    public function getMedicalDetails()
-    {
-        return $this->medicalDetails;
-    }
-
-    /**
-     * Set the value of medicalDetails
-     *
-     * @param string $medicalDetails
-     *
-     * @return User
-     */
-    public function setMedicalDetails(string $medicalDetails)
-    {
-        $this->medicalDetails = $medicalDetails;
-
-        return $this;
-    }
-
-    /**
      * Get the value of updaters
      *
      * @return UserUpdater[]
