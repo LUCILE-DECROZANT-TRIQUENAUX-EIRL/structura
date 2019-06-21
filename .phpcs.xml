@@ -4,6 +4,19 @@
 <file>./src/AppBundle/</file>
 <file>./src/AppBundle/Resources/</file>
 
+<!--
+<rule ref="Squiz.ControlStructures.ControlSignature"/>
+<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+<rule ref="Generic.Commenting.DocComment"/>
+<rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>
+-->
+<rule ref="Squiz.Commenting.FunctionComment" />
+<rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+<rule ref="Squiz.Commenting.ClassComment" />
+<rule ref="Squiz.Commenting.FileComment" />
+<rule ref="Squiz.Commenting.VariableComment" />
+
+
 <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
     <properties>
         <property name="checkFunctions" value="true" />
@@ -20,6 +33,33 @@
 <rule ref="Squiz.PHP.CommentedOutCode">
     <properties>
         <property name="maxPercentage" value="20" />
+    </properties>
+</rule>
+
+<rule ref="Generic.Metrics.CyclomaticComplexity">
+    <properties>
+        <property name="complexity" value="5" />
+        <property name="absoluteComplexity" value="30" />
+    </properties>
+</rule>
+
+<rule ref="Generic.Metrics.NestingLevel">
+    <properties>
+        <property name="nestingLevel" value="5" />
+        <property name="absoluteNestingLevel" value="30" />
+    </properties>
+</rule>
+
+<rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+        <property name="indent" value="4" />
+	<property name="exact" value="true" />
+    </properties>
+</rule>
+
+<rule ref="Squiz.WhiteSpace.OperatorSpacing">
+    <properties>
+        <property name="ignoreNewlines" value="true" />
     </properties>
 </rule>
 
