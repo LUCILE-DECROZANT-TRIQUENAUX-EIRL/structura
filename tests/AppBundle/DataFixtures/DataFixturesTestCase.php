@@ -2,13 +2,13 @@
 namespace Tests\AppBundle\DataFixtures;
 
 use Doctrine\ORM\EntityManager;
-// use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DataFixturesTestCase // extends WebTestCase
+class DataFixturesTestCase extends WebTestCase
 {
     /** @var  Application $application */
     protected static $application;

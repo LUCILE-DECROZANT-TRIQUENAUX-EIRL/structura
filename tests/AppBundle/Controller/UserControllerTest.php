@@ -1,13 +1,24 @@
 <?php
 namespace Tests\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tests\AppBundle\DataFixtures\DataFixturesTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserControllerTest extends WebTestCase
+class UserControllerTest extends DataFixturesTestCase
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        // Call services if needed here
+        // e.g. $this->fooService = $this->container->get('app.service.foo');
+    }
+
     /*****************************/
     /* ~~~~ Utility methods ~~~~ */
     /*****************************/
