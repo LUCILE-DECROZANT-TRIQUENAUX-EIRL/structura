@@ -106,10 +106,8 @@ class MemberController extends Controller
         $user = $individual->getUser();
 
         $deleteForm = $this->createDeleteForm($individual);
-        $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
+        $editForm = $this->createForm('AppBundle\Form\MemberType', $individual);
         $editForm->handleRequest($request);
-        $passwordForm = $this->createForm('AppBundle\Form\UserPasswordType', []);
-        $passwordForm->handleRequest($request);
 
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
@@ -122,38 +120,9 @@ class MemberController extends Controller
             return $this->redirectToRoute('member_edit', ['id' => $user->getId()]);
         }
 
-        // Submit change of password
-        if ($passwordForm->isSubmitted())
-        {
-            $oldPassword = $user->getPassword();
-            $plainOldPassword = $passwordForm['oldPassword']->getData();
-            $plainPassword = $passwordForm['plainPassword']->getData();
-
-            // If a password is entered and the old password typed in is correct
-            if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
-                $password = $passwordEncoder->encodePassword($user, $plainPassword);
-                $user->setPassword($password);
-
-                $this->getDoctrine()->getManager()->persist($user);
-                $this->getDoctrine()->getManager()->flush();
-
-                $this->addFlash(
-                        'success', sprintf('Le mot de passe a bien été modifié')
-                );
-            }
-
-            // Error message
-            if (!password_verify($plainOldPassword,$oldPassword))
-            {
-                $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));
-            }
-
-        }
-
         return $this->render('@App/Member/edit.html.twig', array(
-            'member' => $user,
-            'edit_form' => $editForm->createView(),
-            'password_form'=> $passwordForm->createView(),
+            'member' => $individual,
+            'member_edit' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
