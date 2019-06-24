@@ -147,8 +147,8 @@ class UserFixtures implements FixtureInterface
         $peopleAdminSensible = new People();
 
         $peopleAdminSensible->setDenomination($monsieur);
-        $peopleAdminSensible->setFirstName('Administrator');
-        $peopleAdminSensible->setLastName('Sensible');
+        $peopleAdminSensible->setFirstName('Hubert');
+        $peopleAdminSensible->setLastName('Schaeffer');
         $peopleAdminSensible->setEmailAddress('administrator-sensible@fake.mail');
 
         $peopleAdminSensibleAddress = new Address('10 rue des catacombes', '13001', 'Marseilles', 'France');
@@ -186,8 +186,8 @@ class UserFixtures implements FixtureInterface
         $peopleAdmin = new People();
 
         $peopleAdmin->setDenomination($mix);
-        $peopleAdmin->setFirstName('Admin');
-        $peopleAdmin->setLastName('Istrator');
+        $peopleAdmin->setFirstName('Joël');
+        $peopleAdmin->setLastName('Halphen');
         $peopleAdmin->setEmailAddress('administrator@fake.mail');
 
         $peopleAdminAddress = new Address('2 rue de la mine', '34000', 'Montpellier', 'France');
@@ -223,8 +223,8 @@ class UserFixtures implements FixtureInterface
         $peopleGestionnaireSensible = new People();
 
         $peopleGestionnaireSensible->setDenomination($mix);
-        $peopleGestionnaireSensible->setFirstName('Gestionnaire');
-        $peopleGestionnaireSensible->setLastName('Sensible');
+        $peopleGestionnaireSensible->setFirstName('Tobie');
+        $peopleGestionnaireSensible->setLastName('Soyer');
         $peopleGestionnaireSensible->setEmailAddress('gestionnaire-sensible@fake.mail');
 
         $peopleGestionnaireSensibleAddress = new Address('563 rue Olympe de Gouges', '34730', 'Prades-le-Lez', 'France');
@@ -260,9 +260,9 @@ class UserFixtures implements FixtureInterface
 
         $peopleGestionnaire1 = new People();
 
-        $peopleGestionnaire1->setDenomination($madame);
-        $peopleGestionnaire1->setFirstName('Gesti');
-        $peopleGestionnaire1->setLastName('Onnaire1');
+        $peopleGestionnaire1->setDenomination($monsieur);
+        $peopleGestionnaire1->setFirstName('Hugo');
+        $peopleGestionnaire1->setLastName('Trintignant');
         $peopleGestionnaire1->setEmailAddress('gestionnaire1@fake.mail');
 
         $peopleGestionnaire1Address = new Address('4 rue Victor Hugo', '34000', 'Montpellier', 'France');
@@ -296,9 +296,9 @@ class UserFixtures implements FixtureInterface
 
         $peopleGestionnaire2 = new People();
 
-        $peopleGestionnaire2->setDenomination($monsieur);
-        $peopleGestionnaire2->setFirstName('Gesti');
-        $peopleGestionnaire2->setLastName('Onnaire2');
+        $peopleGestionnaire2->setDenomination($mix);
+        $peopleGestionnaire2->setFirstName('Alceste');
+        $peopleGestionnaire2->setLastName('De Verley');
         $peopleGestionnaire2->setEmailAddress('gestionnaire2@fake.mail');
 
         $peopleGestionnaire2Address = new Address('14 rue Victor Hugo', '34000', 'Montpellier', 'France');
@@ -333,8 +333,8 @@ class UserFixtures implements FixtureInterface
         $peopleInformateurice = new People();
 
         $peopleInformateurice->setDenomination($madame);
-        $peopleInformateurice->setFirstName('Info');
-        $peopleInformateurice->setLastName('Rmateurice');
+        $peopleInformateurice->setFirstName('Catherine');
+        $peopleInformateurice->setLastName('Dubois');
         $peopleInformateurice->setEmailAddress('informateurice-sensible@fake.mail');
 
         $peopleInformateuriceAddress = new Address('137 Avenue Simone Veil', '69150', 'Décines-Charpieu', 'France');
@@ -368,8 +368,8 @@ class UserFixtures implements FixtureInterface
         $userAdherentE1->setPassword($password);
 
         $peopleAdherentE1->setDenomination($madame);
-        $peopleAdherentE1->setFirstName('Adhe1');
-        $peopleAdherentE1->setLastName('Rente');
+        $peopleAdherentE1->setFirstName('Jeanne');
+        $peopleAdherentE1->setLastName('Vérany');
         $peopleAdherentE1->setEmailAddress('adherente1@fake.mail');
 
         $peopleAdherentE1Address = new Address('15 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
@@ -402,8 +402,8 @@ class UserFixtures implements FixtureInterface
         $userAdherentE2->setPassword($password);
 
         $peopleAdherentE2->setDenomination($madame);
-        $peopleAdherentE2->setFirstName('Adhe2');
-        $peopleAdherentE2->setLastName('Rente');
+        $peopleAdherentE2->setFirstName('Arlette');
+        $peopleAdherentE2->setLastName('Maurice');
         $peopleAdherentE2->setEmailAddress('adherente2@fake.mail');
 
         $peopleAdherentE2Address = new Address('25 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
@@ -435,9 +435,9 @@ class UserFixtures implements FixtureInterface
 
         $peopleAdherentE3 = new People();
 
-        $peopleAdherentE3->setDenomination($madame);
-        $peopleAdherentE3->setFirstName('Adhe3');
-        $peopleAdherentE3->setLastName('Rente');
+        $peopleAdherentE3->setDenomination($docteur);
+        $peopleAdherentE3->setFirstName('Ladislas');
+        $peopleAdherentE3->setLastName('Bullion');
         $peopleAdherentE3->setEmailAddress('adherente3@fake.mail');
 
         $peopleAdherentE3Address = new Address('35 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
@@ -469,9 +469,9 @@ class UserFixtures implements FixtureInterface
 
         $peopleAdherentE4 = new People();
 
-        $peopleAdherentE4->setDenomination($docteur);
-        $peopleAdherentE4->setFirstName('Adhe4');
-        $peopleAdherentE4->setLastName('Rente');
+        $peopleAdherentE4->setDenomination($docteure);
+        $peopleAdherentE4->setFirstName('Estelle');
+        $peopleAdherentE4->setLastName('Lafaille');
         $peopleAdherentE4->setEmailAddress('adherente4@fake.mail');
 
         $peopleAdherentE4Address = new Address('45 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
@@ -504,8 +504,8 @@ class UserFixtures implements FixtureInterface
         $peopleAdherentE5 = new People();
 
         $peopleAdherentE5->setDenomination($docteure);
-        $peopleAdherentE5->setFirstName('Adhe5');
-        $peopleAdherentE5->setLastName('Rente');
+        $peopleAdherentE5->setFirstName('Agathe');
+        $peopleAdherentE5->setLastName('Duval');
         $peopleAdherentE5->setEmailAddress('adherente5@fake.mail');
 
         $peopleAdherentE5Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
