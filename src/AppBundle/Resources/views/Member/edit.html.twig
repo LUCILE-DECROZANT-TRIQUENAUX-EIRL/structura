@@ -1,5 +1,7 @@
 {% extends '@App/Home/base.html.twig' %}
 
+{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
+
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
 {% endblock %}
@@ -8,31 +10,29 @@
     <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
 {% endblock %}
 
-{% set profileLabel = app.user.username == member.username ? "mon profil" : "l'utilisateurice" %}
-
 {% block breadcrumb %}
     <li class="breadcrumb-item">
         <a href="/">Accueil</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
+        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_show', { 'id': member.id }) }}">
-            {% if app.user.username == member.username %}
+            {% if app.user.username == member.user.username %}
                 Mon profil
             {% else %}
-                Profil de {{ member.username }}
+                Profil de {{ member.user.username }}
             {% endif %}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% if app.user.username == member.username %}
+        {% if app.user.username == member.user.username %}
             Éditer mon profil
         {% else %}
-            Éditer le profil de {{ member.username }}
+            Éditer le profil de {{ member.user.username }}
         {% endif %}
     </li>
 {% endblock %}
@@ -54,7 +54,18 @@
 
 
         <div class="col-12 col-md-10">
-            <p>Work in progress...</p>
+
+        <div class="col">
+            <h1>
+            Édition de l'adhérent.e
+            </h1>
+        </div>
+
+        {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
+            <div class="form-group">
+            </div>
+        {{ form_end(member_edit) }}
+
         </div>
     </div>
 </div>
