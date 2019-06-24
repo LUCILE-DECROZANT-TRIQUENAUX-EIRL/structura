@@ -5,6 +5,10 @@ body
     /* Avoid to hide content with footer */
     padding-bottom: 100px;
 }
+
+a {
+   outline: 0;
+}
 .modal-footer > .col
 {
     padding-left: 0px;
