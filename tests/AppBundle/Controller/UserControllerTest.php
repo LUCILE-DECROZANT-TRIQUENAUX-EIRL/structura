@@ -8,26 +8,43 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
+    /*****************************/
+    /* ~~~~ Utility methods ~~~~ */
+    /*****************************/
+
     /**
      * Connect to the website while being logged in
-     * Logs in with (admin, password : a)
+     * Logs in with (username : admin, password : a)
      */
     public function connection()
     {
         $client = static::createClient();
         $container = static::$kernel->getContainer();
         $session = $container->get('session');
-        // Get the user (has to exist in the database)
+
+        // TODO :
+        // Make a function used to create some DB data before the tests(aka users with roles)
+
+        // Get the user (has to exist in the database for now)
         $person = self::$kernel->getContainer()->get('doctrine')->getRepository('AppBundle:User')->findOneByUsername('admin');
         $token = new UsernamePasswordToken($person, null, 'main', $person->getRoles());
+
+        // Set the session
         $session->set('_security_main', serialize($token));
         $session->save();
+
+        // Set the cookie
         $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
+
         // Return the client
         return $client;
     }
 
-    public function accessEditPage()
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the user list page.
+     */
+    public function accessUserListPage()
     {
         $client = $this->connection();
         $crawler = $client->request('GET', '/user/');
@@ -36,15 +53,42 @@ class UserControllerTest extends WebTestCase
                 'Liste des utilisateurices',
                 $client->getResponse()->getContent()
         );
+
+        return array($client, $crawler);
+    }
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the edit page.
+     */
+    public function accessEditPage()
+    {
+        $client = $this->connection();
+
+        // Get the user (has to exist in the database for now)
+        $person = self::$kernel->getContainer()->get('doctrine')->getRepository('AppBundle:User')->findOneByUsername('admin');
+
+        $editPageUrl = '/user/' . $person->getId() . '/edit';
+
+        $crawler = $client->request('GET', $editPageUrl);
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+                'Édition de',
+                $client->getResponse()->getContent()
+        );
+
+        // Keeping this snippet to test the buttons inside the table
+
         // Select the button of the user created for the test
         // Wont work if there are already more than 10 users in the database
-        $link = $crawler
-            ->filter('tr > td > a:contains("")')
-            ->last()
-            ->link()
-        ;
-        $crawler = $client->click($link);
-        return array($client,$crawler);
+        // $link = $crawler
+        //     ->filter('tr > td > a:contains("")')
+        //     ->last()
+        //     ->link()
+        // ;
+        // $crawler = $client->click($link);
+
+        return array($client, $crawler);
     }
 
     /**
@@ -234,44 +278,44 @@ class UserControllerTest extends WebTestCase
        );
     }
 
-    /**
-     * Test everything at once
-     * Delete from another
-     */
-    public function testAll()
-    {
-        $this->testCreate();
-        $this->testEditPseudo();
-        $this->testEditResponsibility();
-        $this->testEditPassword();
+    // /**
+    //  * Test everything at once
+    //  * Delete from another
+    //  */
+    // public function testAll()
+    // {
+    //     $this->testCreate();
+    //     $this->testEditPseudo();
+    //     $this->testEditResponsability();
+    //     $this->testEditPassword();
 
-        $client = $this->connection();
-        $crawler = $client->request('GET', '/user/');
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains(
-                'Liste des utilisateurices',
-                $client->getResponse()->getContent()
-        );
-        // Select the button of the user created for the test
-        // Wont work if there are already more than 10 users in the database
-        // Only works for me with 5 other users in the database
-        // The id is a link, the delete, show & edit buttons are links
-        $link = $crawler
-            ->filter('tr > td > a:contains("")')
-            ->eq(22)
-            ->link()
-        ;
-        $crawler = $client->click($link);
-        $this->assertContains('Profil de René',
-                $client->getResponse()->getContent()
-        );
-        $form = $crawler->selectButton('delete_button')->form();
-        $crawler = $client->submit($form);
-        $crawler = $client->followRedirect();
-        $this->assertContains('Liste des utilisateurices',
-                $client->getResponse()->getContent()
-        );
-    }
+    //     $client = $this->connection();
+    //     $crawler = $client->request('GET', '/user/');
+    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    //     $this->assertContains(
+    //             'Liste des utilisateurices',
+    //             $client->getResponse()->getContent()
+    //     );
+    //     // Select the button of the user created for the test
+    //     // Wont work if there are already more than 10 users in the database
+    //     // Only works for me with 5 other users in the database
+    //     // The id is a link, the delete, show & edit buttons are links
+    //     $link = $crawler
+    //         ->filter('tr > td > a:contains("")')
+    //         ->eq(22)
+    //         ->link()
+    //     ;
+    //     $crawler = $client->click($link);
+    //     $this->assertContains('Profil de René',
+    //             $client->getResponse()->getContent()
+    //     );
+    //     $form = $crawler->selectButton('delete_button')->form();
+    //     $crawler = $client->submit($form);
+    //     $crawler = $client->followRedirect();
+    //     $this->assertContains('Liste des utilisateurices',
+    //             $client->getResponse()->getContent()
+    //     );
+    // }
 
     /**
      * Delete from link in the list
