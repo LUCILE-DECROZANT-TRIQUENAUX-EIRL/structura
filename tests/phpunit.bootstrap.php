@@ -13,10 +13,6 @@ function bootstrap()
     $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
     $application->setAutoExit(false);
 
-    // Adding commands to execute
-    $application->add(new \Doctrine\Bundle\DoctrineBundle\Command\DropDatabaseDoctrineCommand());
-    $application->add(new \Doctrine\Bundle\DoctrineBundle\Command\CreateDatabaseDoctrineCommand());
-
     // Drop potential existing DB
     $application->run(new \Symfony\Component\Console\Input\ArrayInput([
         'command' => 'doctrine:database:drop',
