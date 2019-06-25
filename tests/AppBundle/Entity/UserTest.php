@@ -44,7 +44,7 @@ class UserTest extends TestCase
         $responsibility = new Responsibility(null,'ROLE_ADMIN','admin');
         $responsibilitysecond = new Responsibility(null,'ROLE_ADHE','adh');
         $user->setResponsibilities([$responsibility]);
-        $user->addResponsibility($responsibilitysecond->getLabel());
+        $user->addResponsibility($responsibilitysecond);
         $resp = $user->getResponsibilities();
         $roles = $user->getRoles();
 
