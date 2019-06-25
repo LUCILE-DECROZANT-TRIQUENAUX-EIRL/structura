@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\DatabaseMigrations;
 
 use Doctrine\Migrations\AbstractMigration;
@@ -8,12 +10,14 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190522163919 extends AbstractMigration
+final class Version20190522163919 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
+    public function getDescription() : string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema) : void
     {
         // This migration is updating the responsabilities list to give contributors some data to work with.
 
@@ -168,10 +172,7 @@ class Version20190522163919 extends AbstractMigration
 
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
 
