@@ -27,9 +27,11 @@ class DataFixturesTestCase extends WebTestCase
      */
     public function setUp()
     {
+        echo 'setUp';
+
         self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
-        self::runCommand('doctrine:schema:create');
+        self::runCommand('doctrine:migration:migrate --no-interaction');
         self::runCommand('doctrine:fixtures:load --append --no-interaction');
 
         $this->client = static::createClient();
@@ -63,6 +65,8 @@ class DataFixturesTestCase extends WebTestCase
      */
     protected function tearDown()
     {
+        echo 'tearDown';
+
         self::runCommand('doctrine:database:drop --force');
 
         parent::tearDown();

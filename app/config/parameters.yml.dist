@@ -17,3 +17,10 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    test_database_driver: pdo_mysql
+    test_database_host: 127.0.0.1
+    test_database_port: ~
+    test_database_name: erp-asso-test
+    test_database_user: root
+    test_database_password: ~
