@@ -10,6 +10,8 @@ use AppBundle\Entity\People;
 use AppBundle\Entity\Responsibility;
 use AppBundle\Entity\Address;
 use AppBundle\Entity\Denomination;
+use AppBundle\Repository\ResponsibilityRepository;
+
 
 class UserFixtures implements FixtureInterface
 {
@@ -26,93 +28,164 @@ class UserFixtures implements FixtureInterface
         /*  Responsibilities  */
         /**********************/
 
-        // ROLE_ADMIN
-        $roleAdmin = new Responsibility();
-        $roleAdmin->setCode('ROLE_ADMIN');
-        $roleAdmin->setLabel('Administrateurice de la base de données');
-        $roleAdmin->setDescription('Peut consulter ou restaurer les données archivées non sensibles.');
+        /**
+         * @var ResponsibilityRepository $responsibilityRepository
+         */
+        $responsibilityRepository = $manager->getRepository('AppBundle:Responsibility');
 
-        $manager->persist($roleAdmin);
+        $roleAdmin = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_ADMIN'
+            ]
+        );
 
-        // ROLE_ADMIN_SENSIBLE
-        $roleAdminSensible = new Responsibility();
-        $roleAdminSensible->setCode('ROLE_ADMIN_SENSIBLE');
-        $roleAdminSensible->setLabel('Administrateurice des données sensibles');
-        $roleAdminSensible->setDescription('Peut consulter ou restaurer les données sensibles archivées.');
+        $roleAdminSensible = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_ADMIN_SENSIBLE'
+            ]
+        );
 
-        $manager->persist($roleAdminSensible);
+        $roleGestion = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_GESTION'
+            ]
+        );
 
-        // ROLE_GESTION
-        $roleGestion = new Responsibility();
-        $roleGestion->setCode('ROLE_GESTION');
-        $roleGestion->setLabel('Gestionnaire');
-        $roleGestion->setDescription('Permet d\'afficher, éditer, supprimer les données non sensibles d\'autres comptes, de créer des comptes utilisateurice, d\'éditer les rôles d\'autres comptes (mis à part les rôles sensibles) et de consulter, modifier et supprimer des informations dans l\'annuaire des professionnels de santé.');
+        $roleGestionSensible = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_GESTION_SENSIBLE'
+            ]
+        );
 
-        $manager->persist($roleGestion);
+        $roleInformateurice = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_INFORMATEURICE'
+            ]
+        );
 
-        // ROLE_GESTION_SENSIBLE
-        $roleGestionSensible = new Responsibility();
-        $roleGestionSensible->setCode('ROLE_GESTION_SENSIBLE');
-        $roleGestionSensible->setLabel('Gestionnaire des données sensibles');
-        $roleGestionSensible->setDescription('Permet d\'afficher, éditer, supprimer les données sensibles d\'autres comptes et d\'éditer les rôles liés aux données sensibles.');
+        $roleAdherentE = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_ADHERENT_E'
+            ]
+        );
 
-        $manager->persist($roleGestionSensible);
+        $roleExAdherentE = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_EX_ADHERENT_E'
+            ]
+        );
 
-        // ROLE_INFORMATEURICE
-        $roleInformateurice = new Responsibility();
-        $roleInformateurice->setCode('ROLE_INFORMATEURICE');
-        $roleInformateurice->setLabel('Informateurice');
-        $roleInformateurice->setDescription('Permet de créer, afficher, éditer et supprimer un événement ou une newsletter et d\'envoyer les newsletters.');
+        $roleMecene = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_MECENE'
+            ]
+        );
 
-        $manager->persist($roleInformateurice);
+        $roleSympathisantE = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_SYMPATHISANT_E'
+            ]
+        );
 
-        // ROLE_ADHERENT_E
-        $roleAdherentE = new Responsibility();
-        $roleAdherentE->setCode('ROLE_ADHERENT_E');
-        $roleAdherentE->setLabel('Adhérent.e');
-        $roleAdherentE->setDescription('Permet de recevoir la newsletter, les convocations à l\'AG, les invitations aux événements, de consulter les documents des AG des années de cotisation, de voir les événements "privés" et de renouveler son adhésion.');
+        $roleConsultationAnnuaire = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_CONSULTATION_ANNUAIRE'
+            ]
+        );
 
-        $manager->persist($roleAdherentE);
+        $roleInscritE = $responsibilityRepository->findOneBy(
+            [
+                'code' => 'ROLE_INSCRIT_E'
+            ]
+        );
 
-        // ROLE_EX_ADHERENT_E
-        $roleExAdherentE = new Responsibility();
-        $roleExAdherentE->setCode('ROLE_EX_ADHERENT_E');
-        $roleExAdherentE->setLabel('Ex-adhérent.e');
-        $roleExAdherentE->setDescription('Permet de recevoir une relance pour adhérer à l\'association, renouveler son adhésion et consulter les documents des AG des années de cotisation.');
+        // // ROLE_ADMIN
+        // $roleAdmin = new Responsibility();
+        // $roleAdmin->setCode('ROLE_ADMIN');
+        // $roleAdmin->setLabel('Administrateurice de la base de données');
+        // $roleAdmin->setDescription('Peut consulter ou restaurer les données archivées non sensibles.');
 
-        $manager->persist($roleExAdherentE);
+        // $manager->persist($roleAdmin);
 
-        // ROLE_MECENE
-        $roleMecene = new Responsibility();
-        $roleMecene->setCode('ROLE_MECENE');
-        $roleMecene->setLabel('Mécène');
-        $roleMecene->setDescription('Peut faire des dons.');
+        // // ROLE_ADMIN_SENSIBLE
+        // $roleAdminSensible = new Responsibility();
+        // $roleAdminSensible->setCode('ROLE_ADMIN_SENSIBLE');
+        // $roleAdminSensible->setLabel('Administrateurice des données sensibles');
+        // $roleAdminSensible->setDescription('Peut consulter ou restaurer les données sensibles archivées.');
 
-        $manager->persist($roleMecene);
+        // $manager->persist($roleAdminSensible);
 
-        // ROLE_SYMPATHISANT_E
-        $roleSympathisantE = new Responsibility();
-        $roleSympathisantE->setCode('ROLE_SYMPATHISANT_E');
-        $roleSympathisantE->setLabel('Sympathisant.e');
-        $roleSympathisantE->setDescription('Peut recevoir la newsletter et adhérer à l\'association.');
+        // // ROLE_GESTION
+        // $roleGestion = new Responsibility();
+        // $roleGestion->setCode('ROLE_GESTION');
+        // $roleGestion->setLabel('Gestionnaire');
+        // $roleGestion->setDescription('Permet d\'afficher, éditer, supprimer les données non sensibles d\'autres comptes, de créer des comptes utilisateurice, d\'éditer les rôles d\'autres comptes (mis à part les rôles sensibles) et de consulter, modifier et supprimer des informations dans l\'annuaire des professionnels de santé.');
 
-        $manager->persist($roleSympathisantE);
+        // $manager->persist($roleGestion);
 
-        // ROLE_CONSULTATION_ANNUAIRE
-        $roleConsultationAnnuaire = new Responsibility();
-        $roleConsultationAnnuaire->setCode('ROLE_CONSULTATION_ANNUAIRE');
-        $roleConsultationAnnuaire->setLabel('Consultation de l\'annuaire');
-        $roleConsultationAnnuaire->setDescription('Donne l\'accès à la consultation de l\'annuaire des professionnels de santé.');
+        // // ROLE_GESTION_SENSIBLE
+        // $roleGestionSensible = new Responsibility();
+        // $roleGestionSensible->setCode('ROLE_GESTION_SENSIBLE');
+        // $roleGestionSensible->setLabel('Gestionnaire des données sensibles');
+        // $roleGestionSensible->setDescription('Permet d\'afficher, éditer, supprimer les données sensibles d\'autres comptes et d\'éditer les rôles liés aux données sensibles.');
 
-        $manager->persist($roleConsultationAnnuaire);
+        // $manager->persist($roleGestionSensible);
 
-        // ROLE_INSCRIT_E
-        $roleInscritE = new Responsibility();
-        $roleInscritE->setCode('ROLE_INSCRIT_E');
-        $roleInscritE->setLabel('Inscrit.e');
-        $roleInscritE->setDescription('Permet de voir les informations de son compte, de les éditer, de les archiver et de demander l\'accès à l\'annuaire des professionels de santé.');
+        // // ROLE_INFORMATEURICE
+        // $roleInformateurice = new Responsibility();
+        // $roleInformateurice->setCode('ROLE_INFORMATEURICE');
+        // $roleInformateurice->setLabel('Informateurice');
+        // $roleInformateurice->setDescription('Permet de créer, afficher, éditer et supprimer un événement ou une newsletter et d\'envoyer les newsletters.');
 
-        $manager->persist($roleInscritE);
+        // $manager->persist($roleInformateurice);
+
+        // // ROLE_ADHERENT_E
+        // $roleAdherentE = new Responsibility();
+        // $roleAdherentE->setCode('ROLE_ADHERENT_E');
+        // $roleAdherentE->setLabel('Adhérent.e');
+        // $roleAdherentE->setDescription('Permet de recevoir la newsletter, les convocations à l\'AG, les invitations aux événements, de consulter les documents des AG des années de cotisation, de voir les événements "privés" et de renouveler son adhésion.');
+
+        // $manager->persist($roleAdherentE);
+
+        // // ROLE_EX_ADHERENT_E
+        // $roleExAdherentE = new Responsibility();
+        // $roleExAdherentE->setCode('ROLE_EX_ADHERENT_E');
+        // $roleExAdherentE->setLabel('Ex-adhérent.e');
+        // $roleExAdherentE->setDescription('Permet de recevoir une relance pour adhérer à l\'association, renouveler son adhésion et consulter les documents des AG des années de cotisation.');
+
+        // $manager->persist($roleExAdherentE);
+
+        // // ROLE_MECENE
+        // $roleMecene = new Responsibility();
+        // $roleMecene->setCode('ROLE_MECENE');
+        // $roleMecene->setLabel('Mécène');
+        // $roleMecene->setDescription('Peut faire des dons.');
+
+        // $manager->persist($roleMecene);
+
+        // // ROLE_SYMPATHISANT_E
+        // $roleSympathisantE = new Responsibility();
+        // $roleSympathisantE->setCode('ROLE_SYMPATHISANT_E');
+        // $roleSympathisantE->setLabel('Sympathisant.e');
+        // $roleSympathisantE->setDescription('Peut recevoir la newsletter et adhérer à l\'association.');
+
+        // $manager->persist($roleSympathisantE);
+
+        // // ROLE_CONSULTATION_ANNUAIRE
+        // $roleConsultationAnnuaire = new Responsibility();
+        // $roleConsultationAnnuaire->setCode('ROLE_CONSULTATION_ANNUAIRE');
+        // $roleConsultationAnnuaire->setLabel('Consultation de l\'annuaire');
+        // $roleConsultationAnnuaire->setDescription('Donne l\'accès à la consultation de l\'annuaire des professionnels de santé.');
+
+        // $manager->persist($roleConsultationAnnuaire);
+
+        // // ROLE_INSCRIT_E
+        // $roleInscritE = new Responsibility();
+        // $roleInscritE->setCode('ROLE_INSCRIT_E');
+        // $roleInscritE->setLabel('Inscrit.e');
+        // $roleInscritE->setDescription('Permet de voir les informations de son compte, de les éditer, de les archiver et de demander l\'accès à l\'annuaire des professionels de santé.');
+
+        // $manager->persist($roleInscritE);
 
         /**********************/
         /*    Denominations   */

@@ -33,16 +33,6 @@ class Version20190507092354 extends AbstractMigration
                 . "(4,'ROLE_INFORMATEURICE','Informateurice','Permet à l\'utilisateurice d\'envoyer des mails automatiquement depuis le logiciel (relances, newletters...)'),"
                 . "(5,'ROLE_ADHERENT_E','Adhérent.e','Permet à l\'utilisateurice de voir les informations de son compte, de les éditer, de les archiver et d\'en enregistrer de nouvelles');"
         );
-        $password = password_hash('a', PASSWORD_BCRYPT);
-        $this->addSql(
-                "INSERT INTO `user` VALUES "
-                . "(1, 'admin', '$password'),"
-                . "(2, 'gest1', '$password'),"
-                . "(3, 'gest2', '$password'),"
-                . "(4, 'info', '$password'),"
-                . "(5, 'adhé', '$password');"
-        );
-        $this->addSql("INSERT INTO `users_responsabilities` VALUES (1,1), (2,2), (3,3), (4,4), (5,5);");
     }
 
     /**
