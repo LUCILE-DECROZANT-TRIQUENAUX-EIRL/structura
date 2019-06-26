@@ -9,6 +9,10 @@
     </li>
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/Dashboard/home.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">
@@ -43,7 +47,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block stylesheets %}
 {% endblock %}
