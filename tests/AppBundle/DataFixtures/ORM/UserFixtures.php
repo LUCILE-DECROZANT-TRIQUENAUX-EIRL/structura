@@ -601,6 +601,75 @@ class UserFixtures implements FixtureInterface
         $peopleAdherentE5->setUser($userAdherentE5);
         $manager->persist($peopleAdherentE5);
 
+
+        // Admin uniquement
+        $userAdminUniquement = new User();
+        $userAdminUniquement ->setUsername('adminUniquement');
+
+        $password = $this->encoder->encodePassword($userAdminUniquement, 'a');
+        $userAdminUniquement->setPassword($password);
+
+        $peopleAdminUniquement = new People();
+
+        $peopleAdminUniquement->setDenomination($madame);
+        $peopleAdminUniquement->setFirstName('Mélissa');
+        $peopleAdminUniquement->setLastName('Dubois');
+        $peopleAdminUniquement->setEmailAddress('administrator-life@fake.mail');
+
+        $peopleAdminUniquementAddress = new Address('10 rue des catacombes', '13001', 'Marseille', 'France');
+        $manager->persist($peopleAdminUniquementAddress);
+        $peopleAdminUniquement->addAddress($peopleAdminUniquementAddress);
+
+        $peopleAdminUniquement->setIsReceivingNewsletter(true);
+        $peopleAdminUniquement->setNewsletterDematerialization(true);
+        $peopleAdminUniquement->setHomePhoneNumber('0467654321');
+        $peopleAdminUniquement->setCellPhoneNumber('0687654321');
+        $peopleAdminUniquement->setWorkPhoneNumber('0487654321');
+        $peopleAdminUniquement->setWorkFaxNumber('0409876543');
+        $peopleAdminUniquement->setObservations(':3c');
+        $peopleAdminUniquement->setSensitiveObservations('RAS');
+
+        $userAdminUniquement->addResponsibility($roleAdmin);
+        $userAdminUniquement->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdminUniquement);
+        $peopleAdminUniquement->setUser($userAdminUniquement);
+        $manager->persist($peopleAdminUniquement);
+
+        // Admin uniquement
+        $userTest = new User();
+        $userTest ->setUsername('test');
+
+        $password = $this->encoder->encodePassword($userTest, 'a');
+        $userTest->setPassword($password);
+
+        $peopleTest = new People();
+
+        $peopleTest->setDenomination($madame);
+        $peopleTest->setFirstName('Mélissa');
+        $peopleTest->setLastName('Dubois');
+        $peopleTest->setEmailAddress('administrator-life@fake.mail');
+
+        $peopleTestAddress = new Address('10 rue des catacombes', '13001', 'Marseille', 'France');
+        $manager->persist($peopleTestAddress);
+        $peopleTest->addAddress($peopleTestAddress);
+
+        $peopleTest->setIsReceivingNewsletter(true);
+        $peopleTest->setNewsletterDematerialization(true);
+        $peopleTest->setHomePhoneNumber('0467654321');
+        $peopleTest->setCellPhoneNumber('0687654321');
+        $peopleTest->setWorkPhoneNumber('0487654321');
+        $peopleTest->setWorkFaxNumber('0409876543');
+        $peopleTest->setObservations(':3c');
+        $peopleTest->setSensitiveObservations('RAS');
+
+        $userTest->addResponsibility($roleAdmin);
+        $userTest->addResponsibility($roleInscritE);
+
+        $manager->persist($userTest);
+        $peopleTest->setUser($userTest);
+        $manager->persist($peopleTest);
+
         // Final flush
         $manager->flush();
     }
