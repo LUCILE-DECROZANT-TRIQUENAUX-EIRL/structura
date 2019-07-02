@@ -42,7 +42,7 @@ class MemberListMemberTest extends WebTestCase
         // Create a new client to browse the app
         $client = $this->connection();
         $crawler = $client->request('GET', '/member/');
-        //$this->assertSame(403, $client->getResponse()->getStatusCode());
+        //$this->assertSame(404, $client->getResponse()->getStatusCode());
     }
 
 }

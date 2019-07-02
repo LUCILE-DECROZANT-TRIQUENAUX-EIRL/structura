@@ -15,11 +15,11 @@ use DMore\ChromeDriver\ChromeDriver;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class MemberListManagerTest extends WebTestCase
+class AdministrationListAdminTest extends WebTestCase
 {
 
     /**
-     * Connects to the server with the gestiSensible user
+     * Connects to the server with the admin user //TODO: change to adminUniquement
      * Uses ChromeDriver
      */
     public function connectionChrome()
@@ -33,9 +33,9 @@ class MemberListManagerTest extends WebTestCase
         $mink->getSession()->visit('http://127.0.0.1:8000/');
 
         // !! Keep the same double fillField, otherwise it can lead to errors
-        $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
+        $mink->getSession()->getPage()->fillField("_username", "admin");
         sleep(1);
-        $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
+        $mink->getSession()->getPage()->fillField("_username", "admin");
 
         $mink->getSession()->getPage()->fillField("_password", "a");
         $mink->getSession()->getPage()->fillField("_password", "a");
@@ -46,7 +46,11 @@ class MemberListManagerTest extends WebTestCase
         sleep(1);
 
         // Go to Members page
-        $node = new NodeElement('//a[contains(.,"Adhérent·es")]', $mink->getSession());
+        $node = new NodeElement('//a[contains(.,"Administration")]', $mink->getSession());
+        $node->click();
+
+        // Go to Members page
+        $node = new NodeElement('//a[contains(.,"Liste des comptes")]', $mink->getSession());
         $node->click();
 
         return $mink;
@@ -89,9 +93,8 @@ class MemberListManagerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Next")]')->count());
 
         // Go to the 2nd page
-        $node = new NodeElement('//a[contains(.,"2")]', $client->getSession());
+        $node = new NodeElement('(//a[contains(.,"2")])[2]', $client->getSession());
         $node->click();
-
         // Counts the number of rows on the new page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
@@ -111,26 +114,26 @@ class MemberListManagerTest extends WebTestCase
 
         // Test name sorting
         // At first the name are listed in ascending order
-        $this->assertContains('Bullion', $crawler->filterXPath('(//tr)[2]')->text());
-        $node = new NodeElement('//th[contains(.,"Nom")]', $client->getSession());
+        $this->assertContains('49', $crawler->filterXPath('(//tr)[2]')->text());
+        $node = new NodeElement('//th[contains(.,"Identifiant")]', $client->getSession());
         $node->click();
 
         // Then in descending
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertContains('Vérany', $crawler->filterXPath('(//tr)[2]')->text());
+        $this->assertContains('59', $crawler->filterXPath('(//tr)[2]')->text());
 
         // Test first name testSorting
-        $node = new NodeElement('//th[contains(.,"Prénom")]', $client->getSession());
+        $node = new NodeElement('//th[contains(.,"Nom d\'utilisateurice")]', $client->getSession());
         $node->click();
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertContains('Agathe', $crawler->filterXPath('(//tr)[2]')->text());
-        $node = new NodeElement('//th[contains(.,"Prénom")]', $client->getSession());
+        $this->assertContains('adhe1', $crawler->filterXPath('(//tr)[2]')->text());
+        $node = new NodeElement('//th[contains(.,"Nom d\'utilisateurice")]', $client->getSession());
         $node->click();
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertContains('Tobie', $crawler->filterXPath('(//tr)[2]')->text());
+        $this->assertContains('info', $crawler->filterXPath('(//tr)[2]')->text());
 
     }
 

@@ -15,9 +15,13 @@ use DMore\ChromeDriver\ChromeDriver;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class MemberProfileMemberest extends WebTestCase
+class AdministrationListMemberTest extends WebTestCase
 {
 
+    /**
+     * Connects to the server with the adhe4 user
+     * Uses ChromeDriver
+     */
      public function connection()
      {
          $client = static::createClient();
@@ -46,9 +50,10 @@ class MemberProfileMemberest extends WebTestCase
      {
          // Create a new client to browse the app
          $client = $this->connection();
-         $crawler = $client->request('GET', '/member/31');
-         //$this->assertSame(404, $client->getResponse()->getStatusCode());
+         $crawler = $client->request('GET', '/user/');
+         $this->assertSame(403, $client->getResponse()->getStatusCode());
      }
+
 }
 
 ?>
