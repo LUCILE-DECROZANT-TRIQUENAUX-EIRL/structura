@@ -1,4 +1,7 @@
 <?php
+/**
+ * Repository for the UserUpdater
+ */
 
 namespace AppBundle\Repository;
 

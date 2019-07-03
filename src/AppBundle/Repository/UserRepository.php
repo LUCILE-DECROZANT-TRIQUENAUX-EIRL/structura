@@ -1,4 +1,7 @@
 <?php
+/**
+ * Repository for the User
+ */
 
 namespace AppBundle\Repository;
 
@@ -8,5 +11,5 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+
 }

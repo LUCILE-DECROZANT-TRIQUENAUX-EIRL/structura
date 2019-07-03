@@ -114,11 +114,11 @@ class User implements UserInterface
     /**
      * Set username
      *
-     * @param string $username
+     * @param string $username The username of the user.
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
         return $this;
@@ -147,11 +147,11 @@ class User implements UserInterface
     /**
      * Set plainPassword
      *
-     * @param string $plainPassword
+     * @param string $plainPassword The password in plain text.
      *
      * @return User
      */
-    function setPlainPassword($plainPassword)
+    function setPlainPassword(string $plainPassword)
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -160,11 +160,11 @@ class User implements UserInterface
     /**
      * Set password
      *
-     * @param string $password
+     * @param string $password The encoded password.
      *
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
         return $this;
@@ -193,11 +193,11 @@ class User implements UserInterface
     /**
      * Set user's responsibilities
      *
-     * @param Responsibility[] $responsibilities
+     * @param Responsibility[] $responsibilities The responsibilities to set.
      *
      * @return User
      */
-    function setResponsibilities($responsibilities)
+    function setResponsibilities(array $responsibilities)
     {
         $this->responsibilities = $responsibilities;
         return $this;
@@ -206,9 +206,9 @@ class User implements UserInterface
     /**
      * Add a responsibility to the user
      *
-     * @param Responsibility $responsibility The responsibility to add
+     * @param Responsibility $responsibility The responsibility to add.
      */
-    public function addResponsibility($responsibility)
+    public function addResponsibility(Responsibility $responsibility)
     {
         $this->responsibilities[] = $responsibility;
     }
@@ -226,7 +226,7 @@ class User implements UserInterface
     /**
      * Set the value of updaters
      *
-     * @param UserUpdater[] $updaters
+     * @param UserUpdater[] $updaters The updater to set.
      *
      * @return User
      */
@@ -240,9 +240,9 @@ class User implements UserInterface
     /**
      * Add an updater to the user
      *
-     * @param UserUpdater $updater The updater to add
+     * @param UserUpdater $updater The updater to add.
      */
-    public function addUpdater($updater)
+    public function addUpdater(UserUpdater $updater)
     {
         $this->updaters[] = $updater;
     }

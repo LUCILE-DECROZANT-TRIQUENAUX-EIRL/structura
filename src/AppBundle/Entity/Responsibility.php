@@ -72,11 +72,11 @@ class Responsibility
     /**
      * Set label
      *
-     * @param string $label
+     * @param string $label Label of the responsibility.
      *
      * @return Responsibility
      */
-    public function setLabel($label)
+    public function setLabel(string $label)
     {
         $this->label = $label;
 
@@ -106,10 +106,10 @@ class Responsibility
     /**
      * Set code
      *
-     * @param string $code
+     * @param string $code Code of the responsibility.
      * @return ResponsabXility
      */
-    function setCode($code)
+    function setCode(string $code)
     {
         $this->code = $code;
 
@@ -129,9 +129,9 @@ class Responsibility
     /**
      * Set the responsibility description
      *
-     * @param string $description
+     * @param string $description Description of the responsibility.
      */
-    function setDescription($description)
+    function setDescription(string $description)
     {
         $this->description = $description;
     }

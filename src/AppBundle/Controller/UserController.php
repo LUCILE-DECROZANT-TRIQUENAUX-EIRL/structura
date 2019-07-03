@@ -1,4 +1,7 @@
 <?php
+/**
+ * User controller
+ */
 
 namespace AppBundle\Controller;
 
@@ -20,7 +23,7 @@ class UserController extends Controller
 {
     /**
      * Lists all user entities.
-     *
+     * @return views
      * @Route(path="/", name="user_list", methods={"GET"})
      */
     public function listAction()
@@ -43,7 +46,10 @@ class UserController extends Controller
 
     /**
      * Creates a new user entity.
-     *
+     * @return views
+     * @param Request $request The request.
+     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @param RouteService $routeService The route of the service.
      * @Route("/new", name="user_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
@@ -95,7 +101,8 @@ class UserController extends Controller
 
     /**
      * Finds and displays a user entity.
-     *
+     * @return views
+     * @param User $user The user to display.
      * @Route("/{id}", name="user_show", methods={"GET"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -111,7 +118,8 @@ class UserController extends Controller
 
     /**
      * Finds and displays history of a user editions
-     *
+     * @return views
+     * @param User $user The user to display.
      * @Route("/{id}/history", name="user_history", methods={"GET"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -127,7 +135,10 @@ class UserController extends Controller
 
     /**
      * Displays a form to edit an existing user entity.
-     *
+     * @return views
+     * @param Request $request The request.
+     * @param User $user The user to edit.
+     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -181,14 +192,16 @@ class UserController extends Controller
         return $this->render('@App/User/edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
-            'password_form'=> $passwordForm->createView(),
+            'password_form' => $passwordForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a user entity.
-     *
+     * @return views
+     * @param User $user The user to delete.
+     * @param Request $request The request.
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -212,17 +225,17 @@ class UserController extends Controller
 
     /**
      * Creates a form to delete a user entity.
-     *
-     * @param User $user The user entity
+     * @return views
+     * @param User $user The user entity.
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+        ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
+        ->setMethod('DELETE')
+        ->getForm()
         ;
     }
 }

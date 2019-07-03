@@ -50,11 +50,11 @@ class Denomination
     /**
      * Set label
      *
-     * @param string $label
+     * @param string $label Label of the denomination.
      *
      * @return Denomination
      */
-    public function setLabel($label)
+    public function setLabel(string $label)
     {
         $this->label = $label;
 
@@ -71,4 +71,3 @@ class Denomination
         return $this->label;
     }
 }
-

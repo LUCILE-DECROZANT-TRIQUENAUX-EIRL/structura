@@ -1,4 +1,7 @@
 <?php
+/**
+ * Entity thet represents the Address
+ */
 
 namespace AppBundle\Entity;
 
@@ -13,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Address
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -51,8 +54,12 @@ class Address
 
     /**
      * Class constructor
+     * @param string $line Line of the address.
+     * @param string $postalCode Postal code.
+     * @param string $city The city.
+     * @param string $country Country.
      */
-    public function __construct($line, $postalCode, $city, $country)
+    public function __construct(string $line, string $postalCode, string $city, string $country)
     {
         $this->line = $line;
         $this->postalCode = $postalCode;
@@ -63,7 +70,7 @@ class Address
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -73,11 +80,11 @@ class Address
     /**
      * Set line
      *
-     * @param string $line
+     * @param string $line Line of the address.
      *
      * @return Address
      */
-    public function setLine($line)
+    public function setLine(string $line)
     {
         $this->line = $line;
 
@@ -97,11 +104,11 @@ class Address
     /**
      * Set postalCode
      *
-     * @param string $postalCode
+     * @param string $postalCode Postal code.
      *
      * @return Address
      */
-    public function setPostalCode($postalCode)
+    public function setPostalCode(string $postalCode)
     {
         $this->postalCode = $postalCode;
 
@@ -121,11 +128,11 @@ class Address
     /**
      * Set city
      *
-     * @param string $city
+     * @param string $city The city.
      *
      * @return Address
      */
-    public function setCity($city)
+    public function setCity(string $city)
     {
         $this->city = $city;
 
@@ -145,11 +152,11 @@ class Address
     /**
      * Set country
      *
-     * @param string $country
+     * @param string $country Country.
      *
      * @return Address
      */
-    public function setCountry($country)
+    public function setCountry(string $country)
     {
         $this->country = $country;
 
@@ -166,4 +173,3 @@ class Address
         return $this->country;
     }
 }
-

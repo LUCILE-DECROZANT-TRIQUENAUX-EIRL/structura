@@ -1,4 +1,7 @@
 <?php
+/**
+ * Repository for the Denomination
+ */
 
 namespace AppBundle\Repository;
 

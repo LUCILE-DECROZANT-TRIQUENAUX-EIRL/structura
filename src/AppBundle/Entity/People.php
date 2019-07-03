@@ -78,7 +78,7 @@ class People
     /**
      * A boolean used to check if the people want to receive the newletter.
      *
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(name="is_receiving_newsletter", type="boolean")
      */
@@ -88,7 +88,7 @@ class People
      * A boolean used to check if the people want to receive the newletter
      * by mail or by email (true for email, false for physical mail).
      *
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(name="newsletter_dematerialization", type="boolean")
      */
@@ -199,7 +199,6 @@ class People
 
     /**
      * Set the value of denomination
-     *
      * @return User
      */
     public function setDenomination($denomination)
@@ -294,7 +293,7 @@ class People
     /**
      * Set the value of isReceivingNewsletter
      *
-     * @param bool $isReceivingNewsletter
+     * @param boolean $isReceivingNewsletter If the person receives the newsletter.
      *
      * @return User
      */
@@ -308,7 +307,7 @@ class People
     /**
      * Get the value of newsletterDematerialization
      *
-     * @return bool
+     * @return boolean
      */
     public function getNewsletterDematerialization()
     {
@@ -318,7 +317,7 @@ class People
     /**
      * Set the value of newsletterDematerialization
      *
-     * @param bool $newsletterDematerialization
+     * @param boolean $newsletterDematerialization Is the newsletter received by mail.
      *
      * @return User
      */
@@ -342,7 +341,7 @@ class People
     /**
      * Set the value of homePhoneNumber
      *
-     * @param string $homePhoneNumber
+     * @param string $homePhoneNumber Home Number.
      *
      * @return User
      */
@@ -366,7 +365,7 @@ class People
     /**
      * Set the value of cellPhoneNumber
      *
-     * @param string $cellPhoneNumber
+     * @param string $cellPhoneNumber Cell Number.
      *
      * @return User
      */
@@ -390,7 +389,7 @@ class People
     /**
      * Set the value of workPhoneNumber
      *
-     * @param string $workPhoneNumber
+     * @param string $workPhoneNumber Work Number.
      *
      * @return User
      */
@@ -414,7 +413,7 @@ class People
     /**
      * Set the value of workFaxNumber
      *
-     * @param string $workFaxNumber
+     * @param string $workFaxNumber Fax Number.
      *
      * @return User
      */
@@ -438,7 +437,7 @@ class People
     /**
      * Set the value of observations
      *
-     * @param string $observations
+     * @param string $observations Observations on the person.
      *
      * @return User
      */
@@ -462,7 +461,7 @@ class People
     /**
      * Set the value of updaters
      *
-     * @param UserUpdater[] $updaters
+     * @param UserUpdater[] $updaters People that updated the profile.
      *
      * @return User
      */
@@ -476,7 +475,7 @@ class People
     /**
      * Add an updater to the user
      *
-     * @param UserUpdater $updater The updater to add
+     * @param UserUpdater $updater The updater to add.
      */
     public function addUpdater($updater)
     {
@@ -496,7 +495,7 @@ class People
     /**
      * Set the value of addresses
      *
-     * @param Address[] $addresses
+     * @param Address[] $addresses Adresses of the person.
      *
      * @return User
      */
@@ -510,7 +509,7 @@ class People
     /**
      * Add an address to the user
      *
-     * @param Address $address The address to add
+     * @param Address $address The address to add.
      */
     public function addAddress($address)
     {
@@ -550,7 +549,7 @@ class People
     /**
      * Set the value of sensitive observations
      *
-     * @param string $sensitiveObservations
+     * @param string $sensitiveObservations Sensitve observations.
      *
      * @return User
      */

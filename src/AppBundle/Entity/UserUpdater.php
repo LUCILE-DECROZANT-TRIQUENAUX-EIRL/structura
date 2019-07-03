@@ -41,11 +41,11 @@ class UserUpdater
     /**
      * Set user
      *
-     * @param User $user
+     * @param User $user The use to update.
      *
      * @return UserUpdater
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
 
@@ -65,11 +65,11 @@ class UserUpdater
     /**
      * Set updater
      *
-     * @param User $updater
+     * @param User $updater The User to update.
      *
      * @return UserUpdater
      */
-    public function setUpdater($updater)
+    public function setUpdater(User $updater)
     {
         $this->updater = $updater;
 
@@ -89,7 +89,7 @@ class UserUpdater
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param \DateTime $date The date.
      *
      * @return UserUpdater
      */
@@ -110,4 +110,3 @@ class UserUpdater
         return $this->date;
     }
 }
-

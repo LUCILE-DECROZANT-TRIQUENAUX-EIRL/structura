@@ -1,4 +1,7 @@
 <?php
+/**
+ * Displays the login message
+ */
 
 namespace AppBundle\Security;
 
@@ -10,8 +13,8 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
 use Symfony\Component\Security\Http\HttpUtils;
 
 class AuthenticationSuccessHandler
-  extends DefaultAuthenticationSuccessHandler
-  implements AuthenticationSuccessHandlerInterface
+extends DefaultAuthenticationSuccessHandler
+implements AuthenticationSuccessHandlerInterface
 
 {
     /**
@@ -19,6 +22,9 @@ class AuthenticationSuccessHandler
      */
     private $flashBag;
 
+    /**
+     * Constructor
+     */
     public function __construct(HttpUtils $httpUtils, array $options = array(), FlashBagInterface $flashBag)
     {
         parent::__construct($httpUtils, $options);
@@ -28,6 +34,10 @@ class AuthenticationSuccessHandler
         $this->flashBag = $flashBag;
     }
 
+    /**
+     * Displays the login message
+     * @return request, token
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         // Récupération du nom de l'utilisateur

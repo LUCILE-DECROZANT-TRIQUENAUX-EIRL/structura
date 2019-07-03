@@ -1,4 +1,7 @@
 <?php
+/**
+ * Repository for the Responsibility 
+ */
 
 namespace AppBundle\Repository;
 

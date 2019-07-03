@@ -1,4 +1,7 @@
 <?php
+/**
+ * Login controller
+ */
 
 namespace AppBundle\Controller;
 
@@ -9,11 +12,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
+/**
+ * Login controller
+ */
 class LoginController extends Controller
 {
 
     /**
      * @Route("/login", name="login")
+     * @param Request $request The request.
+     * @param AuthenticationUtils $authenticationUtils Error.
+     * @param UserInterface $user The user.
+     * @return views
      */
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, UserInterface $user = null)
     {
@@ -42,7 +52,7 @@ class LoginController extends Controller
         else
         {
             $response = $this->redirectToRoute('home');
-        }        
+        }
 
         return $response;
     }

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Repository for the People
+ */
 
 namespace AppBundle\Repository;
 

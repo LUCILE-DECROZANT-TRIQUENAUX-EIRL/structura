@@ -1,4 +1,7 @@
 <?php
+/**
+ * Displays the logout message
+ */
 
 namespace AppBundle\Security;
 
@@ -9,8 +12,8 @@ use Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler;
 use Symfony\Component\Security\Http\HttpUtils;
 
 class LogoutSuccessHandler
-  extends DefaultLogoutSuccessHandler
-  implements LogoutSuccessHandlerInterface
+extends DefaultLogoutSuccessHandler
+implements LogoutSuccessHandlerInterface
 
 {
     /**
@@ -18,23 +21,29 @@ class LogoutSuccessHandler
      */
     private $flashBag;
 
+    /**
+     * Constructor
+     */
     public function __construct(HttpUtils $httpUtils, string $targetUrl = '/', FlashBagInterface $flashBag)
     {
         parent::__construct($httpUtils, $targetUrl);
 
-        // On récupère le service flashBag puisqu'on se trouve dans un service
-        // et non dans un contrôleur
+        // Get flashbag service
         $this->flashBag = $flashBag;
     }
 
+    /**
+     * Displays a message on logout
+     * @return request
+     */
     public function onLogoutSuccess(Request $request)
     {
-        // Message affiché à l'utilisateur lorsqu'il se déconnecte avec succès
+        // Message displayed to the user
         $this->flashBag->add(
             'info', sprintf('Vous vous êtes bien déconnecté.e.')
         );
 
-        // Comportement de la méthode du parent (DefaultLogoutSuccessHandler)
+        // Parent method comportement
         return parent::onLogoutSuccess($request);
     }
 }

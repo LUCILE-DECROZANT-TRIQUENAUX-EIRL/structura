@@ -1,4 +1,7 @@
 <?php
+/**
+ * Member controller
+ */
 
 namespace AppBundle\Controller;
 
@@ -20,7 +23,7 @@ class MemberController extends Controller
 {
     /**
      * Lists all user entities.
-     *
+     * @return views
      * @Route(path="/", name="member_list", methods={"GET"})
      */
     public function listAction()
@@ -43,7 +46,9 @@ class MemberController extends Controller
 
     /**
      * Creates a new user entity.
-     *
+     * @return views
+     * @param Request $request The request.
+     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/new", name="user_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -81,7 +86,8 @@ class MemberController extends Controller
 
     /**
      * Finds and displays a People entity.
-     *
+     * @return views
+     * @param People $individual The user to display.
      * @Route("/{id}", name="member_show", methods={"GET"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -97,7 +103,10 @@ class MemberController extends Controller
 
     /**
      * Displays a form to edit an existing People entity.
-     *
+     * @return views
+     * @param Request $request The request.
+     * @param People $individual The user to edit.
+     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/edit", name="member_edit", methods={"GET", "POST"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -129,7 +138,9 @@ class MemberController extends Controller
 
     /**
      * Deletes a People entity.
-     *
+     * @return views
+     * @param Request $request The request.
+     * @param People $individual The user to delete.
      * @Route("/{id}", name="member_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -159,17 +170,15 @@ class MemberController extends Controller
 
     /**
      * Creates a form to delete a People entity.
-     *
-     * @param People $individual The People entity
-     *
+     * @param People $individual The user to display.
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(People $individual)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('member_delete', array('id' => $individual->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+        ->setAction($this->generateUrl('member_delete', array('id' => $individual->getId())))
+        ->setMethod('DELETE')
+        ->getForm()
         ;
     }
 }
