@@ -58,7 +58,7 @@ class AdministrationListAdminTest extends WebTestCase
 
     /**
      * Test that the list displays properly
-     * Should be 10 rows for users + 1 row for header + 1 that i cant find (oops)
+     * Should be 10 rows for users + 1 row for header
      * Also verifies that user associated buttons are there
      */
     public function testList()
@@ -69,7 +69,7 @@ class AdministrationListAdminTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
         // Counts the number of rows
-        $this->assertEquals(12, $crawler->filter('tr')->count());
+        $this->assertEquals(11, $crawler->filter('tr')->count());
         // Counts the number of "show profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Voir le profil"]')->count());
         // Counts the number of "edit profile" buttons
@@ -98,7 +98,7 @@ class AdministrationListAdminTest extends WebTestCase
         // Counts the number of rows on the new page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertEquals(3, $crawler->filter('tr')->count());
+        $this->assertEquals(5, $crawler->filter('tr')->count());
     }
 
     /**
@@ -114,14 +114,14 @@ class AdministrationListAdminTest extends WebTestCase
 
         // Test name sorting
         // At first the name are listed in ascending order
-        $this->assertContains('49', $crawler->filterXPath('(//tr)[2]')->text());
+        $this->assertContains('1', $crawler->filterXPath('(//tr)[2]')->text());
         $node = new NodeElement('//th[contains(.,"Identifiant")]', $client->getSession());
         $node->click();
 
         // Then in descending
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertContains('59', $crawler->filterXPath('(//tr)[2]')->text());
+        $this->assertContains('14', $crawler->filterXPath('(//tr)[2]')->text());
 
         // Test first name testSorting
         $node = new NodeElement('//th[contains(.,"Nom d\'utilisateurice")]', $client->getSession());
@@ -133,7 +133,7 @@ class AdministrationListAdminTest extends WebTestCase
         $node->click();
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertContains('info', $crawler->filterXPath('(//tr)[2]')->text());
+        $this->assertContains('test2', $crawler->filterXPath('(//tr)[2]')->text());
 
     }
 

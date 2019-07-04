@@ -613,7 +613,7 @@ class UserFixtures implements FixtureInterface
 
         $peopleAdminUniquement->setDenomination($madame);
         $peopleAdminUniquement->setFirstName('Mélissa');
-        $peopleAdminUniquement->setLastName('Dubois');
+        $peopleAdminUniquement->setLastName('Truc');
         $peopleAdminUniquement->setEmailAddress('administrator-life@fake.mail');
 
         $peopleAdminUniquementAddress = new Address('10 rue des catacombes', '13001', 'Marseille', 'France');
@@ -636,7 +636,7 @@ class UserFixtures implements FixtureInterface
         $peopleAdminUniquement->setUser($userAdminUniquement);
         $manager->persist($peopleAdminUniquement);
 
-        // Admin uniquement
+        //truc
         $userTest = new User();
         $userTest ->setUsername('test');
 
@@ -669,6 +669,40 @@ class UserFixtures implements FixtureInterface
         $manager->persist($userTest);
         $peopleTest->setUser($userTest);
         $manager->persist($peopleTest);
+
+        //truc
+        $userTest2 = new User();
+        $userTest2 ->setUsername('test2');
+
+        $password = $this->encoder->encodePassword($userTest2, 'a');
+        $userTest2->setPassword($password);
+
+        $peopleTest2 = new People();
+
+        $peopleTest2->setDenomination($madame);
+        $peopleTest2->setFirstName('Mélissa');
+        $peopleTest2->setLastName('Dubois');
+        $peopleTest2->setEmailAddress('administrator-life@fake.mail');
+
+        $peopleTest2Address = new Address('10 rue des catacombes', '13001', 'Marseille', 'France');
+        $manager->persist($peopleTest2Address);
+        $peopleTest2->addAddress($peopleTest2Address);
+
+        $peopleTest2->setIsReceivingNewsletter(true);
+        $peopleTest2->setNewsletterDematerialization(true);
+        $peopleTest2->setHomePhoneNumber('0467654321');
+        $peopleTest2->setCellPhoneNumber('0687654321');
+        $peopleTest2->setWorkPhoneNumber('0487654321');
+        $peopleTest2->setWorkFaxNumber('0409876543');
+        $peopleTest2->setObservations(':3c');
+        $peopleTest2->setSensitiveObservations('RAS');
+
+        $userTest2->addResponsibility($roleAdmin);
+        $userTest2->addResponsibility($roleInscritE);
+
+        $manager->persist($userTest2);
+        $peopleTest2->setUser($userTest2);
+        $manager->persist($peopleTest2);
 
         // Final flush
         $manager->flush();

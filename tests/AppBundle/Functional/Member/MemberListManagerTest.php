@@ -65,7 +65,7 @@ class MemberListManagerTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
         // Counts the number of rows
-        $this->assertEquals(12, $crawler->filter('tr')->count());
+        $this->assertEquals(11, $crawler->filter('tr')->count());
         // Counts the number of "show profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Voir le profil"]')->count());
         // Counts the number of "edit profile" buttons
@@ -87,7 +87,6 @@ class MemberListManagerTest extends WebTestCase
 
         $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Previous")]')->count());
         $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Next")]')->count());
-
         // Go to the 2nd page
         $node = new NodeElement('//a[contains(.,"2")]', $client->getSession());
         $node->click();
@@ -95,7 +94,7 @@ class MemberListManagerTest extends WebTestCase
         // Counts the number of rows on the new page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertEquals(3, $crawler->filter('tr')->count());
+        $this->assertEquals(5, $crawler->filter('tr')->count());
     }
 
     /**
