@@ -45,28 +45,26 @@ class MemberController extends Controller
     }
 
     /**
-     * Creates a new user entity.
+     * Creates a new person entity.
      * @return views
      * @param Request $request The request.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
-     * @Route("/new", name="user_create", methods={"GET", "POST"})
+     * @Route("/new", name="member_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $user = new User();
-        $form = $this->createForm('AppBundle\Form\UserType', $user);
+        $user = new People();
+        $form = $this->createForm('AppBundle\Form\MemberType', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $user->getUsername())
+                    'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $user->getFirstName(), $user->getLastName())
             );
 
             return $this->redirectToRoute('member_show', array('id' => $user->getId()));
@@ -74,7 +72,7 @@ class MemberController extends Controller
 
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash(
-                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $user->getUsername())
+                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $user->getFirstName(), $user->getLastName())
             );
         }
 

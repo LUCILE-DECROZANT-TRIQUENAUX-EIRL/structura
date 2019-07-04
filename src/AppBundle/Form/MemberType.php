@@ -71,7 +71,7 @@ class MemberType extends AbstractType
                     'label' => 'Observations'
                 ])
                 ->add('submit',SubmitType::class, [
-                'label' => 'Changer les informations',
+                'label' => 'Valider',
                 'attr' => [
                     'class' => 'btn btn-outline-primary float-right'
                     ]

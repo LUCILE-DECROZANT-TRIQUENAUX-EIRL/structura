@@ -1,7 +1,5 @@
 {% extends '@App/Home/base.html.twig' %}
 
-{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
 {% endblock %}
@@ -16,10 +14,10 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% if app.user.username == member.user.username %}
+        {% if member.user != NULL and app.user.username == member.user.username %}
             Mon profil
         {% else %}
-            Profil de {{ member.firstName }} {{ member.lastName }}
+        Profil de {{ member.firstName }} {{ member.lastName }}
         {% endif %}
     </li>
 {% endblock %}
@@ -127,7 +125,7 @@
                     {% endif %}
                     <div class="col text-right">
                         <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
+                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }} {{ member.lastName }}
                         </button>
                     </div>
                 </div>
@@ -153,7 +151,7 @@
                     <div class="col text-right">
                         {{ form_start(delete_form) }}
                         <button type="submit" class="btn btn-danger" id="delete_button">
-                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ profileLabel }}
+                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }} {{ member.lastName }}
                         </button>
                         {{ form_end(delete_form) }}
                     </div>
