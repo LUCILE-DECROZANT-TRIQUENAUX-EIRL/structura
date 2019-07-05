@@ -44,10 +44,10 @@ class HomeAdminTest extends WebTestCase
         $client = $this->connection();
         $crawler = $client->request('GET', '/');
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        /*$this->assertContains(
+        $this->assertContains(
                 'Administration',
                 $client->getResponse()->getContent()
-        );*/
+        );
     }
 
     /**
@@ -60,10 +60,10 @@ class HomeAdminTest extends WebTestCase
         $crawler = $client->request('GET', '/');
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-        /*$this->assertNotContains(
+        $this->assertNotContains(
                     'Adhérent·es',
                     $client->getResponse()->getContent()
-        );*/
+        );
     }
 
     /**
@@ -75,7 +75,7 @@ class HomeAdminTest extends WebTestCase
         $client = $this->connection();
         $crawler = $client->request('GET', '/');
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        
+
         $this->assertContains(
                     'adminUniquement',
                     $client->getResponse()->getContent()

@@ -44,10 +44,10 @@ class HomeMemberTest extends WebTestCase
         $client = $this->connection();
         $crawler = $client->request('GET', '/');
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        /*$this->assertNotContains(
+        $this->assertNotContains(
                 'Administration',
                 $client->getResponse()->getContent()
-        );*/
+        );
     }
 
     /**
@@ -59,10 +59,10 @@ class HomeMemberTest extends WebTestCase
         $client = $this->connection();
         $crawler = $client->request('GET', '/');
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        /*$this->assertNotContains(
+        $this->assertNotContains(
                 'Adhérent·es',
                 $client->getResponse()->getContent()
-        );*/
+        );
     }
 
     /**
