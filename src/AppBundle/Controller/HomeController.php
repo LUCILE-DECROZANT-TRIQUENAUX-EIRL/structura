@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Home controller
@@ -20,17 +21,10 @@ class HomeController extends Controller
      * @param Request $request The request.
      * @param UserInterface $user The user.
      * @return views
+     * @Security("not is_anonymous()")
      */
     public function indexAction(Request $request, UserInterface $user = null)
     {
-        // Si on n'est pas connecté, redirection vers la page de login
-        if (is_null($user))
-        {
-            return $this->redirectToRoute('login');
-        }
-        else
-        {
-            return $this->render('@App/Home/index.html.twig', []);
-        }
+        return $this->render('@App/Home/index.html.twig', []);
     }
 }

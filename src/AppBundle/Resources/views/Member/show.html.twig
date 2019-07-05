@@ -106,11 +106,12 @@
                             <th>Observations</th>
                             <td>{{ member.observations}}</td>
                         </tr>
+                        {% if is_granted("ROLE_GESTION_SENSIBLE") %}
                         <tr>
                             <th>Détails médicaux</th>
                             <td>{{ member.sensitiveObservations }}</td>
                         </tr>
-
+                        {% endif %}
                     </tbody>
                 </table>
             </div>

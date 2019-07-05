@@ -37,13 +37,3 @@ security:
 
             # logout when the user changes
             logout_on_user_change: true
-
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/new, roles: [ROLE_GESTION] }
-        - { path: ^/user/[0-9]+, roles: [ROLE_GESTION, ROLE_INSCRIT_E] }
-        - { path: ^/user/[0-9]+/edit, roles: [ROLE_GESTION, ROLE_INSCRIT_E] }
-        - { path: ^/user/[0-9]+/delete, roles: [ROLE_GESTION, ROLE_INSCRIT_E] }
-        - { path: ^/user, roles: [ROLE_GESTION] }
-        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
