@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -17,19 +18,11 @@ class AdministrationController extends Controller
     /**
      * @return views
      * @param Request $request The request.
-     * @param UserInterface $user The user.
      * @Route("/administration", name="administration_dashboard")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function administrationAction(Request $request, UserInterface $user = null)
+    public function administrationAction(Request $request)
     {
-        // If not connecter, redirects to the login page
-        if (is_null($user))
-        {
-            return $this->redirectToRoute('login');
-        }
-        else
-        {
-            return $this->render('@App/Administration/dashboard.html.twig', []);
-        }
+        return $this->render('@App/Administration/dashboard.html.twig', []);
     }
 }

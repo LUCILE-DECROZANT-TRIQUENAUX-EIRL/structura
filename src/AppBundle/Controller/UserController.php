@@ -25,6 +25,7 @@ class UserController extends Controller
      * Lists all user entities.
      * @return views
      * @Route(path="/", name="user_list", methods={"GET"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function listAction()
     {
@@ -51,6 +52,7 @@ class UserController extends Controller
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @param RouteService $routeService The route of the service.
      * @Route("/new", name="user_create", methods={"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
     {
@@ -104,7 +106,7 @@ class UserController extends Controller
      * @return views
      * @param User $user The user to display.
      * @Route("/{id}", name="user_show", methods={"GET"})
-     * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
+     * @Security("has_role('ROLE_ADMIN') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function showAction(User $user)
     {
@@ -121,7 +123,7 @@ class UserController extends Controller
      * @return views
      * @param User $user The user to display.
      * @Route("/{id}/history", name="user_history", methods={"GET"})
-     * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
+     * @Security("has_role('ROLE_ADMIN') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function historyAction(User $user)
     {
@@ -140,7 +142,7 @@ class UserController extends Controller
      * @param User $user The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
-     * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
+     * @Security("has_role('ROLE_ADMIN') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function editAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -203,7 +205,7 @@ class UserController extends Controller
      * @param User $user The user to delete.
      * @param Request $request The request.
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
-     * @Security("has_role('ROLE_GESTION') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
+     * @Security("has_role('ROLE_ADMIN') || (has_role('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function deleteAction(Request $request, User $user)
     {

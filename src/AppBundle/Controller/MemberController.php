@@ -25,6 +25,7 @@ class MemberController extends Controller
      * Lists all user entities.
      * @return views
      * @Route(path="/", name="member_list", methods={"GET"})
+     * @Security("has_role('ROLE_GESTION')")
      */
     public function listAction()
     {
@@ -50,6 +51,7 @@ class MemberController extends Controller
      * @param Request $request The request.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/new", name="member_create", methods={"GET", "POST"})
+     * @Security("has_role('ROLE_GESTION')")
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {

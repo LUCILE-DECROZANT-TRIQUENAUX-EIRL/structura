@@ -45,14 +45,16 @@
                 >
                     <ul class="navbar-nav mr-auto">
                         {% if app.user is not null %}
+                        {% if is_granted("ROLE_GESTION") %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('member_list') }}">Adhérent·es</a>
                         </li>
                         {% endif %}
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         {% if app.user is not null %}
-                        {% if is_granted("ROLE_GESTION") %}
+                        {% if is_granted("ROLE_ADMIN") %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('administration_dashboard') }}">Administration</a>
                         </li>
