@@ -13,10 +13,10 @@
         <a href="/">Accueil</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('user_list') }}">Liste des utilisateurices</a>
+        <a href="{{ path('member_list') }}">Liste des adhérent.es</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Enregistrer un.e nouvel.le utilisateurice
+        Enregistrer une nouvelle personne dans l'annuaire
     </li>
 {% endblock %}
 
@@ -25,13 +25,12 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Enregistrer un.e nouvel.le utilisateurice</h1>
+                <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
             </div>
             <div class="col text-right">
             </div>
         </div>
     </div>
-    <br>
 
     <div class="container">
         {{ form_start(form, {'attr': {'id': 'form-create-member'}}) }}

@@ -32,8 +32,8 @@ class MemberType extends AbstractType
                     'choice_label' => 'label',
                     'label' => 'Dénomination',
                     'multiple' => false,
-                    'expanded' => true,
-                    'required' => false,
+                    'expanded' => false,
+                    'placeholder' => 'Aucune',
                     'choice_attr' => function($denomination)
                     {
                         return ['data-denomination-description' => $denomination->getLabel()];
