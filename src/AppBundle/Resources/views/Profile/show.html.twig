@@ -1,0 +1,146 @@
+{% extends '@App/Home/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active">
+        Mon profil
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+
+        <div class="col-8 col-md-2">
+            <ul class="list-group">
+              <a href="{{ path('profile_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
+            </ul>
+
+            <br>
+            <h4>Édition</h4>
+
+            <ul class="list-group">
+              <a href="{{ path('profile_editpersonal', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
+              <a href="{{ path('profile_editcontact', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
+              <a href="{{ path('profile_editsensible', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
+              <a href="{{ path('profile_editroles', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
+            </ul>
+        </div>
+
+
+
+        <div class="col-12 col-md-10">
+            <div class="col">
+                <h1>
+                {% if member.denomination or member.firstname or member.lastname %}
+                {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
+                {% else %}
+                Ce.tte membre n'a pas de nom
+                {% endif %}
+                </h1>
+            </div>
+            <br>
+            <div class="container styledtable">
+            <br>
+                <h3>Informations de contact</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Mail</th>
+                            <td>
+                            {{ member.emailAddress }}&nbsp;&nbsp;
+                            {{member.isReceivingNewsletter ?
+                                '<span data-toggle="tooltip" title="Reçoit la newsletter" >
+                                <i class="icon ion-md-paper"></i> </span>' : ''
+                            }}
+                            {{member.newsletterDematerialization ?
+                                '<span data-toggle="tooltip" title="Newsletter envoyée sous format dématérialisé" >
+                                <i class="icon ion-md-mail"></i> </span>' : ''
+                             }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Adresse</th>
+                            <td>
+                            {% for address in member.addresses %}
+                                {{address.line}}
+                                <br>
+                                {{address.postalCode}}, {{address.city}}, {{address.country}}
+                            {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone fixe</th>
+                            <td><div class="phone">{{ member.homePhoneNumber }}</div></td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone portable</th>
+                            <td><div class="phone">{{ member.cellPhoneNumber }}</div></td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone professionnel</th>
+                            <td><div class="phone">{{ member.workPhoneNumber }}</div></td>
+                        </tr>
+                        <tr>
+                            <th>Fax</th>
+                            <td><div class="phone">{{ member.workFaxNumber }}</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Informations personnelles</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Observations</th>
+                            <td>{{ member.observations}}</td>
+                        </tr>
+                        {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+                        <tr>
+                            <th>Détails médicaux</th>
+                            <td>{{ member.sensitiveObservations }}</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+                {{ member.user.roles ? '
+                <br>
+
+                    <h3>Rôles</h3>': '' }}
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+
+                                    {% for responsibility in member.user.responsibilities %}
+                                        <tr>
+                                            <th>
+                                                {{ responsibility is not empty ? responsibility.label : '-' }}
+                                            </th>
+                                            <td>
+                                                {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+
+            </div>
+            <br>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Form with all user's infos
  */
-class MemberType extends AbstractType
+class MemberPersonalType extends AbstractType
 {
 
     /**
@@ -43,33 +43,7 @@ class MemberType extends AbstractType
                 ])
                 ->add('lastname', TextType::class, [
                     'label' => 'Nom de famille'
-                ])
-                ->add('emailAddress', TextType::class, [
-                    'label' => 'Adresse mail'
-                ])
-                ->add('isReceivingNewsletter', CheckboxType::class, [
-                    'required' => false,
-                    'label' => 'Reçoit la newsletter'
-                ])
-                ->add('newsletterDematerialization', CheckboxType::class, [
-                    'required' => false,
-                    'label' => 'Reçoit la newsletter au format dématérialisé'
-                ])
-                ->add('homePhoneNumber', TelType::class, [
-                    'label' => 'Téléphone fixe'
-                ])
-                ->add('cellPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone portable'
-                ])
-                ->add('workPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone de travail'
-                ])
-                ->add('workFaxNumber', TelType::class, [
-                    'label' => 'Fax de travail'
-                ])
-                ->add('observations', TextType::class, [
-                    'label' => 'Observations'
-                ])
+                ])                
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [

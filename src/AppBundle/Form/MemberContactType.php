@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Form with all user's infos
  */
-class MemberType extends AbstractType
+class MemberContactType extends AbstractType
 {
 
     /**
@@ -24,26 +24,6 @@ class MemberType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('denomination', EntityType::class, [
-                    // Looks for choices from this entity
-                    'class' => 'AppBundle:Denomination',
-                    // Uses the Responsibility.label property as the visible option string
-                    'choice_label' => 'label',
-                    'label' => 'Dénomination',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'placeholder' => 'Aucune',
-                    'choice_attr' => function($denomination)
-                    {
-                        return ['data-denomination-description' => $denomination->getLabel()];
-                    },
-                ])
-                ->add('firstname', TextType::class, [
-                    'label' => 'Prénom'
-                ])
-                ->add('lastname', TextType::class, [
-                    'label' => 'Nom de famille'
-                ])
                 ->add('emailAddress', TextType::class, [
                     'label' => 'Adresse mail'
                 ])
