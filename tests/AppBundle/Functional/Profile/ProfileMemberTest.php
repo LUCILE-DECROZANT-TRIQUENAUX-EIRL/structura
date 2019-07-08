@@ -45,7 +45,6 @@ class ProfileMemberTest extends WebTestCase
         $node->click();
         sleep(1);
 
-        // Go to Members page
         $node = new NodeElement('//a[contains(.,"adhe4")]', $mink->getSession());
         $node->click();
 
@@ -69,9 +68,11 @@ class ProfileMemberTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
 
-        $this->assertContains('adhe4', $crawler->filterXPath('//h1')->text());
+        $this->assertContains('Docteure Estelle Lafaille', $crawler->filterXPath('//h1')->text());
         // Verifies the infos are loaded
-        $this->assertContains('Rôles', $crawler->filterXPath('//h3')->text());
+        $this->assertContains('Informations de contact', $crawler->filterXPath('//h3')->text());
+        $this->assertContains('Informations personnelles', $crawler->filterXPath('(//h3)[2]')->text());
+        $this->assertContains('Rôles', $crawler->filterXPath('(//h3)[3]')->text());
     }
 
     /**
@@ -92,8 +93,8 @@ class ProfileMemberTest extends WebTestCase
         $crawler = new Crawler($page->getContent());
 
         $this->assertContains('Profil', $crawler->filterXPath('//ul/a')->text());
-        $this->assertContains('Historique', $crawler->filterXPath('(//ul/a)[2]')->text());
-        $this->assertContains('Édition', $crawler->filterXPath('(//ul/a)[3]')->text());
+        $this->assertContains('Informations personnelles', $crawler->filterXPath('(//ul/a)[2]')->text());
+        $this->assertContains('Informations de contact', $crawler->filterXPath('(//ul/a)[3]')->text());
     }
 
     /**
