@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Form with all user's infos
+ * Form to edit a user personal infos
  */
 class MemberPersonalType extends AbstractType
 {
@@ -43,7 +43,7 @@ class MemberPersonalType extends AbstractType
                 ])
                 ->add('lastname', TextType::class, [
                     'label' => 'Nom de famille'
-                ])                
+                ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [

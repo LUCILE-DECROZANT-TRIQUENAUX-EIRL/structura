@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Form with all user's infos
+ * Form to edit a person contact infos
  */
 class MemberContactType extends AbstractType
 {

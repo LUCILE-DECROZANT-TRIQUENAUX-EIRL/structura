@@ -22,26 +22,29 @@ use Symfony\Component\Form\FormError;
 class ProfileController extends Controller
 {
     /**
-     * Finds and displays a People entity.
+     * Finds and displays a the connected user.
      * @return views
      * @param People $individual The user to display.
      * @Route("/{id}", name="profile_show", methods={"GET"})
+     * @Security("(user.getId() == id)")
      */
     public function showAction(People $individual)
     {
         $user = $individual->getUser();
         return $this->render('@App/Profile/show.html.twig', array(
+            // Returns member and user to be able to access both infos in view
             'member' => $individual,
             'user' => $user,
         ));
     }
 
     /**
-     * Displays a form to edit an existing People entity.
+     * Displays a form to edit cpersonal infos of the connected user.
      * @return views
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editpersonal", name="profile_editpersonal", methods={"GET", "POST"})
+     * @Security("(user.getId() == id)")
      */
     public function editPersonalAction(Request $request, People $individual)
     {
@@ -62,6 +65,7 @@ class ProfileController extends Controller
         }
 
         return $this->render('@App/Profile/editpersonal.html.twig', array(
+            // Returns member and user to be able to access both infos in view
             'member' => $individual,
             'user' => $user,
             'profile_editpersonal' => $editForm->createView()
@@ -69,11 +73,12 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing People entity.
+     * Displays a form to edit contact infos of the connected user.
      * @return views
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editcontact", name="profile_editcontact", methods={"GET", "POST"})
+     * @Security("(user.getId() == id)")
      */
     public function editContactAction(Request $request, People $individual)
     {
@@ -94,6 +99,7 @@ class ProfileController extends Controller
         }
 
         return $this->render('@App/Profile/editcontact.html.twig', array(
+            // Returns member and user to be able to access both infos in view
             'member' => $individual,
             'user' => $user,
             'profile_editcontact' => $editForm->createView()
@@ -101,12 +107,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing user entity.
+     * Displays a form to edit sensible infos of the connected user.
      * @return views
      * @param Request $request The request.
      * @param User $user The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/editsensible", name="profile_editsensible", methods={"GET", "POST"})
+     * @Security("(user.getId() == id)")
      */
     public function editSensibleAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -153,10 +160,10 @@ class ProfileController extends Controller
             {
                 $passwordForm->get('oldPassword')->addError(new FormError('L\'ancien mot de passe ne correspond pas'));
             }
-
         }
 
         return $this->render('@App/Profile/editsensible.html.twig', array(
+            // Returns member and user to be able to access both infos in view
             'member' => $individual,
             'user' => $user,
             'editsensible_form' => $editForm->createView(),
@@ -165,11 +172,12 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing user entity.
+     * Displays a form to edit roles of the connected user.
      * @return views
      * @param Request $request The request.
      * @param User $user The user to edit.
      * @Route("/{id}/editroles", name="profile_editroles", methods={"GET", "POST"})
+     * @Security("(user.getId() == id)")
      */
     public function editRolesAction(Request $request, People $individual)
     {
@@ -190,6 +198,7 @@ class ProfileController extends Controller
         }
 
         return $this->render('@App/Profile/editroles.html.twig', array(
+            // Returns member and user to be able to access both infos in view
             'member' => $individual,
             'user' => $user,
             'editroles_form' => $editForm->createView()
