@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -43,6 +44,12 @@ class MemberType extends AbstractType
                 ])
                 ->add('lastname', TextType::class, [
                     'label' => 'Nom de famille'
+                ])
+                ->add('addresses', CollectionType::class, [
+                    'label' => false,
+                    'entry_type' => AddressType::class,
+                    'entry_options' => ['label' => false],
+                    'allow_add' => true,
                 ])
                 ->add('emailAddress', TextType::class, [
                     'label' => 'Adresse mail'

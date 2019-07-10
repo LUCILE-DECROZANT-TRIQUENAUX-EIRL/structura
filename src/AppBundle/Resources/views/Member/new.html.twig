@@ -35,6 +35,39 @@
     <div class="container">
         {{ form_start(form, {'attr': {'id': 'form-create-member'}}) }}
             <div class="form-group">
+                {{ form_label(form.denomination)}}
+                {{ form_widget(form.denomination)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.firstname)}}
+                {{ form_widget(form.firstname)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.lastname)}}
+                {{ form_widget(form.lastname)}}
+            </div>
+
+
+            {% for address in form.addresses.vars.prototype %}
+            <div class="form-group">
+                {{ form_label(address) }}
+                {{ form_widget(address) }}
+            </div>
+            {% endfor %}
+
+
+            <div class="form-group">
+                {{ form_label(form.emailAddress)}}
+                {{ form_widget(form.emailAddress)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.isReceivingNewsletter)}}
+                {{ form_widget(form.isReceivingNewsletter)}}
+                {{ form_label(form.newsletterDematerialization)}}
+                {{ form_widget(form.newsletterDematerialization)}}
             </div>
         {{ form_end(form) }}
     </div>

@@ -57,6 +57,22 @@
 
         {{ form_start(profile_editcontact, {'attr': {'id': 'form-editcontact-profile'}}) }}
             <div class="form-group">
+                {% for address in profile_editcontact.addresses %}
+                    {{ form_widget(address) }}
+                    {{ form_label(address) }}
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.emailAddress)}}
+                {{ form_widget(profile_editcontact.emailAddress)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.isReceivingNewsletter)}}
+                {{ form_widget(profile_editcontact.isReceivingNewsletter)}}
+                {{ form_label(profile_editcontact.newsletterDematerialization)}}
+                {{ form_widget(profile_editcontact.newsletterDematerialization)}}
             </div>
         {{ form_end(profile_editcontact) }}
 
