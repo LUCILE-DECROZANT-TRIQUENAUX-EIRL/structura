@@ -26,7 +26,7 @@ class ProfileController extends Controller
      * @return views
      * @param People $individual The user to display.
      * @Route("/{id}", name="profile_show", methods={"GET"})
-     * @Security("(user.getId() == id)")
+     * @Security("(individual.getId() == id)")
      */
     public function showAction(People $individual)
     {
@@ -44,7 +44,7 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editpersonal", name="profile_editpersonal", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
+     * @Security("(individual.getId() == id)")
      */
     public function editPersonalAction(Request $request, People $individual)
     {
@@ -78,7 +78,7 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editcontact", name="profile_editcontact", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
+     * @Security("(individual.getId() == id)")
      */
     public function editContactAction(Request $request, People $individual)
     {
@@ -113,7 +113,7 @@ class ProfileController extends Controller
      * @param User $user The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/editsensible", name="profile_editsensible", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
+     * @Security("(individual.getId() == id) && has_role('ROLE_ADMIN')")
      */
     public function editSensibleAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -177,7 +177,7 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param User $user The user to edit.
      * @Route("/{id}/editroles", name="profile_editroles", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
+     * @Security("(individual.getId() == id) && has_role('ROLE_ADMIN')")
      */
     public function editRolesAction(Request $request, People $individual)
     {
