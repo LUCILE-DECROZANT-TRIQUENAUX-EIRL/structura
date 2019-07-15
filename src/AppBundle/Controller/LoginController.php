@@ -29,6 +29,8 @@ class LoginController extends Controller
     {
         $lastError = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+
+
         if (is_null($user))
         {
             if (!is_null($lastError))
@@ -41,9 +43,18 @@ class LoginController extends Controller
                 }
                 else
                 {
-                    $this->addFlash(
-                            'danger', $lastError->getMessage()
-                    );
+                    if($lastError->getMessage() == "An exception occurred in driver: SQLSTATE[HY000] [2002] Connection refused")
+                    {
+                        $this->addFlash(
+                                'danger', 'Impossibilité de se connecter à la base de données.'
+                        );
+                    }
+                    else
+                    {
+                        $this->addFlash(
+                                'danger', $lastError->getMessage()
+                        );
+                    }
                 }
             }
 
@@ -53,6 +64,7 @@ class LoginController extends Controller
         {
             $response = $this->redirectToRoute('home');
         }
+
 
         return $response;
     }
