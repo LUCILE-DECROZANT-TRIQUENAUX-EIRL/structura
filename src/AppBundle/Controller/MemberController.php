@@ -69,7 +69,7 @@ class MemberController extends Controller
                     'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $user->getFirstName(), $user->getLastName())
             );
 
-            return $this->redirectToRoute('member_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('member_show', array('id' => $individual->getId()));
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
@@ -126,7 +126,7 @@ class MemberController extends Controller
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('member_edit', ['id' => $user->getId()]);
+            return $this->redirectToRoute('member_edit', ['id' => $individual->getId()]);
         }
 
         return $this->render('@App/Member/edit.html.twig', array(

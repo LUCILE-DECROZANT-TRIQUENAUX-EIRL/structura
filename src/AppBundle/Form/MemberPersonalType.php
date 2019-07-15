@@ -33,16 +33,19 @@ class MemberPersonalType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'placeholder' => 'Aucune',
+                    'required' => true,
                     'choice_attr' => function($denomination)
                     {
                         return ['data-denomination-description' => $denomination->getLabel()];
                     },
                 ])
                 ->add('firstname', TextType::class, [
-                    'label' => 'Prénom'
+                    'label' => 'Prénom',
+                    'required' => true
                 ])
                 ->add('lastname', TextType::class, [
-                    'label' => 'Nom de famille'
+                    'label' => 'Nom de famille',
+                    'required' => true
                 ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',

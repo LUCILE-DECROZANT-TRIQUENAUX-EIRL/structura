@@ -6,6 +6,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -34,25 +35,30 @@ class MemberType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'placeholder' => 'Aucune',
+                    'required' => true,
                     'choice_attr' => function($denomination)
                     {
                         return ['data-denomination-description' => $denomination->getLabel()];
                     },
                 ])
                 ->add('firstname', TextType::class, [
-                    'label' => 'Prénom'
+                    'label' => 'Prénom',
+                    'required' => true
                 ])
                 ->add('lastname', TextType::class, [
-                    'label' => 'Nom de famille'
+                    'label' => 'Nom de famille',
+                    'required' => true
                 ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
                     'entry_type' => AddressType::class,
                     'entry_options' => ['label' => false],
                     'allow_add' => true,
+                    'required' => false
                 ])
                 ->add('emailAddress', TextType::class, [
-                    'label' => 'Adresse mail'
+                    'label' => 'Adresse mail',
+                    'required' => false
                 ])
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,
@@ -63,19 +69,24 @@ class MemberType extends AbstractType
                     'label' => 'Reçoit la newsletter au format dématérialisé'
                 ])
                 ->add('homePhoneNumber', TelType::class, [
-                    'label' => 'Téléphone fixe'
+                    'label' => 'Téléphone fixe',
+                    'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone portable'
+                    'label' => 'Téléphone portable',
+                    'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone de travail'
+                    'label' => 'Téléphone de travail',
+                    'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
-                    'label' => 'Fax de travail'
+                    'label' => 'Fax de travail',
+                    'required' => false
                 ])
-                ->add('observations', TextType::class, [
-                    'label' => 'Observations'
+                ->add('observations', TextareaType::class, [
+                    'label' => 'Observations',
+                    'required' => false
                 ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',

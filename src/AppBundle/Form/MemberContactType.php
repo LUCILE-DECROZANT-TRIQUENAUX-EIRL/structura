@@ -26,7 +26,8 @@ class MemberContactType extends AbstractType
     {
         $builder
                 ->add('emailAddress', TextType::class, [
-                    'label' => 'Adresse mail'
+                    'label' => 'Adresse mail',
+                    'required' => false
                 ])
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,
@@ -39,22 +40,28 @@ class MemberContactType extends AbstractType
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
                     'entry_type' => AddressType::class,
-                    'entry_options' => ['label' => false]
+                    'entry_options' => ['label' => false],
+                    'required' => false
                 ])
                 ->add('homePhoneNumber', TelType::class, [
-                    'label' => 'Téléphone fixe'
+                    'label' => 'Téléphone fixe',
+                    'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone portable'
+                    'label' => 'Téléphone portable',
+                    'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone de travail'
+                    'label' => 'Téléphone de travail',
+                    'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
-                    'label' => 'Fax de travail'
+                    'label' => 'Fax de travail',
+                    'required' => false
                 ])
-                ->add('observations', TextType::class, [
-                    'label' => 'Observations'
+                ->add('observations', TextareaType::class, [
+                    'label' => 'Observations',
+                    'required' => false
                 ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',
