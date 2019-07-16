@@ -24,13 +24,20 @@ class ProfileController extends Controller
     /**
      * Finds and displays a the connected user.
      * @return views
-     * @param People $individual The user to display.
+     * @param User $user The user to display.
      * @Route("/{id}", name="profile_show", methods={"GET"})
-     * @Security("(individual.getId() == id)")
+     * @Security("(user.getId() == id)")
      */
-    public function showAction(People $individual)
+    public function showAction(User $user)
     {
-        $user = $individual->getUser();
+        if($user->getPeople() != NULL)
+        {
+            $individual = $user->getPeople();
+        }
+        else {
+            $individual = new People();
+        }
+
         return $this->render('@App/Profile/show.html.twig', array(
             // Returns member and user to be able to access both infos in view
             'member' => $individual,
@@ -44,11 +51,18 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editpersonal", name="profile_editpersonal", methods={"GET", "POST"})
-     * @Security("(individual.getId() == id)")
+     * @Security("(user.getId() == id)")
      */
-    public function editPersonalAction(Request $request, People $individual)
+    public function editPersonalAction(Request $request, User $user)
     {
-        $user = $individual->getUser();
+        if($user->getPeople() != NULL)
+        {
+            $individual = $user->getPeople();
+        }
+        else {
+            $individual = new People();
+        }
+
 
         $editForm = $this->createForm('AppBundle\Form\MemberPersonalType', $individual);
         $editForm->handleRequest($request);
@@ -78,11 +92,18 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param People $individual The user to edit.
      * @Route("/{id}/editcontact", name="profile_editcontact", methods={"GET", "POST"})
-     * @Security("(individual.getId() == id)")
+     * @Security("(user.getId() == id)")
      */
-    public function editContactAction(Request $request, People $individual)
+    public function editContactAction(Request $request, User $user)
     {
-        $user = $individual->getUser();
+        if($user->getPeople() != NULL)
+        {
+            $individual = $user->getPeople();
+        }
+        else {
+            $individual = new People();
+        }
+
 
         $editForm = $this->createForm('AppBundle\Form\MemberContactType', $individual);
         $editForm->handleRequest($request);
@@ -95,7 +116,7 @@ class ProfileController extends Controller
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editcontact', ['id' => $individual->getId()]);
+            return $this->redirectToRoute('profile_editcontact', ['id' => $user->getId()]);
         }
 
         return $this->render('@App/Profile/editcontact.html.twig', array(
@@ -113,11 +134,18 @@ class ProfileController extends Controller
      * @param User $user The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/editsensible", name="profile_editsensible", methods={"GET", "POST"})
-     * @Security("(individual.getId() == id) && has_role('ROLE_ADMIN')")
+     * @Security("(user.getId() == id) && has_role('ROLE_ADMIN')")
      */
-    public function editSensibleAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
+    public function editSensibleAction(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $user = $individual->getUser();
+        if($user->getPeople() != NULL)
+        {
+            $individual = $user->getPeople();
+        }
+        else {
+            $individual = new People();
+        }
+
 
         $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
@@ -132,7 +160,7 @@ class ProfileController extends Controller
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editsensible', ['id' => $individual->getId()]);
+            return $this->redirectToRoute('profile_editsensible', ['id' => $user->getId()]);
         }
 
         // Submit change of password
@@ -177,11 +205,17 @@ class ProfileController extends Controller
      * @param Request $request The request.
      * @param User $user The user to edit.
      * @Route("/{id}/editroles", name="profile_editroles", methods={"GET", "POST"})
-     * @Security("(individual.getId() == id) && has_role('ROLE_ADMIN')")
+     * @Security("(user.getId() == id) && has_role('ROLE_ADMIN')")
      */
-    public function editRolesAction(Request $request, People $individual)
+    public function editRolesAction(Request $request, User $user)
     {
-        $user = $individual->getUser();
+        if($user->getPeople() != NULL)
+        {
+            $individual = $user->getPeople();
+        }
+        else {
+            $individual = new People();
+        }
 
         $editForm = $this->createForm('AppBundle\Form\UserGeneralDataType', $user);
         $editForm->handleRequest($request);
@@ -194,7 +228,7 @@ class ProfileController extends Controller
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editsensible', ['id' => $individual->getId()]);
+            return $this->redirectToRoute('profile_editsensible', ['id' => $user->getId()]);
         }
 
         return $this->render('@App/Profile/editroles.html.twig', array(

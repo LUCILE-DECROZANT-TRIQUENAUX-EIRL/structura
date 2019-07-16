@@ -13,7 +13,7 @@
         <a href="/">Accueil</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('profile_show', { 'id': member.id }) }}">
+        <a href="{{ path('profile_show', { 'id': user.id }) }}">
             Mon profil
         </a>
     </li>
@@ -29,17 +29,19 @@
 
     <div class="col-8 col-md-2">
         <ul class="list-group">
-          <a href="{{ path('profile_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+          <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
         </ul>
 
         <br>
         <h4>Édition</h4>
 
         <ul class="list-group">
-          <a href="{{ path('profile_editpersonal', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
-          <a href="{{ path('profile_editcontact', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
-          <a href="{{ path('profile_editsensible', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
-          <a href="{{ path('profile_editroles', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Rôles</a>
+          {% if member.firstname is not empty %}
+          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
+          <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
+          {% endif %}
+          <a href="{{ path('profile_editsensible', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
+          <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Rôles</a>
         </ul>
     </div>
 
