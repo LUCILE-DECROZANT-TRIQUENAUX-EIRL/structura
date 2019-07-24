@@ -63,8 +63,13 @@ fi
 # If there is no file we will write one from user input
 if [ ! -f ".env.local_for_${env}" ]; then setup_env_file $env ; fi
 
-# Removing old local env file
-rm .env.local
+# If the .env.local file already exist
+if [ -f ".env.local" ]
+then
+    # We are removig it
+    rm .env.local
+fi
+
 
 # Making a new with the right parameters (dev or test depending on user input)
 cp ".env.local_for_${env}" .env.local
