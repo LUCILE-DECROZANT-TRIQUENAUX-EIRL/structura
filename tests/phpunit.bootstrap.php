@@ -1,54 +1,33 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
-
-
 function bootstrap()
 {
-    // Booting the kernel in test env
-    $kernel = new \AppKernel('test', true);
-    $kernel->boot();
-
-    // Creating Symfony application
-    $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
-    $application->setAutoExit(false);
-
-    // Drop potential existing DB
-    $application->run(new \Symfony\Component\Console\Input\ArrayInput([
-        'command' => 'doctrine:database:drop',
-        '--if-exists' => '1',
-        '--force' => '1',
-    ]));
-
-    // Create the DB
-    $application->run(new \Symfony\Component\Console\Input\ArrayInput([
-        'command' => 'doctrine:database:create',
-    ]));
-
-    // Applying migration
-    $application->run(new \Symfony\Component\Console\Input\ArrayInput([
-        'command' => 'doctrine:migration:migrate',
-        '--no-interaction' => '1',
-    ]));
-
-    // Loading the data fixtures
-    $application->run(new \Symfony\Component\Console\Input\ArrayInput([
-        'command' => 'doctrine:fixtures:load',
-        '--append' => '1',
-        '--no-interaction' => '1',
-    ]));
-
     // Clearing cache if the BOOTSTRAP_CLEAR_CACHE_ENV var is set in the phpunit.xml.dist
     if (isset($_ENV['BOOTSTRAP_CLEAR_CACHE_ENV'])) {
-        $application->run(new \Symfony\Component\Console\Input\ArrayInput([
-            'command' => 'cache:clear',
-            '--env' => $_ENV['BOOTSTRAP_CLEAR_CACHE_ENV'],
-            '--no-warmup' => '1',
-        ]));
+        passthru(sprintf(
+            'php "%s/../bin/console" cache:clear --env='.$_ENV['BOOTSTRAP_CLEAR_CACHE_ENV'].' --no-warmup',
+            __DIR__
+        ));
     }
 
-    // Shutting down the kernel
-    $kernel->shutdown();
+    passthru(sprintf(
+        'php "%s/../bin/console" doctrine:database:drop --env=test --no-interaction --force --if-exists',
+        __DIR__
+    ));
+    passthru(sprintf(
+        'php "%s/../bin/console" doctrine:database:create --env=test --no-interaction',
+        __DIR__
+    ));
+    passthru(sprintf(
+        'php "%s/../bin/console" doctrine:migration:migrate --env=test --no-interaction',
+        __DIR__
+    ));
+    passthru(sprintf(
+        'php "%s/../bin/console" doctrine:fixtures:load --env=test --append --no-interaction',
+        __DIR__
+    ));
 }
 
 bootstrap();
+
+require_once __DIR__.'/../vendor/autoload.php';

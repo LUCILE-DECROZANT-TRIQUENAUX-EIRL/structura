@@ -1,0 +1,106 @@
+{% extends 'Home/base.html.twig' %}
+
+{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_show', { 'id': member.id }) }}">
+            {% if app.user.username == member.user.username %}
+                Mon profil
+            {% else %}
+                Profil de {{ member.user.username }}
+            {% endif %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if app.user.username == member.user.username %}
+            Éditer mon profil
+        {% else %}
+            Éditer le profil de {{ member.user.username }}
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+
+        <div class="col-8 col-md-2">
+            <ul class="list-group">
+              <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+              <a href="#" class="list-group-item list-group-item-action">Adhésions</a>
+              <a href="#" class="list-group-item list-group-item-action">Dons</a>
+              <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Édition</a>
+            </ul>
+        </div>
+
+
+
+        <div class="col-12 col-md-10">
+
+        <div class="col">
+            <h1>
+            Édition de l'adhérent.e
+            </h1>
+        </div>
+
+        {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
+                <div class="form-group">
+                    {{ form_label(member_edit.denomination)}}
+                    {{ form_widget(member_edit.denomination)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.firstname)}}
+                    {{ form_widget(member_edit.firstname)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.lastname)}}
+                    {{ form_widget(member_edit.lastname)}}
+                </div>
+
+                <div class="form-group">
+                    {% for address in member_edit.addresses %}
+                        {{ form_widget(address) }}
+                        {{ form_label(address) }}
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.emailAddress)}}
+                    {{ form_widget(member_edit.emailAddress)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.isReceivingNewsletter)}}
+                    {{ form_widget(member_edit.isReceivingNewsletter)}}
+                    {{ form_label(member_edit.newsletterDematerialization)}}
+                    {{ form_widget(member_edit.newsletterDematerialization)}}
+                </div>
+
+        {{ form_end(member_edit) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

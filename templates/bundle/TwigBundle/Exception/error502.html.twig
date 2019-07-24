@@ -1,0 +1,17 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Erreur 502</h1>
+    <p class="lead">Erreur interne du serveur.</p>
+    <hr class="my-4">
+    <p>Si l'erreur persiste, attendez quelques minutes avant de réessayer.<br>
+    <br>
+    <button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="history.back(-1)">
+        <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la page précedente
+    </button>
+
+    </div>
+</div>
+{% endblock %}

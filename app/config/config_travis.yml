@@ -1,7 +1,0 @@
-imports:
-    - { resource: config_test.yml }
-
-# Doctrine Configuration
-doctrine:
-    dbal:
-        password: '%env(MYSQL_PASSWORD)%'
