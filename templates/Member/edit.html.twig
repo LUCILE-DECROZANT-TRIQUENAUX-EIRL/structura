@@ -97,6 +97,30 @@
                     {{ form_widget(member_edit.newsletterDematerialization)}}
                 </div>
 
+                <div class="form-group">
+                    {{ form_label(member_edit.homePhoneNumber)}}
+                    {{ form_widget(member_edit.homePhoneNumber)}}
+                    {{ form_help(member_edit.homePhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.cellPhoneNumber)}}
+                    {{ form_widget(member_edit.cellPhoneNumber)}}
+                    {{ form_help(member_edit.cellPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.workPhoneNumber)}}
+                    {{ form_widget(member_edit.workPhoneNumber)}}
+                    {{ form_help(member_edit.workPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.workFaxNumber)}}
+                    {{ form_widget(member_edit.workFaxNumber)}}
+                    {{ form_help(member_edit.workFaxNumber)}}
+                </div>
+
         {{ form_end(member_edit) }}
 
         </div>

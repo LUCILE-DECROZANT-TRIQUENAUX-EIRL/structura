@@ -46,18 +46,22 @@ class MemberContactType extends AbstractType
                 ])
                 ->add('homePhoneNumber', TelType::class, [
                     'label' => 'Téléphone fixe',
+                    'help' => 'Seuls les chiffres sont acceptés',
                     'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
                     'label' => 'Téléphone portable',
+                    'help' => 'Seuls les chiffres sont acceptés et les numéros commençants par 06 ou 07',
                     'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
                     'label' => 'Téléphone de travail',
+                    'help' => 'Seuls les chiffres sont acceptés',
                     'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
                     'label' => 'Fax de travail',
+                    'help' => 'Seuls les chiffres sont acceptés',
                     'required' => false
                 ])
                 ->add('observations', TextareaType::class, [
