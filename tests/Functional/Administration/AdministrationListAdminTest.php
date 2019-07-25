@@ -69,7 +69,7 @@ class AdministrationListAdminTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
         // Counts the number of rows
-        $this->assertEquals(11, $crawler->filter('tr')->count());
+        $this->assertEquals(12, $crawler->filter('tr')->count());
         // Counts the number of "show profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Voir le profil"]')->count());
         // Counts the number of "edit profile" buttons
@@ -98,7 +98,7 @@ class AdministrationListAdminTest extends WebTestCase
         // Counts the number of rows on the new page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertEquals(5, $crawler->filter('tr')->count());
+        $this->assertEquals(6, $crawler->filter('tr')->count());
     }
 
     /**
