@@ -95,6 +95,21 @@
                 {{ form_widget(form.workFaxNumber)}}
                 {{ form_help(form.workFaxNumber)}}
             </div>
+
+            <div class="form-group">
+                {{ form_label(form.observations)}}
+                {{ form_widget(form.observations)}}
+                {{ form_help(form.observations)}}
+            </div>
+
+            {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+            <div class="form-group">
+                {{ form_label(form.sensitiveObservations)}}
+                {{ form_widget(form.sensitiveObservations)}}
+                {{ form_help(form.sensitiveObservations)}}
+            </div>
+            {% endif %}
+
         {{ form_end(form) }}
     </div>
     <br>

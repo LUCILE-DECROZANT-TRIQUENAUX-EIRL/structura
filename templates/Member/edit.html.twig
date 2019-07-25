@@ -121,6 +121,20 @@
                     {{ form_help(member_edit.workFaxNumber)}}
                 </div>
 
+                <div class="form-group">
+                    {{ form_label(member_edit.observations)}}
+                    {{ form_widget(member_edit.observations)}}
+                    {{ form_help(member_edit.observations)}}
+                </div>
+
+                {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+                <div class="form-group">
+                    {{ form_label(member_edit.sensitiveObservations)}}
+                    {{ form_widget(member_edit.sensitiveObservations)}}
+                    {{ form_help(member_edit.sensitiveObservations)}}
+                </div>
+                {% endif %}
+
         {{ form_end(member_edit) }}
 
         </div>
