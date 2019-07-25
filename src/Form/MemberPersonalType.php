@@ -6,6 +6,7 @@ use App\Entity\Denomination;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
@@ -47,6 +48,14 @@ class MemberPersonalType extends AbstractType
                 ->add('lastname', TextType::class, [
                     'label' => 'Nom de famille',
                     'required' => true
+                ])
+                ->add('observations', TextareaType::class, [
+                    'label' => 'Observations',
+                    'required' => false
+                ])
+                ->add('sensitiveObservations', TextareaType::class, [
+                    'label' => 'Détails médicaux',
+                    'required' => false
                 ])
                 ->add('submit',SubmitType::class, [
                 'label' => 'Valider',
