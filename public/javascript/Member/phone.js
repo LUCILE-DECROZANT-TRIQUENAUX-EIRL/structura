@@ -8,18 +8,11 @@ $(document).ready(function(){
       var curval = $(this).val();
       var phonenumber = "";
       phonenumber = phonenumber+curval;
-      if (curchr == 2 && (curval == 6 || curval == 7) && phonenumber[0] == 0) {
-        $(this).val( curval + " ");
-      } else if (curchr == 2 && (curval != 6 || curval != 7) && phonenumber[0] != 0) {
+      if (curchr == 2 && (phonenumber[1] == 6 || phonenumber[1] == 7) && phonenumber[0] == 0) {
+        $(this).attr('maxlength', '10');
+      } else if (curchr == 2 && (phonenumber[1] != 6 || phonenumber[1] != 7 || phonenumber[0] != 0)) {
         e.preventDefault();
-      } else if (curchr == 5) {
-        $(this).val(curval + " ");
-      } else if (curchr == 8) {
-        $(this).val(curval + " ");
-      } else if (curchr == 11) {
-        $(this).val(curval + " ");
-        $(this).attr('maxlength', '14');
-    }
+      }
   });
 
   $('[name="app_user[homePhoneNumber]"]').keypress(function (e) {
@@ -30,18 +23,15 @@ $(document).ready(function(){
       var curval = $(this).val();
       var phonenumber = "";
       phonenumber = phonenumber+curval;
-      if (curchr == 2 && phonenumber[0] == 0) {
-        $(this).val( curval + " ");
-      } else if (curchr == 2 && phonenumber[0] != 0) {
+      if (curchr == 2
+        && (phonenumber[1] == 1 || phonenumber[1] == 2 || phonenumber[1] == 3 || phonenumber[1] == 4 || phonenumber[1] == 5)
+        && phonenumber[0] == 0) {
+        $(this).attr('maxlength', '10');
+      } else if (curchr == 2 &&
+        ( phonenumber[1] != 1 || phonenumber[1] != 2 || phonenumber[1] != 3
+        || phonenumber[1] != 4 || phonenumber[1] != 5 || phonenumber[0] != 0 )) {
         e.preventDefault();
-      } else if (curchr == 5) {
-        $(this).val(curval + " ");
-      } else if (curchr == 8) {
-        $(this).val(curval + " ");
-      } else if (curchr == 11) {
-        $(this).val(curval + " ");
-        $(this).attr('maxlength', '14');
-    }
+      }
   });
 
   $('[name="app_user[workPhoneNumber]"]').keypress(function (e) {
@@ -53,17 +43,10 @@ $(document).ready(function(){
       var phonenumber = "";
       phonenumber = phonenumber+curval;
       if (curchr == 2 && phonenumber[0] == 0) {
-        $(this).val( curval + " ");
-      } else if (curchr == 2 && phonenumber[0] != 0) {
+        $(this).attr('maxlength', '10');
+      } else if (curchr == 2 && phonenumber[0] != 0 ) {
         e.preventDefault();
-      } else if (curchr == 5) {
-        $(this).val(curval + " ");
-      } else if (curchr == 8) {
-        $(this).val(curval + " ");
-      } else if (curchr == 11) {
-        $(this).val(curval + " ");
-        $(this).attr('maxlength', '14');
-    }
+      }
   });
 
   $('[name="app_user[workFaxNumber]"]').keypress(function (e) {
@@ -75,17 +58,10 @@ $(document).ready(function(){
       var phonenumber = "";
       phonenumber = phonenumber+curval;
       if (curchr == 2 && phonenumber[0] == 0) {
-        $(this).val( curval + " ");
-      } else if (curchr == 2 && phonenumber[0] != 0) {
+        $(this).attr('maxlength', '10');
+      } else if (curchr == 2 && phonenumber[0] != 0 ) {
         e.preventDefault();
-      } else if (curchr == 5) {
-        $(this).val(curval + " ");
-      } else if (curchr == 8) {
-        $(this).val(curval + " ");
-      } else if (curchr == 11) {
-        $(this).val(curval + " ");
-        $(this).attr('maxlength', '14');
-    }
+      }
   });
 
 });

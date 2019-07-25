@@ -71,12 +71,12 @@ class MemberType extends AbstractType
                 ])
                 ->add('homePhoneNumber', TelType::class, [
                     'label' => 'Téléphone fixe',
-                    'help' => 'Seuls les chiffres sont acceptés',
+                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04 ou 05 et ne comporter que des chiffres',
                     'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
                     'label' => 'Téléphone portable',
-                    'help' => 'Seuls les chiffres sont acceptés et les numéros commençants par 06 ou 07',
+                    'help' => 'Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres',
                     'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
