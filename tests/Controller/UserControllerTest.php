@@ -24,7 +24,10 @@ class UserControllerTest extends WebTestCase
         $session = $container->get('session');
 
         // Get the admin user
-        $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneByUsername('admin');
+        $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
+    'username' => 'admin'
+]);
+        //dump($person);
         $token = new UsernamePasswordToken($person, null, 'main', $person->getRoles());
 
         // Set the session
@@ -42,7 +45,7 @@ class UserControllerTest extends WebTestCase
      * Returns a client object and a crawler object.
      * The "user" is connected and on the user list page.
      */
-    public function testAccessUserListPage()
+    public function accessUserListPage()
     {
         $client = $this->connection();
         $crawler = $client->request('GET', '/user/');
@@ -55,265 +58,270 @@ class UserControllerTest extends WebTestCase
         return array($client, $crawler);
     }
 
-    // /**
-    //  * Returns a client object and a crawler object.
-    //  * The "user" is connected and on the edit page.
-    //  */
-    // public function accessEditPage()
-    // {
-    //     $client = $this->connection();
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the edit page.
+     */
+    public function accessEditPage()
+    {
+        $client = $this->connection();
 
-    //     // Get the user (has to exist in the database for now)
-    //     $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneByUsername('admin');
+        // Get the user (has to exist in the database for now)
+        $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
+    'username' => 'admin'
+]);
 
-    //     $editPageUrl = '/user/' . $person->getId() . '/edit';
+        $editPageUrl = '/user/' . $person->getId() . '/edit';
 
-    //     $crawler = $client->request('GET', $editPageUrl);
-    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    //     $this->assertContains(
-    //             'Édition de',
-    //             $client->getResponse()->getContent()
-    //     );
+        $crawler = $client->request('GET', $editPageUrl);
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+                'Édition de',
+                $client->getResponse()->getContent()
+        );
 
-    //     // Keeping this snippet to test the buttons inside the table
+        // Keeping this snippet to test the buttons inside the table
 
-    //     // Select the button of the user created for the test
-    //     // Wont work if there are already more than 10 users in the database
-    //     // $link = $crawler
-    //     //     ->filter('tr > td > a:contains("")')
-    //     //     ->last()
-    //     //     ->link()
-    //     // ;
-    //     // $crawler = $client->click($link);
+        // Select the button of the user created for the test
+        // Wont work if there are already more than 10 users in the database
+        // $link = $crawler
+        //     ->filter('tr > td > a:contains("")')
+        //     ->last()
+        //     ->link()
+        // ;
+        // $crawler = $client->click($link);
 
-    //     return array($client, $crawler);
-    // }
+        return array($client, $crawler);
+    }
 
-    // /**
-    //  * Create a new user
-    //  */
-    // public function testCreate()
-    // {
-    //     $client = $this->connection();
-    //     $crawler = $client->request('GET', '/user/new');
-    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    /**
+     * Create a new user
+     */
+    public function create()
+    {
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/new');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-    //     // Vérifie si la page affiche le bon texte
-    //     $this->assertContains(
-    //             'Enregistrer',
-    //             $client->getResponse()->getContent()
-    //     );
+        // Vérifie si la page affiche le bon texte
+        $this->assertContains(
+                'Enregistrer',
+                $client->getResponse()->getContent()
+        );
 
-    //     // Select the form and fill its values
-    //     $form = $crawler->selectButton(' Créer')->form();
-    //     $values = $form->getPhpValues();
-    //     $values['app_user']['username'] = 'Jean';
-    //     $values['app_user']['plainPassword']['first'] = 'motdepasse';
-    //     $values['app_user']['plainPassword']['second'] = 'motdepasse';
+        // Select the form and fill its values
+        $form = $crawler->selectButton(' Créer')->form();
+        //var_dump(['app_user']['responsibilities'][2]);
+        $form['app_user']['responsibilities'][2]->tick();
+        $values = $form->getPhpValues();
 
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $crawler = $client->followRedirect();
-    //     $this->assertContains(
-    //             'Jean',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+        $values['app_user']['username'] = 'Jean';
+        $values['app_user']['plainPassword']['first'] = 'motdepasse';
+        $values['app_user']['plainPassword']['second'] = 'motdepasse';
 
-    // /**
-    //  * Try to create a new user with the same username as before
-    //  */
-    // public function testCreateFalse()
-    // {
-    //     $client = $this->connection();
-    //     $crawler = $client->request('GET', '/user/new');
-    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $crawler = $client->followRedirect();
+        $this->assertContains(
+                'Jean',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     // Vérifie si la page affiche le bon texte
-    //     $this->assertContains(
-    //             'Enregistrer',
-    //             $client->getResponse()->getContent()
-    //     );
+    /**
+     * Try to create a new user with the same username as before
+     */
+    public function createFalse()
+    {
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/new');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-    //     // Select the form and fill its values
-    //     $form = $crawler->selectButton(' Créer')->form();
-    //     $values = $form->getPhpValues();
-    //     $values['app_user']['username'] = 'Jean';
-    //     $values['app_user']['plainPassword']['first'] = 'motdepasse';
-    //     $values['app_user']['plainPassword']['second'] = 'motdepasse';
+        // Vérifie si la page affiche le bon texte
+        $this->assertContains(
+                'Enregistrer',
+                $client->getResponse()->getContent()
+        );
 
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $this->assertContains(
-    //             'n\'a pas pu être créé.e',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+        // Select the form and fill its values
+        $form = $crawler->selectButton(' Créer')->form();
+        $values = $form->getPhpValues();
+        $values['app_user']['username'] = 'Jean';
+        $values['app_user']['plainPassword']['first'] = 'motdepasse';
+        $values['app_user']['plainPassword']['second'] = 'motdepasse';
 
-    // /**
-    //  * Change the responsibility of the user created for the test
-    //  * Affects the responsibility Gestionnaire 1
-    //  */
-    // public function testEditResponsibility()
-    // {
-    //     $editPage = $this->accessEditPage();
-    //     $client = $editPage[0];
-    //     $crawler = $editPage[1];
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains(
+                'n\'a pas pu être créé.e',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     $form = $crawler->selectButton('Changer les informations')->form();
-    //     $form['app_user']['responsibilities'][1]->tick();
-    //     $crawler = $client->submit($form);
-    //     $crawler = $client->followRedirect();
-    //     $this->assertContains('Les informations ont bien été modifiées',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+    /**
+     * Change the responsibility of the user created for the test
+     * Affects the responsibility Gestionnaire 1
+     */
+    public function editResponsibility()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
 
-    // /**
-    //  * Change the username
-    //  */
-    // public function testEditPseudo()
-    // {
-    //     $editPage = $this->accessEditPage();
-    //     $client = $editPage[0];
-    //     $crawler = $editPage[1];
+        $form = $crawler->selectButton('Changer les informations')->form();
+        $form['app_user']['responsibilities'][3]->tick();
+        $crawler = $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertContains('Les informations ont bien été modifiées',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     $form = $crawler->selectButton('Changer les informations')->form();
-    //     $values = $form->getPhpValues();
-    //     $values['app_user']['username'] = 'René';
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $crawler = $client->followRedirect();
-    //     $this->assertContains('René',
-    //             $client->getResponse()->getContent()
-    //     );
-    //     $this->assertContains('Les informations ont bien été modifiées',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+    /**
+     * Change the username
+     */
+    public function editPseudo()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
 
-    // /**
-    //  * Change the username to something that already exists
-    //  * Assumes admin already exists (based on other tests)
-    //  */
-    // public function testEditPseudoFalse()
-    // {
-    //     $editPage = $this->accessEditPage();
-    //     $client = $editPage[0];
-    //     $crawler = $editPage[1];
+        $form = $crawler->selectButton('Changer les informations')->form();
+        $values = $form->getPhpValues();
+        $values['app_user']['username'] = 'René';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $crawler = $client->followRedirect();
+        $this->assertContains('René',
+                $client->getResponse()->getContent()
+        );
+        $this->assertContains('Les informations ont bien été modifiées',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     $form = $crawler->selectButton('Changer les informations')->form();
-    //     $values = $form->getPhpValues();
-    //     $values['app_user']['username'] = 'admin';
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $this->assertContains("est pas disponible.",
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+    /**
+     * Change the username to something that already exists
+     */
+    public function editPseudoFalse()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
 
-    // /**
-    //  * Change the password
-    //  */
-    // public function testEditPassword()
-    // {
-    //     $editPage = $this->accessEditPage();
-    //     $client = $editPage[0];
-    //     $crawler = $editPage[1];
+        $form = $crawler->selectButton('Changer les informations')->form();
+        $values = $form->getPhpValues();
+        $values['app_user']['username'] = 'info';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains("est pas disponible.",
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     $form = $crawler->selectButton('Changer le mot de passe')->form();
-    //     $values = $form->getPhpValues();
-    //     $values['app_password']['oldPassword'] = 'motdepasse';
-    //     $values['app_password']['plainPassword']['first'] = 'password';
-    //     $values['app_password']['plainPassword']['second'] = 'password';
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $this->assertContains('Le mot de passe a bien été modifié',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+    /**
+     * Change the password
+     */
+    public function editPassword()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
 
-    // /**
-    //  * Try to change the password
-    //  */
-    // public function testEditPasswordFalse()
-    // {
-    //     $editPage = $this->accessEditPage();
-    //     $client = $editPage[0];
-    //     $crawler = $editPage[1];
+        $form = $crawler->selectButton('Changer le mot de passe')->form();
+        $values = $form->getPhpValues();
+        $values['app_password']['oldPassword'] = 'motdepasse';
+        $values['app_password']['plainPassword']['first'] = 'password';
+        $values['app_password']['plainPassword']['second'] = 'password';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains('Le mot de passe a bien été modifié',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //     $form = $crawler->selectButton('Changer le mot de passe')->form();
-    //     $values = $form->getPhpValues();
+    /**
+     * Try to change the password
+     */
+    public function editPasswordFalse()
+    {
+        $editPage = $this->accessEditPage();
+        $client = $editPage[0];
+        $crawler = $editPage[1];
 
-    //     // oldPassword doesnt correspond
-    //     $values['app_password']['oldPassword'] = 'motdepasse';
-    //     $values['app_password']['plainPassword']['first'] = 'password';
-    //     $values['app_password']['plainPassword']['second'] = 'password';
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $this->assertContains('mot de passe ne correspond pas',
-    //             $client->getResponse()->getContent()
-    //     );
+        $form = $crawler->selectButton('Changer le mot de passe')->form();
+        $values = $form->getPhpValues();
 
-    //     // Values of plain password dont correspond
-    //     $values['app_password']['oldPassword'] = 'password';
-    //     $values['app_password']['plainPassword']['first'] = 'kldfh';
-    //     $values['app_password']['plainPassword']['second'] = 'qsdqsd';
-    //     $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-    //     $this->assertContains('Les mots de passe doivent être identiques',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+        // oldPassword doesnt correspond
+        $values['app_password']['oldPassword'] = 'motdepasse';
+        $values['app_password']['plainPassword']['first'] = 'password';
+        $values['app_password']['plainPassword']['second'] = 'password';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains('mot de passe ne correspond pas',
+                $client->getResponse()->getContent()
+        );
 
-    // /**
-    //  * Delete the user created for the test
-    //  */
-    // public function testDelete()
-    // {
-    //    $editPage = $this->accessEditPage();
-    //    $client = $editPage[0];
-    //    $crawler = $editPage[1];
+        // Values of plain password dont correspond
+        $values['app_password']['oldPassword'] = 'password';
+        $values['app_password']['plainPassword']['first'] = 'kldfh';
+        $values['app_password']['plainPassword']['second'] = 'qsdqsd';
+        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+        $this->assertContains('Les mots de passe doivent être identiques',
+                $client->getResponse()->getContent()
+        );
+    }
 
-    //    $form = $crawler->selectButton('delete_button')->form();
-    //    $crawler = $client->submit($form);
-    //    $crawler = $client->followRedirect();
-    //    $this->assertContains('Liste des utilisateurices',
-    //            $client->getResponse()->getContent()
-    //    );
-    // }
+    /**
+     * Delete the user created for the test
+     */
+    public function delete()
+    {
+       $editPage = $this->accessEditPage();
+       $client = $editPage[0];
+       $crawler = $editPage[1];
 
-    // /**
-    //  * Test everything at once
-    //  * Delete from another
-    //  */
-    // public function testAll()
-    // {
-    //     $this->testCreate();
-    //     $this->testEditPseudo();
-    //     $this->testEditResponsability();
-    //     $this->testEditPassword();
+       $form = $crawler->selectButton('delete_button')->form();
+       $crawler = $client->submit($form);
+       $crawler = $client->followRedirect();
+       $this->assertContains('Liste des utilisateurices',
+               $client->getResponse()->getContent()
+       );
+    }
 
-    //     $client = $this->connection();
-    //     $crawler = $client->request('GET', '/user/');
-    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    //     $this->assertContains(
-    //             'Liste des utilisateurices',
-    //             $client->getResponse()->getContent()
-    //     );
-    //     // Select the button of the user created for the test
-    //     // Wont work if there are already more than 10 users in the database
-    //     // Only works for me with 5 other users in the database
-    //     // The id is a link, the delete, show & edit buttons are links
-    //     $link = $crawler
-    //         ->filter('tr > td > a:contains("")')
-    //         ->eq(22)
-    //         ->link()
-    //     ;
-    //     $crawler = $client->click($link);
-    //     $this->assertContains('Profil de René',
-    //             $client->getResponse()->getContent()
-    //     );
-    //     $form = $crawler->selectButton('delete_button')->form();
-    //     $crawler = $client->submit($form);
-    //     $crawler = $client->followRedirect();
-    //     $this->assertContains('Liste des utilisateurices',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
+    /**
+     * Test everything at once
+     * Delete from another
+     */
+    public function testAll()
+    {
+        $this->create();
+        $this->editResponsibility();
+        $this->editPseudo();
+        //$this->editResponsibility();
+        $this->editPassword();
+
+        $client = $this->connection();
+        $crawler = $client->request('GET', '/user/');
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertContains(
+                'Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
+        // Select the button of the user created for the test
+        // Wont work if there are already more than 10 users in the database
+        // Only works for me with 5 other users in the database
+        // The id is a link, the delete, show & edit buttons are links
+        $link = $crawler
+            ->filter('tr > td > a:contains("")')
+            ->eq(22)
+            ->link()
+        ;
+        $crawler = $client->click($link);
+        $this->assertContains('Profil de René',
+                $client->getResponse()->getContent()
+        );
+        $form = $crawler->selectButton('delete_button')->form();
+        $crawler = $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertContains('Liste des utilisateurices',
+                $client->getResponse()->getContent()
+        );
+    }
 
     // /**
     //  * Delete from link in the list
