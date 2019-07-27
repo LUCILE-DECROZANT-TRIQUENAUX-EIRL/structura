@@ -7,6 +7,8 @@ use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 
+use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
+
 class UserControllerTest extends WebTestCase
 {
     /*****************************/
@@ -24,11 +26,15 @@ class UserControllerTest extends WebTestCase
         $session = $container->get('session');
 
         // Get the admin user
-        $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
-    'username' => 'admin'
-]);
-        //dump($person);
-        $token = new UsernamePasswordToken($person, null, 'main', $person->getRoles());
+        $currentUser = self::$kernel
+            ->getContainer()
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => 'admin'
+            ]);
+
+        $token = new UsernamePasswordToken($currentUser, null, 'main', $currentUser->getRoles());
 
         // Set the session
         $session->set('_security_main', serialize($token));
@@ -38,7 +44,10 @@ class UserControllerTest extends WebTestCase
         $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
 
         // Return the client
-        return $client;
+        return [
+            'client' => $client,
+            'currentUser' => $currentUser
+        ];
     }
 
     /**
@@ -47,67 +56,143 @@ class UserControllerTest extends WebTestCase
      */
     public function accessUserListPage()
     {
-        $client = $this->connection();
+        $connection = $this->connection();
+        $client = $connection['client'];
         $crawler = $client->request('GET', '/user/');
+
+        return [
+            'client' => $client,
+            'crawler' => $crawler
+        ];
+    }
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the admin user edit page.
+     */
+    public function accessUserAdminEditPage()
+    {
+        $connection = $this->connection();
+        $client = $connection['client'];
+        $currentUser = $connection['currentUser'];
+
+        $userAdminEditPageUrl = '/user/' . $currentUser->getId() . '/edit';
+
+        $crawler = $client->request('GET', $userAdminEditPageUrl);
+
+        return [
+            'client' => $client,
+            'crawler' => $crawler
+        ];
+    }
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the admin user edit page.
+     */
+    public function accessUserAdherentEditPage()
+    {
+        $connection = $this->connection();
+        $client = $connection['client'];
+
+        // Get the adhe5 user
+        $adherent = self::$kernel
+            ->getContainer()
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => 'adhe5'
+            ]);
+
+        $userAdherentEditPageUrl = '/user/' . $adherent->getId() . '/edit';
+
+        $crawler = $client->request('GET', $userAdherentEditPageUrl);
+
+        return [
+            'client' => $client,
+            'crawler' => $crawler
+        ];
+    }
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the user edit page.
+     */
+    public function accessUserCreationPage()
+    {
+        $connection = $this->connection();
+        $client = $connection['client'];
+        $currentUser = $connection['currentUser'];
+
+        $crawler = $client->request('GET', '/user/new');
+
+        return [
+            'client' => $client,
+            'crawler' => $crawler
+        ];
+    }
+
+    /*****************************/
+    /* ~~~~~ Test methods ~~~~~~ */
+    /*****************************/
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the user creation page.
+     */
+    public function testAccessUserCreationPage()
+    {
+        $userCreationPage = $this->accessUserCreationPage();
+        $client = $userCreationPage['client'];
+
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        // Vérifie si la page affiche le bon texte
+        $this->assertContains(
+                'Enregistrer',
+                $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Returns a client object and a crawler object.
+     * The "user" is connected and on the user list page.
+     */
+    public function testAccessUserListPage()
+    {
+        $userListPage = $this->accessUserListPage();
+        $client = $userListPage['client'];
+
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains(
                 'Liste des utilisateurices',
                 $client->getResponse()->getContent()
         );
-
-        return array($client, $crawler);
     }
 
     /**
      * Returns a client object and a crawler object.
      * The "user" is connected and on the edit page.
      */
-    public function accessEditPage()
+    public function testAccessEditPage()
     {
-        $client = $this->connection();
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
 
-        // Get the user (has to exist in the database for now)
-        $person = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy([
-    'username' => 'admin'
-]);
-
-        $editPageUrl = '/user/' . $person->getId() . '/edit';
-
-        $crawler = $client->request('GET', $editPageUrl);
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains(
                 'Édition de',
                 $client->getResponse()->getContent()
         );
-
-        // Keeping this snippet to test the buttons inside the table
-
-        // Select the button of the user created for the test
-        // Wont work if there are already more than 10 users in the database
-        // $link = $crawler
-        //     ->filter('tr > td > a:contains("")')
-        //     ->last()
-        //     ->link()
-        // ;
-        // $crawler = $client->click($link);
-
-        return array($client, $crawler);
     }
 
     /**
      * Create a new user
      */
-    public function create()
+    public function testCreate()
     {
-        $client = $this->connection();
-        $crawler = $client->request('GET', '/user/new');
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-
-        // Vérifie si la page affiche le bon texte
-        $this->assertContains(
-                'Enregistrer',
-                $client->getResponse()->getContent()
-        );
+        $userCreationPage = $this->accessUserCreationPage();
+        $client = $userCreationPage['client'];
+        $crawler = $userCreationPage['crawler'];
 
         // Select the form and fill its values
         $form = $crawler->selectButton(' Créer')->form();
@@ -128,28 +213,23 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Try to create a new user with the same username as before
+     * Try to create a new user with the an already taken username
      */
-    public function createFalse()
+    public function testCreateFalse()
     {
-        $client = $this->connection();
-        $crawler = $client->request('GET', '/user/new');
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-
-        // Vérifie si la page affiche le bon texte
-        $this->assertContains(
-                'Enregistrer',
-                $client->getResponse()->getContent()
-        );
+        $userCreationPage = $this->accessUserCreationPage();
+        $client = $userCreationPage['client'];
+        $crawler = $userCreationPage['crawler'];
 
         // Select the form and fill its values
         $form = $crawler->selectButton(' Créer')->form();
         $values = $form->getPhpValues();
-        $values['app_user']['username'] = 'Jean';
+        $values['app_user']['username'] = 'admin';
         $values['app_user']['plainPassword']['first'] = 'motdepasse';
         $values['app_user']['plainPassword']['second'] = 'motdepasse';
 
         $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+
         $this->assertContains(
                 'n\'a pas pu être créé.e',
                 $client->getResponse()->getContent()
@@ -160,11 +240,11 @@ class UserControllerTest extends WebTestCase
      * Change the responsibility of the user created for the test
      * Affects the responsibility Gestionnaire 1
      */
-    public function editResponsibility()
+    public function testEditResponsibility()
     {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
+        $crawler = $userAdminEditPage['crawler'];
 
         $form = $crawler->selectButton('Changer les informations')->form();
         $form['app_user']['responsibilities'][3]->tick();
@@ -178,11 +258,11 @@ class UserControllerTest extends WebTestCase
     /**
      * Change the username
      */
-    public function editPseudo()
+    public function testEditPseudo()
     {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
+        $crawler = $userAdminEditPage['crawler'];
 
         $form = $crawler->selectButton('Changer les informations')->form();
         $values = $form->getPhpValues();
@@ -200,16 +280,17 @@ class UserControllerTest extends WebTestCase
     /**
      * Change the username to something that already exists
      */
-    public function editPseudoFalse()
+    public function testEditPseudoFalse()
     {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
+        $crawler = $userAdminEditPage['crawler'];
 
         $form = $crawler->selectButton('Changer les informations')->form();
         $values = $form->getPhpValues();
         $values['app_user']['username'] = 'info';
         $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
+
         $this->assertContains("est pas disponible.",
                 $client->getResponse()->getContent()
         );
@@ -218,15 +299,15 @@ class UserControllerTest extends WebTestCase
     /**
      * Change the password
      */
-    public function editPassword()
+    public function testEditPassword()
     {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
+        $crawler = $userAdminEditPage['crawler'];
 
         $form = $crawler->selectButton('Changer le mot de passe')->form();
         $values = $form->getPhpValues();
-        $values['app_password']['oldPassword'] = 'motdepasse';
+        $values['app_password']['oldPassword'] = 'a';
         $values['app_password']['plainPassword']['first'] = 'password';
         $values['app_password']['plainPassword']['second'] = 'password';
         $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
@@ -238,11 +319,11 @@ class UserControllerTest extends WebTestCase
     /**
      * Try to change the password
      */
-    public function editPasswordFalse()
+    public function testEditPasswordFalse()
     {
-        $editPage = $this->accessEditPage();
-        $client = $editPage[0];
-        $crawler = $editPage[1];
+        $userAdminEditPage = $this->accessUserAdminEditPage();
+        $client = $userAdminEditPage['client'];
+        $crawler = $userAdminEditPage['crawler'];
 
         $form = $crawler->selectButton('Changer le mot de passe')->form();
         $values = $form->getPhpValues();
@@ -269,11 +350,11 @@ class UserControllerTest extends WebTestCase
     /**
      * Delete the user created for the test
      */
-    public function delete()
+    public function testDelete()
     {
-       $editPage = $this->accessEditPage();
-       $client = $editPage[0];
-       $crawler = $editPage[1];
+       $userAdherentEditPage = $this->accessUserAdherentEditPage();
+       $client = $userAdherentEditPage['client'];
+       $crawler = $userAdherentEditPage['crawler'];
 
        $form = $crawler->selectButton('delete_button')->form();
        $crawler = $client->submit($form);
@@ -287,41 +368,41 @@ class UserControllerTest extends WebTestCase
      * Test everything at once
      * Delete from another
      */
-    public function testAll()
-    {
-        $this->create();
-        $this->editResponsibility();
-        $this->editPseudo();
-        //$this->editResponsibility();
-        $this->editPassword();
+    // public function testAll()
+    // {
+    //     $this->create();
+    //     $this->editResponsibility();
+    //     $this->editPseudo();
+    //     //$this->editResponsibility();
+    //     $this->editPassword();
 
-        $client = $this->connection();
-        $crawler = $client->request('GET', '/user/');
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains(
-                'Liste des utilisateurices',
-                $client->getResponse()->getContent()
-        );
-        // Select the button of the user created for the test
-        // Wont work if there are already more than 10 users in the database
-        // Only works for me with 5 other users in the database
-        // The id is a link, the delete, show & edit buttons are links
-        $link = $crawler
-            ->filter('tr > td > a:contains("")')
-            ->eq(22)
-            ->link()
-        ;
-        $crawler = $client->click($link);
-        $this->assertContains('Profil de René',
-                $client->getResponse()->getContent()
-        );
-        $form = $crawler->selectButton('delete_button')->form();
-        $crawler = $client->submit($form);
-        $crawler = $client->followRedirect();
-        $this->assertContains('Liste des utilisateurices',
-                $client->getResponse()->getContent()
-        );
-    }
+    //     $connection = $this->connection();
+    //     $crawler = $client->request('GET', '/user/');
+    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    //     $this->assertContains(
+    //             'Liste des utilisateurices',
+    //             $client->getResponse()->getContent()
+    //     );
+    //     // Select the button of the user created for the test
+    //     // Wont work if there are already more than 10 users in the database
+    //     // Only works for me with 5 other users in the database
+    //     // The id is a link, the delete, show & edit buttons are links
+    //     $link = $crawler
+    //         ->filter('tr > td > a:contains("")')
+    //         ->eq(22)
+    //         ->link()
+    //     ;
+    //     $crawler = $client->click($link);
+    //     $this->assertContains('Profil de René',
+    //             $client->getResponse()->getContent()
+    //     );
+    //     $form = $crawler->selectButton('delete_button')->form();
+    //     $crawler = $client->submit($form);
+    //     $crawler = $client->followRedirect();
+    //     $this->assertContains('Liste des utilisateurices',
+    //             $client->getResponse()->getContent()
+    //     );
+    // }
 
     // /**
     //  * Delete from link in the list
@@ -330,7 +411,7 @@ class UserControllerTest extends WebTestCase
     // {
     //     $this->testCreate();
 
-    //     $client = $this->connection();
+    //     $connection = $this->connection();
     //     $crawler = $client->request('GET', '/user/');
     //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     //     $this->assertContains(
