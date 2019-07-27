@@ -1,8 +1,7 @@
-# Function definition
-setup_env_file() {
-    env=$1
+### Function definition ###
 
-    echo "Since you have no database configuration file for ${env} environnement we will create one."
+# Will ask user input to generate the database_url
+ask_user_input() {
     echo 'Please enter the following information.'
 
     # Ask and read database_host with default value 127.0.0.1
@@ -34,6 +33,29 @@ setup_env_file() {
 
     # Concatening previous data to form the database connection string (also named url) for doctrine
     database_url="mysql://${database_user}:${database_password}@${database_host}:${database_port}/${database_name}"
+}
+
+# Will populate the phpunit.xml file with database_url
+# Call this in test env only
+setup_phpunit_file() {
+    # We manage the case when there is no phpunit.xml file by copying the .dist
+    if [ ! -f "phpunit.xml" ]
+    then
+        cp phpunit.xml.dist phpunit.xml
+    fi
+
+    # Creating vars for more visibility
+    line_to_search="<env name=\\\"DATABASE_URL\\\".*"
+    line_to_replace="<env name=\\\"DATABASE_URL\\\" value=\\\"${database_url}\\\" />"
+
+    # Replacing the database url line with actual user input
+    sed -i "s#${line_to_search}#${line_to_replace}#g" ./phpunit.xml
+}
+
+# Will create a .env.local_for_{env} file
+setup_env_file() {
+    # Asking user DB informations
+    ask_user_input
 
     # Puting the file name in a var according to the env var, for more lisibility
     env_file_name=".env.local_for_${env}"
@@ -49,19 +71,37 @@ setup_env_file() {
     echo "###> symfony/swiftmailer-bundle ###" >> $env_file_name
     echo "MAILER_URL=null://localhost" >> $env_file_name
     echo "###< symfony/swiftmailer-bundle ###" >> $env_file_name
+
+    # If we are in test env, we are also modifying the phpunit.xml file
+    if [ $env = "test" ]
+    then
+        setup_phpunit_file
+    fi
 }
 
 # Puting the given param in a var
 env=$1
 
-if [[ "$env" != "dev" && "$env" != "test" ]]
+if [ "$env" != "dev" ] && [ "$env" != "test" ]
 then
     echo 'Unknown environment. Exiting the script.'
     exit 2
 fi
 
-# If there is no file we will write one from user input
-if [ ! -f ".env.local_for_${env}" ]; then setup_env_file $env ; fi
+# If there is no env file we will write one from user input
+# But also the phpunit.xml file in test env
+if [ ! -f ".env.local_for_${env}" ]
+then
+    echo "Since you have no database configuration file for ${env} environnement we will create one."
+    setup_env_file
+# If there is an env file, we also check on the phpunit.xml file
+# In test env only
+elif [ ! -f "phpunit.xml" ] && [ "$env" = "test" ]
+then
+    echo "Since you have no phpunit.xml file we will create one."
+    ask_user_input
+    setup_phpunit_file
+fi
 
 # If the .env.local file already exist
 if [ -f ".env.local" ]
@@ -69,7 +109,6 @@ then
     # We are removig it
     rm .env.local
 fi
-
 
 # Making a new with the right parameters (dev or test depending on user input)
 cp ".env.local_for_${env}" .env.local
