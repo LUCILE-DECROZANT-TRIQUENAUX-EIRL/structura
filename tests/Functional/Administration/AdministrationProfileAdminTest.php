@@ -50,7 +50,7 @@ class AdministrationProfileAdminTest extends WebTestCase
          $node = new NodeElement('//a[contains(.,"Liste des comptes")]', $mink->getSession());
          $node->click();
          // Go to profile page
-         $node = new NodeElement('(//a[@data-original-title="Voir le profil"])[1]', $mink->getSession());
+         $node = new NodeElement('(//a[@data-original-title="Voir le profil"])', $mink->getSession());
          $node->click();
 
          return $mink;
