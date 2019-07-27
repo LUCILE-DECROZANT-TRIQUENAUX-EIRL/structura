@@ -217,6 +217,11 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $currentUsername = $currentUser->getUsername();
+
+            // Making sure there is no Fk error when deleting the user
+            $people = $currentUser->getPeople();
+            $people->setUser(NULL);
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($currentUser);
             $em->flush();
