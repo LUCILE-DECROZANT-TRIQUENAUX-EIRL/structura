@@ -98,7 +98,7 @@ then
 # In test env only
 elif [ ! -f "phpunit.xml" ] && [ "$env" = "test" ]
 then
-    echo "Since you have no phpunit.xml file we will create one."
+    echo "Since you have no ./phpunit.xml file we will create one."
     ask_user_input
     setup_phpunit_file
 fi
