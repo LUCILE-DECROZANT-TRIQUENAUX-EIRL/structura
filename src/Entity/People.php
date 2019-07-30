@@ -175,9 +175,14 @@ class People
     /**
      *
      */
-    function __construct()
-    {
-    }
+     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
+     {
+         $this->id = $id;
+         $this->user = $user;
+         $this->denomination = $denomination;
+         $this->firstName = $firstName;
+         $this->lastName = $lastName;
+     }
 
     /**
      * Get id

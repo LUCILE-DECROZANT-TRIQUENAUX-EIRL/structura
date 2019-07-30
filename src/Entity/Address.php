@@ -59,7 +59,7 @@ class Address
      * @param string $city The city.
      * @param string $country Country.
      */
-    public function __construct(string $line, string $postalCode, string $city, string $country)
+    public function __construct(string $line = NULL, string $postalCode = NULL, string $city = NULL, string $country = NULL)
     {
         $this->line = $line;
         $this->postalCode = $postalCode;

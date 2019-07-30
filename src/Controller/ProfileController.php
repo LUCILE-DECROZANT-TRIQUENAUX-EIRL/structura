@@ -138,7 +138,7 @@ class ProfileController extends AbstractController
      * @param User $currentUser The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/editsensible", name="profile_editsensible", methods={"GET", "POST"})
-     * @Security("(user.getId() == id) && is_granted('ROLE_ADMIN')")
+     * @Security("user.getId() == id")
      */
     public function editSensibleAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {

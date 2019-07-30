@@ -291,5 +291,6 @@ class User implements UserInterface
     public function setPeople(People $people = null)
     {
         $this->people = $people;
+        return $this;
     }
 }

@@ -134,6 +134,8 @@ class Responsibility
     function setDescription(string $description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
 }
