@@ -1,7 +1,5 @@
 {% extends 'Home/base.html.twig' %}
 
-{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
-
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
     <script src="{{ asset('javascript/Member/phone.js') }}"></script>
@@ -22,19 +20,11 @@
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_show', { 'id': member.id }) }}">
-            {% if app.user.username == member.user.username %}
-                Mon profil
-            {% else %}
-                Profil de {{ member.user.username }}
-            {% endif %}
+            Profil de {{ member.firstName }} {{ member.lastName }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% if app.user.username == member.user.username %}
-            Éditer mon profil
-        {% else %}
-            Éditer le profil de {{ member.user.username }}
-        {% endif %}
+        Éditer le profil de {{ member.firstName }} {{ member.lastName }}
     </li>
 {% endblock %}
 
