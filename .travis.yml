@@ -8,7 +8,7 @@ services:
 
 install:
   - composer install --no-interaction
-  - echo "USE mysql;\nSELECT host, user, password FROM mysql.user;\n" | mysql -u root
+  - echo "USE mysql;\nSELECT host, user FROM mysql.user;\n" | mysql -u root
   - echo "USE mysql;\nSET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('${MYSQL_PASSWORD}');\nFLUSH PRIVILEGES;\n" | mysql -u root
   - echo "USE mysql;\nSET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');\nFLUSH PRIVILEGES;\n" | mysql -u root
   - ./bin/console doctrine:database:create --env=travis
