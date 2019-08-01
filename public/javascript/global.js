@@ -94,8 +94,7 @@ $(document).ready(function () {
                 },
                 columns: sortableColumns,
                 language: {
-                    search: '',
-                    searchPlaceholder: 'Rechercher',
+                    url: '/json/datatable/fr_FR.json',
                 },
                 buttons: buttons,
                 dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
