@@ -8,7 +8,7 @@ services:
 
 install:
   - composer install --no-interaction
-  - mysql -v
+  - mysql --version
   - echo "USE mysql;\ndesc user\n" | mysql -u root
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('${MYSQL_PASSWORD}') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - ./bin/console doctrine:database:create --env=travis
