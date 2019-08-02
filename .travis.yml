@@ -11,9 +11,9 @@ install:
   - composer install --no-interaction
   - echo "USE mysql;\nSELECT host, user FROM mysql.user;\n" | mysql -u root
   - echo "USE mysql;\nSET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - ./server_start_aaasso.sh travis
-  - ./bin/console doctrine:database:create --env=travis
-  - ./bin/console doctrine:migration:migrate --env=travis --no-interaction
+  - ./server_start_aaasso.sh test&
+  - ./bin/console doctrine:database:create --env=test
+  - ./bin/console doctrine:migration:migrate --env=test --no-interaction
 
 script:
   - ./vendor/bin/simple-phpunit
