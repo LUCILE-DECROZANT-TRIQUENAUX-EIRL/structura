@@ -3,7 +3,7 @@ security:
     # define the algorythm used to hash the password
     encoders:
         App\Entity\User:
-            algorithm: auto
+            algorithm: bcrypt
 
     # define the class used to login
     providers:
