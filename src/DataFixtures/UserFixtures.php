@@ -24,96 +24,21 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        /**********************/
-        /*  Responsibilities  */
-        /**********************/
-         // ROLE_ADMIN
-        $roleAdmin = new Responsibility();
-        $roleAdmin->setCode('ROLE_ADMIN');
-        $roleAdmin->setLabel('Administrateurice de la base de données');
-        $roleAdmin->setDescription('Peut consulter ou restaurer les données archivées non sensibles.');
-
-        $manager->persist($roleAdmin);
-
-        // ROLE_ADMIN_SENSIBLE
-        $roleAdminSensible = new Responsibility();
-        $roleAdminSensible->setCode('ROLE_ADMIN_SENSIBLE');
-        $roleAdminSensible->setLabel('Administrateurice des données sensibles');
-        $roleAdminSensible->setDescription('Peut consulter ou restaurer les données sensibles archivées.');
-
-        $manager->persist($roleAdminSensible);
-
-        // ROLE_GESTION
-        $roleGestion = new Responsibility();
-        $roleGestion->setCode('ROLE_GESTION');
-        $roleGestion->setLabel('Gestionnaire');
-        $roleGestion->setDescription('Permet d\'afficher, éditer, supprimer les données non sensibles d\'autres comptes, de créer des comptes utilisateurice, d\'éditer les rôles d\'autres comptes (mis à part les rôles sensibles) et de consulter, modifier et supprimer des informations dans l\'annuaire des professionnels de santé.');
-
-        $manager->persist($roleGestion);
-
-        // ROLE_GESTION_SENSIBLE
-        $roleGestionSensible = new Responsibility();
-        $roleGestionSensible->setCode('ROLE_GESTION_SENSIBLE');
-        $roleGestionSensible->setLabel('Gestionnaire des données sensibles');
-        $roleGestionSensible->setDescription('Permet d\'afficher, éditer, supprimer les données sensibles d\'autres comptes et d\'éditer les rôles liés aux données sensibles.');
-
-        $manager->persist($roleGestionSensible);
-
-        // ROLE_INFORMATEURICE
-        $roleInformateurice = new Responsibility();
-        $roleInformateurice->setCode('ROLE_INFORMATEURICE');
-        $roleInformateurice->setLabel('Informateurice');
-        $roleInformateurice->setDescription('Permet de créer, afficher, éditer et supprimer un événement ou une newsletter et d\'envoyer les newsletters.');
-
-        $manager->persist($roleInformateurice);
-
-        // ROLE_ADHERENT_E
-        $roleAdherentE = new Responsibility();
-        $roleAdherentE->setCode('ROLE_ADHERENT_E');
-        $roleAdherentE->setLabel('Adhérent.e');
-        $roleAdherentE->setDescription('Permet de recevoir la newsletter, les convocations à l\'AG, les invitations aux événements, de consulter les documents des AG des années de cotisation, de voir les événements "privés" et de renouveler son adhésion.');
-
-        $manager->persist($roleAdherentE);
-
-        // ROLE_EX_ADHERENT_E
-        $roleExAdherentE = new Responsibility();
-        $roleExAdherentE->setCode('ROLE_EX_ADHERENT_E');
-        $roleExAdherentE->setLabel('Ex-adhérent.e');
-        $roleExAdherentE->setDescription('Permet de recevoir une relance pour adhérer à l\'association, renouveler son adhésion et consulter les documents des AG des années de cotisation.');
-
-        $manager->persist($roleExAdherentE);
-
-        // ROLE_MECENE
-        $roleMecene = new Responsibility();
-        $roleMecene->setCode('ROLE_MECENE');
-        $roleMecene->setLabel('Mécène');
-        $roleMecene->setDescription('Peut faire des dons.');
-
-        $manager->persist($roleMecene);
-
-        // ROLE_SYMPATHISANT_E
-        $roleSympathisantE = new Responsibility();
-        $roleSympathisantE->setCode('ROLE_SYMPATHISANT_E');
-        $roleSympathisantE->setLabel('Sympathisant.e');
-        $roleSympathisantE->setDescription('Peut recevoir la newsletter et adhérer à l\'association.');
-
-        $manager->persist($roleSympathisantE);
-
-        // ROLE_CONSULTATION_ANNUAIRE
-        $roleConsultationAnnuaire = new Responsibility();
-        $roleConsultationAnnuaire->setCode('ROLE_CONSULTATION_ANNUAIRE');
-        $roleConsultationAnnuaire->setLabel('Consultation de l\'annuaire');
-        $roleConsultationAnnuaire->setDescription('Donne l\'accès à la consultation de l\'annuaire des professionnels de santé.');
-
-        $manager->persist($roleConsultationAnnuaire);
-
-        // ROLE_INSCRIT_E
-        $roleInscritE = new Responsibility();
-        $roleInscritE->setCode('ROLE_INSCRIT_E');
-        $roleInscritE->setLabel('Inscrit.e');
-        $roleInscritE->setDescription('Permet de voir les informations de son compte, de les éditer, de les archiver et de demander l\'accès à l\'annuaire des professionels de santé.');
-
-        $manager->persist($roleInscritE);
+        /***************************************************/
+        /*  Responsibilities are created during migration  */
+        /***************************************************/
+                $responsibilityRepository = $manager->getRepository(Responsibility::class);
+        $roleAdmin = $responsibilityRepository->findOneBy(['code' => 'ROLE_ADMIN']);
+        $roleAdminSensible = $responsibilityRepository->findOneBy(['code' => 'ROLE_ADMIN_SENSIBLE']);
+        $roleGestion = $responsibilityRepository->findOneBy(['code' => 'ROLE_GESTION']);
+        $roleGestionSensible = $responsibilityRepository->findOneBy(['code' => 'ROLE_GESTION_SENSIBLE']);
+        $roleInformateurice = $responsibilityRepository->findOneBy(['code' => 'ROLE_INFORMATEURICE']);
+        $roleAdherentE = $responsibilityRepository->findOneBy(['code' => 'ROLE_ADHERENT_E']);
+        $roleExAdherentE = $responsibilityRepository->findOneBy(['code' => 'ROLE_EX_ADHERENT_E']);
+        $roleMecene = $responsibilityRepository->findOneBy(['code' => 'ROLE_MECENE']);
+        $roleSympathisantE = $responsibilityRepository->findOneBy(['code' => 'ROLE_SYMPATHISANT_E']);
+        $roleConsultationAnnuaire = $responsibilityRepository->findOneBy(['code' => 'ROLE_CONSULTATION_ANNUAIRE']);
+        $roleInscritE = $responsibilityRepository->findOneBy(['code' => 'ROLE_INSCRIT_E']);
 
         /**********************/
         /*    Denominations   */
@@ -142,8 +67,8 @@ class UserFixtures extends Fixture
         $userAdminSensible = new User();
         $userAdminSensible->setUsername('adminSensible');
 
-        $password = $this->encoder->encodePassword($userAdminSensible, 'a');
-        $userAdminSensible->setPassword($password);
+        $passwordAdminSensible = $this->encoder->encodePassword($userAdminSensible, 'a');
+        $userAdminSensible->setPassword($passwordAdminSensible);
 
         $peopleAdminSensible = new People();
 
@@ -181,8 +106,8 @@ class UserFixtures extends Fixture
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
 
-        $password = $this->encoder->encodePassword($userAdmin, 'a');
-        $userAdmin->setPassword($password);
+        $passwordAdmin = $this->encoder->encodePassword($userAdmin, 'a');
+        $userAdmin->setPassword($passwordAdmin);
 
         $peopleAdmin = new People();
 
@@ -218,8 +143,8 @@ class UserFixtures extends Fixture
         $userGestionnaireSensible = new User();
         $userGestionnaireSensible->setUsername('gestiSensible');
 
-        $password = $this->encoder->encodePassword($userGestionnaireSensible, 'a');
-        $userGestionnaireSensible->setPassword($password);
+        $passwordGestionnaireSensible = $this->encoder->encodePassword($userGestionnaireSensible, 'a');
+        $userGestionnaireSensible->setPassword($passwordGestionnaireSensible);
 
         $peopleGestionnaireSensible = new People();
 
@@ -256,8 +181,8 @@ class UserFixtures extends Fixture
         $userGestionnaire1 = new User();
         $userGestionnaire1->setUsername('gest1');
 
-        $password = $this->encoder->encodePassword($userGestionnaire1, 'a');
-        $userGestionnaire1->setPassword($password);
+        $passwordGestionnaire1 = $this->encoder->encodePassword($userGestionnaire1, 'a');
+        $userGestionnaire1->setPassword($passwordGestionnaire1);
 
         $peopleGestionnaire1 = new People();
 
@@ -292,8 +217,8 @@ class UserFixtures extends Fixture
         $userGestionnaire2 = new User();
         $userGestionnaire2->setUsername('gest2');
 
-        $password = $this->encoder->encodePassword($userGestionnaire2, 'a');
-        $userGestionnaire2->setPassword($password);
+        $passwordGestionnaire2 = $this->encoder->encodePassword($userGestionnaire2, 'a');
+        $userGestionnaire2->setPassword($passwordGestionnaire2);
 
         $peopleGestionnaire2 = new People();
 
@@ -328,8 +253,8 @@ class UserFixtures extends Fixture
         $userInformateurice = new User();
         $userInformateurice->setUsername('info');
 
-        $password = $this->encoder->encodePassword($userInformateurice, 'a');
-        $userInformateurice->setPassword($password);
+        $passwordInformateurice = $this->encoder->encodePassword($userInformateurice, 'a');
+        $userInformateurice->setPassword($passwordInformateurice);
 
         $peopleInformateurice = new People();
 
@@ -363,10 +288,10 @@ class UserFixtures extends Fixture
         $userAdherentE1 = new User();
         $userAdherentE1->setUsername('adhe1');
 
-        $peopleAdherentE1 = new People();
+        $passwordAdherentE1 = $this->encoder->encodePassword($userAdherentE1, 'a');
+        $userAdherentE1->setPassword($passwordAdherentE1);
 
-        $password = $this->encoder->encodePassword($userAdherentE1, 'a');
-        $userAdherentE1->setPassword($password);
+        $peopleAdherentE1 = new People();
 
         $peopleAdherentE1->setDenomination($madame);
         $peopleAdherentE1->setFirstName('Jeanne');
@@ -397,10 +322,10 @@ class UserFixtures extends Fixture
         $userAdherentE2 = new User();
         $userAdherentE2->setUsername('adhe2');
 
-        $peopleAdherentE2 = new People();
+        $passwordAdherentE2 = $this->encoder->encodePassword($userAdherentE2, 'a');
+        $userAdherentE2->setPassword($passwordAdherentE2);
 
-        $password = $this->encoder->encodePassword($userAdherentE2, 'a');
-        $userAdherentE2->setPassword($password);
+        $peopleAdherentE2 = new People();
 
         $peopleAdherentE2->setDenomination($madame);
         $peopleAdherentE2->setFirstName('Arlette');
@@ -431,8 +356,8 @@ class UserFixtures extends Fixture
         $userAdherentE3 = new User();
         $userAdherentE3->setUsername('adhe3');
 
-        $password = $this->encoder->encodePassword($userAdherentE3, 'a');
-        $userAdherentE3->setPassword($password);
+        $passwordAdherentE3 = $this->encoder->encodePassword($userAdherentE3, 'a');
+        $userAdherentE3->setPassword($passwordAdherentE3);
 
         $peopleAdherentE3 = new People();
 
@@ -465,8 +390,8 @@ class UserFixtures extends Fixture
         $userAdherentE4 = new User();
         $userAdherentE4->setUsername('adhe4');
 
-        $password = $this->encoder->encodePassword($userAdherentE4, 'a');
-        $userAdherentE4->setPassword($password);
+        $passwordAdherentE4 = $this->encoder->encodePassword($userAdherentE4, 'a');
+        $userAdherentE4->setPassword($passwordAdherentE4);
 
         $peopleAdherentE4 = new People();
 
@@ -499,8 +424,8 @@ class UserFixtures extends Fixture
         $userAdherentE5 = new User();
         $userAdherentE5->setUsername('adhe5');
 
-        $password = $this->encoder->encodePassword($userAdherentE5, 'a');
-        $userAdherentE5->setPassword($password);
+        $passwordAdherentE5 = $this->encoder->encodePassword($userAdherentE5, 'a');
+        $userAdherentE5->setPassword($passwordAdherentE5);
 
         $peopleAdherentE5 = new People();
 
@@ -534,8 +459,8 @@ class UserFixtures extends Fixture
         $userAdminUniquement = new User();
         $userAdminUniquement ->setUsername('adminUniquement');
 
-        $password = $this->encoder->encodePassword($userAdminUniquement, 'a');
-        $userAdminUniquement->setPassword($password);
+        $passwordAdminUniquement = $this->encoder->encodePassword($userAdminUniquement, 'a');
+        $userAdminUniquement->setPassword($passwordAdminUniquement);
 
         $peopleAdminUniquement = new People();
 
@@ -568,8 +493,8 @@ class UserFixtures extends Fixture
         $userTest = new User();
         $userTest ->setUsername('test');
 
-        $password = $this->encoder->encodePassword($userTest, 'a');
-        $userTest->setPassword($password);
+        $passwordTest = $this->encoder->encodePassword($userTest, 'a');
+        $userTest->setPassword($passwordTest);
 
         $peopleTest = new People();
 
