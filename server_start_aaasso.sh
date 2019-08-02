@@ -131,6 +131,21 @@ then
     # Concatening previous data to form the database connection string (also named url) for doctrine
     database_url="mysql://${database_user}:${database_password}@${database_host}:${database_port}/${database_name}"
 
+    # We are removing the conf file if it already exist
+    if [ -f ".env.local_for_${env}" ]
+    then
+        # We are removig it
+        rm ".env.local_for_${env}"
+    fi
+
+    # We are removing the phpunit file if it already exist
+    # Test env only
+    if [ -f "phpunit.xml" ] && [ "$env" = "test" ]
+    then
+        # We are removig it
+        rm phpunit.xml
+    fi
+
     # Generating env and php unit files
     setup_env_file
 
