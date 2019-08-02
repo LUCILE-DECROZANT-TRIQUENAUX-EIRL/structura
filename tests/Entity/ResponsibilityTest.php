@@ -33,10 +33,10 @@ class ResponsibilityTest extends TestCase
     public function testDescription()
     {
         $resp = new Responsibility();
-        $resp = $resp->setCode('Administre la base de données');
-        $desc = $resp->getCode();
+        $resp = $resp->setDescription('Administre la base de données');
+        $desc = $resp->getDescription();
         $this->assertContains('Administre',$desc);
-        $this->assertContains('données',$desc);
     }
+
 }
 ?>

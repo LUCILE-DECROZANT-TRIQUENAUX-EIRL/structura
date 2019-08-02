@@ -15,8 +15,6 @@
 {% endblock %}
 
 {% block body %}
-
-
     <br>
     <div class="container">
         <div class="row">
@@ -86,14 +84,13 @@
                                 <i class="icon ion-md-create"></i>
                             </a>
                         </td>
-                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal">
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal-deletion-user-{{ user.id }}">
                             <a
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
                                 title="Supprimer le profil"
                                 >
                                 <i class="icon ion-md-trash"></i>
-                                {% set delete_user_form = user_deletion_forms[user.id] %}
                             </a>
                         </td>
                     </tr>
@@ -103,27 +100,37 @@
         </table>
     </div>
 
-    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Souhaitez-vous réellement supprimer ce profil ?</p>
-                    <div class="alert alert-warning" role="alert">
-                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+    {# Creation of the confirmation modals, one per user #}
+    {% for user in users %}
+        {% set delete_user_form = user_deletion_forms[user.id] %}
+        <div id="confirmation-modal-deletion-user-{{ user.id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>
+                            Souhaitez-vous réellement supprimer le profil de <strong>{{ user.username }}</strong> ?
+                        </p>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
-                    </div>
-                    <div class="col text-right">
-                    {{ form_start(delete_user_form) }}
-                    <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;Supprimer </button>
-                    {{ form_end(delete_user_form) }}
+                    <div class="modal-footer">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;Annuler
+                            </button>
+                        </div>
+                        <div class="col text-right">
+                        {{ form_start(delete_user_form) }}
+                            <button type="submit" class="btn btn-danger" id="delete_button">
+                                <i class="icon ion-md-trash" ></i>&nbsp;Supprimer 
+                            </button>
+                        {{ form_end(delete_user_form) }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endfor %}
 
 {% endblock %}

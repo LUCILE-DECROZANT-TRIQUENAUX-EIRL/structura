@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\People;
+use App\Entity\Address;
 use App\Form\MemberType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,6 +64,17 @@ class MemberController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+            if ($currentUser->getAddresses()['__name__'] === null)
+            {
+                $address = new Address();
+                $currentUser->setAddresses([$address]);
+            }
+            else
+            {
+                $address = $currentUser->getAddresses()['__name__'];
+                $currentUser->setAddresses([$address]);
+            }
+            $em->persist($address);
             $em->persist($currentUser);
             $em->flush();
 
@@ -70,7 +82,7 @@ class MemberController extends AbstractController
                     'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $currentUser->getFirstName(), $currentUser->getLastName())
             );
 
-            return $this->redirectToRoute('member_show', array('id' => $individual->getId()));
+            return $this->redirectToRoute('member_show', array('id' => $currentUser->getId()));
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {

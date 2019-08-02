@@ -175,9 +175,14 @@ class People
     /**
      *
      */
-    function __construct()
-    {
-    }
+     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
+     {
+         $this->id = $id;
+         $this->user = $user;
+         $this->denomination = $denomination;
+         $this->firstName = $firstName;
+         $this->lastName = $lastName;
+     }
 
     /**
      * Get id
@@ -347,9 +352,15 @@ class People
      */
     public function setHomePhoneNumber(string $homePhoneNumber)
     {
-        $this->homePhoneNumber = $homePhoneNumber;
-
-        return $this;
+        if (!is_numeric($homePhoneNumber))
+        {
+            throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
+        }
+        else
+        {
+            $this->homePhoneNumber = $homePhoneNumber;
+            return $this;
+        }
     }
 
     /**
@@ -371,9 +382,15 @@ class People
      */
     public function setCellPhoneNumber(string $cellPhoneNumber)
     {
-        $this->cellPhoneNumber = $cellPhoneNumber;
-
-        return $this;
+        if (!is_numeric($cellPhoneNumber))
+        {
+            throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
+        }
+        else
+        {
+            $this->cellPhoneNumber = $cellPhoneNumber;
+            return $this;
+        }
     }
 
     /**
@@ -395,9 +412,15 @@ class People
      */
     public function setWorkPhoneNumber(string $workPhoneNumber)
     {
-        $this->workPhoneNumber = $workPhoneNumber;
-
-        return $this;
+        if (!is_numeric($workPhoneNumber))
+        {
+            throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
+        }
+        else
+        {
+            $this->workPhoneNumber = $workPhoneNumber;
+            return $this;
+        }
     }
 
     /**
@@ -419,9 +442,16 @@ class People
      */
     public function setWorkFaxNumber(string $workFaxNumber)
     {
-        $this->workFaxNumber = $workFaxNumber;
+        if (!is_numeric($workFaxNumber))
+        {
+            throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
+        }
+        else
+        {
+            $this->workFaxNumber = $workFaxNumber;
+            return $this;
+        }
 
-        return $this;
     }
 
     /**
@@ -558,5 +588,24 @@ class People
         $this->sensitiveObservations = $sensitiveObservations;
 
         return $this;
+    }
+
+    public function hasNoAddressDefined()
+    {
+        $emptyAddress = new Address();
+        $addresses = $this->getAddresses();
+        foreach ($addresses as $address)
+        {
+            if (
+                    $address->getLine() !== $emptyAddress->getLine() ||
+                    $address->getPostalCode() !== $emptyAddress->getPostalCode() ||
+                    $address->getCity() !== $emptyAddress->getCity() ||
+                    $address->getCountry() !== $emptyAddress->getCountry()
+                )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

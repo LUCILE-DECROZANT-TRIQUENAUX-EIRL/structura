@@ -27,14 +27,14 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="line", type="string", length=1000)
+     * @ORM\Column(name="line", type="string", length=1000, nullable=true)
      */
     private $line;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postal_code", type="string", length=5)
+     * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
      */
     private $postalCode;
 
@@ -59,7 +59,7 @@ class Address
      * @param string $city The city.
      * @param string $country Country.
      */
-    public function __construct(string $line, string $postalCode, string $city, string $country)
+    public function __construct(string $line = NULL, string $postalCode = NULL, string $city = NULL, string $country = NULL)
     {
         $this->line = $line;
         $this->postalCode = $postalCode;

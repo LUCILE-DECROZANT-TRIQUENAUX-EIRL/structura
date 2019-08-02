@@ -39,6 +39,17 @@ class UserUpdater
     private $date;
 
     /**
+     *
+     */
+    function __construct($user = NULL, $updater = NULL ,$date = NULL)
+    {
+        $this->user = $user;
+        $this->updater = $updater;
+        $this->date = $date;
+    }
+
+
+    /**
      * Set user
      *
      * @param User $user The use to update.
