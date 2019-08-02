@@ -8,7 +8,7 @@ services:
 
 install:
   - wget https://get.symfony.com/cli/installer -O - | bash
-  - mv /home/travis/.symfony/bin/symfony /usr/local/bin/symfony
+  - export PATH="$HOME/.symfony/bin:$PATH"
   - composer install --no-interaction
   - echo "USE mysql;\nSELECT host, user FROM mysql.user;\n" | mysql -u root
   - echo "USE mysql;\nSET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');\nFLUSH PRIVILEGES;\n" | mysql -u root
