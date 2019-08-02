@@ -27,14 +27,14 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="line", type="string", length=1000)
+     * @ORM\Column(name="line", type="string", length=1000, nullable=true)
      */
     private $line;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postal_code", type="string", length=5)
+     * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
      */
     private $postalCode;
 

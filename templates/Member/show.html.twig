@@ -44,7 +44,7 @@
                 {% if member.denomination or member.firstname or member.lastname %}
                 {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
                 {% else %}
-                Ce.tte membre n'a pas de nom
+                Ce·tte membre n'a pas de nom
                 {% endif %}
                 </h1>
             </div>
@@ -72,11 +72,15 @@
                         <tr>
                             <th>Adresse</th>
                             <td>
-                            {% for address in member.addresses %}
-                                {{address.line}}
-                                <br>
-                                {{address.postalCode}}, {{address.city}}, {{address.country}}
-                            {% endfor %}
+                                {% if member.hasNoAddressDefined() %}
+                                    Ce·tte membre n'a pas d'adresse enregistrée.
+                                {% else %}
+                                    {% for address in member.addresses %}
+                                        {{address.line}}
+                                        <br>
+                                        {{address.postalCode}}, {{address.city}}, {{address.country}}
+                                    {% endfor %}
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>

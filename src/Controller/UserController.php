@@ -204,8 +204,8 @@ class UserController extends AbstractController
     /**
      * Deletes a user entity.
      * @return views
-     * @param User $currentUser The user to delete.
      * @param Request $request The request.
+     * @param User $currentUser The user to delete.
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_ADMIN') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
@@ -219,7 +219,10 @@ class UserController extends AbstractController
 
             // Making sure there is no Fk error when deleting the user
             $people = $currentUser->getPeople();
-            $people->setUser(NULL);
+            if (!empty($people))
+            {
+                $people->setUser(NULL);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($currentUser);
