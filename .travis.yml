@@ -14,6 +14,10 @@ install:
   - echo "DATABASE_URL=mysql://root:${MYSQL_PASSWORD}@127.0.0.1:3306/erp-asso-test" >> .env.local_for_test
   - echo "MAILER_URL=null://localhost" >> .env.local_for_test
   - ./server_start_aaasso.sh test&
+  - cat .env.local_for_test
+  - cat .env.local
+  - sleep 5
+  - cat .env.local
   - ./bin/console doctrine:database:create --env=test
   - ./bin/console doctrine:migration:migrate --env=test --no-interaction
 
