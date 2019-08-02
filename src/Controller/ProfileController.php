@@ -232,7 +232,7 @@ class ProfileController extends AbstractController
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editsensible', ['id' => $currentUser->getId()]);
+            return $this->redirectToRoute('profile_editroles', ['id' => $currentUser->getId()]);
         }
 
         return $this->render('Profile/editroles.html.twig', array(
