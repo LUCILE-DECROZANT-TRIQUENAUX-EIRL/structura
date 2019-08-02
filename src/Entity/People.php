@@ -589,4 +589,23 @@ class People
 
         return $this;
     }
+
+    public function hasNoAddressDefined()
+    {
+        $emptyAddress = new Address();
+        $addresses = $this->getAddresses();
+        foreach ($addresses as $address)
+        {
+            if (
+                    $address->getLine() !== $emptyAddress->getLine() ||
+                    $address->getPostalCode() !== $emptyAddress->getPostalCode() ||
+                    $address->getCity() !== $emptyAddress->getCity() ||
+                    $address->getCountry() !== $emptyAddress->getCountry()
+                )
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
