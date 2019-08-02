@@ -1,7 +1,10 @@
-### Function definition ###
+#!/bin/bash
+
+# --- Function definition --- #
 
 # Will ask user input to generate the database_url
 ask_user_input() {
+    # If we do not already have database_url set
     echo 'Please enter the following information.'
 
     # Ask and read database_host with default value 127.0.0.1
@@ -54,9 +57,6 @@ setup_phpunit_file() {
 
 # Will create a .env.local_for_{env} file
 setup_env_file() {
-    # Asking user DB informations
-    ask_user_input
-
     # Puting the file name in a var according to the env var, for more lisibility
     env_file_name=".env.local_for_${env}"
 
@@ -79,29 +79,137 @@ setup_env_file() {
     fi
 }
 
-# Puting the given param in a var
-env=$1
+# --- Parsing arguments --- #
+for i in "$@"
+do
+    case $i in
+        --env=*)
+        env="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-host=*)
+        database_host="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-port=*)
+        database_port="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-user=*)
+        database_user="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-password=*)
+        database_password="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-name=*)
+        database_name="${i#*=}"
+        shift # past argument=value
+        ;;
+        *)
+        # unknown argument or option
+        ;;
+    esac
+done
 
+# --- Testing env argument --- #
 if [ "$env" != "dev" ] && [ "$env" != "test" ]
 then
-    echo 'Unknown environment. Exiting the script.'
+    echo 'Unknown or missing environment argument.'
+    echo 'Exiting the script'
     exit 2
 fi
 
-# If there is no env file we will write one from user input
-# But also the phpunit.xml file in test env
-if [ ! -f ".env.local_for_${env}" ]
+# --- If all database arguments are passed --- #
+if [ "$database_host" != "" ] &&
+[ "$database_port" != "" ] &&
+[ "$database_user" != "" ] &&
+[ "$database_password" != "" ] &&
+[ "$database_name" != "" ]
 then
-    echo "Since you have no database configuration file for ${env} environnement we will create one."
+    # Concatening previous data to form the database connection string (also named url) for doctrine
+    database_url="mysql://${database_user}:${database_password}@${database_host}:${database_port}/${database_name}"
+
+    # We are removing the conf file if it already exist
+    if [ -f ".env.local_for_${env}" ]
+    then
+        # We are removig it
+        rm ".env.local_for_${env}"
+    fi
+
+    # We are removing the phpunit file if it already exist
+    # Test env only
+    if [ -f "phpunit.xml" ] && [ "$env" = "test" ]
+    then
+        # We are removig it
+        rm phpunit.xml
+    fi
+
+    # Generating env and php unit files
     setup_env_file
-# If there is an env file, we also check on the phpunit.xml file
-# In test env only
-elif [ ! -f "phpunit.xml" ] && [ "$env" = "test" ]
+
+# --- Else if no database arguments are given --- #
+elif [ "$database_host" = "" ] &&
+[ "$database_port" = "" ] &&
+[ "$database_user" = "" ] &&
+[ "$database_password" = "" ] &&
+[ "$database_name" = "" ]
 then
-    echo "Since you have no ./phpunit.xml file we will create one."
-    ask_user_input
-    setup_phpunit_file
+    # If there is no env file we will write one from user input
+    # But also the phpunit.xml file in test env
+    if [ ! -f ".env.local_for_${env}" ]
+    then
+        echo "Since you have no database configuration file for ${env} environnement we will create one."
+        # Asking user DB informations
+        ask_user_input
+
+        # Generating env and php unit files
+        setup_env_file
+    # If there is an env file, we also check on the phpunit.xml file
+    # In test env only
+    elif [ ! -f "phpunit.xml" ] && [ "$env" = "test" ]
+    then
+        echo "Since you have no ./phpunit.xml file we will create one."
+        # Asking user DB informations
+        ask_user_input
+
+        # Generating php unit files
+        setup_phpunit_file
+    fi
+else
+    # We list all database arguments that are missing and we exit
+
+    if [ "$database_host" = "" ]
+    then
+        echo "Argument database-host is mandatory."
+    fi
+
+    if [ "$database_port" = "" ]
+    then
+        echo "Argument database-port is mandatory."
+    fi
+
+    if [ "$database_user" = "" ]
+    then
+        echo "Argument database-user is mandatory."
+    fi
+
+    if [ "$database_password" = "" ]
+    then
+        echo "Argument database-password is mandatory."
+    fi
+
+    if [ "$database_name" = "" ]
+    then
+        echo "Argument database-name is mandatory."
+    fi
+
+    echo 'Exiting the script'
+    exit 2
 fi
+
+# --- This part is always executed --- #
 
 # If the .env.local file already exist
 if [ -f ".env.local" ]
