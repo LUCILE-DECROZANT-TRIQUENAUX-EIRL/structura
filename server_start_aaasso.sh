@@ -102,6 +102,14 @@ setup_env_file() {
     fi
 }
 
+# --- Check if symfony cli is installed --- #
+if ! [ -x "$(command -v symfony)" ]; then
+  echo 'Error: symfony is not installed. Symfony is required to use this script.'
+  echo 'To install symfony, use the following command:'
+  echo '        wget https://get.symfony.com/cli/installer -O - | bash'
+  exit 1
+fi
+
 # --- Parsing arguments --- #
 for i in "$@"
 do
