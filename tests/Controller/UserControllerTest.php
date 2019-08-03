@@ -15,7 +15,11 @@ class UserControllerTest extends WebTestCase
     const FIREWALL_CONTEXT = 'main';
 
     const ADMIN_USERNAME = 'admin';
+    const ADMIN_ONLY_USERNAME = 'adminUniquement';
     const GESTIONNAIRE_USERNAME = 'gest1';
+    const INFORMATEURICE_USERNAME = 'info';
+    const ADHERENTE_USERNAME = 'adhe1';
+    const RANDOM_USER_USERNAME = 'test';
 
     static $client;
     static $container;
@@ -358,6 +362,148 @@ class UserControllerTest extends WebTestCase
     //             $client->getResponse()->getContent()
     //     );
     // }
+
+//  -----------------------------------------------
+//   Test the access of the user edit profile page
+//  -----------------------------------------------
+    /**
+     * @group access
+     */
+    public function testAdminAccessEditUserProfilePage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_USERNAME);
+
+        // Get a user to access their edit profile page
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::RANDOM_USER_USERNAME
+            ]);
+
+
+        // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                'Édition de l\'utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+        $this->assertContains(
+                'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
+                self::$client->getCrawler()->filter('.breadcrumb > li')->last()->text(),
+                'The page should be the random user edition one'
+        );
+
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+
+        // Get a user to access their edit profile page
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::RANDOM_USER_USERNAME
+            ]);
+
+
+        // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                'Édition de l\'utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+        $this->assertContains(
+                'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
+                self::$client->getCrawler()->filter('.breadcrumb > li')->last()->text(),
+                'The page should be the random user edition one'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testGestionnaireAccessEditUserProfilePage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::GESTIONNAIRE_USERNAME);
+
+        // Get a user to access their edit profile page
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::RANDOM_USER_USERNAME
+            ]);
+
+
+        // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+        self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testInformateuriceAccessEditUserProfilePage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::INFORMATEURICE_USERNAME);
+
+        // Get a user to access their edit profile page
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::RANDOM_USER_USERNAME
+            ]);
+
+
+        // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+        self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testAdherenteAccessEditUserProfilePage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::ADHERENTE_USERNAME);
+
+        // Get a user to access their edit profile page
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::RANDOM_USER_USERNAME
+            ]);
+
+
+        // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+        self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
 
 //  --------------------------------------------------------
 //   Test the deletion of a user profile from the user list
