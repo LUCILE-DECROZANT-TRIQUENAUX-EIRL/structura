@@ -387,11 +387,6 @@ class UserControllerTest extends WebTestCase
                 $crawler->filter('h1')->first()->text(),
                 'The page should be the admin edition one'
         );
-        $this->assertContains(
-                $waitingDeletionUser->getUsername(),
-                self::$client->getResponse()->getContent(),
-                'The page should be the user\'s profile edition one'
-        );
 
         // Delete their profile using the button on the page
         $form = $crawler->selectButton('delete_button')->form();
@@ -399,18 +394,21 @@ class UserControllerTest extends WebTestCase
         self::$session->set('_security_' . self::FIREWALL_CONTEXT, serialize(null));
         self::$session->invalidate();
 
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="/user/">/user/</a>.',
                 self::$client->getResponse()->getContent(),
                 'The page should be redirecting to the user list'
         );
         self::$client->followRedirect(); // unlog the user because their profile is deleted
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="http://localhost/login">http://localhost/login</a>.',
                 self::$client->getResponse()->getContent(),
                 'The page should be redirecting to the login page'
         );
         self::$client->followRedirect(); // redirect to login page
+        $this->assertFalse(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Pour accéder au logiciel, identifiez-vous',
                 self::$client->getResponse()->getContent(),
@@ -448,6 +446,7 @@ class UserControllerTest extends WebTestCase
         $form = $crawler->selectButton('delete_button')->form();
         self::$client->submit($form);
 
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="/user/">/user/</a>.',
                 self::$client->getResponse()->getContent(),
@@ -460,6 +459,7 @@ class UserControllerTest extends WebTestCase
                 'The page should be the user list'
         );
         self::$client->followRedirect(); // go to the user list
+        $this->assertFalse(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Liste des utilisateurices',
                 $crawler->filter('h1')->first()->text(),
