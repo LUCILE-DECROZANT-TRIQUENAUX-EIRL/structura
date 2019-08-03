@@ -367,7 +367,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testAdminDeleteAdminProfileFromEditPage()
     {
-        // connect the admin
+        // Connect the admin
         $admin = $this->connection(self::ADMIN_USERNAME);
 
         // Get the user which will be deleted
@@ -378,29 +378,32 @@ class UserControllerTest extends WebTestCase
                 'username' => self::ADMIN_USERNAME
             ]);
 
-        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
 
         // Go to their profile page
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
         $crawler = self::$client->request('GET', $editProfilePageUrl);
-        $this->assertContains(
+        $this->assertEquals(
                 'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
                 $crawler->filter('h1')->first()->text(),
                 'The page should be the admin edition one'
         );
 
-        // Delete their profile using the button on the page
+        // Delete the profile using the button on the page
         $form = $crawler->selectButton('delete_button')->form();
         self::$client->submit($form);
         self::$session->set('_security_' . self::FIREWALL_CONTEXT, serialize(null));
         self::$session->invalidate();
 
+        // Autoredirection to the user list
         $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="/user/">/user/</a>.',
                 self::$client->getResponse()->getContent(),
                 'The page should be redirecting to the user list'
         );
-        self::$client->followRedirect(); // unlog the user because their profile is deleted
+        self::$client->followRedirect();
+
+        // Autoredirection to the login page because the user profile have been deleted
         $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="http://localhost/login">http://localhost/login</a>.',
@@ -421,7 +424,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testAdminDeleteOtherUserProfileFromEditPage()
     {
-        // connect the admin
+        // Connect the admin
         $admin = $this->connection(self::ADMIN_USERNAME);
 
         // Get the user which will be deleted
@@ -436,40 +439,48 @@ class UserControllerTest extends WebTestCase
 
         // Go to their profile page
         $crawler = self::$client->request('GET', $editProfilePageUrl);
+        $this->assertEquals(
+                'Édition de l\'utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
         $this->assertContains(
                 'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
-                self::$client->getResponse()->getContent(),
+                self::$client->getCrawler()->filter('.breadcrumb > li')->last()->text(),
                 'The page should be the gest1 edition one'
         );
 
-        // Delete their profile using the button on the page
+        // Delete the profile using the button on the page
         $form = $crawler->selectButton('delete_button')->form();
         self::$client->submit($form);
 
+        // Autoredirection to the user list
         $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
                 'Redirecting to <a href="/user/">/user/</a>.',
                 self::$client->getResponse()->getContent(),
                 'The page should be redirecting to the user list'
         );
-        self::$client->followRedirect(); // go to the user list
-        $this->assertContains(
+        self::$client->followRedirect();
+
+        // Verification of the user list
+        $this->assertEquals(
                 'Liste des utilisateurices',
-                $crawler->filter('h1')->first()->text(),
-                'The page should be the user list'
-        );
-        self::$client->followRedirect(); // go to the user list
-        $this->assertFalse(self::$client->getResponse()->isRedirection());
-        $this->assertContains(
-                'Liste des utilisateurices',
-                $crawler->filter('h1')->first()->text(),
+                self::$client->getCrawler()->filter('h1')->first()->text(),
                 'The page should be the user list'
         );
         $this->assertContains(
-                'L\'utilisateurice <strong>' . $waitingDeletionUser->getUsername() . '</strong> a bien été supprimé.e.',
-                $crawler->filter('.alert.alert-success')->first()->text(),
+                'L\'utilisateurice ' . $waitingDeletionUser->getUsername() . ' a bien été supprimé.e.',
+                self::$client->getCrawler()->filter('.alert.alert-success')->first()->text(),
                 'A success message should be displayed'
         );
+        $this->assertNotContains(
+                'L\'utilisateurice ' . $waitingDeletionUser->getUsername() . ' a bien été supprimé.e.',
+                self::$client->getCrawler()->filter('table')->html(),
+                'The user shouldn\'t appear on the list'
+        );
+
+        // Check if the user is well deleted in the database
         $deletedUser = self::$container
             ->get('doctrine')
             ->getRepository(User::class)
