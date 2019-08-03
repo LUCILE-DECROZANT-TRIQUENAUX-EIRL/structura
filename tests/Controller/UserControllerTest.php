@@ -82,75 +82,91 @@ class UserControllerTest extends WebTestCase
         ];
     }
 
-    /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the admin user edit page.
-     */
-    public function accessUserAdminEditPage()
-    {
-        $connection = $this->connection();
-        $client = $connection['client'];
-        $currentUser = $connection['currentUser'];
-
-        $userAdminEditPageUrl = '/user/' . $currentUser->getId() . '/edit';
-
-        $crawler = $client->request('GET', $userAdminEditPageUrl);
-
-        return [
-            'client' => $client,
-            'crawler' => $crawler
-        ];
-    }
-
-    /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the admin user edit page.
-     */
-    public function accessUserAdherentEditPage()
-    {
-        $connection = $this->connection();
-        $client = $connection['client'];
-
-        // Get the adhe5 user
-        $adherent = self::$kernel
-            ->getContainer()
-            ->get('doctrine')
-            ->getRepository(User::class)
-            ->findOneBy([
-                'username' => 'adhe5'
-            ]);
-
-        $userAdherentEditPageUrl = '/user/' . $adherent->getId() . '/edit';
-
-        $crawler = $client->request('GET', $userAdherentEditPageUrl);
-
-        return [
-            'client' => $client,
-            'crawler' => $crawler
-        ];
-    }
-
-    /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the user edit page.
-     */
-    public function accessUserCreationPage()
-    {
-        $connection = $this->connection();
-        $client = $connection['client'];
-        $currentUser = $connection['currentUser'];
-
-        $crawler = $client->request('GET', '/user/new');
-
-        return [
-            'client' => $client,
-            'crawler' => $crawler
-        ];
-    }
-
     /*****************************/
     /* ~~~~~ Test methods ~~~~~~ */
     /*****************************/
+
+//  -------------------------------------------------
+//   Test the access of the user create profile page
+//  -------------------------------------------------
+    /**
+     * @group access
+     */
+    public function testAdminAccessCreateUserProfilePage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_USERNAME);
+
+        // Go to the profile creation page
+        $crawler = self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+
+        // Go to the profile creation page
+        $crawler = self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testGestionnaireAccessCreateUserProfilePage()
+    {
+        // Connect the gestionnaire
+        $this->connection(self::GESTIONNAIRE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testInformateuriceAccessCreateUserProfilePage()
+    {
+        // Connect the informateurice
+        $this->connection(self::INFORMATEURICE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testAdherenteAccessCreateUserProfilePage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::ADHERENTE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
 
     /**
      * Returns a client object and a crawler object.
