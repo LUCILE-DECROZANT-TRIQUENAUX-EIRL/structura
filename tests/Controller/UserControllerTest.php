@@ -11,43 +11,55 @@ use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
 
 class UserControllerTest extends WebTestCase
 {
+    const FIREWALL_NAME = 'main';
+    const FIREWALL_CONTEXT = 'main';
+
+    const ADMIN_USERNAME = 'admin';
+    const GESTIONNAIRE_USERNAME = 'gest1';
+
+    static $client;
+    static $container;
+    static $session;
+
+    public function setUp()
+    {
+        self::$client = static::createClient();
+        self::$container = static::$kernel->getContainer();
+        self::$session = self::$container->get('session');
+    }
+
     /*****************************/
     /* ~~~~ Utility methods ~~~~ */
     /*****************************/
 
     /**
-     * Connect to the website while being logged in
-     * Logs in with (username : admin, password : a)
+     * Connect a user to the website
+     *
+     * @param string $username username of the user to connect (default: admin)
+     * @return User the connected user
      */
-    public function connection()
+    public function connection($username = self::ADMIN_USERNAME)
     {
-        $client = static::createClient();
-        $container = static::$kernel->getContainer();
-        $session = $container->get('session');
-
-        // Get the admin user
-        $currentUser = self::$kernel
-            ->getContainer()
+        // Get the user we want to connect with
+        $currentUser = self::$container
             ->get('doctrine')
             ->getRepository(User::class)
             ->findOneBy([
-                'username' => 'admin'
+                'username' => $username
             ]);
 
-        $token = new UsernamePasswordToken($currentUser, null, 'main', $currentUser->getRoles());
-
         // Set the session
-        $session->set('_security_main', serialize($token));
-        $session->save();
+        $token = new UsernamePasswordToken($currentUser, null, self::FIREWALL_NAME, $currentUser->getRoles());
+        self::$session->set('_security_' . self::FIREWALL_CONTEXT, serialize($token));
+        self::$session->save();
 
         // Set the cookie
-        $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
+        self::$client->getCookieJar()->set(
+                new Cookie(self::$session->getName(), self::$session->getId())
+        );
 
-        // Return the client
-        return [
-            'client' => $client,
-            'currentUser' => $currentUser
-        ];
+        // Return the connected user
+        return $currentUser;
     }
 
     /**
@@ -347,21 +359,124 @@ class UserControllerTest extends WebTestCase
     //     );
     // }
 
+//  --------------------------------------------------------
+//   Test the deletion of a user profile from the user list
+//  --------------------------------------------------------
     /**
-     * Delete the user created for the test
+     * @group delete
      */
-    public function testDelete()
+    public function testAdminDeleteAdminProfileFromEditPage()
     {
-       $userAdherentEditPage = $this->accessUserAdherentEditPage();
-       $client = $userAdherentEditPage['client'];
-       $crawler = $userAdherentEditPage['crawler'];
+        // connect the admin
+        $admin = $this->connection(self::ADMIN_USERNAME);
 
-       $form = $crawler->selectButton('delete_button')->form();
-       $crawler = $client->submit($form);
-       $crawler = $client->followRedirect();
-       $this->assertContains('Liste des utilisateurices',
-               $client->getResponse()->getContent()
-       );
+        // Get the user which will be deleted
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::ADMIN_USERNAME
+            ]);
+
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+
+        // Go to their profile page
+        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        $this->assertContains(
+                'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
+                $crawler->filter('h1')->first()->text(),
+                'The page should be the admin edition one'
+        );
+        $this->assertContains(
+                $waitingDeletionUser->getUsername(),
+                self::$client->getResponse()->getContent(),
+                'The page should be the user\'s profile edition one'
+        );
+
+        // Delete their profile using the button on the page
+        $form = $crawler->selectButton('delete_button')->form();
+        self::$client->submit($form);
+        self::$session->set('_security_' . self::FIREWALL_CONTEXT, serialize(null));
+        self::$session->invalidate();
+
+        $this->assertContains(
+                'Redirecting to <a href="/user/">/user/</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the user list'
+        );
+        self::$client->followRedirect(); // unlog the user because their profile is deleted
+        $this->assertContains(
+                'Redirecting to <a href="http://localhost/login">http://localhost/login</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the login page'
+        );
+        self::$client->followRedirect(); // redirect to login page
+        $this->assertContains(
+                'Pour accéder au logiciel, identifiez-vous',
+                self::$client->getResponse()->getContent(),
+                'The page should be the login one'
+        );
+    }
+
+    /**
+     * @group delete
+     */
+    public function testAdminDeleteOtherUserProfileFromEditPage()
+    {
+        // connect the admin
+        $admin = $this->connection(self::ADMIN_USERNAME);
+
+        // Get the user which will be deleted
+        $waitingDeletionUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::GESTIONNAIRE_USERNAME
+            ]);
+
+        $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
+
+        // Go to their profile page
+        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        $this->assertContains(
+                'Éditer le profil de ' . $waitingDeletionUser->getUsername(),
+                self::$client->getResponse()->getContent(),
+                'The page should be the gest1 edition one'
+        );
+
+        // Delete their profile using the button on the page
+        $form = $crawler->selectButton('delete_button')->form();
+        self::$client->submit($form);
+
+        $this->assertContains(
+                'Redirecting to <a href="/user/">/user/</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the user list'
+        );
+        self::$client->followRedirect(); // go to the user list
+        $this->assertContains(
+                'Liste des utilisateurices',
+                $crawler->filter('h1')->first()->text(),
+                'The page should be the user list'
+        );
+        self::$client->followRedirect(); // go to the user list
+        $this->assertContains(
+                'Liste des utilisateurices',
+                $crawler->filter('h1')->first()->text(),
+                'The page should be the user list'
+        );
+        $this->assertContains(
+                'L\'utilisateurice <strong>' . $waitingDeletionUser->getUsername() . '</strong> a bien été supprimé.e.',
+                $crawler->filter('.alert.alert-success')->first()->text(),
+                'A success message should be displayed'
+        );
+        $deletedUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => self::GESTIONNAIRE_USERNAME
+            ]);
+        $this->assertEquals($deletedUser, null, 'The user should have been deleted');
     }
 
     /**
@@ -438,4 +553,3 @@ class UserControllerTest extends WebTestCase
     // }
 }
 
-?>
