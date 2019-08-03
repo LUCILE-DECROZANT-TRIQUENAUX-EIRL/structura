@@ -2,10 +2,30 @@
 
 # --- Function definition --- #
 
+# Display the usage of the script
+diplayUsage() {
+    echo 'Usage: ./server_start_aaasso.sh --env=dev|test'
+    echo '    MANDATORY PARAMETERS'
+    echo '        --env'
+    echo '                Define the environment in which the app will be run.'
+    echo '                Values: one of the following: dev, test'
+    echo '    OPTIONNAL PARAMETERS'
+    echo '        --database-host'
+    echo '                Host of the database. Can be an ipv4 address or an URL.'
+    echo '        --database-port'
+    echo '                Port of the database. Only numbers are allowed.'
+    echo '        --database-name'
+    echo '                Name of the database.'
+    echo '        --database-user'
+    echo '                User to connect to the database.'
+    echo '        --database-password'
+    echo '                Password to connect to the database.'
+}
+
 # Will ask user input to generate the database_url
 ask_user_input() {
     # If we do not already have database_url set
-    echo 'Please enter the following information.'
+    echo 'Please enter the following information:'
 
     # Ask and read database_host with default value 127.0.0.1
     read -p 'Database host [127.0.0.1] : ' database_host
@@ -116,7 +136,13 @@ done
 # --- Testing env argument --- #
 if [ "$env" != "dev" ] && [ "$env" != "test" ]
 then
-    echo 'Unknown or missing environment argument.'
+    if [ -z "$env" ]
+    then
+        echo 'Missing environment argument.'
+    else
+        echo 'Unknown environment ['$env'].'
+    fi
+    diplayUsage
     echo 'Exiting the script'
     exit 2
 fi
@@ -205,6 +231,7 @@ else
         echo "Argument database-name is mandatory."
     fi
 
+    diplayUsage
     echo 'Exiting the script'
     exit 2
 fi
