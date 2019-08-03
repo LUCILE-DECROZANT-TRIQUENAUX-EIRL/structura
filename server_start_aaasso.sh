@@ -20,6 +20,9 @@ diplayUsage() {
     echo '                User to connect to the database.'
     echo '        --database-password'
     echo '                Password to connect to the database.'
+    echo '        -h'
+    echo '        --help'
+    echo '                Display this manual.'
 }
 
 # Will ask user input to generate the database_url
@@ -103,6 +106,12 @@ setup_env_file() {
 for i in "$@"
 do
     case $i in
+        -h*)
+        help=1
+        ;;
+        --help*)
+        help=1
+        ;;
         --env=*)
         env="${i#*=}"
         shift # past argument=value
@@ -133,6 +142,12 @@ do
     esac
 done
 
+# --- Checking if the user needs help --- #
+if [ "$help" == 1 ]
+then
+    diplayUsage
+    exit
+fi
 # --- Testing env argument --- #
 if [ "$env" != "dev" ] && [ "$env" != "test" ]
 then
