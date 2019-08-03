@@ -186,22 +186,6 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the edit page.
-     */
-    public function testAccessEditPage()
-    {
-        $userAdminEditPage = $this->accessUserAdminEditPage();
-        $client = $userAdminEditPage['client'];
-
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains(
-                'Édition de',
-                $client->getResponse()->getContent()
-        );
-    }
-
-    /**
      * Create a new user
      */
     public function testCreate()
