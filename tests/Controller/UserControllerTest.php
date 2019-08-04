@@ -186,22 +186,6 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the user list page.
-     */
-    public function testAccessUserListPage()
-    {
-        $userListPage = $this->accessUserListPage();
-        $client = $userListPage['client'];
-
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains(
-                'Liste des utilisateurices',
-                $client->getResponse()->getContent()
-        );
-    }
-
-    /**
      * Create a new user
      */
     public function testCreate()
@@ -362,6 +346,88 @@ class UserControllerTest extends WebTestCase
     //             $client->getResponse()->getContent()
     //     );
     // }
+
+//  ---------------------------------------
+//   Test the access of the user list page
+//  ---------------------------------------
+    /**
+     * @group access
+     */
+    public function testAdminAccessUserListPage()
+    {
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_USERNAME);
+
+        // Go to the user list page
+        $crawler = self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                'Liste des utilisateurices',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+
+        // Connect the admin
+        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+
+        // Go to the profile creation page
+        $crawler = self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                'Liste des utilisateurices',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user edition one'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testGestionnaireAccessUserListPage()
+    {
+        // Connect the gestionnaire
+        $this->connection(self::GESTIONNAIRE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testInformateuriceAccessUserListPage()
+    {
+        // Connect the informateurice
+        $this->connection(self::INFORMATEURICE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testAdherenteAccessUserListPage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::ADHERENTE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
 
 //  -----------------------------------------------
 //   Test the access of the user edit profile page
