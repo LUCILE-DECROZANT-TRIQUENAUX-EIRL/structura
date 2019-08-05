@@ -1,0 +1,22 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Erreur 403</h1>
+    <p class="lead">Vous ne pouvez pas accéder à cette page.</p>
+    <hr class="my-4">
+    <p>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.<br>
+    Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page. <br>
+    Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</p>
+    <p class="lead">
+
+    <br>
+      <button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="history.back(-1)">
+          <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la page précedente
+      </button>
+
+    </p>
+  </div>
+</div>
+{% endblock %}

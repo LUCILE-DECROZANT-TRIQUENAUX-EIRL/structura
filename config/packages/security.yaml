@@ -1,0 +1,44 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    # define the algorythm used to hash the password
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    # define the class used to login
+    providers:
+        users:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+
+            # activate the login page as page to authenticate
+            form_login:
+                login_path: /login
+                check_path: /login
+                success_handler: App\Security\AuthenticationSuccessHandler
+
+            # activate the logout page as page to logout
+            logout:
+                path: /logout
+                target: /
+                success_handler: App\Security\LogoutSuccessHandler
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

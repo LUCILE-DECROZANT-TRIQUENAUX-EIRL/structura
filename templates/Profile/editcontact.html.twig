@@ -1,0 +1,108 @@
+{% extends 'Home/base.html.twig' %}
+
+{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('profile_show', { 'id': user.id }) }}">
+            Mon profil
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Éditer mon profil
+    </li>
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+
+    <div class="col-8 col-md-2">
+        <ul class="list-group">
+          <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+        </ul>
+
+        <br>
+        <h4>Édition</h4>
+
+        <ul class="list-group">
+          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
+          <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations de contact</a>
+          <a href="{{ path('profile_editsensible', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
+          <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
+        </ul>
+    </div>
+
+
+
+        <div class="col-12 col-md-10">
+
+        <div class="col">
+            <h1>
+            Édition des informations de contact
+            </h1>
+        </div>
+
+        {{ form_start(profile_editcontact, {'attr': {'id': 'form-editcontact-profile'}}) }}
+            <div class="form-group">
+                {% for address in profile_editcontact.addresses %}
+                    {{ form_widget(address) }}
+                    {{ form_label(address) }}
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.emailAddress)}}
+                {{ form_widget(profile_editcontact.emailAddress)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.isReceivingNewsletter)}}
+                {{ form_widget(profile_editcontact.isReceivingNewsletter)}}
+                {{ form_label(profile_editcontact.newsletterDematerialization)}}
+                {{ form_widget(profile_editcontact.newsletterDematerialization)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.homePhoneNumber)}}
+                {{ form_widget(profile_editcontact.homePhoneNumber)}}
+                {{ form_help(profile_editcontact.homePhoneNumber)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.cellPhoneNumber)}}
+                {{ form_widget(profile_editcontact.cellPhoneNumber)}}
+                {{ form_help(profile_editcontact.cellPhoneNumber)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.workPhoneNumber)}}
+                {{ form_widget(profile_editcontact.workPhoneNumber)}}
+                {{ form_help(profile_editcontact.workPhoneNumber)}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(profile_editcontact.workFaxNumber)}}
+                {{ form_widget(profile_editcontact.workFaxNumber)}}
+                {{ form_help(profile_editcontact.workFaxNumber)}}
+            </div>
+        {{ form_end(profile_editcontact) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

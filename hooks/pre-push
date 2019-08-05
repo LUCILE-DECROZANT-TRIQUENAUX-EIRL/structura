@@ -9,21 +9,42 @@
 dir=`git rev-parse --show-cdup`
 #path to the test
 phpUnit=$dir'vendor/bin/simple-phpunit'
-outputLog="/tmp/phpunit_output_`date +%s`.log"
+outputLogTest="/tmp/phpunit_output_`date +%s`.log"
+
+outputLogPHPCS="/tmp/phpcs_output_`date +%s`.log"
+
+phpcs=$dir"vendor/bin/phpcs --colors --report-summary --report-full="$outputLogPHPCS
+
 
 echo 'Executing tests before pushing...'
 echo -e  '---------------------------------- \n'
 
 #print output of test in terminal and in log
-$phpUnit| tee $outputLog
-returnCode=${PIPESTATUS[0]}
+$phpUnit| tee $outputLogTest
+returnCodeTest=${PIPESTATUS[0]}
 
 echo -e '\n-------------------------------- \n'
-echo -e 'Log have been saved in ' $outputLog '\n'
+echo -e 'Log saved in ' $outputLogTest '\n'
 
-if [ $returnCode != 0 ]; then
-	echo -e  "Test failed, aborting commit\n"
-else
-	echo -e "Test passed, commmtting...\n"
+echo -e '\n-------------------------------- \n'
+echo -e 'checking code standard... \n'
+
+$phpcs
+returnCodePHPCS=$?
+echo -e '\n--------------------------------- \n'
+echo -e 'Log saved in '$outputLogPHPCS '\n'
+
+if [ $returnCodeTest != 0 ]; then
+	echo -e  "PHP unit test failed \n"
 fi
-exit $returnCode
+if [ $returnCodePHPCS != 0 ]; then
+        echo -e  "The code doesn't follow our standard \n"
+fi
+
+if [ $returnCodeTest != 0 ]||[ $returnCodePHPCS  != 0 ]; then
+	echo -e "Aborting commit \n"
+	exit 1
+fi
+
+echo -e "committing...\n"
+exit 0

@@ -6,7 +6,7 @@
 # assign standard input to the keyboard to get the confirmation 
 exec < /dev/tty
 # list of developpement branches
-branchesDev=("connexion-utilisateurice" "test-pull")
+branchesDev=("develop")
 
 #get path to top level directory of the git repertory
 dir=`git rev-parse --show-cdup`
