@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Responsibility
 {
+    const MEMBER = 'Adhérent.e';
+    const EX_MEMBER = 'Ex-adhérent.e';
+    const SYMPATHIZE_LABEL = 'Sympathisant.e';
     const REGISTERED_LABEL = 'Inscrit.e';
 
     /**

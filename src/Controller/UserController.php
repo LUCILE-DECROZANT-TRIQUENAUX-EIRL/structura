@@ -78,6 +78,26 @@ class UserController extends AbstractController
             ]);
             $currentUser->addResponsibility($registeredResponsibility);
 
+            // remove responsibilities that conflict themselves
+            $sympathizeResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::SYMPATHIZE_LABEL,
+            ]);
+            $memberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::MEMBER,
+            ]);
+            $exMemberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::EX_MEMBER,
+            ]);
+            if ($currentUser->hasResponsibility($sympathizeResponsibility))
+            {
+                $currentUser->removeResponsibility($memberResponsibility);
+            }
+            else if ($currentUser->hasResponsibility($memberResponsibility))
+            {
+                $currentUser->removeResponsibility($exMemberResponsibility);
+            }
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($currentUser);
             $em->flush();
@@ -171,6 +191,25 @@ class UserController extends AbstractController
                 'label' => Responsibility::REGISTERED_LABEL,
             ]);
             $currentUser->addResponsibility($registeredResponsibility);
+
+            // remove responsibilities that conflict themselves
+            $sympathizeResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::SYMPATHIZE_LABEL,
+            ]);
+            $memberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::MEMBER,
+            ]);
+            $exMemberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::EX_MEMBER,
+            ]);
+            if ($currentUser->hasResponsibility($sympathizeResponsibility))
+            {
+                $currentUser->removeResponsibility($memberResponsibility);
+            }
+            else if ($currentUser->hasResponsibility($memberResponsibility))
+            {
+                $currentUser->removeResponsibility($exMemberResponsibility);
+            }
 
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
