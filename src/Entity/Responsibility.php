@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Responsibility
 {
+    const REGISTERED_LABEL = 'Inscrit.e';
+
     /**
      * @var int
      *

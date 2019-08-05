@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Responsibility;
 use App\Form\UserGeneralDataType;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
@@ -59,6 +60,7 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
     {
+        $entityManager = $this->getDoctrine()->getManager();
         // RouteService usage example
         $infos = $routeService->getPreviousRouteInfo();
 
@@ -69,6 +71,12 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($currentUser, $currentUser->getPlainPassword());
             $currentUser->setPassword($password);
+
+            // by default, add the registered responsibility
+            $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+            $currentUser->addResponsibility($registeredResponsibility);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($currentUser);
@@ -148,6 +156,7 @@ class UserController extends AbstractController
      */
     public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($currentUser);
         $editForm = $this->createForm(UserGeneralDataType::class, $currentUser);
         $editForm->handleRequest($request);
@@ -157,6 +166,12 @@ class UserController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
+            // by default, add the registered responsibility
+            $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+            $currentUser->addResponsibility($registeredResponsibility);
+
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
