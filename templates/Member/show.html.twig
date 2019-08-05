@@ -73,7 +73,7 @@
                             <th>Adresse</th>
                             <td>
                                 {% if member.hasNoAddressDefined() %}
-                                    Ce·tte membre n'a pas d'adresse enregistrée.
+                                    Ce membre n'a pas d'adresse enregistrée.
                                 {% else %}
                                     {% for address in member.addresses %}
                                         {{address.line}}

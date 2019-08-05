@@ -73,11 +73,15 @@
                         <tr>
                             <th>Adresse</th>
                             <td>
-                            {% for address in member.addresses %}
-                                {{address.line}}
-                                <br>
-                                {{address.postalCode}}, {{address.city}}, {{address.country}}
-                            {% endfor %}
+                            {% if member.hasNoAddressDefined() %}
+                                Vous n'avez pas d'addresse enregistrée.
+                            {% else %}
+                                {% for address in member.addresses %}
+                                    {{address.line}}
+                                    <br>
+                                    {{address.postalCode}}, {{address.city}}, {{address.country}}
+                                {% endfor %}
+                            {% endif %}
                             </td>
                         </tr>
                         <tr>
