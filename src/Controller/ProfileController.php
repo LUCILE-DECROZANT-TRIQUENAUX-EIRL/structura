@@ -79,7 +79,7 @@ class ProfileController extends AbstractController
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editpersonal', ['id' => $individual->getId()]);
+            return $this->redirectToRoute('profile_editpersonal', ['id' => $currentUser->getId()]);
         }
 
         return $this->render('Profile/editpersonal.html.twig', array(
