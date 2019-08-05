@@ -49,6 +49,16 @@ class Responsibility
     private $description;
 
     /**
+     * Determine if the responsibility is automatically managed
+     * by the application or if it's managed by the users
+     *
+     * @var boolean
+     *
+     * @ORM\Column(name="automatic", type="boolean")
+     */
+    private $automatic;
+
+    /**
      *
      */
     function __construct($id = -1, $code = NULL, $label = NULL, $description = NULL)
@@ -138,4 +148,28 @@ class Responsibility
         return $this;
     }
 
+    function getAutomatic()
+    {
+        return $this->automatic;
+    }
+
+    /**
+     * Check if the responsibility is automatically managed
+     *
+     * @return boolean True if it is, false otherwise
+     */
+    function isAutomatic()
+    {
+        return $this->getAutomatic();
+    }
+
+    /**
+     * Set if the responsibility is automatically managed
+     *
+     * @param boolean $automatic True if it is, false otherwise
+     */
+    function setAutomatic(boolean $automatic)
+    {
+        $this->automatic = $automatic;
+    }
 }
