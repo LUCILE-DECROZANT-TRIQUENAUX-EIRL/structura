@@ -28,3 +28,8 @@ server_start_test.sh
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> Netbeans config ###
+/nbproject/private/
+/nbproject/
+###< Netbeans config ###
