@@ -39,13 +39,20 @@
     <br>
 
     <div class="container">
+    <p> Les champs notés avec * sont requis. </p>
+
         {{ form_start(form, {'attr': {'id': 'form-create-user'}}) }}
             <div class="form-group">
-                {{ form_label(form.username) }}
+                {{ form_label(form.username) }} *
                 {{ form_widget(form.username) }}
             </div>
             <div class="form-group">
-                {{ form_widget(form.plainPassword) }}
+                {{ form_label(form.plainPassword.first) }} *
+                {{ form_widget(form.plainPassword.first) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.second) }} *
+                {{ form_widget(form.plainPassword.second) }}
             </div>
 
             <div class="form-group">
