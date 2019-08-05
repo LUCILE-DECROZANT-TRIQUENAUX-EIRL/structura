@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\People;
 use App\Form\UserGeneralDataType;
 use App\Form\UserPasswordType;
+use App\Form\UserRolesType;
 use App\Form\MemberContactType;
 use App\Form\MemberPersonalType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -221,7 +222,7 @@ class ProfileController extends AbstractController
             $individual = new People();
         }
 
-        $editForm = $this->createForm(UserGeneralDataType::class, $currentUser);
+        $editForm = $this->createForm(UserRolesType::class, $currentUser);
         $editForm->handleRequest($request);
 
         // Submit change of general infos

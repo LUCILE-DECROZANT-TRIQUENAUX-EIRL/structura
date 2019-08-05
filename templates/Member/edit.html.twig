@@ -46,25 +46,33 @@
 
         <div class="col-12 col-md-10">
 
-        <div class="col">
-            <h1>
-            Édition de l'adhérent.e
-            </h1>
+        <div class="container">
+
+
+            <div class="row">
+                <div class="col text-left">
+                    <h1>Édition de l'adhérent.e</h1>
+                </div>
+                <div class="col text-right">
+                    <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }}</button>
+                </div>
+            </div>
         </div>
+                <p> Les champs notés avec * sont requis. </p>
 
         {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
                 <div class="form-group">
-                    {{ form_label(member_edit.denomination)}}
+                    {{ form_label(member_edit.denomination)}} *
                     {{ form_widget(member_edit.denomination)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.firstname)}}
+                    {{ form_label(member_edit.firstname)}} *
                     {{ form_widget(member_edit.firstname)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.lastname)}}
+                    {{ form_label(member_edit.lastname)}} *
                     {{ form_widget(member_edit.lastname)}}
                 </div>
 
@@ -127,6 +135,40 @@
 
         {{ form_end(member_edit) }}
 
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es</a>
+        </div>
+        <div class="col text-right">
+            <button type="submit" form="form-edit-member" class="btn btn-primary">Enregistrer les modifications</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Souhaitez-vous réellement supprimer ce profil ?</p>
+                <div class="alert alert-warning" role="alert">
+                    <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                </div>
+                <div class="col text-right">
+                    {{ form_start(delete_form) }}
+                    <button id="delete_button" type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }}</button>
+                    {{ form_end(delete_form) }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
