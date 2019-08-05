@@ -32,7 +32,7 @@ Traduit et adapté de [postmeritocracy.org](https://postmeritocracy.org/)
    - Nous ajoutons davantage de valeur en tant que professionnel⋅les en nous appuyant sur la diversité de nos identités, parcours, expériences et perspectives : l'homogénéité est un anti-modèle.
   -  Nous pouvons avoir du succès tout en menant des vies riches et remplies. Notre succès et notre valeur ne dépendent pas du fait d’employer toute notre énergie à contribuer à des logiciels.
    - Nous avons l’obligation d’utiliser nos positions de privilège, aussi faibles soient-elles, pour améliorer la vie des autres.
-   - Nous devons laisser de la place aux les gens différents afin qu'ils accèdent à notre domaine et s'y épanouissent. Cela ne signifie pas uniquement les y inviter, mais également s’assurer qu’æls soient soutenu⋅es et qu’æls possèdent des responsabilités.
+   - Nous devons laisser de la place à des gens différents afin qu'ils accèdent à notre domaine et s'y épanouissent. Cela ne signifie pas uniquement les y inviter, mais également s’assurer qu’æls soient soutenu⋅es et qu’æls possèdent des responsabilités.
    - Nous avons la responsabilité éthique de refuser de travailler sur des logiciels qui impacteront négativement le bien-être d’autres personnes.
    - Nous reconnaissons la valeur des contributeurices non techniques comme égale à la valeur des contributeurices techniques.
    - Nous comprenons que travailler dans notre domaine est un privilège, et non un droit. Ainsi, nous considérons que l’impact négatif de personnes toxiques à la charge de travail ou dans la communauté n’est pas compensé par leur contribution technique.
