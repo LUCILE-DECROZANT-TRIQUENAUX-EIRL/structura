@@ -87,6 +87,11 @@
                                 {{ responsibility.vars.attr['data-responsibility-description'] }}
                             </span>
                         </div>
+                    {% else %}
+                        <div class="form-group d-none">
+                            {{ form_widget(responsibility) }}
+                            {{ form_label(responsibility) }}
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>
