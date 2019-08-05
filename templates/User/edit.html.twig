@@ -90,6 +90,8 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            {{ form_widget(edit_form._token) }}
+            {{ form_row(edit_form.submit) }}
         {{ form_end(edit_form, {'render_rest': false}) }}
         </div>
 

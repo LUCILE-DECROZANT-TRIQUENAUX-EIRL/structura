@@ -62,6 +62,8 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            {{ form_widget(form._token) }}
+            {{ form_row(form.submit) }}
         {{ form_end(form, {'render_rest': false}) }}
     </div>
     <br>
