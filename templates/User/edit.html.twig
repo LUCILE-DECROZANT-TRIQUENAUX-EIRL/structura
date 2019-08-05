@@ -79,17 +79,18 @@
             <div class="form-group">
                 {{ form_label(edit_form.responsibilities) }}
                 {% for responsibility in edit_form.responsibilities %}
-                    <div class="form-group">
-                        {{ form_widget(responsibility) }}
-                        {{ form_label(responsibility) }}
-                        <span class="text-muted responsibility-description">
-                            {{ responsibility.vars.attr['data-responsibility-description'] }}
-                        </span>
-                    </div>
+                    {% if not responsibility.vars.attr['data-responsibility-automatically-managed'] %}
+                        <div class="form-group">
+                            {{ form_widget(responsibility) }}
+                            {{ form_label(responsibility) }}
+                            <span class="text-muted responsibility-description">
+                                {{ responsibility.vars.attr['data-responsibility-description'] }}
+                            </span>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
-            {{ form_widget(edit_form) }}
-        {{ form_end(edit_form) }}
+        {{ form_end(edit_form, {'render_rest': false}) }}
         </div>
 
         <div style="margin-top:48px;">
