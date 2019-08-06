@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Responsibility
 {
+    const MEMBER = 'Adhérent.e';
+    const EX_MEMBER = 'Ex-adhérent.e';
+    const SYMPATHIZE_LABEL = 'Sympathisant.e';
+    const REGISTERED_LABEL = 'Inscrit.e';
+
     /**
      * @var int
      *
@@ -47,6 +52,16 @@ class Responsibility
      * @ORM\Column(name="description", type="string", length=1000, nullable=true)
      */
     private $description;
+
+    /**
+     * Determine if the responsibility is automatically managed
+     * by the application or if it's managed by the users
+     *
+     * @var boolean
+     *
+     * @ORM\Column(name="automatic", type="boolean")
+     */
+    private $automatic;
 
     /**
      *
@@ -138,4 +153,28 @@ class Responsibility
         return $this;
     }
 
+    function getAutomatic()
+    {
+        return $this->automatic;
+    }
+
+    /**
+     * Check if the responsibility is automatically managed
+     *
+     * @return boolean True if it is, false otherwise
+     */
+    function isAutomatic()
+    {
+        return $this->getAutomatic();
+    }
+
+    /**
+     * Set if the responsibility is automatically managed
+     *
+     * @param boolean $automatic True if it is, false otherwise
+     */
+    function setAutomatic(boolean $automatic)
+    {
+        $this->automatic = $automatic;
+    }
 }

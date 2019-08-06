@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Responsibility;
 use App\Form\UserGeneralDataType;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
@@ -59,6 +60,7 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
     {
+        $entityManager = $this->getDoctrine()->getManager();
         // RouteService usage example
         $infos = $routeService->getPreviousRouteInfo();
 
@@ -69,6 +71,32 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($currentUser, $currentUser->getPlainPassword());
             $currentUser->setPassword($password);
+
+            // by default, add the registered responsibility
+            $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+            $currentUser->addResponsibility($registeredResponsibility);
+
+            // remove responsibilities that conflict themselves
+            $sympathizeResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::SYMPATHIZE_LABEL,
+            ]);
+            $memberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::MEMBER,
+            ]);
+            $exMemberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::EX_MEMBER,
+            ]);
+            if ($currentUser->hasResponsibility($sympathizeResponsibility))
+            {
+                $currentUser->removeResponsibility($memberResponsibility);
+            }
+            else if ($currentUser->hasResponsibility($memberResponsibility))
+            {
+                $currentUser->removeResponsibility($exMemberResponsibility);
+            }
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($currentUser);
@@ -148,6 +176,7 @@ class UserController extends AbstractController
      */
     public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($currentUser);
         $editForm = $this->createForm(UserGeneralDataType::class, $currentUser);
         $editForm->handleRequest($request);
@@ -157,6 +186,31 @@ class UserController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
+            // by default, add the registered responsibility
+            $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+            $currentUser->addResponsibility($registeredResponsibility);
+
+            // remove responsibilities that conflict themselves
+            $sympathizeResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::SYMPATHIZE_LABEL,
+            ]);
+            $memberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::MEMBER,
+            ]);
+            $exMemberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
+                'label' => Responsibility::EX_MEMBER,
+            ]);
+            if ($currentUser->hasResponsibility($sympathizeResponsibility))
+            {
+                $currentUser->removeResponsibility($memberResponsibility);
+            }
+            else if ($currentUser->hasResponsibility($memberResponsibility))
+            {
+                $currentUser->removeResponsibility($exMemberResponsibility);
+            }
+
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')

@@ -210,7 +210,46 @@ class User implements UserInterface
      */
     public function addResponsibility(Responsibility $responsibility)
     {
-        $this->responsibilities[] = $responsibility;
+        if (!$this->hasResponsibility($responsibility))
+        {
+            $this->responsibilities[] = $responsibility;
+        }
+    }
+
+    /**
+     * Remove a responsibility from the user
+     *
+     * @param Responsibility $responsibilityToRemove The responsibility to remove.
+     */
+    function removeResponsibility(Responsibility $responsibilityToRemove)
+    {
+        $ownedResponsibilities = $this->getResponsibilities();
+        foreach ($ownedResponsibilities as $index => $ownedResponsibility)
+        {
+            if ($ownedResponsibility->getId() === $responsibilityToRemove->getId())
+            {
+                unset($ownedResponsibilities[$index]);
+            }
+        }
+    }
+
+    /**
+     * Check if user has this responsibility
+     *
+     * @param Responsibility $responsibility The responsibility to add.
+     *
+     * @return boolean
+     */
+    function hasResponsibility(Responsibility $responsibility)
+    {
+        foreach ($this->getResponsibilities() as $ownedResponsibility)
+        {
+            if ($ownedResponsibility->getId() === $responsibility->getId())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

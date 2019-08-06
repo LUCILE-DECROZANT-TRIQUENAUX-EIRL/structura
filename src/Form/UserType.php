@@ -43,7 +43,10 @@ class UserType extends AbstractType
                     'expanded' => true,
                     'choice_attr' => function($responsibility)
                     {
-                        return ['data-responsibility-description' => $responsibility->getDescription()];
+                        return [
+                            'data-responsibility-description' => $responsibility->getDescription(),
+                            'data-responsibility-automatically-managed' => $responsibility->isAutomatic(),
+                        ];
                     },
                 ]);
     }
