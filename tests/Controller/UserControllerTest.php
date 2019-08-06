@@ -35,9 +35,9 @@ class UserControllerTest extends WebTestCase
         self::$session = self::$container->get('session');
     }
 
-    /*****************************/
-    /* ~~~~ Utility methods ~~~~ */
-    /*****************************/
+    // *****************************
+    // * ~~~~ Utility methods ~~~~ *
+    // *****************************
 
     /**
      * Connect a user to the website
@@ -45,7 +45,7 @@ class UserControllerTest extends WebTestCase
      * @param string $username username of the user to connect (default: admin)
      * @return User the connected user
      */
-    public function connection($username = self::ADMIN_USERNAME)
+    private function connection($username = self::ADMIN_USERNAME)
     {
         // Get the user we want to connect with
         $currentUser = self::$container
@@ -69,25 +69,9 @@ class UserControllerTest extends WebTestCase
         return $currentUser;
     }
 
-    /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the user list page.
-     */
-    public function accessUserListPage()
-    {
-        $connection = $this->connection();
-        $client = $connection['client'];
-        $crawler = $client->request('GET', '/user/');
-
-        return [
-            'client' => $client,
-            'crawler' => $crawler
-        ];
-    }
-
-    /*****************************/
-    /* ~~~~~ Test methods ~~~~~~ */
-    /*****************************/
+    // *****************************
+    // * ~~~~~ Test methods ~~~~~~ *
+    // *****************************
 
 //  -------------------------------------------------
 //   Test the access of the user create profile page
@@ -219,23 +203,6 @@ class UserControllerTest extends WebTestCase
                 403,
                 self::$client->getResponse()->getStatusCode(),
                 'The user shouldn\'t be allowed to access the page'
-        );
-    }
-
-    /**
-     * Returns a client object and a crawler object.
-     * The "user" is connected and on the user creation page.
-     */
-    public function testAccessUserCreationPage()
-    {
-        $userCreationPage = $this->accessUserCreationPage();
-        $client = $userCreationPage['client'];
-
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        // Vérifie si la page affiche le bon texte
-        $this->assertContains(
-                'Enregistrer',
-                $client->getResponse()->getContent()
         );
     }
 
@@ -410,10 +377,10 @@ class UserControllerTest extends WebTestCase
     public function testAdminAccessUserListPage()
     {
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_USERNAME);
+        $this->connection(self::ADMIN_USERNAME);
 
         // Go to the user list page
-        $crawler = self::$client->request('GET', '/user/');
+        self::$client->request('GET', '/user/');
         $this->assertEquals(
                 'Liste des utilisateurices',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
@@ -421,10 +388,10 @@ class UserControllerTest extends WebTestCase
         );
 
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+        $this->connection(self::ADMIN_ONLY_USERNAME);
 
         // Go to the profile creation page
-        $crawler = self::$client->request('GET', '/user/');
+        self::$client->request('GET', '/user/');
         $this->assertEquals(
                 'Liste des utilisateurices',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
@@ -543,7 +510,7 @@ class UserControllerTest extends WebTestCase
     public function testAdminAccessEditUserProfilePage()
     {
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_USERNAME);
+        $this->connection(self::ADMIN_USERNAME);
 
         // Get a user to access their edit profile page
         $waitingDeletionUser = self::$container
@@ -556,7 +523,7 @@ class UserControllerTest extends WebTestCase
 
         // Go to their profile page
         $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
-        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        self::$client->request('GET', $editProfilePageUrl);
         $this->assertEquals(
                 'Édition de l\'utilisateurice',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
@@ -569,20 +536,11 @@ class UserControllerTest extends WebTestCase
         );
 
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+        $this->connection(self::ADMIN_ONLY_USERNAME);
 
-        // Get a user to access their edit profile page
-        $waitingDeletionUser = self::$container
-            ->get('doctrine')
-            ->getRepository(User::class)
-            ->findOneBy([
-                'username' => self::RANDOM_USER_USERNAME
-            ]);
-
-
-        // Go to their profile page
+        // Go to the profile page
         $editProfilePageUrl = '/user/' . $waitingDeletionUser->getId() . '/edit';
-        $crawler = self::$client->request('GET', $editProfilePageUrl);
+        self::$client->request('GET', $editProfilePageUrl);
         $this->assertEquals(
                 'Édition de l\'utilisateurice',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
@@ -600,8 +558,8 @@ class UserControllerTest extends WebTestCase
      */
     public function testGestionnaireAccessEditUserProfilePage()
     {
-        // Connect the admin
-        $admin = $this->connection(self::GESTIONNAIRE_USERNAME);
+        // Connect the gestionnaire
+        $this->connection(self::GESTIONNAIRE_USERNAME);
 
         // Get a user to access their edit profile page
         $waitingDeletionUser = self::$container
@@ -627,8 +585,8 @@ class UserControllerTest extends WebTestCase
      */
     public function testInformateuriceAccessEditUserProfilePage()
     {
-        // Connect the admin
-        $admin = $this->connection(self::INFORMATEURICE_USERNAME);
+        // Connect the informateurice
+        $this->connection(self::INFORMATEURICE_USERNAME);
 
         // Get a user to access their edit profile page
         $waitingDeletionUser = self::$container
@@ -654,8 +612,8 @@ class UserControllerTest extends WebTestCase
      */
     public function testAdherenteAccessEditUserProfilePage()
     {
-        // Connect the admin
-        $admin = $this->connection(self::ADHERENTE_USERNAME);
+        // Connect the adherent.e
+        $this->connection(self::ADHERENTE_USERNAME);
 
         // Get a user to access their edit profile page
         $waitingDeletionUser = self::$container
@@ -685,7 +643,7 @@ class UserControllerTest extends WebTestCase
     public function testAdminDeleteAdminProfileFromEditPage()
     {
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_USERNAME);
+        $this->connection(self::ADMIN_USERNAME);
 
         // Get the user which will be deleted
         $waitingDeletionUser = self::$container
@@ -742,7 +700,7 @@ class UserControllerTest extends WebTestCase
     public function testAdminDeleteOtherUserProfileFromEditPage()
     {
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_USERNAME);
+        $this->connection(self::ADMIN_USERNAME);
 
         // Get the user which will be deleted
         $waitingDeletionUser = self::$container
@@ -806,46 +764,6 @@ class UserControllerTest extends WebTestCase
             ]);
         $this->assertEquals($deletedUser, null, 'The user should have been deleted');
     }
-
-    /**
-     * Test everything at once
-     * Delete from another
-     */
-    // public function testAll()
-    // {
-    //     $this->create();
-    //     $this->editResponsibility();
-    //     $this->editPseudo();
-    //     //$this->editResponsibility();
-    //     $this->editPassword();
-
-    //     $connection = $this->connection();
-    //     $crawler = $client->request('GET', '/user/');
-    //     $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    //     $this->assertContains(
-    //             'Liste des utilisateurices',
-    //             $client->getResponse()->getContent()
-    //     );
-    //     // Select the button of the user created for the test
-    //     // Wont work if there are already more than 10 users in the database
-    //     // Only works for me with 5 other users in the database
-    //     // The id is a link, the delete, show & edit buttons are links
-    //     $link = $crawler
-    //         ->filter('tr > td > a:contains("")')
-    //         ->eq(22)
-    //         ->link()
-    //     ;
-    //     $crawler = $client->click($link);
-    //     $this->assertContains('Profil de René',
-    //             $client->getResponse()->getContent()
-    //     );
-    //     $form = $crawler->selectButton('delete_button')->form();
-    //     $crawler = $client->submit($form);
-    //     $crawler = $client->followRedirect();
-    //     $this->assertContains('Liste des utilisateurices',
-    //             $client->getResponse()->getContent()
-    //     );
-    // }
 
     // /**
     //  * Delete from link in the list
