@@ -454,6 +454,73 @@ class UserFixtures extends Fixture
         $peopleAdherentE5->setUser($userAdherentE5);
         $manager->persist($peopleAdherentE5);
 
+        // supportive user
+        $userSupportive = new User();
+        $userSupportive->setUsername('supp1');
+
+        $passwordSupportive = $this->encoder->encodePassword($userSupportive, 'a');
+        $userSupportive->setPassword($passwordSupportive);
+
+        $peopleSupportive = new People();
+
+        $peopleSupportive->setDenomination($docteure);
+        $peopleSupportive->setFirstName('Morgane');
+        $peopleSupportive->setLastName('Cauw');
+        $peopleSupportive->setEmailAddress('supportive@fake.mail');
+
+        $peopleSupportiveAddress = new Address('127 Rue Ada Lovelace', '34000', 'Montpellier', 'France');
+        $manager->persist($peopleSupportiveAddress);
+        $peopleSupportive->addAddress($peopleSupportiveAddress);
+
+        $peopleSupportive->setIsReceivingNewsletter(true);
+        $peopleSupportive->setNewsletterDematerialization(false);
+        $peopleSupportive->setHomePhoneNumber('0167123456');
+        $peopleSupportive->setCellPhoneNumber('0712345678');
+        $peopleSupportive->setWorkPhoneNumber('0112345678');
+        $peopleSupportive->setWorkFaxNumber('0134567890');
+        $peopleSupportive->setObservations('A demandé des informations lors du gala de 2018.');
+        $peopleSupportive->setSensitiveObservations('');
+
+        $userSupportive->addResponsibility($roleSympathisantE);
+        $userSupportive->addResponsibility($roleInscritE);
+
+        $manager->persist($userSupportive);
+        $peopleSupportive->setUser($userSupportive);
+        $manager->persist($peopleSupportive);
+
+        // rich user
+        $userRich = new User();
+        $userRich->setUsername('rich1');
+
+        $passwordRich = $this->encoder->encodePassword($userRich, 'a');
+        $userRich->setPassword($passwordRich);
+
+        $peopleRich = new People();
+
+        $peopleRich->setDenomination($docteure);
+        $peopleRich->setFirstName('Elliot');
+        $peopleRich->setLastName('Kronem');
+        $peopleRich->setEmailAddress('rich@fake.mail');
+
+        $peopleRichAddress = new Address('12 Avenue des Champs-Élysées', '75008', 'Paris', 'France');
+        $manager->persist($peopleRichAddress);
+        $peopleRich->addAddress($peopleRichAddress);
+
+        $peopleRich->setIsReceivingNewsletter(true);
+        $peopleRich->setNewsletterDematerialization(false);
+        $peopleRich->setHomePhoneNumber('0167123456');
+        $peopleRich->setCellPhoneNumber('0712345678');
+        $peopleRich->setWorkPhoneNumber('0112345678');
+        $peopleRich->setWorkFaxNumber('0134567890');
+        $peopleRich->setObservations('A donné un chèque de 8000€ au gala de 2018.');
+        $peopleRich->setSensitiveObservations('');
+
+        $userRich->addResponsibility($roleMecene);
+        $userRich->addResponsibility($roleInscritE);
+
+        $manager->persist($userRich);
+        $peopleRich->setUser($userRich);
+        $manager->persist($peopleRich);
 
         // Admin uniquement
         $userAdminUniquement = new User();
