@@ -26,8 +26,8 @@ class MemberProfileManagerTest extends WebTestCase
         ));
         // set the default session name
         $mink->setDefaultSessionName('browser');
-        $mink->getSession()->visit('http://127.0.0.1:8000/');
-        // !! Keep the same double fillField, otherwise it can lead to errors
+        // Go to profile page
+        $mink->getSession()->visit('http://localhost:8000/member/9');
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_password", "a");
@@ -35,17 +35,10 @@ class MemberProfileManagerTest extends WebTestCase
         // Connects
         $node = new NodeElement('//button[contains(.,"Connexion")]', $mink->getSession());
         $node->click();
-        // Go to Members page
-        $node = new NodeElement('//a[contains(.,"Adhérent·es")]', $mink->getSession());
-        $node->click();
-        // Go to profile page
-        $node = new NodeElement('(//a[@data-original-title="Voir le profil"])[1]', $mink->getSession());
-        $node->click();
         return $mink;
     }
     /**
      * Test that the selection acts properly
-     * @group test
      */
     public function testSelectProfile()
     {
@@ -54,6 +47,7 @@ class MemberProfileManagerTest extends WebTestCase
         // Gets the html content of the page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
+        //dump($crawler)
         // Verifies the selected user
         $this->assertContains('Docteur Ladislas Bullion', $crawler->filterXPath('//h1')->text());
         // Verifies the infos are loaded

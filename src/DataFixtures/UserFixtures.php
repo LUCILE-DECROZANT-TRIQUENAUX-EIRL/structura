@@ -489,7 +489,7 @@ class UserFixtures extends Fixture
         $peopleAdminUniquement->setUser($userAdminUniquement);
         $manager->persist($peopleAdminUniquement);
 
-        //truc
+        // test
         $userTest = new User();
         $userTest ->setUsername('test');
 
@@ -523,7 +523,7 @@ class UserFixtures extends Fixture
         $peopleTest->setUser($userTest);
         $manager->persist($peopleTest);
 
-        //truc
+        // test2
         $userTest2 = new User();
         $userTest2 ->setUsername('test2');
 
@@ -533,8 +533,8 @@ class UserFixtures extends Fixture
         $peopleTest2 = new People();
 
         $peopleTest2->setDenomination($madame);
-        $peopleTest2->setFirstName('Mélissa');
-        $peopleTest2->setLastName('Dubois');
+        $peopleTest2->setFirstName('Jeanne');
+        $peopleTest2->setLastName('Carton');
         $peopleTest2->setEmailAddress('administrator-life@fake.mail');
 
         $peopleTest2Address = new Address('10 rue des catacombes', '13001', 'Marseille', 'France');
