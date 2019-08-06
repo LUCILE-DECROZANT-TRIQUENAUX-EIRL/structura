@@ -65,13 +65,18 @@ class MemberListManagerTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
         // Counts the number of rows
-        $this->assertEquals(12, $crawler->filter('tr')->count());
+        $this->assertEquals(13, $crawler->filter('tr')->count());
         // Counts the number of "show profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Voir le profil"]')->count());
         // Counts the number of "edit profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Éditer le profil"]')->count());
         // Counts the number of "delete profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Supprimer le profil"]')->count());
+        //Counts the number of add new member buttons
+        $this->assertEquals(1, $crawler->filterXPath('//button[contains(@id,"createButton")]')->count());
+        //Verifies that the breadcrumb is correct
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Accueil")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li[contains(.,"Liste des adhérent·es")]')->count());
     }
 
     /**

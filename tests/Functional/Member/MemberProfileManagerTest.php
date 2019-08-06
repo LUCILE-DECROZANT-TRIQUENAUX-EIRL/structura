@@ -45,6 +45,7 @@ class MemberProfileManagerTest extends WebTestCase
     }
     /**
      * Test that the selection acts properly
+     * @group test
      */
     public function testSelectProfile()
     {
@@ -58,6 +59,14 @@ class MemberProfileManagerTest extends WebTestCase
         // Verifies the infos are loaded
         $this->assertContains('Informations de contact', $crawler->filterXPath('//h3')->text());
         $this->assertContains('Informations personnelles', $crawler->filterXPath('(//h3)[2]')->text());
+        //Verifies that the breadcrumb is correct
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Accueil")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Liste des adhérent·es")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li[contains(.,"Profil de Ladislas Bullion")]')->count());
+        //Verifies that the return button exists
+        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Retourner à la liste des utilisateurices")]')->count());
+        //Verifies that the delete button exists
+        $this->assertEquals(1, $crawler->filterXPath('//div/button[contains(.,"Supprimer Ladislas Bullion")]')->count());
     }
     /**
      * Test that the menu is displayed properly
