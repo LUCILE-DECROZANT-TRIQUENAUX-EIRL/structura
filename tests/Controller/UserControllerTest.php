@@ -19,6 +19,9 @@ class UserControllerTest extends WebTestCase
     const GESTIONNAIRE_USERNAME = 'gest1';
     const INFORMATEURICE_USERNAME = 'info';
     const ADHERENTE_USERNAME = 'adhe1';
+    const SYMPATHISANTE_USERNAME = 'supp1';
+    const MECENE_USERNAME = 'rich1';
+    const INSCRITE_USERNAME = 'inscr';
     const RANDOM_USER_USERNAME = 'adhe5';
 
     static $client;
@@ -158,6 +161,57 @@ class UserControllerTest extends WebTestCase
     {
         // Connect the adherent.e
         $this->connection(self::ADHERENTE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testSympathisanteAccessCreateUserProfilePage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::SYMPATHISANTE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testMeceneAccessCreateUserProfilePage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::MECENE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testInscriteAccessCreateUserProfilePage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::INSCRITE_USERNAME);
 
         // Go to the profile creation page
         self::$client->request('GET', '/user/new');
@@ -419,6 +473,57 @@ class UserControllerTest extends WebTestCase
     {
         // Connect the adherent.e
         $this->connection(self::ADHERENTE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testSympathisanteAccessUserListPage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::SYMPATHISANTE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testMeceneAccessUserListPage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::MECENE_USERNAME);
+
+        // Go to the user list page
+        self::$client->request('GET', '/user/');
+        $this->assertEquals(
+                403,
+                self::$client->getResponse()->getStatusCode(),
+                'The user shouldn\'t be allowed to access the page'
+        );
+    }
+
+    /**
+     * @group access
+     */
+    public function testInscriteAccessUserListPage()
+    {
+        // Connect the adherent.e
+        $this->connection(self::INSCRITE_USERNAME);
 
         // Go to the user list page
         self::$client->request('GET', '/user/');
