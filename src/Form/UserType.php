@@ -48,7 +48,13 @@ class UserType extends AbstractType
                             'data-responsibility-automatically-managed' => $responsibility->isAutomatic(),
                         ];
                     },
-                ]);
+                ])
+                ->add('submit',SubmitType::class, [
+                    'attr' => [
+                        'class' => 'btn btn-primary float-right'
+                        ]
+                    ])
+                ;
     }
 
     /**

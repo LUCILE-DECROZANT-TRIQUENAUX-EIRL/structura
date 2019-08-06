@@ -46,7 +46,7 @@ class UserGeneralDataType extends AbstractType
                 ->add('submit',SubmitType::class, [
                 'label' => 'Changer les informations',
                 'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
+                    'class' => 'btn btn-primary float-right'
                     ]
                 ]);
     }

@@ -39,7 +39,7 @@
     <br>
 
     <div class="container">
-    <p> Les champs notés avec * sont requis. </p>
+        <p> Les champs notés avec * sont requis. </p>
 
         {{ form_start(form, {'attr': {'id': 'form-create-user'}}) }}
             <div class="form-group">
@@ -70,7 +70,6 @@
                 {% endfor %}
             </div>
             {{ form_widget(form._token) }}
-            {{ form_row(form.submit) }}
         {{ form_end(form, {'render_rest': false}) }}
     </div>
     <br>
