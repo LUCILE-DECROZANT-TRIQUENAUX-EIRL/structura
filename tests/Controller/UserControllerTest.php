@@ -19,7 +19,7 @@ class UserControllerTest extends WebTestCase
     const GESTIONNAIRE_USERNAME = 'gest1';
     const INFORMATEURICE_USERNAME = 'info';
     const ADHERENTE_USERNAME = 'adhe1';
-    const RANDOM_USER_USERNAME = 'test';
+    const RANDOM_USER_USERNAME = 'adhe5';
 
     static $client;
     static $container;
@@ -95,10 +95,10 @@ class UserControllerTest extends WebTestCase
     public function testAdminAccessCreateUserProfilePage()
     {
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_USERNAME);
+        $this->connection(self::ADMIN_USERNAME);
 
         // Go to the profile creation page
-        $crawler = self::$client->request('GET', '/user/new');
+        self::$client->request('GET', '/user/new');
         $this->assertEquals(
                 'Enregistrer un.e nouvel.le utilisateurice',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
@@ -106,10 +106,10 @@ class UserControllerTest extends WebTestCase
         );
 
         // Connect the admin
-        $admin = $this->connection(self::ADMIN_ONLY_USERNAME);
+        $this->connection(self::ADMIN_ONLY_USERNAME);
 
         // Go to the profile creation page
-        $crawler = self::$client->request('GET', '/user/new');
+        self::$client->request('GET', '/user/new');
         $this->assertEquals(
                 'Enregistrer un.e nouvel.le utilisateurice',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
