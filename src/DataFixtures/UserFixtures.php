@@ -556,6 +556,39 @@ class UserFixtures extends Fixture
         $peopleAdminUniquement->setUser($userAdminUniquement);
         $manager->persist($peopleAdminUniquement);
 
+        // Inscrite uniquement
+        $userRegistered = new User();
+        $userRegistered ->setUsername('inscr');
+
+        $passwordRegistered = $this->encoder->encodePassword($userRegistered, 'a');
+        $userRegistered->setPassword($passwordRegistered);
+
+        $peopleRegistered = new People();
+
+        $peopleRegistered->setDenomination($madame);
+        $peopleRegistered->setFirstName('Jodi');
+        $peopleRegistered->setLastName('Manchon');
+        $peopleRegistered->setEmailAddress('inscrite@fake.mail');
+
+        $peopleRegisteredAddress = new Address('22 rue des écureuils', '13001', 'Marseille', 'France');
+        $manager->persist($peopleRegisteredAddress);
+        $peopleRegistered->addAddress($peopleRegisteredAddress);
+
+        $peopleRegistered->setIsReceivingNewsletter(true);
+        $peopleRegistered->setNewsletterDematerialization(true);
+        $peopleRegistered->setHomePhoneNumber('0467654321');
+        $peopleRegistered->setCellPhoneNumber('0687654321');
+        $peopleRegistered->setWorkPhoneNumber('0487654321');
+        $peopleRegistered->setWorkFaxNumber('0409876543');
+        $peopleRegistered->setObservations('Notée suite à appel téléphonique du 23 juillet 2019.');
+        $peopleRegistered->setSensitiveObservations('');
+
+        $userRegistered->addResponsibility($roleInscritE);
+
+        $manager->persist($userRegistered);
+        $peopleRegistered->setUser($userRegistered);
+        $manager->persist($peopleRegistered);
+
         //truc
         $userTest = new User();
         $userTest ->setUsername('test');
