@@ -71,7 +71,7 @@
 
     <div class="container">
     <p> Les champs notés avec * sont requis. </p>
-    
+
         <div >
         {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
             <div class="form-group">
@@ -88,11 +88,6 @@
                             <span class="text-muted responsibility-description">
                                 {{ responsibility.vars.attr['data-responsibility-description'] }}
                             </span>
-                        </div>
-                    {% else %}
-                        <div class="form-group d-none">
-                            {{ form_widget(responsibility) }}
-                            {{ form_label(responsibility) }}
                         </div>
                     {% endif %}
                 {% endfor %}

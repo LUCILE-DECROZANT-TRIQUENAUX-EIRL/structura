@@ -186,6 +186,23 @@ class UserController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
+            // Clear the entity manager cache to get fresh data from the database
+            $entityManager->clear();
+            // Get the existing user to keep the automatic responsibilities it has
+            $currentUserInDatabase = $entityManager->getRepository(User::class)->findOneBy([
+                'id' => $currentUser->getId(),
+            ]);
+
+            // Keep the automatic responsibilities for this user
+            $oldResponsibilities = $currentUserInDatabase->getResponsibilities();
+            foreach ($oldResponsibilities as $oldResponsibility)
+            {
+                if ($oldResponsibility->isAutomatic())
+                {
+                    $currentUser->addResponsibility($oldResponsibility);
+                }
+            }
+
             // by default, add the registered responsibility
             $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
                 'label' => Responsibility::REGISTERED_LABEL,
