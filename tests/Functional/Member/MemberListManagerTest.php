@@ -30,23 +30,14 @@ class MemberListManagerTest extends WebTestCase
         // set the default session name
         $mink->setDefaultSessionName('browser');
 
-        $mink->getSession()->visit('http://127.0.0.1:8000/');
-
-        // !! Keep the same double fillField, otherwise it can lead to errors
+        // Go to profile page
+        $mink->getSession()->visit('http://localhost:8000/member/');
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
-        sleep(1);
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
-
         $mink->getSession()->getPage()->fillField("_password", "a");
         $mink->getSession()->getPage()->fillField("_password", "a");
-
         // Connects
         $node = new NodeElement('//button[contains(.,"Connexion")]', $mink->getSession());
-        $node->click();
-        sleep(1);
-
-        // Go to Members page
-        $node = new NodeElement('//a[contains(.,"Adhérent·es")]', $mink->getSession());
         $node->click();
 
         return $mink;
@@ -65,13 +56,18 @@ class MemberListManagerTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
         // Counts the number of rows
-        $this->assertEquals(12, $crawler->filter('tr')->count());
+        $this->assertEquals(13, $crawler->filter('tr')->count());
         // Counts the number of "show profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Voir le profil"]')->count());
         // Counts the number of "edit profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Éditer le profil"]')->count());
         // Counts the number of "delete profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Supprimer le profil"]')->count());
+        //Counts the number of add new member buttons
+        $this->assertEquals(1, $crawler->filterXPath('//button[contains(@id,"createButton")]')->count());
+        //Verifies that the breadcrumb is correct
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Accueil")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li[contains(.,"Liste des adhérent·es")]')->count());
     }
 
     /**
@@ -85,8 +81,8 @@ class MemberListManagerTest extends WebTestCase
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
 
-        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Previous")]')->count());
-        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Next")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Précédent")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Suivant")]')->count());
         // Go to the 2nd page
         $node = new NodeElement('//a[contains(.,"2")]', $client->getSession());
         $node->click();
@@ -94,7 +90,7 @@ class MemberListManagerTest extends WebTestCase
         // Counts the number of rows on the new page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
-        $this->assertEquals(6, $crawler->filter('tr')->count());
+        $this->assertEquals(7, $crawler->filter('tr')->count());
     }
 
     /**

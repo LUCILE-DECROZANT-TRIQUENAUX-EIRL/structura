@@ -30,27 +30,14 @@ class AdministrationProfileAdminTest extends WebTestCase
          // set the default session name
          $mink->setDefaultSessionName('browser');
 
-         $mink->getSession()->visit('http://127.0.0.1:8000/');
-
-         // !! Keep the same double fillField, otherwise it can lead to errors
-         $mink->getSession()->getPage()->fillField("_username", "admin");
-         sleep(1);
-         $mink->getSession()->getPage()->fillField("_username", "admin");
+         // Go to profile page
+         $mink->getSession()->visit('http://localhost:8000/user/1');
+         $mink->getSession()->getPage()->fillField("_username", "adminUniquement");
+         $mink->getSession()->getPage()->fillField("_username", "adminUniquement");
          $mink->getSession()->getPage()->fillField("_password", "a");
          $mink->getSession()->getPage()->fillField("_password", "a");
-
          // Connects
          $node = new NodeElement('//button[contains(.,"Connexion")]', $mink->getSession());
-         $node->click();
-         sleep(1);
-         // Go to Members page
-         $node = new NodeElement('//a[contains(.,"Administration")]', $mink->getSession());
-         $node->click();
-         // Go to Members page
-         $node = new NodeElement('//a[contains(.,"Liste des comptes")]', $mink->getSession());
-         $node->click();
-         // Go to profile page
-         $node = new NodeElement('(//a[@data-original-title="Voir le profil"])', $mink->getSession());
          $node->click();
 
          return $mink;

@@ -636,7 +636,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $peopleAdminUniquement->setUser($userAdminUniquement);
 //         $manager->persist($peopleAdminUniquement);
 
-//         //truc
+//         //Utilisateur admin
 //         $userTest = new User();
 //         $userTest ->setUsername('test');
 
@@ -670,7 +670,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $peopleTest->setUser($userTest);
 //         $manager->persist($peopleTest);
 
-//         //truc
+//         //Utilisateur Admin
 //         $userTest2 = new User();
 //         $userTest2 ->setUsername('test2');
 

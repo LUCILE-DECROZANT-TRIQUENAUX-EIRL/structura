@@ -26,20 +26,14 @@ class MemberProfileManagerTest extends WebTestCase
         ));
         // set the default session name
         $mink->setDefaultSessionName('browser');
-        $mink->getSession()->visit('http://127.0.0.1:8000/');
-        // !! Keep the same double fillField, otherwise it can lead to errors
+        // Go to profile page
+        $mink->getSession()->visit('http://localhost:8000/member/9');
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_password", "a");
         $mink->getSession()->getPage()->fillField("_password", "a");
         // Connects
         $node = new NodeElement('//button[contains(.,"Connexion")]', $mink->getSession());
-        $node->click();
-        // Go to Members page
-        $node = new NodeElement('//a[contains(.,"Adhérent·es")]', $mink->getSession());
-        $node->click();
-        // Go to profile page
-        $node = new NodeElement('(//a[@data-original-title="Voir le profil"])[1]', $mink->getSession());
         $node->click();
         return $mink;
     }
@@ -53,11 +47,20 @@ class MemberProfileManagerTest extends WebTestCase
         // Gets the html content of the page
         $page = $client->getSession()->getPage();
         $crawler = new Crawler($page->getContent());
+        //dump($crawler)
         // Verifies the selected user
         $this->assertContains('Docteur Ladislas Bullion', $crawler->filterXPath('//h1')->text());
         // Verifies the infos are loaded
         $this->assertContains('Informations de contact', $crawler->filterXPath('//h3')->text());
         $this->assertContains('Informations personnelles', $crawler->filterXPath('(//h3)[2]')->text());
+        //Verifies that the breadcrumb is correct
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Accueil")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Liste des adhérent·es")]')->count());
+        $this->assertEquals(1, $crawler->filterXPath('//li[contains(.,"Profil de Ladislas Bullion")]')->count());
+        //Verifies that the return button exists
+        $this->assertEquals(1, $crawler->filterXPath('//a[contains(.,"Retourner à la liste des utilisateurices")]')->count());
+        //Verifies that the delete button exists
+        $this->assertEquals(1, $crawler->filterXPath('//div/button[contains(.,"Supprimer Ladislas Bullion")]')->count());
     }
     /**
      * Test that the menu is displayed properly
