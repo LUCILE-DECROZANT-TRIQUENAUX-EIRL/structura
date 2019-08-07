@@ -958,6 +958,141 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
+     * @group create
+     */
+    public function testCreateUserUsernameAlreadyTaken()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the count of users in the database
+        $userCountBeforeTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = self::ADMIN_USERNAME;
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Get the count of users in the database after the test
+        $userCountAfterTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+
+        // The form throws an error
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+        $this->assertContains(
+                'L\'utilisateurice ' . $username . ' n\'a pas pu être créé.e',
+                self::$client->getCrawler()->filter('.alert.alert-danger')->first()->text(),
+                'An error message should be displayed'
+        );
+        $this->assertContains(
+                'Ce nom d\'utilisateurice n\'est pas disponible.',
+                self::$client->getCrawler()->filter('.invalid-feedback')->first()->text(),
+                'An error message should be displayed'
+        );
+        // Check of the database content
+        $this->assertEquals(
+                $userCountBeforeTest,
+                $userCountAfterTest,
+                'The user count shouldn\'t have changed'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserPasswordsNotTheSame()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the count of users in the database
+        $userCountBeforeTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password1 = 'a';
+        $password2 = 'b';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password1,
+                'app_user[plainPassword][second]' => $password2,
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Get the count of users in the database after the test
+        $userCountAfterTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+
+        // The form throws an error
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+        $this->assertContains(
+                'L\'utilisateurice ' . $username . ' n\'a pas pu être créé.e',
+                self::$client->getCrawler()->filter('.alert.alert-danger')->first()->text(),
+                'An error message should be displayed'
+        );
+        $this->assertContains(
+                'Les mots de passe doivent être identiques',
+                self::$client->getCrawler()->filter('.invalid-feedback')->first()->text(),
+                'An error message should be displayed'
+        );
+        // Check of the database content
+        $this->assertEquals(
+                $userCountBeforeTest,
+                $userCountAfterTest,
+                'The user count shouldn\'t have changed'
+        );
+    }
+
+    /**
      * Try to create a new user with the an already taken username
      */
     /*public function testCreateFalse()
