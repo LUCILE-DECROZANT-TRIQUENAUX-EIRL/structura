@@ -12,10 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Responsibility
 {
+    const ADMINISTRATEURICE_LABEL = 'Administrateurice de la base de données';
+    const ADMINISTRATEURICE_SENSIBLE_LABEL = 'Administrateurice des données sensibles';
+    const GESTIONNAIRE_LABEL = 'Gestionnaire';
+    const GESTIONNAIRE_SENSIBLE_LABEL = 'Gestionnaire des données sensibles';
     const MEMBER = 'Adhérent.e';
     const EX_MEMBER = 'Ex-adhérent.e';
+    const INFORMATEURICE_LABEL = 'Informateurice';
     const SYMPATHIZE_LABEL = 'Sympathisant.e';
     const REGISTERED_LABEL = 'Inscrit.e';
+    const CONSULTATION_ANNUAIRE_LABEL = 'Consultation de l\'annuaire';
 
     /**
      * @var int

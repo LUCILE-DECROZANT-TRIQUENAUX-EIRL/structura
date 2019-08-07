@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use App\Entity\Responsibility;
 
 use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
 
@@ -206,30 +207,753 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+//  -----------------------------
+//   Test the creation of a user
+//  -----------------------------
+
     /**
-     * Create a new user
+     * @group create
      */
-    public function testCreate()
+    public function testCreateUserRequiredFields()
     {
-        $userCreationPage = $this->accessUserCreationPage();
-        $client = $userCreationPage['client'];
-        $crawler = $userCreationPage['crawler'];
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
 
-        // Select the form and fill its values
-        $form = $crawler->selectButton(' Créer')->form();
-        //var_dump(['app_user']['responsibilities'][2]);
-        $form['app_user']['responsibilities'][2]->tick();
-        $values = $form->getPhpValues();
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
 
-        $values['app_user']['username'] = 'Jean';
-        $values['app_user']['plainPassword']['first'] = 'motdepasse';
-        $values['app_user']['plainPassword']['second'] = 'motdepasse';
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+            ]);
 
-        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-        $crawler = $client->followRedirect();
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
         $this->assertContains(
-                'Jean',
-                $client->getResponse()->getContent()
+                'Redirecting to <a href="/user/18">/user/18</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                'username-test',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                1,
+                'The user should only have one responsibility'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserAdmin()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Administrateurice responsibility data from database
+        $responsibilityAdmin = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::ADMINISTRATEURICE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityAdmin->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityAdmin),
+                'The user should have the Administrateurice responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                2,
+                'The user should only have two responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserAdminSensible()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Administrateurice responsibility data from database
+        $responsibilityAdmin = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::ADMINISTRATEURICE_LABEL,
+            ]);
+        // Get the Administrateurice sensible responsibility data from database
+        $responsibilitySensibleAdmin = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::ADMINISTRATEURICE_SENSIBLE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityAdmin->getId(),
+                    $responsibilitySensibleAdmin->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityAdmin),
+                'The user should have the Administrateurice responsibility'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilitySensibleAdmin),
+                'The user should have the Administrateurice responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                3,
+                'The user should only have three responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserGestionnaire()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Gestionnaire responsibility data from database
+        $responsibilityManager = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::GESTIONNAIRE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityManager->getId(),
+            ],
+        ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityManager),
+                'The user should have the Gestionnaire responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                2,
+                'The user should only have two responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserGestionnaireSensible()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Gestionnaire responsibility data from database
+        $responsibilityManager = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::GESTIONNAIRE_LABEL,
+            ]);
+        // Get the Gestionnaire sensible responsibility data from database
+        $responsibilitySensibleManager = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::GESTIONNAIRE_SENSIBLE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityManager->getId(),
+                    $responsibilitySensibleManager->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityManager),
+                'The user should have the Gestionnaire responsibility'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilitySensibleManager),
+                'The user should have the Gestionnaire sensible responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                3,
+                'The user should only have three responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserInformateurice()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Informateurice responsibility data from database
+        $responsibilityInformation = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::INFORMATEURICE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityInformation->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInformation),
+                'The user should have the Informateurice responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                2,
+                'The user should only have two responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserSympathisante()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Sympathisant.e responsibility data from database
+        $responsibilitySympathize = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::SYMPATHIZE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilitySympathize->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilitySympathize),
+                'The user should have the Sympathisant.e responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                2,
+                'The user should only have two responsibilities'
+        );
+    }
+
+    /**
+     * @group create
+     */
+    public function testCreateUserAnnuaire()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the Consultation annuaire responsibility data from database
+        $responsibilityDoctorsBook = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::CONSULTATION_ANNUAIRE_LABEL,
+            ]);
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Select the form
+        $form = self::$client->getCrawler()->selectButton('create-user-submit-button')->form();
+        // Fill the form inputs
+        $username = 'username-test';
+        $password = 'a';
+        $form->disableValidation()
+            ->setValues([
+                'app_user[username]' => $username,
+                'app_user[plainPassword][first]' => $password,
+                'app_user[plainPassword][second]' => $password,
+                'app_user[responsibilities]' => [
+                    $responsibilityDoctorsBook->getId(),
+                ],
+            ]);
+
+        // Submit the form
+        self::$client->submit($form);
+
+        // Autoredirection to the user list
+        $createdUser = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy([
+                'username' => $username,
+            ]);
+        $this->assertTrue(self::$client->getResponse()->isRedirection());
+        $this->assertContains(
+                'Redirecting to <a href="/user/'. $createdUser->getId() . '">/user/'. $createdUser->getId() . '</a>.',
+                self::$client->getResponse()->getContent(),
+                'The page should be redirecting to the newly created user profile one'
+        );
+        self::$client->followRedirect();
+        $this->assertEquals(
+                $username,
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the newly created user profile one'
+        );
+
+        // Check the database content
+        $responsibilityInscrite = self::$container
+            ->get('doctrine')
+            ->getRepository(Responsibility::class)
+            ->findOneBy([
+                'label' => Responsibility::REGISTERED_LABEL,
+            ]);
+        $this->assertEquals(
+                $createdUser->getUsername(),
+                $username,
+                'The username should be ' . $username
+        );
+        $this->assertTrue(
+                password_verify($password, $createdUser->getPassword()),
+                'The passwords should correspond'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityInscrite),
+                'The user should have the Inscrit.e responsibility by default'
+        );
+        $this->assertTrue(
+                $createdUser->hasResponsibility($responsibilityDoctorsBook),
+                'The user should have the Consultation de l\'annuaire responsibility'
+        );
+        $this->assertEquals(
+                count($createdUser->getResponsibilities()),
+                2,
+                'The user should only have two responsibilities'
         );
     }
 
