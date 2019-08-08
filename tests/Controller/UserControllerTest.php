@@ -1092,6 +1092,60 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+//  -------------------------------------------------
+//   Test the navigation elements on the create page
+//  -------------------------------------------------
+
+    /**
+     * @group navigation
+     */
+    public function testReturnButtonOnCreatePage()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Get the count of users in the database before the test
+        $userCountBeforeTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Get the return to the list button and use it
+        $returnButton = self::$client->getCrawler()
+                // we can't use the whole label as the crawler is not able
+                // to interpret correctly the non breaking spaces
+                ->selectLink('à la liste des utilisateurices')
+                ->link();
+        self::$client->request('GET', $returnButton->getUri());
+
+        // Check that we are on the user list
+        $this->assertEquals(
+                'Liste des utilisateurices',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user list'
+        );
+
+        // Get the count of users in the database after the test
+        $userCountAfterTest = self::$container
+            ->get('doctrine')
+            ->getRepository(User::class)
+            ->count([]);
+        // Check the database content
+        $this->assertEquals(
+                $userCountBeforeTest,
+                $userCountAfterTest,
+                'The user count shouldn\'t have changed'
+        );
+    }
+
     /**
      * Try to create a new user with the an already taken username
      */
