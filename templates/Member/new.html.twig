@@ -102,13 +102,14 @@
                 {{ form_help(form.observations)}}
             </div>
 
-            {% if is_granted("ROLE_GESTION_SENSIBLE") %}
-            <div class="form-group">
-                {{ form_label(form.sensitiveObservations)}}
-                {{ form_widget(form.sensitiveObservations)}}
-                {{ form_help(form.sensitiveObservations)}}
-            </div>
+            {% if is_granted('ROLE_GESTION_SENSIBLE')%}
+                <div class="form-group">
+                    {{ form_label(form.sensitiveObservations)}}
+                    {{ form_widget(form.sensitiveObservations)}}
+                    {{ form_help(form.sensitiveObservations)}}
+                </div>
             {% endif %}
+            {% do form.sensitiveObservations.setRendered %}
 
         {{ form_end(form) }}
     </div>
@@ -120,7 +121,7 @@
                 <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es</a>
             </div>
             <div class="col text-right">
-                <button type="submit" form="form-create-member" class="btn btn-primary"><i class="icon ion-md-add"></i>&nbsp;Créer</button>
+                <button id="create-member-submit-button" type="submit" form="form-create-member" class="btn btn-primary"><i class="icon ion-md-add"></i>&nbsp;Créer</button>
             </div>
         </div>
     </div>

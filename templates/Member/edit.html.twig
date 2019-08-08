@@ -132,6 +132,7 @@
                     {{ form_help(member_edit.sensitiveObservations)}}
                 </div>
                 {% endif %}
+                {% do member_edit.sensitiveObservations.setRendered %}
 
         {{ form_end(member_edit) }}
 
@@ -145,7 +146,7 @@
             <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es</a>
         </div>
         <div class="col text-right">
-            <button type="submit" form="form-edit-member" class="btn btn-primary">Enregistrer les modifications</button>
+            <button id="edit-member-submit-button" type="submit" form="form-edit-member" class="btn btn-primary">Enregistrer les modifications</button>
         </div>
     </div>
 </div>
