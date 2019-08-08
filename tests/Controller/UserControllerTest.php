@@ -1120,9 +1120,9 @@ class UserControllerTest extends WebTestCase
 
         // Get the return to the list button and use it
         $returnButton = self::$client->getCrawler()
-                // we can't use the whole label as the crawler is not able
-                // to interpret correctly the non breaking spaces
-                ->selectLink('à la liste des utilisateurices')
+                // passing the non brzaking space in the label as
+                // the SOM crawler needs it to find the button
+                ->selectLink("\xc2\xa0Retourner à la liste des utilisateurices")
                 ->link();
         self::$client->request('GET', $returnButton->getUri());
 
