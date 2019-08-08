@@ -77,12 +77,21 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ path('user_list') }}" class="btn btn-secondary">
+                <a
+                    id="return-button"
+                    href="{{ path('user_list') }}"
+                    class="btn btn-secondary"
+                    >
                     <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices
                 </a>
             </div>
             <div class="col text-right">
-                <button id="create-user-submit-button" type="submit" form="form-create-user" class="btn btn-primary">
+                <button
+                    id="create-user-submit-button"
+                    type="submit"
+                    form="form-create-user"
+                    class="btn btn-primary"
+                    >
                     <i class="icon ion-md-add"></i>&nbsp;Créer
                 </button>
             </div>
