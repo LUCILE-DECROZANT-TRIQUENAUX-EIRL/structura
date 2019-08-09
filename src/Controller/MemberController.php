@@ -125,9 +125,6 @@ class MemberController extends AbstractController
      */
     public function editAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
-
-        $currentUser = $individual->getUser();
-
         $deleteForm = $this->createDeleteForm($individual);
         $editForm = $this->createForm(MemberType::class, $individual);
         $editForm->handleRequest($request);
@@ -135,22 +132,22 @@ class MemberController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
-
             $entityManager = $this->getDoctrine()->getManager();
             // Clear the entity manager cache to get fresh data from the database
             $entityManager->clear();
-            // Get the existing user to keep the automatic responsibilities it has
+            // Get the existing people to keep the sensible data it has if necessary
             $currentMember = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $individual->getId(),
             ]);
 
+            // if the connected user does not have the access to the sensible
+            // inputs, we need to keep the old data instead of emptying it
             if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
             {
                 $individual->setSensitiveObservations(
                     $currentMember->getSensitiveObservations()
                 );
             }
-            //$entityManager ->persist($individual);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
