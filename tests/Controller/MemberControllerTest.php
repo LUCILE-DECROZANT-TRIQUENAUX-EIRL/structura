@@ -769,58 +769,58 @@ class MemberControllerTest extends WebTestCase
     /**
      * Tests if a person with the gestionnaire role can access the page
      */
-    // public function testGestionnaireEditSensibleCanSeeSensitiveObservations()
-    // {
-    //
-    //     // Connects the gestionnaire
-    //     $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
-    //
-    //     // Go to the profile creation page
-    //     self::$client->request('GET', '/member/17/edit');
-    //     $this->assertContains(
-    //         'Détails médicaux',
-    //         self::$client->getCrawler()->filter('label')->last()->text(),
-    //         'The page should contain sensitive observations'
-    //     );
-    //
-    // }
-    //
-    // //  -----------------------------
-    // //   Test the edition of a member
-    // //  -----------------------------
-    //
-    //     /**
-    //      * Creates an user with mandatory form inputs
-    //      * @group test
-    //      */
-    //     public function testEditMemberRequiredFields()
-    //     {
-    //         // Connects the gestionnaire
-    //         $this->connection(self::GESTIONNAIRE_USERNAME);
-    //
-    //         // Goes to the profile ediiton page
-    //         $crawler = self::$client->request('GET', '/member/17/edit');
-    //         $this->assertEquals(
-    //                 'Édition de l\'adhérent.e',
-    //                 self::$client->getCrawler()->filter('h1')->first()->text(),
-    //                 'The page should be the member edition one'
-    //         );
-    //
-    //
-    //         $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
-    //
-    //         // Fills the mandatory form inputs
-    //         /*$firstname = 'Florent';
-    //         $name = 'Marin';
-    //         $form
-    //             ->setValues([
-    //                 'app_user[firstname]' => $firstname,
-    //                 'app_user[lastname]' => $name,
-    //             ]);*/
-    //         //$form['app_user[denomination]']->select(2);
-    //
-    //         // Submits the form
-    //         self::$client->submit($form);
+    public function testGestionnaireEditSensibleCanSeeSensitiveObservations()
+    {
+
+        // Connects the gestionnaire
+        $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/member/17/edit');
+        $this->assertContains(
+            'Détails médicaux',
+            self::$client->getCrawler()->filter('label')->last()->text(),
+            'The page should contain sensitive observations'
+        );
+
+    }
+
+    //  -----------------------------
+    //   Test the edition of a member
+    //  -----------------------------
+
+        /**
+         * Creates an user with mandatory form inputs
+         * @group test
+         */
+        public function testEditMemberRequiredFields()
+        {
+            // Connects the gestionnaire
+            $this->connection(self::GESTIONNAIRE_USERNAME);
+
+            // Goes to the profile ediiton page
+            $crawler = self::$client->request('GET', '/member/17/edit');
+            $this->assertEquals(
+                    'Édition de l\'adhérent.e',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the member edition one'
+            );
+
+
+            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+
+            // Fills the mandatory form inputs
+            /*$firstname = 'Florent';
+            $name = 'Marin';
+            $form
+                ->setValues([
+                    'app_user[firstname]' => $firstname,
+                    'app_user[lastname]' => $name,
+                ]);*/
+            //$form['app_user[denomination]']->select(2);
+
+            // Submits the form
+            self::$client->submit($form);
     //
     //         // Autoredirection to the member profile
     //         /*$this->assertContains(
@@ -828,12 +828,12 @@ class MemberControllerTest extends WebTestCase
     //                 self::$client->getResponse()->getContent(),
     //                 'The page should be redirecting to the newly created user profile one'
     //         );*/
-    //         //self::$client->followRedirect();
-    //         $this->assertContains(
-    //                 'Monsieur Florent Marin',
-    //                 self::$client->getCrawler()->filter('h1')->first()->text(),
-    //                 'The page should be the newly created user profile one'
-    //         );
+            //self::$client->followRedirect();
+            $this->assertContains(
+                    'Monsieur Florent Marin',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the newly created user profile one'
+            );
     //
     //         // Checks the database content
     //         $createdMember = self::$container
@@ -862,7 +862,7 @@ class MemberControllerTest extends WebTestCase
     //                 "Monsieur",
     //                 'The denomination should be Monsieur '
     //         );
-    //     }
+       }
 
         /**
          * Creates an user with all form inputs

@@ -125,13 +125,14 @@
                     {{ form_help(member_edit.observations)}}
                 </div>
 
-                {% if is_granted("ROLE_GESTION_SENSIBLE") %}
-                <div class="form-group">
-                    {{ form_label(member_edit.sensitiveObservations)}}
-                    {{ form_widget(member_edit.sensitiveObservations)}}
-                    {{ form_help(member_edit.sensitiveObservations)}}
-                </div>
+                {% if is_granted('ROLE_GESTION_SENSIBLE') %}
+                    <div class="form-group">
+                        {{ form_label(member_edit.sensitiveObservations)}}
+                        {{ form_widget(member_edit.sensitiveObservations)}}
+                        {{ form_help(member_edit.sensitiveObservations)}}
+                    </div>
                 {% endif %}
+
                 {% do member_edit.sensitiveObservations.setRendered %}
 
         {{ form_end(member_edit) }}

@@ -95,7 +95,8 @@ class MemberType extends AbstractType
                 ])
                 ->add('sensitiveObservations', TextareaType::class, [
                     'label' => 'Détails médicaux',
-                    'required' => false
+                    'required' => false,
+                    'empty_data' => ''
                 ])
                 /*->add('submit',SubmitType::class, [
                 'label' => 'Valider',
