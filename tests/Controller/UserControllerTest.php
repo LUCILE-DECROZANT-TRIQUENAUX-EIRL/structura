@@ -1207,6 +1207,146 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
+     * @group navigation
+     */
+    public function testBreadcrumbOnCreatePageFromList()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new?from=list');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Get the breadcrumb element
+        $breadcrumb = self::$client->getCrawler()->filter('.breadcrumb');
+
+        // Check the number of elements in the breadcrumb
+        $breadcrumbElements = $breadcrumb->children();
+        $this->assertEquals(
+                count($breadcrumbElements),
+                4,
+                'The breadcrumb should contains three elements'
+        );
+
+        // Check the elements of the breadcrumb
+        $this->assertContains(
+                'Accueil',
+                $breadcrumbElements->eq(0)->text(),
+                'The first element of the breadcrumb should the home page'
+        );
+        $this->assertEquals(
+                '/',
+                $breadcrumbElements->eq(0)->children()->first()->attr('href'),
+                'The first element of the breadcrumb should link to the home page'
+        );
+        $this->assertContains(
+                'Administration',
+                $breadcrumbElements->eq(1)->text(),
+                'The second element of the breadcrumb should the Administration page'
+        );
+        $this->assertEquals(
+                '/administration',
+                $breadcrumbElements->eq(1)->children()->first()->attr('href'),
+                'The second element of the breadcrumb should the Administration page'
+        );
+        $this->assertContains(
+                ' Liste des utilisateurices',
+                $breadcrumbElements->eq(2)->text(),
+                'The second element of the breadcrumb should the user list page'
+        );
+        $this->assertEquals(
+                '/user/',
+                $breadcrumbElements->eq(2)->children()->first()->attr('href'),
+                'The second element of the breadcrumb should the user list page'
+        );
+        $this->assertContains(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                $breadcrumbElements->eq(3)->text(),
+                'The last element of the breadcrumb should the current page'
+        );
+        $this->assertEquals(
+                0,
+                count($breadcrumbElements->eq(3)->children()),
+                'The last element of the breadcrumb shouldn\'t be a link'
+        );
+    }
+
+    /**
+     * @group navigation
+     */
+    public function testBreadcrumbOnCreatePageByDefault()
+    {
+        // Connect the admin
+        $this->connection(self::ADMIN_USERNAME);
+
+        // Go to the profile creation page
+        self::$client->request('GET', '/user/new');
+        $this->assertEquals(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                self::$client->getCrawler()->filter('h1')->first()->text(),
+                'The page should be the user creation one'
+        );
+
+        // Get the breadcrumb element
+        $breadcrumb = self::$client->getCrawler()->filter('.breadcrumb');
+
+        // Check the number of elements in the breadcrumb
+        $breadcrumbElements = $breadcrumb->children();
+        $this->assertEquals(
+                count($breadcrumbElements),
+                4,
+                'The breadcrumb should contains three elements'
+        );
+
+        // Check the elements of the breadcrumb
+        $this->assertContains(
+                'Accueil',
+                $breadcrumbElements->eq(0)->text(),
+                'The first element of the breadcrumb should the home page'
+        );
+        $this->assertEquals(
+                '/',
+                $breadcrumbElements->eq(0)->children()->first()->attr('href'),
+                'The first element of the breadcrumb should link to the home page'
+        );
+        $this->assertContains(
+                'Administration',
+                $breadcrumbElements->eq(1)->text(),
+                'The second element of the breadcrumb should the Administration page'
+        );
+        $this->assertEquals(
+                '/administration',
+                $breadcrumbElements->eq(1)->children()->first()->attr('href'),
+                'The second element of the breadcrumb should the Administration page'
+        );
+        $this->assertContains(
+                ' Liste des utilisateurices',
+                $breadcrumbElements->eq(2)->text(),
+                'The second element of the breadcrumb should the user list page'
+        );
+        $this->assertEquals(
+                '/user/',
+                $breadcrumbElements->eq(2)->children()->first()->attr('href'),
+                'The second element of the breadcrumb should the user list page'
+        );
+        $this->assertContains(
+                'Enregistrer un.e nouvel.le utilisateurice',
+                $breadcrumbElements->eq(3)->text(),
+                'The last element of the breadcrumb should the current page'
+        );
+        $this->assertEquals(
+                0,
+                count($breadcrumbElements->eq(3)->children()),
+                'The last element of the breadcrumb shouldn\'t be a link'
+        );
+    }
+
+    /**
      * Try to create a new user with the an already taken username
      */
     /*public function testCreateFalse()
