@@ -97,13 +97,7 @@ class MemberType extends AbstractType
                     'label' => 'Détails médicaux',
                     'required' => false,
                     'empty_data' => ''
-                ])
-                /*->add('submit',SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
-                ])*/;
+                ]);
     }
 
     /**

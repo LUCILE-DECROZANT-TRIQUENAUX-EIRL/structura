@@ -62,12 +62,6 @@ class MemberContactType extends AbstractType
                     'label' => 'Fax de travail',
                     'help' => 'Seuls les chiffres sont acceptés',
                     'required' => false
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
                 ]);
     }
 

@@ -56,12 +56,6 @@ class MemberPersonalType extends AbstractType
                 ->add('sensitiveObservations', TextareaType::class, [
                     'label' => 'Détails médicaux',
                     'required' => false
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
                 ]);
     }
 
