@@ -3,6 +3,7 @@
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
     <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -19,7 +20,7 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item">
-        <a href="{{ path('user_show', { 'id': member.id }) }}">
+        <a href="{{ path('member_show', { 'id': member.id }) }}">
             Profil de {{ member.firstName }} {{ member.lastName }}
         </a>
     </li>
