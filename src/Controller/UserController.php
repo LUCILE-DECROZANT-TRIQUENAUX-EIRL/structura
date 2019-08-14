@@ -10,6 +10,7 @@ use App\Entity\Responsibility;
 use App\Form\UserGeneralDataType;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
+use App\FormDataObject\UpdateUserGeneralDataFDO;
 use App\Service\Utils\RouteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -176,9 +177,11 @@ class UserController extends AbstractController
      */
     public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
+
         $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($currentUser);
-        $editForm = $this->createForm(UserGeneralDataType::class, $currentUser);
+        $editForm = $this->createForm(UserGeneralDataType::class, $updateUserGeneralDataFDO);
         $editForm->handleRequest($request);
         $passwordForm = $this->createForm(UserPasswordType::class, []);
         $passwordForm->handleRequest($request);
@@ -187,26 +190,39 @@ class UserController extends AbstractController
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
             // Clear the entity manager cache to get fresh data from the database
-            $entityManager->clear();
+            $entityManager->detach($currentUser);
+
             // Get the existing user to keep the automatic responsibilities it has
-            $currentUserInDatabase = $entityManager->getRepository(User::class)->findOneBy([
+            /** @var User $currentUser */
+            $currentUser = $entityManager->getRepository(User::class)->findOneBy([
                 'id' => $currentUser->getId(),
             ]);
 
+            // We save form data in the entity manager cached user
+            $currentUser->setUsername($updateUserGeneralDataFDO->getUsername());
+
+            // Same idea with responsibilities
+            $responsibilitiesToSave = $updateUserGeneralDataFDO->getResponsibilities()->toArray();
+
             // Keep the automatic responsibilities for this user
-            $oldResponsibilities = $currentUserInDatabase->getResponsibilities();
+            $oldResponsibilities = $currentUser->getResponsibilities();
+
             foreach ($oldResponsibilities as $oldResponsibility)
             {
                 if ($oldResponsibility->isAutomatic())
                 {
-                    $currentUser->addResponsibility($oldResponsibility);
+                    $responsibilitiesToSave[] = $oldResponsibility;
                 }
             }
+
+            // Once we have old responsibilities and form responsibilities, we save them
+            $currentUser->setResponsibilities($responsibilitiesToSave);
 
             // by default, add the registered responsibility
             $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
                 'label' => Responsibility::REGISTERED_LABEL,
             ]);
+
             $currentUser->addResponsibility($registeredResponsibility);
 
             // remove responsibilities that conflict themselves
@@ -228,7 +244,9 @@ class UserController extends AbstractController
                 $currentUser->removeResponsibility($exMemberResponsibility);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->persist($currentUser);
+            $entityManager->flush();
+
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );

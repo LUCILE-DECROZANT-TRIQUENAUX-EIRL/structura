@@ -128,7 +128,7 @@ class Responsibility
      * Set code
      *
      * @param string $code Code of the responsibility.
-     * @return ResponsabXility
+     * @return Responsibility
      */
     function setCode(string $code)
     {
@@ -179,7 +179,7 @@ class Responsibility
      *
      * @param boolean $automatic True if it is, false otherwise
      */
-    function setAutomatic(boolean $automatic)
+    function setAutomatic(bool $automatic)
     {
         $this->automatic = $automatic;
     }
