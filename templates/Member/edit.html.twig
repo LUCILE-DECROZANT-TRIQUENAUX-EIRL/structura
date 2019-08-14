@@ -3,6 +3,7 @@
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
     <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -19,7 +20,7 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item">
-        <a href="{{ path('user_show', { 'id': member.id }) }}">
+        <a href="{{ path('member_show', { 'id': member.id }) }}">
             Profil de {{ member.firstName }} {{ member.lastName }}
         </a>
     </li>
@@ -144,10 +145,18 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es</a>
+            <a href="{{ path('member_list') }}" class="btn btn-secondary">
+                <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es
+            </a>
         </div>
         <div class="col text-right">
-            <button id="edit-member-submit-button" type="submit" form="form-edit-member" class="btn btn-primary">Enregistrer les modifications</button>
+            <button
+            id="edit-member-submit-button"
+            type="submit"
+            form="form-edit-member"
+            class="btn btn-primary">
+                Enregistrer les modifications
+            </button>
         </div>
     </div>
 </div>

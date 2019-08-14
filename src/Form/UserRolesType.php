@@ -34,12 +34,6 @@ class UserRolesType extends AbstractType
                     {
                         return ['data-responsibility-description' => $responsibility->getDescription()];
                     },
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Changer les informations',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
                 ]);
     }
 

@@ -93,18 +93,37 @@
                 {% endfor %}
             </div>
             {{ form_widget(edit_form._token) }}
-            {{ form_row(edit_form.submit, {'label' : 'Enregistrer les modifications'}) }}
         {{ form_end(edit_form, {'render_rest': false}) }}
+        </div>
+        <div class="col text-right">
+            <button
+                id="edit-user-submit-button"
+                type="submit"
+                form="form-edit-user"
+                class="btn btn-primary"
+                >
+                Enregistrer les modifications
+            </button>
         </div>
 
         <div style="margin-top:48px;">
         <h1>Mot de passe</h1>
-        {{ form_start(password_form)}}
+        {{ form_start(password_form, {'attr': {'id': 'form-edit-password'}})}}
         {{ form_errors(password_form) }}
         <div class="form-group">
             {{ form_widget(password_form) }}
         </div>
         {{ form_end(password_form) }}
+        </div>
+        <div class="col text-right">
+            <button
+                id="edit-password-submit-button"
+                type="submit"
+                form="form-edit-password"
+                class="btn btn-primary"
+                >
+                Enregistrer le mot de passe
+            </button>
         </div>
 
     </div>

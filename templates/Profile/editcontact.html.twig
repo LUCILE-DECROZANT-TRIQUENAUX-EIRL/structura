@@ -5,6 +5,7 @@
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
     <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -100,6 +101,17 @@
                 {{ form_help(profile_editcontact.workFaxNumber)}}
             </div>
         {{ form_end(profile_editcontact) }}
+
+        <div class="col text-right">
+            <button
+                id="edit-contact-submit-button"
+                type="submit"
+                form="form-editcontact-profile"
+                class="btn btn-primary"
+                >
+                Enregistrer les changements
+            </button>
+        </div>
 
         </div>
     </div>

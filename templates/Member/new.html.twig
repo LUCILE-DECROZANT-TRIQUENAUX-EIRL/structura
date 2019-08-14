@@ -3,6 +3,7 @@
 {% block javascript %}
     <script src="{{ asset('javascript/User/new.js') }}"></script>
     <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -118,10 +119,17 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es</a>
+                <a href="{{ path('member_list') }}" class="btn btn-secondary">
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es
+                </a>
             </div>
             <div class="col text-right">
-                <button id="create-member-submit-button" type="submit" form="form-create-member" class="btn btn-primary"><i class="icon ion-md-add"></i>&nbsp;Créer</button>
+                <button
+                id="create-member-submit-button"
+                type="submit" form="form-create-member"
+                class="btn btn-primary">
+                    <i class="icon ion-md-add"></i>&nbsp;Créer
+                </button>
             </div>
         </div>
     </div>

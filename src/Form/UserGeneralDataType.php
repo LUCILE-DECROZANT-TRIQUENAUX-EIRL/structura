@@ -42,12 +42,6 @@ class UserGeneralDataType extends AbstractType
                             'data-responsibility-automatically-managed' => $responsibility->isAutomatic(),
                         ];
                     },
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Changer les informations',
-                'attr' => [
-                    'class' => 'btn btn-primary float-right'
-                    ]
                 ]);
     }
 
