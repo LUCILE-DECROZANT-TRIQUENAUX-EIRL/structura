@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
+use App\FormDataObject\UpdateUserGeneralDataFDO;
 
 /**
  * Member controller.
@@ -143,6 +144,9 @@ class ProfileController extends AbstractController
      */
     public function editSensibleAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {
+
+        $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
+
         if($currentUser->getPeople() != NULL)
         {
             $individual = $currentUser->getPeople();
@@ -151,8 +155,8 @@ class ProfileController extends AbstractController
             $individual = new People();
         }
 
-
-        $editForm = $this->createForm(UserGeneralDataType::class, $currentUser);
+        $entityManager = $this->getDoctrine()->getManager();
+        $editForm = $this->createForm(UserGeneralDataType::class, $updateUserGeneralDataFDO);
         $editForm->handleRequest($request);
         $passwordForm = $this->createForm(UserPasswordType::class, []);
         $passwordForm->handleRequest($request);
@@ -160,7 +164,19 @@ class ProfileController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
-            $this->getDoctrine()->getManager()->flush();
+            // Get the existing user to keep the automatic responsibilities it has
+            /** @var User $currentUser */
+            $currentUser = $entityManager->getRepository(User::class)->findOneBy([
+                'id' => $currentUser->getId(),
+            ]);
+
+            // We save form data in the entity manager cached user
+            $currentUser->setUsername($updateUserGeneralDataFDO->getUsername());
+
+            $entityManager->persist($currentUser);
+            $entityManager->flush();
+
+            //$this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
@@ -171,6 +187,12 @@ class ProfileController extends AbstractController
         // Submit change of password
         if ($passwordForm->isSubmitted())
         {
+            // Get the existing user to keep the automatic responsibilities it has
+            /** @var User $currentUser */
+            $currentUser = $entityManager->getRepository(User::class)->findOneBy([
+                'id' => $currentUser->getId(),
+            ]);
+
             $oldPassword = $currentUser->getPassword();
             $plainOldPassword = $passwordForm['oldPassword']->getData();
             $plainPassword = $passwordForm['plainPassword']->getData();
@@ -180,8 +202,8 @@ class ProfileController extends AbstractController
                 $password = $passwordEncoder->encodePassword($currentUser, $plainPassword);
                 $currentUser->setPassword($password);
 
-                $this->getDoctrine()->getManager()->persist($currentUser);
-                $this->getDoctrine()->getManager()->flush();
+                $entityManager->persist($currentUser);
+                $entityManager->flush();
 
                 $this->addFlash(
                         'success', sprintf('Le mot de passe a bien été modifié')
