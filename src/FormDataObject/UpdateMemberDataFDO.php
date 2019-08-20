@@ -4,13 +4,6 @@ namespace App\FormDataObject;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
 
-/**
- * People is a class in which we storage information about a human being,
- * like their address, their phone number, etc.
- *
- * @ORM\Table(name="people")
- * @ORM\Entity(repositoryClass="App\Repository\PeopleRepository")
- */
 class UpdateMemberDataFDO
 {
 
@@ -113,9 +106,9 @@ class UpdateMemberDataFDO
         $updateMemberDataFDO->emailAddress = $member->getEmailAddress();
         $updateMemberDataFDO->isReceivingNewsletter = $member->getIsReceivingNewsletter();
         $updateMemberDataFDO->newsletterDematerialization = $member->getNewsletterDematerialization();
-        $updateMemberDataFDO->denomination = $member->getCellPhoneNumber();
-        $updateMemberDataFDO->firstName = $member->getHomePhoneNumber();
-        $updateMemberDataFDO->lastName = $member->getWorkFaxNumber();
+        $updateMemberDataFDO->cellPhoneNumber = $member->getCellPhoneNumber();
+        $updateMemberDataFDO->homePhoneNumber = $member->getHomePhoneNumber();
+        $updateMemberDataFDO->workFaxNumber = $member->getWorkFaxNumber();
         $updateMemberDataFDO->emailAddress = $member->getWorkPhoneNumber();
         $updateMemberDataFDO->observations = $member->getObservations();
         $updateMemberDataFDO->sensitiveObservations = $member->getSensitiveObservations();

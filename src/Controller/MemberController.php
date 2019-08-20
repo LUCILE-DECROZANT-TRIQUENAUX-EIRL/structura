@@ -126,11 +126,11 @@ class MemberController extends AbstractController
      */
     public function editAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $updateUserGeneralDataFDO = UpdateMemberDataFDO::fromMember($individual);
+        $updateMemberDataFDO = UpdateMemberDataFDO::fromMember($individual);
 
         $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($individual);
-        $editForm = $this->createForm(MemberType::class, $individual);
+        $editForm = $this->createForm(MemberType::class, $updateMemberDataFDO);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -139,10 +139,10 @@ class MemberController extends AbstractController
             //$entityManager = $this->getDoctrine()->getManager();
             // Clear the entity manager cache to get fresh data from the database
             //$entityManager->clear();
-            $entityManager->detach($individual);
+            //$entityManager->detach($individual);
 
             // Get the existing people to keep the sensible data it has if necessary
-            $currentMember = $entityManager->getRepository(People::class)->findOneBy([
+            $individual = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $individual->getId(),
             ]);
 
@@ -151,10 +151,13 @@ class MemberController extends AbstractController
             if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
             {
                 $individual->setSensitiveObservations(
-                    $currentMember->getSensitiveObservations()
+                    $updateMemberDataFDO->getSensitiveObservations()
                 );
             }
-            
+
+            /*$individual->setFirstName($updateMemberDataFDO->getFirstName());
+            $individual->setLastName($updateMemberDataFDO->getLastName());*/
+
             $entityManager->persist($individual);
             $entityManager->flush();
 

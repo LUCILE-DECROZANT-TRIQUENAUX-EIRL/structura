@@ -106,7 +106,7 @@ class MemberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\People'
+            'data_class' => 'App\FormDataObject\UpdateMemberDataFDO'
         ));
     }
 

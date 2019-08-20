@@ -810,27 +810,28 @@ class MemberControllerTest extends WebTestCase
             $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
 
             // Fills the mandatory form inputs
-            /*$firstname = 'Florent';
+            $firstname = 'Florent';
             $name = 'Marin';
             $form
                 ->setValues([
                     'app_user[firstname]' => $firstname,
                     'app_user[lastname]' => $name,
-                ]);*/
-            //$form['app_user[denomination]']->select(2);
+                ]);
+            $form['app_user[denomination]']->select(2);
 
             // Submits the form
             self::$client->submit($form);
-    //
-    //         // Autoredirection to the member profile
-    //         /*$this->assertContains(
-    //                 'Redirecting to <a href="/member/17/edit">/member/17/edit</a>.',
-    //                 self::$client->getResponse()->getContent(),
-    //                 'The page should be redirecting to the newly created user profile one'
-    //         );*/
-            //self::$client->followRedirect();
+
+            // Autoredirection to the member profile
             $this->assertContains(
-                    'Monsieur Florent Marin',
+                    '/member/17/edit',
+                    self::$client->getResponse()->getContent(),
+                    'The page should be redirecting to the newly created user profile one'
+            );
+            self::$client->followRedirect();
+            var_dump(self::$client->getCrawler());
+            $this->assertContains(
+                    'Florent Marin',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
                     'The page should be the newly created user profile one'
             );
