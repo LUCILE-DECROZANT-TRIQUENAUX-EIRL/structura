@@ -8,6 +8,12 @@ class UpdateMemberDataFDO
 {
 
     /**
+     * A private ID used to identify the people.
+     * @var int
+     */
+    private $id;
+
+    /**
      * A title used to refer to the people (e.G. Doctor, Mx, etc.)
      * @var Denomination
      */
@@ -100,6 +106,7 @@ class UpdateMemberDataFDO
     {
         $updateMemberDataFDO = new self();
 
+        //$updateMemberDataFDO->id = $member->getId();
         $updateMemberDataFDO->denomination = $member->getDenomination();
         $updateMemberDataFDO->firstName = $member->getFirstName();
         $updateMemberDataFDO->lastName = $member->getLastName();
@@ -109,12 +116,22 @@ class UpdateMemberDataFDO
         $updateMemberDataFDO->cellPhoneNumber = $member->getCellPhoneNumber();
         $updateMemberDataFDO->homePhoneNumber = $member->getHomePhoneNumber();
         $updateMemberDataFDO->workFaxNumber = $member->getWorkFaxNumber();
-        $updateMemberDataFDO->emailAddress = $member->getWorkPhoneNumber();
+        $updateMemberDataFDO->workPhoneNumber = $member->getWorkPhoneNumber();
         $updateMemberDataFDO->observations = $member->getObservations();
         $updateMemberDataFDO->sensitiveObservations = $member->getSensitiveObservations();
         $updateMemberDataFDO->addresses = $member->getAddresses();
 
         return $updateMemberDataFDO;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

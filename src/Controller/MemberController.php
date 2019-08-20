@@ -58,42 +58,98 @@ class MemberController extends AbstractController
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $currentUser = new People();
-        $form = $this->createForm(MemberType::class, $currentUser);
+        $updateMemberDataFDO = new UpdateMemberDataFDO();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(MemberType::class, $updateMemberDataFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
-            if ($currentUser->getAddresses()['__name__'] === null)
+            $member = new People();
+
+            $member->setDenomination($updateMemberDataFDO->getDenomination());
+            $member->setFirstName($updateMemberDataFDO->getFirstName());
+            $member->setLastName($updateMemberDataFDO->getLastName());
+
+            if ($updateMemberDataFDO->getAddresses()['__name__'] === null)
             {
                 $address = new Address();
-                $currentUser->setAddresses([$address]);
+                $member->setAddresses([$address]);
             }
             else
             {
-                $address = $currentUser->getAddresses()['__name__'];
-                $currentUser->setAddresses([$address]);
+                $address = $updateMemberDataFDO->getAddresses()['__name__'];
+                $member->setAddresses([$address]);
             }
+
+            if ($updateMemberDataFDO->getCellPhoneNumber() !== null)
+            {
+                $member->setCellPhoneNumber($updateMemberDataFDO->getCellPhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getHomePhoneNumber() !== null)
+            {
+                $member->setHomePhoneNumber($updateMemberDataFDO->getHomePhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null)
+            {
+                $member->setWorkPhoneNumber($updateMemberDataFDO->getWorkPhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getWorkFaxNumber() !== null)
+            {
+                $member->setWorkFaxNumber($updateMemberDataFDO->getWorkFaxNumber());
+            }
+
+            if ($updateMemberDataFDO->getObservations() !== null)
+            {
+                $member->setObservations($updateMemberDataFDO->getObservations());
+            }
+
+            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
+            {
+                $member->setSensitiveObservations($updateMemberDataFDO->getSensitiveObservations());
+            }
+
+            if ($updateMemberDataFDO->getEmailAddress() !== null)
+            {
+                $member->setEmailAddress($updateMemberDataFDO->getEmailAddress());
+            }
+
+            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null)
+            {
+                $member->setIsReceivingNewsletter($updateMemberDataFDO->getIsReceivingNewsletter());
+            }
+
+            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null)
+            {
+                $member->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
+            }
+
             $em->persist($address);
-            $em->persist($currentUser);
+            $em->persist($member);
             $em->flush();
 
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $currentUser->getFirstName(), $currentUser->getLastName())
+                    'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $updateMemberDataFDO->getFirstName(), $updateMemberDataFDO->getLastName())
             );
 
-            return $this->redirectToRoute('member_show', array('id' => $currentUser->getId()));
+            //var_dump($updateMemberDataFDO);
+
+            return $this->redirectToRoute('member_show', array('id' => $member->getId()));
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash(
-                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $currentUser->getFirstName(), $currentUser->getLastName())
+                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $updateMemberDataFDO->getFirstName(), $updateMemberDataFDO->getLastName())
             );
         }
 
         return $this->render('Member/new.html.twig', array(
-            'member' => $currentUser,
+            'member' => $updateMemberDataFDO,
             'form' => $form->createView(),
         ));
     }
@@ -136,11 +192,6 @@ class MemberController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
-            //$entityManager = $this->getDoctrine()->getManager();
-            // Clear the entity manager cache to get fresh data from the database
-            //$entityManager->clear();
-            //$entityManager->detach($individual);
-
             // Get the existing people to keep the sensible data it has if necessary
             $individual = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $individual->getId(),
@@ -154,9 +205,6 @@ class MemberController extends AbstractController
                     $updateMemberDataFDO->getSensitiveObservations()
                 );
             }
-
-            /*$individual->setFirstName($updateMemberDataFDO->getFirstName());
-            $individual->setLastName($updateMemberDataFDO->getLastName());*/
 
             $entityManager->persist($individual);
             $entityManager->flush();
