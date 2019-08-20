@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
+use App\FormDataObject\UpdateMemberDataFDO;
 
 /**
  * Member controller.
@@ -125,6 +126,9 @@ class MemberController extends AbstractController
      */
     public function editAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $updateUserGeneralDataFDO = UpdateMemberDataFDO::fromMember($individual);
+
+        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($individual);
         $editForm = $this->createForm(MemberType::class, $individual);
         $editForm->handleRequest($request);
@@ -132,9 +136,11 @@ class MemberController extends AbstractController
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
         {
-            $entityManager = $this->getDoctrine()->getManager();
+            //$entityManager = $this->getDoctrine()->getManager();
             // Clear the entity manager cache to get fresh data from the database
-            $entityManager->clear();
+            //$entityManager->clear();
+            $entityManager->detach($individual);
+
             // Get the existing people to keep the sensible data it has if necessary
             $currentMember = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $individual->getId(),
@@ -148,7 +154,10 @@ class MemberController extends AbstractController
                     $currentMember->getSensitiveObservations()
                 );
             }
-            $this->getDoctrine()->getManager()->flush();
+            
+            $entityManager->persist($individual);
+            $entityManager->flush();
+
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
