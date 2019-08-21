@@ -817,6 +817,11 @@ class MemberControllerTest extends WebTestCase
                     'app_user[firstname]' => $firstname,
                     'app_user[lastname]' => $name,
                 ]);
+            $form
+                ->setValues([
+                    'app_user[firstname]' => $firstname,
+                    'app_user[lastname]' => $name,
+                ]);
             $form['app_user[denomination]']->select(2);
 
             // Submits the form
@@ -829,272 +834,273 @@ class MemberControllerTest extends WebTestCase
                     'The page should be redirecting to the newly created user profile one'
             );
             self::$client->followRedirect();
-            var_dump(self::$client->getCrawler());
             $this->assertContains(
-                    'Florent Marin',
+                    'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
                     'The page should be the newly created user profile one'
             );
-    //
-    //         // Checks the database content
-    //         $createdMember = self::$container
-    //             ->get('doctrine')
-    //             ->getRepository(People::class)
-    //             ->findOneBy([
-    //                 'firstName' => $firstname,
-    //             ]);
-    //
-    //         $this->assertEquals(
-    //                 $createdMember->getFirstName(),
-    //                 $firstname,
-    //                 'The first name should be ' . $firstname
-    //         );
-    //
-    //         $this->assertEquals(
-    //                 $createdMember->getLastName(),
-    //                 $name,
-    //                 'The last name should be ' . $name
-    //         );
-    //
-    //         $denomination =$createdMember->getDenomination();
-    //
-    //         $this->assertEquals(
-    //                 $denomination->getLabel(),
-    //                 "Monsieur",
-    //                 'The denomination should be Monsieur '
-    //         );
+
+            // Checks the database content
+            $createdMember = self::$container
+                ->get('doctrine')
+                ->getRepository(People::class)
+                ->findOneBy([
+                    'firstName' => $firstname,
+                ]);
+
+            $this->assertEquals(
+                    $createdMember->getFirstName(),
+                    $firstname,
+                    'The first name should be ' . $firstname
+            );
+
+            $this->assertEquals(
+                    $createdMember->getLastName(),
+                    $name,
+                    'The last name should be ' . $name
+            );
+
+            $denomination =$createdMember->getDenomination();
+
+            $this->assertEquals(
+                    $denomination->getLabel(),
+                    "Monsieur",
+                    'The denomination should be Monsieur '
+            );
        }
 
         /**
          * Creates an user with all form inputs
+         * @group test
          */
-        // public function testCreateMemberAllFields()
-        // {
-        //     // Connects the gestionnaire
-        //     $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
-        //
-        //     // Goes to the profile creation page
-        //     $crawler = self::$client->request('GET', '/member/new');
-        //     $this->assertEquals(
-        //             'Enregistrer une nouvelle personne dans l\'annuaire',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should be the member creation one'
-        //     );
-        //
-        //
-        //     $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
-        //     // Fills the mandatory form inputs
-        //     $firstname = 'Florent';
-        //     $name = 'Marin';
-        //     $line = '30 rue Carnot';
-        //     $postalcode = '42510';
-        //     $city =  'Balbigny';
-        //     $country = 'France';
-        //     $email = 'marin@mail.fr';
-        //     $homenumber = '0134567890';
-        //     $cellnumber = '0134567890';
-        //     $worknumber = '0134567890';
-        //     $faxnumber = '0134567890';
-        //     $observations = 'Observations';
-        //     $sensitive = 'Détails';
-        //     $form->disableValidation()
-        //         ->setValues([
-        //             'app_user[firstname]' => $firstname,
-        //             'app_user[lastname]' => $name,
-        //             'app_user[addresses][__name__][line]' => $line,
-        //             'app_user[addresses][__name__][postalCode]' => $postalcode,
-        //             'app_user[addresses][__name__][city]' => $city,
-        //             'app_user[addresses][__name__][country]' => $country,
-        //             'app_user[emailAddress]' => $email,
-        //             'app_user[homePhoneNumber]' => $homenumber,
-        //             'app_user[cellPhoneNumber]' => $cellnumber,
-        //             'app_user[workPhoneNumber]' => $worknumber,
-        //             'app_user[workFaxNumber]' => $faxnumber,
-        //             'app_user[observations]' => $observations,
-        //             'app_user[sensitiveObservations]' => $sensitive
-        //         ]);
-        //     $form['app_user[denomination]']->select(2);
-        //     $form['app_user[isReceivingNewsletter]']->tick();
-        //     $form['app_user[newsletterDematerialization]']->tick();
-        //
-        //     // Submits the form
-        //     self::$client->submit($form);
-        //
-        //     // Autoredirection to the member profile
-        //     $this->assertContains(
-        //             'Redirecting to <a href="/member/18">/member/18</a>.',
-        //             self::$client->getResponse()->getContent(),
-        //             'The page should be redirecting to the newly created user profile one'
-        //     );
-        //     self::$client->followRedirect();
-        //     $this->assertContains(
-        //             'Monsieur Florent Marin',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should be the newly created user profile one'
-        //     );
-        //
-        //     // Checks the database content
-        //     $createdMember = self::$container
-        //         ->get('doctrine')
-        //         ->getRepository(People::class)
-        //         ->findOneBy([
-        //             'firstName' => $firstname,
-        //         ]);
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getFirstName(),
-        //             $firstname,
-        //             'The first name should be ' . $firstname
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getLastName(),
-        //             $name,
-        //             'The last name should be ' . $name
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getEmailAddress(),
-        //             $email,
-        //             'The email should be ' . $email
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getIsReceivingNewsletter(),
-        //             true,
-        //             'The user should receive the newsletter'
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getNewsletterDematerialization(),
-        //             true,
-        //             'The user should receive the newsletter by email'
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getCellPhoneNumber(),
-        //             $cellnumber,
-        //             'The cell phone number should be ' . $cellnumber
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getHomePhoneNumber(),
-        //             $homenumber,
-        //             'The home phone number should be ' . $homenumber
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getWorkPhoneNumber(),
-        //             $worknumber,
-        //             'The work phone number should be ' . $worknumber
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getWorkFaxNumber(),
-        //             $faxnumber,
-        //             'The fax number should be ' . $faxnumber
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getObservations(),
-        //             $observations,
-        //             'The observations should be ' . $observations
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getSensitiveObservations(),
-        //             $sensitive,
-        //             'The sensitive observations should be ' . $sensitive
-        //     );
-        //
-        //     $denomination = $createdMember->getDenomination();
-        //
-        //     $this->assertEquals(
-        //             $denomination->getLabel(),
-        //             "Monsieur",
-        //             'The denomination should be Monsieur'
-        //     );
-        //
-        //     $this->assertEquals(
-        //             $createdMember->getAddresses(),
-        //             $createdMember->getAddresses(),
-        //             'The address should be '. $line . $postalcode . $city . $country
-        //     );
-        // }
-        //
-        // /**
-        //  * Creates an user with mandatory form inputs empty
-        //  * Form doesn't work in that way
-        //  */
-        // public function testCreateMemberRequiredFieldsEmpty()
-        // {
-        //     // Connects the gestionnaire
-        //     $this->connection(self::GESTIONNAIRE_USERNAME);
-        //
-        //     // Goes to the profile creation page
-        //     $crawler = self::$client->request('GET', '/member/new');
-        //     $this->assertEquals(
-        //             'Enregistrer une nouvelle personne dans l\'annuaire',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should be the member creation one'
-        //     );
-        //
-        //
-        //     $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
-        //
-        //     // Submits the form
-        //     self::$client->submit($form);
-        //
-        //     $this->assertContains(
-        //             'Symfony Exception',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should have an Exception'
-        //     );
-        //
-        // }
-        //
-        // /**
-        //  * Creates an user with text in the phone fields
-        //  * Form doesn't work in that way
-        //  */
-        // public function testCreateMemberRequiredWrongPhone()
-        // {
-        //     // Connects the gestionnaire
-        //     $this->connection(self::GESTIONNAIRE_USERNAME);
-        //
-        //     // Goes to the profile creation page
-        //     $crawler = self::$client->request('GET', '/member/new');
-        //     $this->assertEquals(
-        //             'Enregistrer une nouvelle personne dans l\'annuaire',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should be the member creation one'
-        //     );
-        //
-        //
-        //     $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
-        //
-        //     // Fills the mandatory form inputs
-        //     $firstname = 'Florent';
-        //     $name = 'Marin';
-        //     $cellPhoneNumber = 'numero';
-        //     $form->disableValidation()
-        //         ->setValues([
-        //             'app_user[firstname]' => $firstname,
-        //             'app_user[lastname]' => $name,
-        //             'app_user[cellPhoneNumber]' => $cellPhoneNumber
-        //         ]);
-        //     $form['app_user[denomination]']->select(2);
-        //
-        //     // Submits the form
-        //     self::$client->submit($form);
-        //
-        //     $this->assertContains(
-        //             'Symfony Exception',
-        //             self::$client->getCrawler()->filter('h1')->first()->text(),
-        //             'The page should have an Exception'
-        //     );
-        //
-        // }
+         //TODO : Add the address edition since it doesn't work for now
+        public function testEditMemberAllFields()
+        {
+            // Connects the gestionnaire
+            $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
+
+            // Goes to the profile ediiton page
+            $crawler = self::$client->request('GET', '/member/17/edit');
+            $this->assertEquals(
+                    'Édition de l\'adhérent.e',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the member edition one'
+            );
+
+
+            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+            // Fills the mandatory form inputs
+            $firstname = 'Florent';
+            $name = 'Marin';
+            $line = '30 rue Carnot';
+            $postalcode = '42510';
+            $city =  'Balbigny';
+            $country = 'France';
+            $email = 'marin@mail.fr';
+            $homenumber = '0134567890';
+            $cellnumber = '0134567890';
+            $worknumber = '0134567890';
+            $faxnumber = '0134567890';
+            $observations = 'Observations';
+            $sensitive = 'Détails';
+            $form->disableValidation()
+                ->setValues([
+                    'app_user[firstname]' => $firstname,
+                    'app_user[lastname]' => $name,
+                    /*'app_user[addresses][__name__][line]' => $line,
+                    'app_user[addresses][__name__][postalCode]' => $postalcode,
+                    'app_user[addresses][__name__][city]' => $city,
+                    'app_user[addresses][__name__][country]' => $country,*/
+                    'app_user[emailAddress]' => $email,
+                    'app_user[homePhoneNumber]' => $homenumber,
+                    'app_user[cellPhoneNumber]' => $cellnumber,
+                    'app_user[workPhoneNumber]' => $worknumber,
+                    'app_user[workFaxNumber]' => $faxnumber,
+                    'app_user[observations]' => $observations,
+                    'app_user[sensitiveObservations]' => $sensitive
+                ]);
+            $form['app_user[denomination]']->select(2);
+            $form['app_user[isReceivingNewsletter]']->tick();
+            $form['app_user[newsletterDematerialization]']->tick();
+
+            // Submits the form
+            self::$client->submit($form);
+
+            // Autoredirection to the member profile
+            $this->assertContains(
+                    '/member/17/edit',
+                    self::$client->getResponse()->getContent(),
+                    'The page should be redirecting to the newly created user profile one'
+            );
+            self::$client->followRedirect();
+            $this->assertContains(
+                    'Édition de l\'adhérent.e',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the newly created user profile one'
+            );
+
+            // Checks the database content
+            $createdMember = self::$container
+                ->get('doctrine')
+                ->getRepository(People::class)
+                ->findOneBy([
+                    'firstName' => $firstname,
+                ]);
+
+            $this->assertEquals(
+                    $createdMember->getFirstName(),
+                    $firstname,
+                    'The first name should be ' . $firstname
+            );
+
+            $this->assertEquals(
+                    $createdMember->getLastName(),
+                    $name,
+                    'The last name should be ' . $name
+            );
+
+            $this->assertEquals(
+                    $createdMember->getEmailAddress(),
+                    $email,
+                    'The email should be ' . $email
+            );
+
+            $this->assertEquals(
+                    $createdMember->getIsReceivingNewsletter(),
+                    true,
+                    'The user should receive the newsletter'
+            );
+
+            $this->assertEquals(
+                    $createdMember->getNewsletterDematerialization(),
+                    true,
+                    'The user should receive the newsletter by email'
+            );
+
+            $this->assertEquals(
+                    $createdMember->getCellPhoneNumber(),
+                    $cellnumber,
+                    'The cell phone number should be ' . $cellnumber
+            );
+
+            $this->assertEquals(
+                    $createdMember->getHomePhoneNumber(),
+                    $homenumber,
+                    'The home phone number should be ' . $homenumber
+            );
+
+            $this->assertEquals(
+                    $createdMember->getWorkPhoneNumber(),
+                    $worknumber,
+                    'The work phone number should be ' . $worknumber
+            );
+
+            $this->assertEquals(
+                    $createdMember->getWorkFaxNumber(),
+                    $faxnumber,
+                    'The fax number should be ' . $faxnumber
+            );
+
+            $this->assertEquals(
+                    $createdMember->getObservations(),
+                    $observations,
+                    'The observations should be ' . $observations
+            );
+
+            $this->assertEquals(
+                    $createdMember->getSensitiveObservations(),
+                    $sensitive,
+                    'The sensitive observations should be ' . $sensitive
+            );
+
+            $denomination = $createdMember->getDenomination();
+
+            $this->assertEquals(
+                    $denomination->getLabel(),
+                    "Monsieur",
+                    'The denomination should be Monsieur'
+            );
+
+            /*$this->assertEquals(
+                    $createdMember->getAddresses(),
+                    $createdMember->getAddresses(),
+                    'The address should be '. $line . $postalcode . $city . $country
+            );*/
+        }
+
+        /**
+         * Creates an user with mandatory form inputs empty
+         * Form doesn't work in that way
+         * @group test
+         */
+        public function testEditMemberRequiredFieldsEmpty()
+        {
+            // Connects the gestionnaire
+            $this->connection(self::GESTIONNAIRE_USERNAME);
+
+            // Goes to the profile ediiton page
+            $crawler = self::$client->request('GET', '/member/17/edit');
+            $this->assertEquals(
+                    'Édition de l\'adhérent.e',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the member edition one'
+            );
+
+            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+
+            // Submits the form
+            self::$client->submit($form);
+
+            $this->assertContains(
+                    'Symfony Exception',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should have an Exception'
+            );
+
+        }
+
+        /**
+         * Creates an user with text in the phone fields
+         * Form doesn't work in that way
+         */
+        /*public function testCreateMemberRequiredWrongPhone()
+        {
+            // Connects the gestionnaire
+            $this->connection(self::GESTIONNAIRE_USERNAME);
+
+            // Goes to the profile creation page
+            $crawler = self::$client->request('GET', '/member/new');
+            $this->assertEquals(
+                    'Enregistrer une nouvelle personne dans l\'annuaire',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should be the member creation one'
+            );
+
+
+            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+
+            // Fills the mandatory form inputs
+            $firstname = 'Florent';
+            $name = 'Marin';
+            $cellPhoneNumber = 'numero';
+            $form->disableValidation()
+                ->setValues([
+                    'app_user[firstname]' => $firstname,
+                    'app_user[lastname]' => $name,
+                    'app_user[cellPhoneNumber]' => $cellPhoneNumber
+                ]);
+            $form['app_user[denomination]']->select(2);
+
+            // Submits the form
+            self::$client->submit($form);
+
+            $this->assertContains(
+                    'Symfony Exception',
+                    self::$client->getCrawler()->filter('h1')->first()->text(),
+                    'The page should have an Exception'
+            );
+
+        }*/
 
 
 }
