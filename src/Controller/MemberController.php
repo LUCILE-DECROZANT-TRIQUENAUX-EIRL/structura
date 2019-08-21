@@ -197,15 +197,78 @@ class MemberController extends AbstractController
                 'id' => $individual->getId(),
             ]);
 
+            $individual->setDenomination($updateMemberDataFDO->getDenomination());
+            $individual->setFirstName($updateMemberDataFDO->getFirstName());
+            $individual->setLastName($updateMemberDataFDO->getLastName());
+
+            if ($updateMemberDataFDO->getAddresses() === null)
+            {
+                $address = new Address();
+                $individual->setAddresses([$address]);
+
+            }
+            else
+            {
+                $address = $updateMemberDataFDO->getAddresses();
+                $individual->setAddresses([$address]);
+            }
+
+            if ($updateMemberDataFDO->getCellPhoneNumber() !== null)
+            {
+                $individual->setCellPhoneNumber($updateMemberDataFDO->getCellPhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getHomePhoneNumber() !== null)
+            {
+                $individual->setHomePhoneNumber($updateMemberDataFDO->getHomePhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null)
+            {
+                $individual->setWorkPhoneNumber($updateMemberDataFDO->getWorkPhoneNumber());
+            }
+
+            if ($updateMemberDataFDO->getWorkFaxNumber() !== null)
+            {
+                $individual->setWorkFaxNumber($updateMemberDataFDO->getWorkFaxNumber());
+            }
+
+            if ($updateMemberDataFDO->getObservations() !== null)
+            {
+                $individual->setObservations($updateMemberDataFDO->getObservations());
+            }
+
+            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
+            {
+                $individual->setSensitiveObservations($updateMemberDataFDO->getSensitiveObservations());
+            }
+
+            if ($updateMemberDataFDO->getEmailAddress() !== null)
+            {
+                $individual->setEmailAddress($updateMemberDataFDO->getEmailAddress());
+            }
+
+            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null)
+            {
+                $individual->setIsReceivingNewsletter($updateMemberDataFDO->getIsReceivingNewsletter());
+            }
+
+            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null)
+            {
+                $individual->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
+            }
+
+
             // if the connected user does not have the access to the sensible
             // inputs, we need to keep the old data instead of emptying it
-            if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
+            /*if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
             {
                 $individual->setSensitiveObservations(
                     $updateMemberDataFDO->getSensitiveObservations()
                 );
-            }
+            }*/
 
+            $entityManager->persist($address);
             $entityManager->persist($individual);
             $entityManager->flush();
 
