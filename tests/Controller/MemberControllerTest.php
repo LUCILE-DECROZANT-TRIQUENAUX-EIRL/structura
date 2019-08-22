@@ -791,7 +791,6 @@ class MemberControllerTest extends WebTestCase
 
         /**
          * Creates an user with mandatory form inputs
-         * @group test
          */
         public function testEditMemberRequiredFields()
         {
@@ -871,7 +870,6 @@ class MemberControllerTest extends WebTestCase
 
         /**
          * Creates an user with all form inputs
-         * @group test
          */
          //TODO : Add the address edition since it doesn't work for now
         public function testEditMemberAllFields()
@@ -1031,7 +1029,6 @@ class MemberControllerTest extends WebTestCase
         /**
          * Creates an user with mandatory form inputs empty
          * Form doesn't work in that way
-         * @group test
          */
         public function testEditMemberRequiredFieldsEmpty()
         {
@@ -1048,14 +1045,27 @@ class MemberControllerTest extends WebTestCase
 
             $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
 
+            $firstname = '';
+            $name = '';
+            $form->disableValidation()
+                ->setValues([
+                    'app_user[firstname]' => $firstname,
+                    'app_user[lastname]' => $name,
+                ]);
+
             // Submits the form
             self::$client->submit($form);
 
-            $this->assertContains(
-                    'Symfony Exception',
-                    self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should have an Exception'
+            $this->assertEmpty(
+                    self::$client->getCrawler()->filter('input')->first(),
+                    'The node should be empty'
             );
+
+            $this->assertEmpty(
+                    self::$client->getCrawler()->filterXPath('(//input)[2]'),
+                    'The node should be empty'
+            );
+
 
         }
 
@@ -1063,21 +1073,20 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with text in the phone fields
          * Form doesn't work in that way
          */
-        /*public function testCreateMemberRequiredWrongPhone()
+        public function testEditMemberRequiredWrongPhone()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/new');
+            $crawler = self::$client->request('GET', '/member/17/edit');
             $this->assertEquals(
-                    'Enregistrer une nouvelle personne dans l\'annuaire',
+                    'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the member edition one'
             );
 
-
-            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
 
             // Fills the mandatory form inputs
             $firstname = 'Florent';
@@ -1094,13 +1103,12 @@ class MemberControllerTest extends WebTestCase
             // Submits the form
             self::$client->submit($form);
 
-            $this->assertContains(
-                    'Symfony Exception',
-                    self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should have an Exception'
+            $this->assertEmpty(
+                    self::$client->getCrawler()->filterXPath('(//input)[8]'),
+                    'The node should be empty'
             );
 
-        }*/
+        }
 
 
 }
