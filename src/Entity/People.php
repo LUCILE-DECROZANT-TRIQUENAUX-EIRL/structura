@@ -173,6 +173,11 @@ class People
     private $addresses;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Membership", inversedBy="member", cascade={"persist", "remove"})
+     */
+    private $membership;
+
+    /**
      *
      */
      function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
@@ -607,5 +612,17 @@ class People
             }
         }
         return true;
+    }
+
+    public function getMembership(): ?Membership
+    {
+        return $this->membership;
+    }
+
+    public function setMembership(?Membership $membership): self
+    {
+        $this->membership = $membership;
+
+        return $this;
     }
 }
