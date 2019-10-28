@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Entity\People;
 
 /**
  * Home controller
@@ -25,6 +26,12 @@ class HomeController extends AbstractController
      */
     public function indexAction(Request $request/*, UserInterface $currentuser = null*/)
     {
-        return $this->render('Home/index.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+
+        $members = $em->getRepository(People::class)->findAll();
+
+        return $this->render('Home/index.html.twig', array(
+            'members' => $members
+        ));
     }
 }

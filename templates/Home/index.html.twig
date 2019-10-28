@@ -8,7 +8,82 @@
 
 {% block body %}
     <div class="container">
-        <p>Work in progress...</p>
+        <div class="row">
+            <div class="col-8">
+                <h3>Ex-Adhérents à relancer</h4>
+                <table
+                    class="table table-striped"
+                    data-toggle="datatable"
+                >
+                    <thead>
+                        <tr>
+                            <th data-sortable="true">Nom</th>
+                            <th data-sortable="true">Prénom</th>
+                            <th>Mail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                            <tr>
+                                <td class="align-middle">{{ member.lastname }}</td>
+                                <td class="align-middle">{{ member.firstname }}</td>
+                                <td class="align-middle">{{ member.emailAddress }}</td>
+                                <td class="align-middle column-action">
+                                    <a
+                                        href="{{ path('member_show', { 'id': member.id }) }}"
+                                        class="btn btn-secondary"
+                                        data-toggle="tooltip"
+                                        title="Voir le profil"
+                                        >
+                                        <i class="icon ion-md-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-4">
+                <div class="row justify-content-around">
+                    <div class="col-6">
+                        <div class="square-btn-wrapper">
+                            <a class="btn btn-outline-primary btn-block square-btn" href="#" role="button">
+                                <div>
+                                    <p class="text-left">
+                                        Enregistrer <br>
+                                        une adhésion
+                                    </p>
+                                </div>
+                                <div>
+                                    <i class="icon ion-md-add"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="square-btn-wrapper">
+                            <a class="btn btn-outline-primary btn-block square-btn" href="#" role="button">
+                                <div class="align">
+                                    <p class="text-left">
+                                        Enregistrer <br>
+                                        un don
+                                    </p>
+                                </div>
+                                <div>
+                                    <i class="icon ion-md-add"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <img src="{{ asset('images/line-chart.jpg') }}" class="border border-primary img-fluid" alt="Des courbes bidons en attendant les vraies.">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
