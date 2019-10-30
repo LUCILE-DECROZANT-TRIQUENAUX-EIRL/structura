@@ -32,11 +32,6 @@ class Payment
     private $amount;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_settled;
-
-    /**
      * @ORM\Column(type="string", length=3000, nullable=true)
      */
     private $comment;
@@ -48,7 +43,7 @@ class Payment
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Membership", mappedBy="payment", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Membership", mappedBy="payment", nullable="true", cascade={"persist", "remove"})
      */
     private $membership;
 
@@ -89,18 +84,6 @@ class Payment
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
-
-        return $this;
-    }
-
-    public function getIsSettled(): ?bool
-    {
-        return $this->is_settled;
-    }
-
-    public function setIsSettled(bool $is_settled): self
-    {
-        $this->is_settled = $is_settled;
 
         return $this;
     }
