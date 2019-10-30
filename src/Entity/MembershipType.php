@@ -29,6 +29,11 @@ class MembershipType
     private $description;
 
     /**
+     * @ORM\Column(type="float")
+     */
+    private $defaultAmount;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Membership", mappedBy="type")
      */
     private $memberships;
@@ -63,6 +68,26 @@ class MembershipType
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get the defaultAmount for the subscription of this MembershipType
+     */
+    public function getDefaultAmount() : ?float
+    {
+        return $this->defaultAmount;
+    }
+
+    /**
+     * Set the defaultAmount for the subscription of this MembershipType
+     *
+     * @return self
+     */
+    public function setDefaultAmount(float $defaultAmount) : self
+    {
+        $this->defaultAmount = $defaultAmount;
 
         return $this;
     }
