@@ -17,9 +17,19 @@ class Membership
     private $id;
 
     /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
+
+    /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $date_start;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_end;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -47,14 +57,38 @@ class Membership
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getAmount(): ?float
     {
-        return $this->date;
+        return $this->amount;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setAmount(float $amount): self
     {
-        $this->date = $date;
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->date_start;
+    }
+
+    public function setDateStart(\DateTimeInterface $date_start): self
+    {
+        $this->date_start = $date_start;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->date_end;
+    }
+
+    public function setDateEnd(\DateTimeInterface $date_end): self
+    {
+        $this->date_end = $date_end;
 
         return $this;
     }

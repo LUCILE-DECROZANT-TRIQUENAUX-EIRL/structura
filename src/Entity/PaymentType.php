@@ -70,7 +70,7 @@ class PaymentType
     /**
      * @return Collection|Payment[]
      */
-    public function getPayments(): Collection
+    public function getPayments(): ArrayCollection
     {
         return $this->payments;
     }
