@@ -42,7 +42,7 @@ final class Version20191030223835 extends AbstractMigration
         $this->addSql(
             "INSERT INTO `membership_type` (`id`, `label`, `description`, `default_amount`) VALUES "
             . "(1, 'Normale', 'Adhésion d\'une personne à l\'association pour une année.', 20),"
-            . "(2, 'Famille', 'Adhésion d\'une famille à l\'association pour une année.', 30),"
+            . "(2, 'Famille', 'Adhésion d\'une famille à l\'association pour une année.', 30)"
         );
     }
 
