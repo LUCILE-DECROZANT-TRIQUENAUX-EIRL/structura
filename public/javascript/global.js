@@ -70,6 +70,15 @@ $(document).ready(function () {
                 console.warn('You must define the attribute `data-create-label` in your table.')
             }
 
+            // Check the number of rows wanted (default: 10)
+            let countRowsDisplayed = 10; // Set default to 10 rows
+            let customCountRowsDisplayed = $table.data('number-rows-display'); // Get the custom settings
+            if (Number.isInteger(customCountRowsDisplayed)) { // Check if the parameter is an integer before using it
+                countRowsDisplayed = customCountRowsDisplayed;
+            } else {
+                console.warn('The attribute `data-number-rows-display` has to be an integer.');
+            }
+
             // Check if there is a specific configuration wanted to fix columns
             let countFixedColumnsRight = 2; // Set default to 2 columns
             let customCountFixedColumnsRight = $table.data('fixed-columns-right'); // Get the custom settings
@@ -98,6 +107,7 @@ $(document).ready(function () {
                 },
                 buttons: buttons,
                 dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
+                pageLength: countRowsDisplayed,
             });
         });
     });
