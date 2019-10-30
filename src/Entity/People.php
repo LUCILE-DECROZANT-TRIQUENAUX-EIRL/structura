@@ -173,7 +173,7 @@ class People
     private $addresses;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Membership", inversedBy="member", nullable="true", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Membership", inversedBy="member", cascade={"persist", "remove"})
      */
     private $membership;
 
