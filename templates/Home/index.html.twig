@@ -1,5 +1,9 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/Home/index.css') }}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item active" aria-current="page">
         Accueil
@@ -9,7 +13,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <h3>Ex-Adhérents à relancer</h4>
                 <table
                     class="table table-striped"
@@ -55,16 +59,14 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <div class="row justify-content-around">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="square-btn-wrapper">
-                            <a class="btn btn-outline-primary btn-block square-btn" href="#" role="button">
+                            <a class="btn btn-primary btn-block square-btn huge-button" href="#" role="button">
                                 <div>
-                                    <p class="text-left">
-                                        Enregistrer <br>
-                                        une adhésion
-                                    </p>
+                                    Enregistrer <br>
+                                    un contact
                                 </div>
                                 <div>
                                     <i class="icon ion-md-add"></i>
@@ -72,14 +74,25 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="square-btn-wrapper">
-                            <a class="btn btn-outline-primary btn-block square-btn" href="#" role="button">
+                            <a class="btn btn-primary btn-block square-btn huge-button" href="#" role="button">
+                                <div>
+                                    Enregistrer <br>
+                                    une adhésion
+                                </div>
+                                <div>
+                                    <i class="icon ion-md-add"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="square-btn-wrapper">
+                            <a class="btn btn-primary btn-block square-btn huge-button" href="#" role="button">
                                 <div class="align">
-                                    <p class="text-left">
-                                        Enregistrer <br>
-                                        un don
-                                    </p>
+                                    Enregistrer <br>
+                                    un don
                                 </div>
                                 <div>
                                     <i class="icon ion-md-add"></i>
@@ -98,5 +111,3 @@
     </div>
 {% endblock %}
 
-{% block stylesheets %}
-{% endblock %}
