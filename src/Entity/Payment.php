@@ -43,7 +43,7 @@ class Payment
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Membership", mappedBy="payment", nullable="true", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Membership", mappedBy="payment", cascade={"persist", "remove"})
      */
     private $membership;
 
