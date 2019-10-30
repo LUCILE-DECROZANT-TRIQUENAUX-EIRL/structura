@@ -29,6 +29,16 @@ class PaymentType
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable="true")
+     */
+    private $bankName;
+
+    /**
+     * @ORM\Column(type="integer", nullable="true")
+     */
+    private $checkNumber;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="type")
      */
     private $payments;
@@ -68,9 +78,49 @@ class PaymentType
     }
 
     /**
+     * Get the value of bankName
+     */
+    public function getBankName() : ?string
+    {
+        return $this->bankName;
+    }
+
+    /**
+     * Set the value of bankName
+     *
+     * @return self
+     */
+    public function setBankName(string $bankName) : self
+    {
+        $this->bankName = $bankName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of checkNumber
+     */
+    public function getCheckNumber() : ?int
+    {
+        return $this->checkNumber;
+    }
+
+    /**
+     * Set the value of checkNumber
+     *
+     * @return self
+     */
+    public function setCheckNumber(int $checkNumber) : self
+    {
+        $this->checkNumber = $checkNumber;
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Payment[]
      */
-    public function getPayments(): Collection
+    public function getPayments(): ArrayCollection
     {
         return $this->payments;
     }
