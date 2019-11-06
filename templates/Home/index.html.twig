@@ -13,63 +13,18 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-7">
-                <h3>Ex-Adhérents à relancer</h4>
-                <table
-                    class="table table-striped"
-                    data-toggle="datatable"
-                    data-number-rows-display=5
-                >
-                    <thead>
-                        <tr>
-                            <th data-sortable="true">Nom</th>
-                            <th data-sortable="true">Prénom</th>
-                            <th>Mail</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for member in members %}
-                            <tr>
-                                <td class="align-middle">{{ member.lastname }}</td>
-                                <td class="align-middle">{{ member.firstname }}</td>
-                                <td class="align-middle">{{ member.emailAddress }}</td>
-                                <td class="align-middle column-action">
-                                    <a
-                                        href="{{ path('member_show', { 'id': member.id }) }}"
-                                        class="btn btn-secondary"
-                                        data-toggle="tooltip"
-                                        title="Voir le profil"
-                                        >
-                                        <i class="icon ion-md-eye"></i>
-                                    </a>
-                                </td>
-                                <td class="align-middle column-action">
-                                        <a
-                                            href="{{ path('member_edit', { 'id': member.id }) }}"
-                                            class="btn btn-secondary"
-                                            data-toggle="tooltip"
-                                            title="Éditer le profil"
-                                            >
-                                            <i class="icon ion-md-create"></i>
-                                        </a>
-                                    </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
             <div class="col-5">
                 <div class="row justify-content-around">
                     <div class="col-4">
-                        <div class="square-btn-wrapper">
+                        <div class="square-btn-wrapper"
+                             data-toggle="tooltip"
+                        >
                             <a class="btn btn-primary btn-block square-btn huge-button"
                                href="{{ path('member_create') }}"
                                role="button">
                                 <div>
-                                    Enregistrer <br>
-                                    un contact
+                                    Renseigner<br>
+                                    l'annuaire
                                 </div>
                                 <div>
                                     <i class="icon ion-md-add"></i>
@@ -119,6 +74,53 @@
                         <img src="{{ asset('images/line-chart.jpg') }}" class="border border-primary img-fluid" alt="Des courbes bidons en attendant les vraies.">
                     </div>
                 </div>
+            </div>
+            <div class="col-7">
+                <h3>Ex-Adhérents à relancer</h4>
+                <table
+                    class="table table-striped"
+                    data-toggle="datatable"
+                    data-number-rows-display=5
+                >
+                    <thead>
+                        <tr>
+                            <th data-sortable="true">Nom</th>
+                            <th data-sortable="true">Prénom</th>
+                            <th>Mail</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                            <tr>
+                                <td class="align-middle">{{ member.lastname }}</td>
+                                <td class="align-middle">{{ member.firstname }}</td>
+                                <td class="align-middle">{{ member.emailAddress }}</td>
+                                <td class="align-middle column-action">
+                                    <a
+                                        href="{{ path('member_show', { 'id': member.id }) }}"
+                                        class="btn btn-secondary"
+                                        data-toggle="tooltip"
+                                        title="Voir le profil"
+                                        >
+                                        <i class="icon ion-md-eye"></i>
+                                    </a>
+                                </td>
+                                <td class="align-middle column-action">
+                                        <a
+                                            href="{{ path('member_edit', { 'id': member.id }) }}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="Éditer le profil"
+                                            >
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
+                                    </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
