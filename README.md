@@ -7,7 +7,7 @@ Base de donnée / ERP utilisé par l'association Huntington Avenir pour gérer s
 La base de données permet actuellement de créer des utilisateurices, de leur donner des rôles prédéfinis, et d'exporter les données si besoin (format CSV ou PDF).
 
 
-![Capture d'écran de la page d'accueil en cours de réalisation, comprenant différents boutons, un tableau et un graphique](https://ibb.co/v4Q0SRH)
+![Capture d'écran de la page d'accueil en cours de réalisation, comprenant différents boutons, un tableau et un graphique](https://i.ibb.co/MkGFmQs/Screenshot-2019-11-07-Base-de-donn-es-Huntington-Avenir.png)
 
 ## Utilisation
 
