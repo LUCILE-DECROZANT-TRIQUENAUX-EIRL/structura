@@ -16,16 +16,16 @@
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
+        <a href="{{ path('people_list') }}">Annuaire global</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item">
-        <a href="{{ path('member_show', { 'id': member.id }) }}">
-            Profil de {{ member.firstName }} {{ member.lastName }}
+        <a href="{{ path('people_show', { 'id': people.id }) }}">
+            Profil de {{ people.firstName }} {{ people.lastName }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Éditer le profil de {{ member.firstName }} {{ member.lastName }}
+        Éditer le profil de {{ people.firstName }} {{ people.lastName }}
     </li>
 {% endblock %}
 
@@ -36,10 +36,10 @@
 
         <div class="col-8 col-md-2">
             <ul class="list-group">
-              <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+              <a href="{{ path('people_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Profil</a>
               <a href="#" class="list-group-item list-group-item-action">Adhésions</a>
               <a href="#" class="list-group-item list-group-item-action">Dons</a>
-              <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Édition</a>
+              <a href="{{ path('people_edit', { 'id': people.id }) }}" class="list-group-item list-group-item-action active">Édition</a>
             </ul>
         </div>
 
@@ -52,87 +52,87 @@
 
             <div class="row">
                 <div class="col text-left">
-                    <h1>Édition de l'adhérent.e</h1>
+                    <h1>Édition de la personne dans l'annuaire</h1>
                 </div>
             </div>
                 <p> Les champs notés avec * sont requis. </p>
 
-        {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
+        {{ form_start(people_edit, {'attr': {'id': 'form-edit-people'}}) }}
                 <div class="form-group">
-                    {{ form_label(member_edit.denomination)}} *
-                    {{ form_widget(member_edit.denomination)}}
+                    {{ form_label(people_edit.denomination)}} *
+                    {{ form_widget(people_edit.denomination)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.firstname)}} *
-                    {{ form_widget(member_edit.firstname)}}
+                    {{ form_label(people_edit.firstname)}} *
+                    {{ form_widget(people_edit.firstname)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.lastname)}} *
-                    {{ form_widget(member_edit.lastname)}}
+                    {{ form_label(people_edit.lastname)}} *
+                    {{ form_widget(people_edit.lastname)}}
                 </div>
 
                 <div class="form-group">
-                    {% for address in member_edit.addresses %}
+                    {% for address in people_edit.addresses %}
                         {{ form_widget(address) }}
                         {{ form_label(address) }}
                     {% endfor %}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.emailAddress)}}
-                    {{ form_widget(member_edit.emailAddress)}}
+                    {{ form_label(people_edit.emailAddress)}}
+                    {{ form_widget(people_edit.emailAddress)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.isReceivingNewsletter)}}
-                    {{ form_widget(member_edit.isReceivingNewsletter)}}
-                    {{ form_label(member_edit.newsletterDematerialization)}}
-                    {{ form_widget(member_edit.newsletterDematerialization)}}
+                    {{ form_label(people_edit.isReceivingNewsletter)}}
+                    {{ form_widget(people_edit.isReceivingNewsletter)}}
+                    {{ form_label(people_edit.newsletterDematerialization)}}
+                    {{ form_widget(people_edit.newsletterDematerialization)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.homePhoneNumber)}}
-                    {{ form_widget(member_edit.homePhoneNumber)}}
-                    {{ form_help(member_edit.homePhoneNumber)}}
+                    {{ form_label(people_edit.homePhoneNumber)}}
+                    {{ form_widget(people_edit.homePhoneNumber)}}
+                    {{ form_help(people_edit.homePhoneNumber)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.cellPhoneNumber)}}
-                    {{ form_widget(member_edit.cellPhoneNumber)}}
-                    {{ form_help(member_edit.cellPhoneNumber)}}
+                    {{ form_label(people_edit.cellPhoneNumber)}}
+                    {{ form_widget(people_edit.cellPhoneNumber)}}
+                    {{ form_help(people_edit.cellPhoneNumber)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.workPhoneNumber)}}
-                    {{ form_widget(member_edit.workPhoneNumber)}}
-                    {{ form_help(member_edit.workPhoneNumber)}}
+                    {{ form_label(people_edit.workPhoneNumber)}}
+                    {{ form_widget(people_edit.workPhoneNumber)}}
+                    {{ form_help(people_edit.workPhoneNumber)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.workFaxNumber)}}
-                    {{ form_widget(member_edit.workFaxNumber)}}
-                    {{ form_help(member_edit.workFaxNumber)}}
+                    {{ form_label(people_edit.workFaxNumber)}}
+                    {{ form_widget(people_edit.workFaxNumber)}}
+                    {{ form_help(people_edit.workFaxNumber)}}
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(member_edit.observations)}}
-                    {{ form_widget(member_edit.observations)}}
-                    {{ form_help(member_edit.observations)}}
+                    {{ form_label(people_edit.observations)}}
+                    {{ form_widget(people_edit.observations)}}
+                    {{ form_help(people_edit.observations)}}
                 </div>
 
                 {% if is_granted('ROLE_GESTION_SENSIBLE') %}
                     <div class="form-group">
-                        {{ form_label(member_edit.sensitiveObservations)}}
-                        {{ form_widget(member_edit.sensitiveObservations)}}
-                        {{ form_help(member_edit.sensitiveObservations)}}
+                        {{ form_label(people_edit.sensitiveObservations)}}
+                        {{ form_widget(people_edit.sensitiveObservations)}}
+                        {{ form_help(people_edit.sensitiveObservations)}}
                     </div>
                 {% endif %}
 
-                {% do member_edit.sensitiveObservations.setRendered %}
+                {% do people_edit.sensitiveObservations.setRendered %}
 
-        {{ form_end(member_edit) }}
+        {{ form_end(people_edit) }}
 
         </div>
     </div>
@@ -141,15 +141,15 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a href="{{ path('member_list') }}" class="btn btn-secondary">
-                <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es
+            <a href="{{ path('people_list') }}" class="btn btn-secondary">
+                <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire global
             </a>
         </div>
         <div class="col text-right">
             <button
-            id="edit-member-submit-button"
+            id="edit-people-submit-button"
             type="submit"
-            form="form-edit-member"
+            form="form-edit-people"
             class="btn btn-primary">
                 Enregistrer les modifications
             </button>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="col text-right">
                     {{ form_start(delete_form) }}
-                    <button id="delete_button" type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }}</button>
+                    <button id="delete_button" type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ people.firstName }}</button>
                     {{ form_end(delete_form) }}
                 </div>
             </div>

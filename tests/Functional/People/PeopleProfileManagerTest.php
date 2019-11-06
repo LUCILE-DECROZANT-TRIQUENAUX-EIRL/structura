@@ -13,7 +13,7 @@ use DMore\ChromeDriver\ChromeDriver;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class MemberProfileManagerTest extends WebTestCase
+class PeopleProfileManagerTest extends WebTestCase
 {
     /**
      * Connects to the server with the gestiSensible user
@@ -27,7 +27,7 @@ class MemberProfileManagerTest extends WebTestCase
         // set the default session name
         $mink->setDefaultSessionName('browser');
         // Go to profile page
-        $mink->getSession()->visit('http://localhost:8000/member/9');
+        $mink->getSession()->visit('http://localhost:8000/people/9');
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_password", "a");

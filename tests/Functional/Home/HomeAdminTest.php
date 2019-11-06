@@ -52,9 +52,9 @@ class HomeAdminTest extends WebTestCase
     }
 
     /**
-     * Test if the Members menu isn't here
+     * Test if the Peoples menu isn't here
      */
-    public function testMenuMembers()
+    public function testMenuPeoples()
     {
         // Create a new client to browse the app
         $client = $this->connection();

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 
 // TODO : Doesn't work, see issue 51
-class HomeMemberTest extends WebTestCase
+class HomePeopleTest extends WebTestCase
 {
 
     /**
@@ -52,9 +52,9 @@ class HomeMemberTest extends WebTestCase
     }
 
     /**
-     * Test if the Members menu is here
+     * Test if the Peoples menu is here
      */
-    public function testMenuMembers()
+    public function testMenuPeoples()
     {
         // Create a new client to browse the app
         $client = $this->connection();

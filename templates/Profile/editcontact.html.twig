@@ -1,10 +1,10 @@
 {% extends 'Home/base.html.twig' %}
 
-{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
+{% set profileLabel = app.user.username == people.user.username ? "mon profil" : "l'utilisateurice" %}
 
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
-    <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/People/phone.js') }}"></script>
     <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 

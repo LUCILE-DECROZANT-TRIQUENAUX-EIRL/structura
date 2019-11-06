@@ -15,7 +15,7 @@ use DMore\ChromeDriver\ChromeDriver;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class MemberListManagerTest extends WebTestCase
+class PeopleListManagerTest extends WebTestCase
 {
 
     /**
@@ -31,7 +31,7 @@ class MemberListManagerTest extends WebTestCase
         $mink->setDefaultSessionName('browser');
 
         // Go to profile page
-        $mink->getSession()->visit('http://localhost:8000/member/');
+        $mink->getSession()->visit('http://localhost:8000/people/');
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_username", "gestiSensible");
         $mink->getSession()->getPage()->fillField("_password", "a");
@@ -63,7 +63,7 @@ class MemberListManagerTest extends WebTestCase
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Éditer le profil"]')->count());
         // Counts the number of "delete profile" buttons
         $this->assertEquals(10, $crawler->filterXPath('//a[@data-original-title="Supprimer le profil"]')->count());
-        //Counts the number of add new member buttons
+        //Counts the number of add new people buttons
         $this->assertEquals(1, $crawler->filterXPath('//button[contains(@id,"createButton")]')->count());
         //Verifies that the breadcrumb is correct
         $this->assertEquals(1, $crawler->filterXPath('//li/a[contains(.,"Accueil")]')->count());

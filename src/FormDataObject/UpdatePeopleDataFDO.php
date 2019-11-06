@@ -4,7 +4,7 @@ namespace App\FormDataObject;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
 
-class UpdateMemberDataFDO
+class UpdatePeopleDataFDO
 {
 
     /**
@@ -102,26 +102,26 @@ class UpdateMemberDataFDO
     /**
      *
      */
-    public static function fromMember(People $member): self
+    public static function fromPeople(People $people): self
     {
-        $updateMemberDataFDO = new self();
+        $updatePeopleDataFDO = new self();
 
-        //$updateMemberDataFDO->id = $member->getId();
-        $updateMemberDataFDO->denomination = $member->getDenomination();
-        $updateMemberDataFDO->firstName = $member->getFirstName();
-        $updateMemberDataFDO->lastName = $member->getLastName();
-        $updateMemberDataFDO->emailAddress = $member->getEmailAddress();
-        $updateMemberDataFDO->isReceivingNewsletter = $member->getIsReceivingNewsletter();
-        $updateMemberDataFDO->newsletterDematerialization = $member->getNewsletterDematerialization();
-        $updateMemberDataFDO->cellPhoneNumber = $member->getCellPhoneNumber();
-        $updateMemberDataFDO->homePhoneNumber = $member->getHomePhoneNumber();
-        $updateMemberDataFDO->workFaxNumber = $member->getWorkFaxNumber();
-        $updateMemberDataFDO->workPhoneNumber = $member->getWorkPhoneNumber();
-        $updateMemberDataFDO->observations = $member->getObservations();
-        $updateMemberDataFDO->sensitiveObservations = $member->getSensitiveObservations();
-        $updateMemberDataFDO->addresses = $member->getAddresses();
+        //$updatePeopleDataFDO->id = $people->getId();
+        $updatePeopleDataFDO->denomination = $people->getDenomination();
+        $updatePeopleDataFDO->firstName = $people->getFirstName();
+        $updatePeopleDataFDO->lastName = $people->getLastName();
+        $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
+        $updatePeopleDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
+        $updatePeopleDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
+        $updatePeopleDataFDO->cellPhoneNumber = $people->getCellPhoneNumber();
+        $updatePeopleDataFDO->homePhoneNumber = $people->getHomePhoneNumber();
+        $updatePeopleDataFDO->workFaxNumber = $people->getWorkFaxNumber();
+        $updatePeopleDataFDO->workPhoneNumber = $people->getWorkPhoneNumber();
+        $updatePeopleDataFDO->observations = $people->getObservations();
+        $updatePeopleDataFDO->sensitiveObservations = $people->getSensitiveObservations();
+        $updatePeopleDataFDO->addresses = $people->getAddresses();
 
-        return $updateMemberDataFDO;
+        return $updatePeopleDataFDO;
     }
 
     /**
@@ -147,7 +147,7 @@ class UpdateMemberDataFDO
      * Set the value of denomination
      * @param Denomination
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setDenomination($denomination)
     {
@@ -171,7 +171,7 @@ class UpdateMemberDataFDO
      *
      * @param string $firstName
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setFirstName(string $firstName)
     {
@@ -195,7 +195,7 @@ class UpdateMemberDataFDO
      *
      * @param string $lastName
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setLastName(string $lastName)
     {
@@ -219,7 +219,7 @@ class UpdateMemberDataFDO
      *
      * @param string $emailAddress
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setEmailAddress(string $emailAddress)
     {
@@ -243,7 +243,7 @@ class UpdateMemberDataFDO
      *
      * @param boolean $isReceivingNewsletter If the person receives the newsletter.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setIsReceivingNewsletter(bool $isReceivingNewsletter)
     {
@@ -267,7 +267,7 @@ class UpdateMemberDataFDO
      *
      * @param boolean $newsletterDematerialization Is the newsletter received by mail.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setNewsletterDematerialization(bool $newsletterDematerialization)
     {
@@ -291,7 +291,7 @@ class UpdateMemberDataFDO
      *
      * @param string $homePhoneNumber Home Number.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setHomePhoneNumber(string $homePhoneNumber)
     {
@@ -321,7 +321,7 @@ class UpdateMemberDataFDO
      *
      * @param string $cellPhoneNumber Cell Number.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setCellPhoneNumber(string $cellPhoneNumber)
     {
@@ -351,7 +351,7 @@ class UpdateMemberDataFDO
      *
      * @param string $workPhoneNumber Work Number.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setWorkPhoneNumber(string $workPhoneNumber)
     {
@@ -381,7 +381,7 @@ class UpdateMemberDataFDO
      *
      * @param string $workFaxNumber Fax Number.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setWorkFaxNumber(string $workFaxNumber)
     {
@@ -412,7 +412,7 @@ class UpdateMemberDataFDO
      *
      * @param string $observations Observations on the person.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setObservations(string $observations)
     {
@@ -436,7 +436,7 @@ class UpdateMemberDataFDO
      *
      * @param UserUpdater[] $updaters People that updated the profile.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setUpdaters(array $updaters)
     {
@@ -470,7 +470,7 @@ class UpdateMemberDataFDO
      *
      * @param Address[] $addresses Adresses of the person.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setAddresses(array $addresses)
     {
@@ -503,7 +503,7 @@ class UpdateMemberDataFDO
      * Set the User corresponding to this people
      *
      * @param \App\Entity\User $user
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setUser(User $user = null)
     {
@@ -525,7 +525,7 @@ class UpdateMemberDataFDO
      *
      * @param string $sensitiveObservations Sensitve observations.
      *
-     * @return UpdateMemberDataFDO
+     * @return UpdatePeopleDataFDO
      */
     public function setSensitiveObservations(string $sensitiveObservations)
     {

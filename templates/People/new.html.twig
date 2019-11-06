@@ -15,7 +15,7 @@
         <a href="/">Accueil</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('member_list') }}">Liste des adhérent.es</a>
+        <a href="{{ path('people_list') }}">Annuaire global</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
         Enregistrer une nouvelle personne dans l'annuaire
@@ -36,7 +36,7 @@
 
     <div class="container">
         <p> Les champs notés avec * sont requis. </p>
-        {{ form_start(form, {'attr': {'id': 'form-create-member'}}) }}
+        {{ form_start(form, {'attr': {'id': 'form-create-people'}}) }}
             <div class="form-group">
                 {{ form_label(form.denomination)}} *
                 {{ form_widget(form.denomination)}}
@@ -119,14 +119,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ path('member_list') }}" class="btn btn-secondary">
-                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhérent⋅es
+                <a href="{{ path('people_list') }}" class="btn btn-secondary">
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire global
                 </a>
             </div>
             <div class="col text-right">
                 <button
-                id="create-member-submit-button"
-                type="submit" form="form-create-member"
+                id="create-people-submit-button"
+                type="submit" form="form-create-people"
                 class="btn btn-primary">
                     <i class="icon ion-md-add"></i>&nbsp;Créer
                 </button>

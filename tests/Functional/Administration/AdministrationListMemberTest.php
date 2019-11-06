@@ -16,7 +16,7 @@ use App\Entity\User;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class AdministrationListMemberTest extends WebTestCase
+class AdministrationListPeopleTest extends WebTestCase
 {
 
     /**

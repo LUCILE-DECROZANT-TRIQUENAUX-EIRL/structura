@@ -28,10 +28,10 @@ class HomeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $members = $em->getRepository(People::class)->findAll();
+        $peoples = $em->getRepository(People::class)->findAll();
 
         return $this->render('Home/index.html.twig', array(
-            'members' => $members
+            'peoples' => $peoples
         ));
     }
 }

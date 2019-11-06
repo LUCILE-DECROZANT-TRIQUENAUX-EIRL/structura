@@ -59,7 +59,14 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
                                     {% if is_granted("ROLE_GESTION") %}
-                                        <a class="dropdown-item" href="{{ path('member_list') }}">Adhérent·es</a>
+                                        <a
+                                            class="dropdown-item disabled"
+                                            href="#"
+                                            data-toggle="tooltip"
+                                            title="Work in progress..."
+                                        >
+                                            Adhérent·es
+                                        </a>
                                         <div class="dropdown-divider"></div>
                                     {% endif %}
                                     <a
@@ -80,12 +87,7 @@
                                         Professionnels de santé
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a
-                                        class="dropdown-item disabled"
-                                        href="#"
-                                        data-toggle="tooltip"
-                                        title="Work in progress..."
-                                    >
+                                    <a class="dropdown-item" href="{{ path('people_list') }}">
                                         Global
                                     </a>
                                 </div>

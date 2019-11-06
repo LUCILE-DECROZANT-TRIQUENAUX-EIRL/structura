@@ -36,7 +36,7 @@ class RouteService
     }
 
     /**
-     * Return the route name given an url e.g. : "/member/edit/1" is "member_edit".
+     * Return the route name given an url e.g. : "/people/edit/1" is "people_edit".
      *
      * @param string $url The url you want to find the associated route.
      *

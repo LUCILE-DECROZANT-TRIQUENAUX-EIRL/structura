@@ -36,7 +36,7 @@
         <h4>Édition</h4>
 
         <ul class="list-group">
-          {% if member.firstname is not empty %}
+          {% if people.firstname is not empty %}
           <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
           <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
           {% endif %}

@@ -10,8 +10,8 @@ use App\Entity\People;
 use App\Form\UserGeneralDataType;
 use App\Form\UserPasswordType;
 use App\Form\UserRolesType;
-use App\Form\MemberContactType;
-use App\Form\MemberPersonalType;
+use App\Form\PeopleContactType;
+use App\Form\PeoplePersonalType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdateUserGeneralDataFDO;
 
 /**
- * Member controller.
+ * People controller.
  *
  * @Route("profile")
  */
@@ -38,15 +38,15 @@ class ProfileController extends AbstractController
     {
         if($currentUser->getPeople() != NULL)
         {
-            $individual = $currentUser->getPeople();
+            $people = $currentUser->getPeople();
         }
         else {
-            $individual = new People();
+            $people = new People();
         }
 
         return $this->render('Profile/show.html.twig', array(
-            // Returns member and user to be able to access both infos in view
-            'member' => $individual,
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
             'user' => $currentUser,
         ));
     }
@@ -55,7 +55,7 @@ class ProfileController extends AbstractController
      * Displays a form to edit cpersonal infos of the connected user.
      * @return views
      * @param Request $request The request.
-     * @param People $individual The user to edit.
+     * @param People $people The user to edit.
      * @Route("/{id}/editpersonal", name="profile_editpersonal", methods={"GET", "POST"})
      * @Security("(user.getId() == id)")
      */
@@ -63,14 +63,14 @@ class ProfileController extends AbstractController
     {
         if($currentUser->getPeople() != NULL)
         {
-            $individual = $currentUser->getPeople();
+            $people = $currentUser->getPeople();
         }
         else {
-            $individual = new People();
+            $people = new People();
         }
 
 
-        $editForm = $this->createForm(MemberPersonalType::class, $individual);
+        $editForm = $this->createForm(PeoplePersonalType::class, $people);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -85,8 +85,8 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('Profile/editpersonal.html.twig', array(
-            // Returns member and user to be able to access both infos in view
-            'member' => $individual,
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
             'user' => $currentUser,
             'profile_editpersonal' => $editForm->createView()
         ));
@@ -96,7 +96,7 @@ class ProfileController extends AbstractController
      * Displays a form to edit contact infos of the connected user.
      * @return views
      * @param Request $request The request.
-     * @param People $individual The user to edit.
+     * @param People $people The user to edit.
      * @Route("/{id}/editcontact", name="profile_editcontact", methods={"GET", "POST"})
      * @Security("(user.getId() == id)")
      */
@@ -104,14 +104,14 @@ class ProfileController extends AbstractController
     {
         if($currentUser->getPeople() != NULL)
         {
-            $individual = $currentUser->getPeople();
+            $people = $currentUser->getPeople();
         }
         else {
-            $individual = new People();
+            $people = new People();
         }
 
 
-        $editForm = $this->createForm(MemberContactType::class, $individual);
+        $editForm = $this->createForm(PeopleContactType::class, $people);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -126,8 +126,8 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('Profile/editcontact.html.twig', array(
-            // Returns member and user to be able to access both infos in view
-            'member' => $individual,
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
             'user' => $currentUser,
             'profile_editcontact' => $editForm->createView()
         ));
@@ -149,10 +149,10 @@ class ProfileController extends AbstractController
 
         if($currentUser->getPeople() != NULL)
         {
-            $individual = $currentUser->getPeople();
+            $people = $currentUser->getPeople();
         }
         else {
-            $individual = new People();
+            $people = new People();
         }
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -218,8 +218,8 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('Profile/editsensible.html.twig', array(
-            // Returns member and user to be able to access both infos in view
-            'member' => $individual,
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
             'user' => $currentUser,
             'editsensible_form' => $editForm->createView(),
             'password_form' => $passwordForm->createView(),
@@ -238,10 +238,10 @@ class ProfileController extends AbstractController
     {
         if($currentUser->getPeople() != NULL)
         {
-            $individual = $currentUser->getPeople();
+            $people = $currentUser->getPeople();
         }
         else {
-            $individual = new People();
+            $people = new People();
         }
 
         $editForm = $this->createForm(UserRolesType::class, $currentUser);
@@ -259,8 +259,8 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('Profile/editroles.html.twig', array(
-            // Returns member and user to be able to access both infos in view
-            'member' => $individual,
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
             'user' => $currentUser,
             'editroles_form' => $editForm->createView()
         ));

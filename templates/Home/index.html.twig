@@ -20,7 +20,7 @@
                              data-toggle="tooltip"
                         >
                             <a class="btn btn-primary btn-block square-btn huge-button"
-                               href="{{ path('member_create') }}"
+                               href="{{ path('people_create') }}"
                                role="button">
                                 <div>
                                     Renseigner<br>
@@ -92,14 +92,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for member in members %}
+                        {% for people in peoples %}
                             <tr>
-                                <td class="align-middle">{{ member.lastname }}</td>
-                                <td class="align-middle">{{ member.firstname }}</td>
-                                <td class="align-middle">{{ member.emailAddress }}</td>
+                                <td class="align-middle">{{ people.lastname }}</td>
+                                <td class="align-middle">{{ people.firstname }}</td>
+                                <td class="align-middle">{{ people.emailAddress }}</td>
                                 <td class="align-middle column-action">
                                     <a
-                                        href="{{ path('member_show', { 'id': member.id }) }}"
+                                        href="{{ path('people_show', { 'id': people.id }) }}"
                                         class="btn btn-secondary"
                                         data-toggle="tooltip"
                                         title="Voir le profil"
@@ -109,7 +109,7 @@
                                 </td>
                                 <td class="align-middle column-action">
                                         <a
-                                            href="{{ path('member_edit', { 'id': member.id }) }}"
+                                            href="{{ path('people_edit', { 'id': people.id }) }}"
                                             class="btn btn-secondary"
                                             data-toggle="tooltip"
                                             title="Éditer le profil"

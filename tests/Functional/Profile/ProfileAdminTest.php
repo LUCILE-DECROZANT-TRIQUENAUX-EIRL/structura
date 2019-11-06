@@ -45,7 +45,7 @@ class ProfileAdminTest extends WebTestCase
         $node->click();
         sleep(1);
 
-        // Go to Members page
+        // Go to Peoples page
         $node = new NodeElement('//a[contains(.,"adminUniquement")]', $mink->getSession());
         $node->click();
 

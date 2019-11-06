@@ -13,7 +13,7 @@ use App\Entity\Address;
 
 use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
 
-class MemberControllerTest extends WebTestCase
+class PeopleControllerTest extends WebTestCase
 {
     const FIREWALL_NAME = 'main';
     const FIREWALL_CONTEXT = 'main';
@@ -74,36 +74,36 @@ class MemberControllerTest extends WebTestCase
         return $currentUser;
     }
 
-//=========== Create a member
+//=========== Create a people
 
     //  -------------------------------------------------
-    //   Test the access of the member create profile page
+    //   Test the access of the people create profile page
     //  -------------------------------------------------
         /**
          * Tests if a person with the gestionnaire role can access the page
          */
-        public function testGestionnaireAccessCreateMemberPage()
+        public function testGestionnaireAccessCreatePeoplePage()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Go to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
             // Connects the gestionnaire sensible
             $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
             // Go to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
             // Tests if the buttons are there
@@ -135,14 +135,14 @@ class MemberControllerTest extends WebTestCase
         /**
          * Tests if a person with the admin only role can access the page
          */
-        public function testAdminAccessCreateMemberPage()
+        public function testAdminAccessCreatePeoplePage()
         {
 
             // Connects the admin only
             $this->connection(self::ADMIN_ONLY_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     403,
                     self::$client->getResponse()->getStatusCode(),
@@ -154,24 +154,24 @@ class MemberControllerTest extends WebTestCase
             $this->connection(self::ADMIN_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
         }
 
         /**
          * Tests if a person with the adherente role can access the page
          */
-        public function testAdherenteAccessCreateMemberPage()
+        public function testAdherenteAccessCreatePeoplePage()
         {
             // Connects the adherent.e
             $this->connection(self::ADHERENTE_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     403,
                     self::$client->getResponse()->getStatusCode(),
@@ -182,13 +182,13 @@ class MemberControllerTest extends WebTestCase
         /**
          * Tests if a person with the Sympathisant role can access the page
          */
-        public function testSympathisanteAccessCreateMemberPage()
+        public function testSympathisanteAccessCreatePeoplePage()
         {
             // Connect the adherent.e
             $this->connection(self::SYMPATHISANTE_USERNAME);
 
             // Go to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     403,
                     self::$client->getResponse()->getStatusCode(),
@@ -199,13 +199,13 @@ class MemberControllerTest extends WebTestCase
         /**
          * Tests if a person with the mécène role can access the page
          */
-        public function testMeceneAccessCreateMemberPage()
+        public function testMeceneAccessCreatePeoplePage()
         {
             // Connects the adherent.e
             $this->connection(self::MECENE_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     403,
                     self::$client->getResponse()->getStatusCode(),
@@ -216,13 +216,13 @@ class MemberControllerTest extends WebTestCase
         /**
          * Tests if a person with the inscrit role can access the page
          */
-        public function testInscriteAccessCreateMemberPage()
+        public function testInscriteAccessCreatePeoplePage()
         {
             // Connects the adherent.e
             $this->connection(self::INSCRITE_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     403,
                     self::$client->getResponse()->getStatusCode(),
@@ -242,7 +242,7 @@ class MemberControllerTest extends WebTestCase
             $this->connection(self::ADMIN_USERNAME);
 
             // Goes to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertNotContains(
                     'Détails médicaux',
                     self::$client->getCrawler()->filter('label')->last()->text(),
@@ -261,7 +261,7 @@ class MemberControllerTest extends WebTestCase
             $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
             // Go to the profile creation page
-            self::$client->request('GET', '/member/new');
+            self::$client->request('GET', '/people/new');
             $this->assertContains(
                 'Détails médicaux',
                 self::$client->getCrawler()->filter('label')->last()->text(),
@@ -272,27 +272,27 @@ class MemberControllerTest extends WebTestCase
 
 
     //  -----------------------------
-    //   Test the creation of a member
+    //   Test the creation of a people
     //  -----------------------------
 
         /**
          * Creates an user with mandatory form inputs
          */
-        public function testCreateMemberRequiredFields()
+        public function testCreatePeopleRequiredFields()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/new');
+            $crawler = self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('create-people-submit-button')->form();
             // Fills the mandatory form inputs
             $firstname = 'Florent';
             $name = 'Marin';
@@ -306,9 +306,9 @@ class MemberControllerTest extends WebTestCase
             // Submits the form
             self::$client->submit($form);
 
-            // Autoredirection to the member profile
+            // Autoredirection to the people profile
             $this->assertContains(
-                    'Redirecting to <a href="/member/18">/member/18</a>.',
+                    'Redirecting to <a href="/people/18">/people/18</a>.',
                     self::$client->getResponse()->getContent(),
                     'The page should be redirecting to the newly created user profile one'
             );
@@ -320,7 +320,7 @@ class MemberControllerTest extends WebTestCase
             );
 
             // Checks the database content
-            $createdMember = self::$container
+            $createdPeople = self::$container
                 ->get('doctrine')
                 ->getRepository(People::class)
                 ->findOneBy([
@@ -328,18 +328,18 @@ class MemberControllerTest extends WebTestCase
                 ]);
 
             $this->assertEquals(
-                    $createdMember->getFirstName(),
+                    $createdPeople->getFirstName(),
                     $firstname,
                     'The first name should be ' . $firstname
             );
 
             $this->assertEquals(
-                    $createdMember->getLastName(),
+                    $createdPeople->getLastName(),
                     $name,
                     'The last name should be ' . $name
             );
 
-            $denomination =$createdMember->getDenomination();
+            $denomination =$createdPeople->getDenomination();
 
             $this->assertEquals(
                     $denomination->getLabel(),
@@ -351,21 +351,21 @@ class MemberControllerTest extends WebTestCase
         /**
          * Creates an user with all form inputs
          */
-        public function testCreateMemberAllFields()
+        public function testCreatePeopleAllFields()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/new');
+            $crawler = self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('create-people-submit-button')->form();
             // Fills the mandatory form inputs
             $firstname = 'Florent';
             $name = 'Marin';
@@ -403,9 +403,9 @@ class MemberControllerTest extends WebTestCase
             // Submits the form
             self::$client->submit($form);
 
-            // Autoredirection to the member profile
+            // Autoredirection to the people profile
             $this->assertContains(
-                    'Redirecting to <a href="/member/18">/member/18</a>.',
+                    'Redirecting to <a href="/people/18">/people/18</a>.',
                     self::$client->getResponse()->getContent(),
                     'The page should be redirecting to the newly created user profile one'
             );
@@ -417,7 +417,7 @@ class MemberControllerTest extends WebTestCase
             );
 
             // Checks the database content
-            $createdMember = self::$container
+            $createdPeople = self::$container
                 ->get('doctrine')
                 ->getRepository(People::class)
                 ->findOneBy([
@@ -425,72 +425,72 @@ class MemberControllerTest extends WebTestCase
                 ]);
 
             $this->assertEquals(
-                    $createdMember->getFirstName(),
+                    $createdPeople->getFirstName(),
                     $firstname,
                     'The first name should be ' . $firstname
             );
 
             $this->assertEquals(
-                    $createdMember->getLastName(),
+                    $createdPeople->getLastName(),
                     $name,
                     'The last name should be ' . $name
             );
 
             $this->assertEquals(
-                    $createdMember->getEmailAddress(),
+                    $createdPeople->getEmailAddress(),
                     $email,
                     'The email should be ' . $email
             );
 
             $this->assertEquals(
-                    $createdMember->getIsReceivingNewsletter(),
+                    $createdPeople->getIsReceivingNewsletter(),
                     true,
                     'The user should receive the newsletter'
             );
 
             $this->assertEquals(
-                    $createdMember->getNewsletterDematerialization(),
+                    $createdPeople->getNewsletterDematerialization(),
                     true,
                     'The user should receive the newsletter by email'
             );
 
             $this->assertEquals(
-                    $createdMember->getCellPhoneNumber(),
+                    $createdPeople->getCellPhoneNumber(),
                     $cellnumber,
                     'The cell phone number should be ' . $cellnumber
             );
 
             $this->assertEquals(
-                    $createdMember->getHomePhoneNumber(),
+                    $createdPeople->getHomePhoneNumber(),
                     $homenumber,
                     'The home phone number should be ' . $homenumber
             );
 
             $this->assertEquals(
-                    $createdMember->getWorkPhoneNumber(),
+                    $createdPeople->getWorkPhoneNumber(),
                     $worknumber,
                     'The work phone number should be ' . $worknumber
             );
 
             $this->assertEquals(
-                    $createdMember->getWorkFaxNumber(),
+                    $createdPeople->getWorkFaxNumber(),
                     $faxnumber,
                     'The fax number should be ' . $faxnumber
             );
 
             $this->assertEquals(
-                    $createdMember->getObservations(),
+                    $createdPeople->getObservations(),
                     $observations,
                     'The observations should be ' . $observations
             );
 
             $this->assertEquals(
-                    $createdMember->getSensitiveObservations(),
+                    $createdPeople->getSensitiveObservations(),
                     $sensitive,
                     'The sensitive observations should be ' . $sensitive
             );
 
-            $denomination = $createdMember->getDenomination();
+            $denomination = $createdPeople->getDenomination();
 
             $this->assertEquals(
                     $denomination->getLabel(),
@@ -499,8 +499,8 @@ class MemberControllerTest extends WebTestCase
             );
 
             $this->assertEquals(
-                    $createdMember->getAddresses(),
-                    $createdMember->getAddresses(),
+                    $createdPeople->getAddresses(),
+                    $createdPeople->getAddresses(),
                     'The address should be '. $line . $postalcode . $city . $country
             );
         }
@@ -509,21 +509,21 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with mandatory form inputs empty
          * Form doesn't work in that way
          */
-        public function testCreateMemberRequiredFieldsEmpty()
+        public function testCreatePeopleRequiredFieldsEmpty()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/new');
+            $crawler = self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('create-people-submit-button')->form();
 
             // Submits the form
             self::$client->submit($form);
@@ -540,21 +540,21 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with text in the phone fields
          * Form doesn't work in that way
          */
-        public function testCreateMemberRequiredWrongPhone()
+        public function testCreatePeopleRequiredWrongPhone()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/new');
+            $crawler = self::$client->request('GET', '/people/new');
             $this->assertEquals(
                     'Enregistrer une nouvelle personne dans l\'annuaire',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member creation one'
+                    'The page should be the people creation one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('create-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('create-people-submit-button')->form();
 
             // Fills the mandatory form inputs
             $firstname = 'Florent';
@@ -579,36 +579,36 @@ class MemberControllerTest extends WebTestCase
 
         }
 
-//========= Edit a member
+//========= Edit a people
 
 //  -------------------------------------------------
-//   Tests the access of the member edit profile page
+//   Tests the access of the people edit profile page
 //  -------------------------------------------------
     /**
      * Tests if a person with the gestionnaire role can access the page
      */
-    public function testGestionnaireAccessEditMemberPage()
+    public function testGestionnaireAccessEditPeoplePage()
     {
         // Connects the gestionnaire
         $this->connection(self::GESTIONNAIRE_USERNAME);
 
         // Go to the profile edition page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 'Édition de l\'adhérent.e',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
-                'The page should be the member edition one'
+                'The page should be the people edition one'
         );
 
         // Connects the gestionnaire sensible
         $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
         // Go to the profile edition page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 'Édition de l\'adhérent.e',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
-                'The page should be the member edition one'
+                'The page should be the people edition one'
         );
 
         // Tests if the buttons are there
@@ -636,12 +636,12 @@ class MemberControllerTest extends WebTestCase
         $this->assertContains(
                 'Profil de Jeanne Carton',
                 self::$client->getCrawler()->filterXPath('(//li/a)[5]')->text(),
-                'The breadcrumb should link to the member profile page'
+                'The breadcrumb should link to the people profile page'
         );
         $this->assertContains(
                 'Éditer le profil de Jeanne Carton' ,
                 self::$client->getCrawler()->filterXPath('(//li)[6]')->text(),
-                'The breadcrumb should be on the edit member page'
+                'The breadcrumb should be on the edit people page'
         );
 
 
@@ -650,14 +650,14 @@ class MemberControllerTest extends WebTestCase
     /**
      * Tests if a person with the admin role can access the page
      */
-    public function testAdminAccessEditMemberPage()
+    public function testAdminAccessEditPeoplePage()
     {
 
         // Connects the admin only
         $this->connection(self::ADMIN_ONLY_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 403,
                 self::$client->getResponse()->getStatusCode(),
@@ -669,24 +669,24 @@ class MemberControllerTest extends WebTestCase
         $this->connection(self::ADMIN_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 'Édition de l\'adhérent.e',
                 self::$client->getCrawler()->filter('h1')->first()->text(),
-                'The page should be the member edition one'
+                'The page should be the people edition one'
         );
     }
 
     /**
      * Tests if a person with the adherente role can access the page
      */
-    public function testAdherenteAccessEditMemberPage()
+    public function testAdherenteAccessEditPeoplePage()
     {
         // Connects the adherent.e
         $this->connection(self::ADHERENTE_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 403,
                 self::$client->getResponse()->getStatusCode(),
@@ -697,13 +697,13 @@ class MemberControllerTest extends WebTestCase
     /**
      * Tests if a person with the Sympathisant role can access the page
      */
-    public function testSympathisanteAccessEditMemberPage()
+    public function testSympathisanteAccessEditPeoplePage()
     {
         // Connect the adherent.e
         $this->connection(self::SYMPATHISANTE_USERNAME);
 
         // Go to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 403,
                 self::$client->getResponse()->getStatusCode(),
@@ -714,13 +714,13 @@ class MemberControllerTest extends WebTestCase
     /**
      * Tests if a person with the mécène role can access the page
      */
-    public function testMeceneAccessEditMemberPage()
+    public function testMeceneAccessEditPeoplePage()
     {
         // Connects the adherent.e
         $this->connection(self::MECENE_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 403,
                 self::$client->getResponse()->getStatusCode(),
@@ -731,13 +731,13 @@ class MemberControllerTest extends WebTestCase
     /**
      * Tests if a person with the inscrit role can access the page
      */
-    public function testInscriteAccessEditMemberPage()
+    public function testInscriteAccessEditPeoplePage()
     {
         // Connects the adherent.e
         $this->connection(self::INSCRITE_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertEquals(
                 403,
                 self::$client->getResponse()->getStatusCode(),
@@ -757,7 +757,7 @@ class MemberControllerTest extends WebTestCase
         $this->connection(self::ADMIN_USERNAME);
 
         // Goes to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertNotContains(
                 'Détails médicaux',
                 self::$client->getCrawler()->filter('label')->last()->text(),
@@ -776,7 +776,7 @@ class MemberControllerTest extends WebTestCase
         $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
         // Go to the profile creation page
-        self::$client->request('GET', '/member/17/edit');
+        self::$client->request('GET', '/people/17/edit');
         $this->assertContains(
             'Détails médicaux',
             self::$client->getCrawler()->filter('label')->last()->text(),
@@ -786,27 +786,27 @@ class MemberControllerTest extends WebTestCase
     }
 
     //  -----------------------------
-    //   Test the edition of a member
+    //   Test the edition of a people
     //  -----------------------------
 
         /**
          * Creates an user with mandatory form inputs
          */
-        public function testEditMemberRequiredFields()
+        public function testEditPeopleRequiredFields()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile ediiton page
-            $crawler = self::$client->request('GET', '/member/17/edit');
+            $crawler = self::$client->request('GET', '/people/17/edit');
             $this->assertEquals(
                     'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member edition one'
+                    'The page should be the people edition one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('edit-people-submit-button')->form();
 
             // Fills the mandatory form inputs
             $firstname = 'Florent';
@@ -826,9 +826,9 @@ class MemberControllerTest extends WebTestCase
             // Submits the form
             self::$client->submit($form);
 
-            // Autoredirection to the member profile
+            // Autoredirection to the people profile
             $this->assertContains(
-                    '/member/17/edit',
+                    '/people/17/edit',
                     self::$client->getResponse()->getContent(),
                     'The page should be redirecting to the newly created user profile one'
             );
@@ -840,7 +840,7 @@ class MemberControllerTest extends WebTestCase
             );
 
             // Checks the database content
-            $createdMember = self::$container
+            $createdPeople = self::$container
                 ->get('doctrine')
                 ->getRepository(People::class)
                 ->findOneBy([
@@ -848,18 +848,18 @@ class MemberControllerTest extends WebTestCase
                 ]);
 
             $this->assertEquals(
-                    $createdMember->getFirstName(),
+                    $createdPeople->getFirstName(),
                     $firstname,
                     'The first name should be ' . $firstname
             );
 
             $this->assertEquals(
-                    $createdMember->getLastName(),
+                    $createdPeople->getLastName(),
                     $name,
                     'The last name should be ' . $name
             );
 
-            $denomination =$createdMember->getDenomination();
+            $denomination =$createdPeople->getDenomination();
 
             $this->assertEquals(
                     $denomination->getLabel(),
@@ -872,21 +872,21 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with all form inputs
          */
          //TODO : Add the address edition since it doesn't work for now
-        public function testEditMemberAllFields()
+        public function testEditPeopleAllFields()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_SENSIBLE_USERNAME);
 
             // Goes to the profile ediiton page
-            $crawler = self::$client->request('GET', '/member/17/edit');
+            $crawler = self::$client->request('GET', '/people/17/edit');
             $this->assertEquals(
                     'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member edition one'
+                    'The page should be the people edition one'
             );
 
 
-            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('edit-people-submit-button')->form();
             // Fills the mandatory form inputs
             $firstname = 'Florent';
             $name = 'Marin';
@@ -924,9 +924,9 @@ class MemberControllerTest extends WebTestCase
             // Submits the form
             self::$client->submit($form);
 
-            // Autoredirection to the member profile
+            // Autoredirection to the people profile
             $this->assertContains(
-                    '/member/17/edit',
+                    '/people/17/edit',
                     self::$client->getResponse()->getContent(),
                     'The page should be redirecting to the newly created user profile one'
             );
@@ -938,7 +938,7 @@ class MemberControllerTest extends WebTestCase
             );
 
             // Checks the database content
-            $createdMember = self::$container
+            $createdPeople = self::$container
                 ->get('doctrine')
                 ->getRepository(People::class)
                 ->findOneBy([
@@ -946,72 +946,72 @@ class MemberControllerTest extends WebTestCase
                 ]);
 
             $this->assertEquals(
-                    $createdMember->getFirstName(),
+                    $createdPeople->getFirstName(),
                     $firstname,
                     'The first name should be ' . $firstname
             );
 
             $this->assertEquals(
-                    $createdMember->getLastName(),
+                    $createdPeople->getLastName(),
                     $name,
                     'The last name should be ' . $name
             );
 
             $this->assertEquals(
-                    $createdMember->getEmailAddress(),
+                    $createdPeople->getEmailAddress(),
                     $email,
                     'The email should be ' . $email
             );
 
             $this->assertEquals(
-                    $createdMember->getIsReceivingNewsletter(),
+                    $createdPeople->getIsReceivingNewsletter(),
                     true,
                     'The user should receive the newsletter'
             );
 
             $this->assertEquals(
-                    $createdMember->getNewsletterDematerialization(),
+                    $createdPeople->getNewsletterDematerialization(),
                     true,
                     'The user should receive the newsletter by email'
             );
 
             $this->assertEquals(
-                    $createdMember->getCellPhoneNumber(),
+                    $createdPeople->getCellPhoneNumber(),
                     $cellnumber,
                     'The cell phone number should be ' . $cellnumber
             );
 
             $this->assertEquals(
-                    $createdMember->getHomePhoneNumber(),
+                    $createdPeople->getHomePhoneNumber(),
                     $homenumber,
                     'The home phone number should be ' . $homenumber
             );
 
             $this->assertEquals(
-                    $createdMember->getWorkPhoneNumber(),
+                    $createdPeople->getWorkPhoneNumber(),
                     $worknumber,
                     'The work phone number should be ' . $worknumber
             );
 
             $this->assertEquals(
-                    $createdMember->getWorkFaxNumber(),
+                    $createdPeople->getWorkFaxNumber(),
                     $faxnumber,
                     'The fax number should be ' . $faxnumber
             );
 
             $this->assertEquals(
-                    $createdMember->getObservations(),
+                    $createdPeople->getObservations(),
                     $observations,
                     'The observations should be ' . $observations
             );
 
             $this->assertEquals(
-                    $createdMember->getSensitiveObservations(),
+                    $createdPeople->getSensitiveObservations(),
                     $sensitive,
                     'The sensitive observations should be ' . $sensitive
             );
 
-            $denomination = $createdMember->getDenomination();
+            $denomination = $createdPeople->getDenomination();
 
             $this->assertEquals(
                     $denomination->getLabel(),
@@ -1020,8 +1020,8 @@ class MemberControllerTest extends WebTestCase
             );
 
             /*$this->assertEquals(
-                    $createdMember->getAddresses(),
-                    $createdMember->getAddresses(),
+                    $createdPeople->getAddresses(),
+                    $createdPeople->getAddresses(),
                     'The address should be '. $line . $postalcode . $city . $country
             );*/
         }
@@ -1030,20 +1030,20 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with mandatory form inputs empty
          * Form doesn't work in that way
          */
-        public function testEditMemberRequiredFieldsEmpty()
+        public function testEditPeopleRequiredFieldsEmpty()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile ediiton page
-            $crawler = self::$client->request('GET', '/member/17/edit');
+            $crawler = self::$client->request('GET', '/people/17/edit');
             $this->assertEquals(
                     'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member edition one'
+                    'The page should be the people edition one'
             );
 
-            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('edit-people-submit-button')->form();
 
             $firstname = '';
             $name = '';
@@ -1073,20 +1073,20 @@ class MemberControllerTest extends WebTestCase
          * Creates an user with text in the phone fields
          * Form doesn't work in that way
          */
-        public function testEditMemberRequiredWrongPhone()
+        public function testEditPeopleRequiredWrongPhone()
         {
             // Connects the gestionnaire
             $this->connection(self::GESTIONNAIRE_USERNAME);
 
             // Goes to the profile creation page
-            $crawler = self::$client->request('GET', '/member/17/edit');
+            $crawler = self::$client->request('GET', '/people/17/edit');
             $this->assertEquals(
                     'Édition de l\'adhérent.e',
                     self::$client->getCrawler()->filter('h1')->first()->text(),
-                    'The page should be the member edition one'
+                    'The page should be the people edition one'
             );
 
-            $form =self::$client->getCrawler()->selectButton('edit-member-submit-button')->form();
+            $form =self::$client->getCrawler()->selectButton('edit-people-submit-button')->form();
 
             // Fills the mandatory form inputs
             $firstname = 'Florent';

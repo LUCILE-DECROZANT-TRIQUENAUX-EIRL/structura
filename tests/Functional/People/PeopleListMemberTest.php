@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 
 // TODO : Doesn't work, see issue 51
-class MemberListMemberTest extends WebTestCase
+class PeopleListPeopleTest extends WebTestCase
 {
     /**
      * Connect to the website while being logged in
@@ -42,7 +42,7 @@ class MemberListMemberTest extends WebTestCase
     {
         // Create a new client to browse the app
         $client = $this->connection();
-        $crawler = $client->request('GET', '/member/');
+        $crawler = $client->request('GET', '/people/');
         $this->assertSame(403, $client->getResponse()->getStatusCode());
     }
 
