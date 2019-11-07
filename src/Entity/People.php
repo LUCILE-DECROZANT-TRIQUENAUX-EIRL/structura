@@ -18,6 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class People
 {
+    public function __construct()
+    {
+        $this->memberships = new ArrayCollection();
+    }
 
     /**
      * A private ID used to identify the people.
@@ -173,9 +177,14 @@ class People
     private $addresses;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Membership", inversedBy="member", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Membership", inversedBy="members", cascade={"persist", "remove"})
+     * @ORM\JoinTable(
+     *      name="peoples_memberships",
+     *      joinColumns={@JoinColumn(name="membership_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="people_id", referencedColumnName="id")}
+     * )
      */
-    private $membership;
+    private $memberships;
 
     /**
      *
@@ -187,6 +196,7 @@ class People
          $this->denomination = $denomination;
          $this->firstName = $firstName;
          $this->lastName = $lastName;
+         $this->memberships = new ArrayCollection();
      }
 
     /**
@@ -614,15 +624,35 @@ class People
         return true;
     }
 
-    public function getMembership(): ?Membership
+    public function getMemberships(): ?Membership
     {
-        return $this->membership;
+        return $this->memberships;
     }
 
-    public function setMembership(?Membership $membership): self
+    public function setMemberships(?Membership $memberships): self
     {
-        $this->membership = $membership;
+        $this->memberships = $memberships;
 
         return $this;
+    }
+
+    /**
+     * Add a membership to the person
+     *
+     * @param Membership $membership The membership to add.
+     */
+    public function addMembership($membership)
+    {
+        $this->memberships[] = $membership;
+    }
+
+    /**
+     * Remove a membership from the person
+     *
+     * @param Membership $membership The membership to remove.
+     */
+    public function removeMembership($membership)
+    {
+        $this->memberships->removeElement($membership);
     }
 }

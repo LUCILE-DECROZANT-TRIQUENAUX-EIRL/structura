@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MembershipRepository")
  */
 class Membership
 {
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -48,9 +55,10 @@ class Membership
     private $payment;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\People", mappedBy="membership", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="memberships", cascade={"persist", "remove"})
+     *
      */
-    private $member;
+    private $members;
 
     public function getId(): ?int
     {
@@ -129,21 +137,45 @@ class Membership
         return $this;
     }
 
-    public function getMember(): ?People
+    public function getMembers(): ?ArrayCollection
     {
-        return $this->member;
+        return $this->members;
     }
 
-    public function setMember(?People $member): self
+    public function setMembers(?People $members): self
     {
-        $this->member = $member;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newMembership = $member === null ? null : $this;
-        if ($newMembership !== $member->getMembership()) {
-            $member->setMembership($newMembership);
-        }
+        $this->members = $members;
 
         return $this;
+    }
+
+    /**
+     * Add a person to the membership
+     *
+     * @param People $people The person to add.
+     */
+    public function addMember($people)
+    {
+        $this->members[] = $people;
+
+        // set the owning side of the relation if necessary
+        if (!in_array($this, $people->getMemberships())) {
+            $people->addMembership($this);
+        }
+    }
+
+    /**
+     * Remove a person from the membership
+     *
+     * @param People $people The person to remove.
+     */
+    public function removeMember($people)
+    {
+        $this->members->removeElement($people);
+
+        // unset the owning side of the relation if necessary
+        if (in_array($this, $people->getMemberships())) {
+            $people->removeMembership($this);
+        }
     }
 }
