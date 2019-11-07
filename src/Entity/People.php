@@ -18,11 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class People
 {
-    public function __construct()
-    {
-        $this->memberships = new ArrayCollection();
-    }
-
     /**
      * A private ID used to identify the people.
      *
@@ -653,6 +648,8 @@ class People
      */
     public function removeMembership($membership)
     {
-        $this->memberships->removeElement($membership);
+        $index = array_search($membership, $this->memberships);
+
+        unset($memberships[$index]);
     }
 }

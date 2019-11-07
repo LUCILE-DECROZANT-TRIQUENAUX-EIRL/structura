@@ -11,11 +11,6 @@ use Doctrine\ORM\Mapping\ManyToMany;
  */
 class Membership
 {
-    public function __construct()
-    {
-        $this->members = new ArrayCollection();
-    }
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -59,6 +54,11 @@ class Membership
      *
      */
     private $members;
+
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -171,7 +171,9 @@ class Membership
      */
     public function removeMember($people)
     {
-        $this->members->removeElement($people);
+        $index = array_search($people, $this->members);
+
+        unset($members[$index]);
 
         // unset the owning side of the relation if necessary
         if (in_array($this, $people->getMemberships())) {
