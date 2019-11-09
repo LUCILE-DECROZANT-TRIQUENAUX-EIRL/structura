@@ -96,11 +96,24 @@ $(document).ready(function () {
                 sortableColumns.push({orderable: $(this).data('sortable') === true});
             });
 
+            // Select which column will be sorted at start
+
+            let orderedColumnIndex = 0; // Set default to 0 (first column)
+            let customOrderedColumnIndex = $table.data('ordered-column-index'); // Get the custom setting
+            if (Number.isInteger(customOrderedColumnIndex)) { // Check if the parameter is an integer before using it
+                orderedColumnIndex = customOrderedColumnIndex;
+            } else {
+                console.warn('The attribute `ordered-column-index` has to be an integer.');
+            }
+            let orderedColumn = [[orderedColumnIndex, 'asc']];
+
+
             // Instanciate the DataTable
             $table.DataTable({
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
+                order: orderedColumn,
                 columns: sortableColumns,
                 language: {
                     url: '/json/datatable/fr_FR.json',
