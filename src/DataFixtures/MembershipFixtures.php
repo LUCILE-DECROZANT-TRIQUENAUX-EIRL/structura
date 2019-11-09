@@ -81,6 +81,14 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->persist($paymentAdhesion2);
 
+        // Third payment
+        $paymentAdhesion3 = new Payment();
+
+        $paymentAdhesion3->setAmount(30);
+        $paymentAdhesion3->setType($helloAsso);
+
+        $manager->persist($paymentAdhesion3);
+
         // Date managment
         $plusOneYear = new \DateInterval('P1Y');
         $removeOneYear = clone $plusOneYear;
@@ -95,16 +103,29 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $lastYear->add($removeOneYear);
 
         // -- Memberships -- //
-        // Normal
-        $membershipNormal = new Membership();
+        // Normal 1
+        $membershipNormal1 = new Membership();
 
-        $membershipNormal->setAmount(30);
-        $membershipNormal->setDateStart($lastYear);
-        $membershipNormal->setDateEnd($now);
-        $membershipNormal->setPayment($paymentAdhesion1);
-        $membershipNormal->setType($normale);
+        $membershipNormal1
+            ->setAmount(30)
+            ->setDateStart($lastYear)
+            ->setDateEnd($now)
+            ->setPayment($paymentAdhesion1)
+            ->setType($normale);
 
-        $manager->persist($membershipNormal);
+        $manager->persist($membershipNormal1);
+
+        // Normal 2
+        $membershipNormal2 = new Membership();
+
+        $membershipNormal2
+            ->setAmount(30)
+            ->setDateStart($lastYear)
+            ->setDateEnd($now)
+            ->setPayment($paymentAdhesion3)
+            ->setType($normale);
+
+        $manager->persist($membershipNormal2);
 
         // Family
         $membershipFamily = new Membership();
@@ -118,8 +139,9 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $manager->persist($membershipFamily);
 
         // Adding the memberships to the peoples
-        $peopleAdherentE1->addMembership($membershipNormal);
+        $peopleAdherentE1->addMembership($membershipNormal2);
         $peopleAdherentE2->addMembership($membershipFamily);
+        $peopleAdherentE3->addMembership($membershipNormal1);
         $peopleAdherentE3->addMembership($membershipFamily);
 
         // people persist
