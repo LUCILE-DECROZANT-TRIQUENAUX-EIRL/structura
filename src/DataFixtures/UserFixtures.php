@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User;
@@ -13,13 +14,18 @@ use App\Entity\Denomination;
 use App\Repository\ResponsibilityRepository;
 
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements FixtureGroupInterface
 {
     private $encoder;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group1'];
     }
 
     public function load(ObjectManager $manager)
