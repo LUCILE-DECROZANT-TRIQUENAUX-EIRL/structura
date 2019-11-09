@@ -185,15 +185,15 @@ class People
     /**
      *
      */
-     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
-     {
-         $this->id = $id;
-         $this->user = $user;
-         $this->denomination = $denomination;
-         $this->firstName = $firstName;
-         $this->lastName = $lastName;
-         $this->memberships = new ArrayCollection();
-     }
+    function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
+    {
+        $this->id = $id;
+        $this->user = $user;
+        $this->denomination = $denomination;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->memberships = new ArrayCollection();
+    }
 
     /**
      * Get id
