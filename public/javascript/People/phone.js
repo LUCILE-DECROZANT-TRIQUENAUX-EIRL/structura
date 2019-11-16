@@ -157,7 +157,7 @@ $(document).ready(function ($) {
             e.preventDefault();
             return false;
         }
-        else if (currentCharacterPosition == 1 && (characterPressed != '6' || characterPressed != '7' || characterPressed == '0'))
+        else if (currentCharacterPosition == 1 && (characterPressed != '6' || characterPressed != '7' || characterPressed != '0'))
         {
             // Reset input helper to its default look
             regularizeInputHelper($('#app_user_homePhoneNumber_help'));
@@ -176,30 +176,80 @@ $(document).ready(function ($) {
         placeholder: "__ __ __ __ __"
     });
 
+    /*
+     * --------------------------------------------------
+     * --- Configure the checker of work phone number ---
+     * --------------------------------------------------
+     */
+    // Add an animated transition on the help text
+    $('#app_user_homePhoneNumber_help').css({transition : 'all 0.1s ease-in-out'});
 
-
-    $('[name="app_user[workPhoneNumber]"]').keypress(function (e) {
-        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+    // User is deleting things in the input
+    // Reset of the helper classes
+    $('[name="app_user[homePhoneNumber]"]').keydown(function (e) {
+        if (e.which == 8)
         {
-            return false;
-        }
-        var curchr = this.value.length;
-        var curval = $(this).val();
-        var phonenumber = "";
-        phonenumber = phonenumber + curval;
-        if (curchr == 2 && phonenumber[0] == 0)
-        {
-            $(this).attr('maxlength', '14');
-        }
-        else if (curchr == 2 && phonenumber[0] != 0)
-        {
-            e.preventDefault();
+            regularizeInputHelper($('#app_user_homePhoneNumber_help'));
+            return true;
         }
     });
 
+    // User is quitting the input
+    // There is no need anymore of emphasis
+    $('[name="app_user[workPhoneNumber]"]').focusout(function () {
+        regularizeInputHelper($('#app_user_workPhoneNumber_help'));
+        return true;
+    })
+
+    $('[name="app_user[workPhoneNumber]"]').keypress(function (e) {
+        $(this).attr('maxlength', '14');
+
+        // Check if the character is a number, prevent it if true
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+        {
+            emphaseInputHelper($('#app_user_workPhoneNumber_help'));
+            e.preventDefault();
+            return false;
+        }
+
+        var characterPressed = String.fromCharCode(e.which);
+        var currentCharacterPosition = this.value.length;
+
+        if (currentCharacterPosition == 0 && characterPressed !== '0')
+        {
+            // User is trying to enter an invalid phone number
+            // Stop the user from writing the phone number
+            emphaseInputHelper($('#app_user_workPhoneNumber_help'));
+            e.preventDefault();
+            return false;
+        }
+        else if (currentCharacterPosition == 1 && (characterPressed == 0))
+        {
+            // User is trying to enter an invalid phone number
+            // Stop the user from writing the phone number
+            emphaseInputHelper($('#app_user_workPhoneNumber_help'));
+            e.preventDefault();
+            return false;
+        }
+        else if (currentCharacterPosition == 1 && (characterPressed != '0'))
+        {
+            // Reset input helper to its default look
+            regularizeInputHelper($('#app_user_workPhoneNumber_help'));
+            return true;
+        }
+        else
+        {
+            // Reset input helper to its default look
+            regularizeInputHelper($('#app_user_workPhoneNumber_help'));
+            return true;
+        }
+    });
+
+    // Setup the placeholder in the input
     $('[name="app_user[workPhoneNumber]"]').mask('99 99 99 99 99', {
         placeholder: "__ __ __ __ __"
     });
+
 
     $('[name="app_user[workFaxNumber]"]').keypress(function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
