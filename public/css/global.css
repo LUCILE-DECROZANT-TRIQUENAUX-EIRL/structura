@@ -86,6 +86,16 @@ a {
     text-align: center;
 }
 
+/* set spaces every two numbers on 10 character phone numbers */
+.phone
+{
+    width: 6em;
+    display: inline-block;
+    word-wrap: break-word;
+    columns: 5;
+    column-gap: 0.2em;
+}
+
 /* Flip card */
 .flip-card
 {

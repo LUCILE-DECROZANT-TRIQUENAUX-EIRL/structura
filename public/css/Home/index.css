@@ -11,11 +11,3 @@
     display: box;
     font-size: 50px;
 }
-
-.phone{
-    width: 6em;
-    display: block;
-    word-wrap: break-word;
-    columns: 5;
-    column-gap: 0.2em;
-}
