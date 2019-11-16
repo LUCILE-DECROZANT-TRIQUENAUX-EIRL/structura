@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 
@@ -56,18 +57,12 @@ class UserController extends AbstractController
      * Creates a new user entity.
      * @return views
      * @param Request $request The request.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
-     * @param RouteService $routeService The route of the service.
-     * @Route("/new", name="user_create", methods={"GET", "POST"})
+     * @param string $from Previous page.
+     * @Route("/new/{from}", name="user_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService, UserService $userService)
+    public function createFromListAction(Request $request, UserService $userService, string $from)
     {
-        $previousRouteInfo = $routeService->getPreviousRouteInfo();
-
-        // RouteService usage example
-        $infos = $routeService->getPreviousRouteInfo();
-
         // Generate the form with a prefilled user in it
         $createdUser = new User();
         $form = $this->createForm(UserType::class, $createdUser);
@@ -86,10 +81,7 @@ class UserController extends AbstractController
                         'danger',
                         sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
                 );
-                return $this->render('User/new.html.twig', [
-                    'user' => $createdUser,
-                    'form' => $form->createView(),
-                ]);
+                return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (FormIsInvalid $ex)
             {
@@ -97,10 +89,7 @@ class UserController extends AbstractController
                         'danger',
                         sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
                 );
-                return $this->render('User/new.html.twig', [
-                    'user' => $createdUser,
-                    'form' => $form->createView(),
-                ]);
+                return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (\Exception $e)
             {
@@ -108,36 +97,19 @@ class UserController extends AbstractController
                         'danger',
                         sprintf('Une erreur est survenue, veuillez réessayer plus tard.')
                 );
-                return $this->render('User/new.html.twig', [
-                    'user' => $createdUser,
-                    'form' => $form->createView(),
-                ]);
+                return $this->renderNewUserView($from, $form, $createdUser);
             }
 
             $this->addFlash(
                 'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $createdUser->getUsername())
             );
 
-            // Check the referer to diplay in the view the good breadcrumb
-            if ($infos['_route'] === 'administration_dashboard')
-            {
-                $from = 'administration';
-            }
-            else
-            {
-                $from = 'list';
-            }
             // User creation being successfull, generate an empty form
             $createdUser = new User();
             $form = $this->createForm(UserType::class, $createdUser);
-            return $this->render('User/new.html.twig', array(
-                'form' => $form->createView(),
-            ));
+            return $this->renderNewUserView($from, $form);
         }
-
-        return $this->render('User/new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->renderNewUserView($from, $form);
     }
 
     /**
@@ -346,5 +318,44 @@ class UserController extends AbstractController
         ->setMethod('DELETE')
         ->getForm()
         ;
+    }
+
+    /**
+     * Render the good template depending on the $from variable
+     * @param string $from name of the previous page
+     * @param Form $form user creation form
+     * @param User|null $createdUser the created user (default: null)
+     * @return render
+     * @throws NotFoundHttpException If $from does not make part of the managed list
+     */
+    private function renderNewUserView($from, $form, $createdUser = null)
+    {
+        if (!empty($createdUser))
+        {
+            $formParameters = [
+                'form' => $form->createView(),
+                'user' => $createdUser
+            ];
+        }
+        else
+        {
+            $formParameters = [
+                'form' => $form->createView(),
+            ];
+        }
+        switch ($from)
+        {
+            case 'dashboard':
+                return $this->render('User/new_from_dashboard.html.twig', $formParameters);
+                break;
+
+            case 'list':
+                return $this->render('User/new_from_list.html.twig', $formParameters);
+                break;
+
+            default:
+                throw new NotFoundHttpException('La page demandée n\'existe pas');
+                break;
+        }
     }
 }
