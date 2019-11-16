@@ -7,11 +7,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Responsibility;
+use App\Exception\FormIsInvalid;
 use App\Form\UserGeneralDataType;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
 use App\FormDataObject\UpdateUserGeneralDataFDO;
 use App\Service\Utils\RouteService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -59,75 +61,81 @@ class UserController extends AbstractController
      * @Route("/new", name="user_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService)
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, RouteService $routeService, UserService $userService)
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $previousRouteInfo = $routeService->getPreviousRouteInfo();
+
         // RouteService usage example
         $infos = $routeService->getPreviousRouteInfo();
 
-        $currentUser = new User();
-        $form = $this->createForm(UserType::class, $currentUser);
+        // Generate the form with a prefilled user in it
+        $createdUser = new User();
+        $form = $this->createForm(UserType::class, $createdUser);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($currentUser, $currentUser->getPlainPassword());
-            $currentUser->setPassword($password);
-
-            // by default, add the registered responsibility
-            $registeredResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
-                'label' => Responsibility::REGISTERED_LABEL,
-            ]);
-            $currentUser->addResponsibility($registeredResponsibility);
-
-            // remove responsibilities that conflict themselves
-            $sympathizeResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
-                'label' => Responsibility::SYMPATHIZE_LABEL,
-            ]);
-            $memberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
-                'label' => Responsibility::MEMBER,
-            ]);
-            $exMemberResponsibility = $entityManager->getRepository(Responsibility::class)->findOneBy([
-                'label' => Responsibility::EX_MEMBER,
-            ]);
-            if ($currentUser->hasResponsibility($sympathizeResponsibility))
+        // If the form is submited, create and save the user
+        if ($form->isSubmitted())
+        {
+            try
             {
-                $currentUser->removeResponsibility($memberResponsibility);
+                $createdUser = $userService->createUser($createdUser, $form);
             }
-            else if ($currentUser->hasResponsibility($memberResponsibility))
+            catch (FormIsNotSubmitted $ex)
             {
-                $currentUser->removeResponsibility($exMemberResponsibility);
+                $this->addFlash(
+                        'danger',
+                        sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
+                );
+                return $this->render('User/new.html.twig', [
+                    'user' => $createdUser,
+                    'form' => $form->createView(),
+                ]);
             }
-
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($currentUser);
-            $em->flush();
+            catch (FormIsInvalid $ex)
+            {
+                $this->addFlash(
+                        'danger',
+                        sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
+                );
+                return $this->render('User/new.html.twig', [
+                    'user' => $createdUser,
+                    'form' => $form->createView(),
+                ]);
+            }
+            catch (\Exception $e)
+            {
+                $this->addFlash(
+                        'danger',
+                        sprintf('Une erreur est survenue, veuillez réessayer plus tard.')
+                );
+                return $this->render('User/new.html.twig', [
+                    'user' => $createdUser,
+                    'form' => $form->createView(),
+                ]);
+            }
 
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $currentUser->getUsername())
+                'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $createdUser->getUsername())
             );
 
-            return $this->redirectToRoute('user_show', array('id' => $currentUser->getId()));
-        }
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash(
-                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $currentUser->getUsername())
-            );
-        }
-
-        // Check the referer to diplay in the view the good breadcrumb
-        if ($infos['_route'] === 'administration_dashboard')
-        {
-            $from = 'administration';
-        }
-        else
-        {
-            $from = 'list';
+            // Check the referer to diplay in the view the good breadcrumb
+            if ($infos['_route'] === 'administration_dashboard')
+            {
+                $from = 'administration';
+            }
+            else
+            {
+                $from = 'list';
+            }
+            // User creation being successfull, generate an empty form
+            $createdUser = new User();
+            $form = $this->createForm(UserType::class, $createdUser);
+            return $this->render('User/new.html.twig', array(
+                'form' => $form->createView(),
+            ));
         }
 
         return $this->render('User/new.html.twig', array(
-            'user' => $currentUser,
             'form' => $form->createView(),
         ));
     }
