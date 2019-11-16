@@ -45,7 +45,7 @@ class PeopleContactType extends AbstractType
                 ])
                 ->add('homePhoneNumber', TelType::class, [
                     'label' => 'Téléphone fixe',
-                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04 ou 05 et ne comporter que des chiffres',
+                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres',
                     'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
@@ -55,12 +55,12 @@ class PeopleContactType extends AbstractType
                 ])
                 ->add('workPhoneNumber', TelType::class, [
                     'label' => 'Téléphone de travail',
-                    'help' => 'Seuls les chiffres sont acceptés',
+                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
                     'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
                     'label' => 'Fax de travail',
-                    'help' => 'Seuls les chiffres sont acceptés',
+                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
                     'required' => false
                 ]);
     }
