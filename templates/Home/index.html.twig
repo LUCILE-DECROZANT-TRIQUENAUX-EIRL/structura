@@ -84,9 +84,10 @@
                 >
                     <thead>
                         <tr>
-                            <th data-sortable="true">Nom</th>
-                            <th data-sortable="true">Prénom</th>
-                            <th>Mail</th>
+                            <th data-exportable="true" data-sortable="true">Nom</th>
+                            <th data-exportable="true" data-sortable="true">Prénom</th>
+                            <th data-exportable="true">Téléphone fixe</th>
+                            <th data-exportable="true">Téléphone portable</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -96,7 +97,8 @@
                             <tr>
                                 <td class="align-middle">{{ people.lastname }}</td>
                                 <td class="align-middle">{{ people.firstname }}</td>
-                                <td class="align-middle">{{ people.emailAddress }}</td>
+                                <td class="align-middle"><div class="phone">{{ people.homePhoneNumber }}</div></td>
+                                <td class="align-middle"><div class="phone">{{ people.cellPhoneNumber }}</div></td>
                                 <td class="align-middle column-action">
                                     <a
                                         href="{{ path('people_show', { 'id': people.id }) }}"

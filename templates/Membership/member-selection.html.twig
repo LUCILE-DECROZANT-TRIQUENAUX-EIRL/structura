@@ -1,0 +1,87 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Sélection des personnes à faire adhérer
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Sélectionnez les personnes à faire adhérer</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        {{ form_start(member_selection_form, {'attr': {'id': 'member-selection-form'}}) }}
+            <table
+                class="table table-striped"
+                data-toggle="datatable"
+                data-create-label="Enregistrer un·e nouvel·le personne dans l'annuaire"
+                data-create-path="{{ path('people_create') }}"
+                data-ordered-column-index="2"
+            >
+                <thead>
+                    <tr>
+                        <th data-sortable="false"></th>
+                        <th data-sortable="true">Dénomination</th>
+                        <th data-sortable="true">Nom</th>
+                        <th data-sortable="true">Prénom</th>
+                        <th data-exportable="true">Adresse.s</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for child in member_selection_form.newMembers %}
+                        {% set index = loop.index0 %}
+                        <tr>
+                            <td class="align-middle column-action">
+                                {{ form_widget(child) }}
+                            </td>
+                            <td class="align-middle">{{ peoples[index].denomination ? peoples[index].denomination.label : "" }}</td>
+                            <td class="align-middle">{{ peoples[index].lastname }}</td>
+                            <td class="align-middle">{{ peoples[index].firstname }}</td>
+                            <td class="align-middle">
+                                {% if not peoples[index].hasNoAddressDefined() %}
+                                    {% for address in peoples[index].addresses %}
+                                        {{address.line}}
+                                        <br>
+                                        {{address.postalCode}}, {{address.city}}, {{address.country}}
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        {{ form_end(member_selection_form) }}
+
+        <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('home') }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'accueil
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <button
+                        id="member-selection-submit-button"
+                        type="submit"
+                        form="member-selection-form"
+                        class="btn btn-primary">
+                            Valider la sélection
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+{% endblock %}
