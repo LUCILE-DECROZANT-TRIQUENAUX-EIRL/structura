@@ -93,15 +93,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for people in peoples %}
+                        {% for individual in people %}
                             <tr>
-                                <td class="align-middle">{{ people.lastname }}</td>
-                                <td class="align-middle">{{ people.firstname }}</td>
-                                <td class="align-middle"><div class="phone">{{ people.homePhoneNumber }}</div></td>
-                                <td class="align-middle"><div class="phone">{{ people.cellPhoneNumber }}</div></td>
+                                <td class="align-middle">{{ individual.lastname }}</td>
+                                <td class="align-middle">{{ individual.firstname }}</td>
+                                <td class="align-middle"><div class="phone">{{ individual.homePhoneNumber }}</div></td>
+                                <td class="align-middle"><div class="phone">{{ individual.cellPhoneNumber }}</div></td>
                                 <td class="align-middle column-action">
                                     <a
-                                        href="{{ path('people_show', { 'id': people.id }) }}"
+                                        href="{{ path('people_show', { 'id': individual.id }) }}"
                                         class="btn btn-secondary"
                                         data-toggle="tooltip"
                                         title="Voir le profil"
@@ -111,7 +111,7 @@
                                 </td>
                                 <td class="align-middle column-action">
                                         <a
-                                            href="{{ path('people_edit', { 'id': people.id }) }}"
+                                            href="{{ path('people_edit', { 'id': individual.id }) }}"
                                             class="btn btn-secondary"
                                             data-toggle="tooltip"
                                             title="Éditer le profil"
