@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         /***************************************************/
         /*  Responsibilities are created during migration  */
         /***************************************************/
-                $responsibilityRepository = $manager->getRepository(Responsibility::class);
+        $responsibilityRepository = $manager->getRepository(Responsibility::class);
         $roleAdmin = $responsibilityRepository->findOneBy(['code' => 'ROLE_ADMIN']);
         $roleAdminSensible = $responsibilityRepository->findOneBy(['code' => 'ROLE_ADMIN_SENSIBLE']);
         $roleGestion = $responsibilityRepository->findOneBy(['code' => 'ROLE_GESTION']);
