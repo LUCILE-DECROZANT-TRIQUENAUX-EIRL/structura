@@ -12,7 +12,11 @@ $(document).ready(function () {
                 }
             });
 
-            let buttons = [{
+            let buttons = [];
+
+            // Check if there is a copy in clipboard button wanted to add it if needed
+            if ($table.data('copy-button')) {
+                let copyButton = {
                     extend: 'copy',
                     text: '<i class="ion-md-clipboard"></i>',
                     attr: {
@@ -23,7 +27,13 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                }, {
+                };
+                buttons.push(copyButton);
+            }
+
+            // Check if there is a csv export button wanted to add it if needed
+            if ($table.data('csv-button')) {
+                let csvButton = {
                     extend: 'csv',
                     text: '<i class="ion-md-grid"></i>',
                     attr: {
@@ -34,7 +44,13 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                }, {
+                };
+                buttons.push(csvButton);
+            }
+
+            // Check if there is a pdf export button wanted to add it if needed
+            if ($table.data('pdf-button')) {
+                let pdfButton = {
                     extend: 'pdf',
                     text: '<i class="ion-md-document"></i>',
                     attr: {
@@ -45,8 +61,10 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                },
-            ];
+                };
+                buttons.push(pdfButton);
+            }
+
             // Check if there is a create button wanted to add it if needed
             if ($table.data('create-label')) {
                 if ($table.data('create-path')) {
