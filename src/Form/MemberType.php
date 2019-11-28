@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Form with all user's infos
  */
-class PeopleType extends AbstractType
+class MemberType extends AbstractType
 {
 
     /**
@@ -107,7 +107,7 @@ class PeopleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\FormDataObject\UpdatePeopleDataFDO'
+            'data_class' => 'App\FormDataObject\UpdateMemberDataFDO'
         ));
     }
 
@@ -116,7 +116,7 @@ class PeopleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_user';
+        return 'app_member';
     }
 
 }

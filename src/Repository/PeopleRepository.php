@@ -41,7 +41,7 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
 
         // All people with active membership
         $query = $entityManager->createQuery(
-           'SELECT p2.id FROM App\Entity\People p2
+           'SELECT p2, m FROM App\Entity\People p2
             JOIN p2.memberships m
             WHERE m.date_start <= :now
             AND m.date_end > :now'

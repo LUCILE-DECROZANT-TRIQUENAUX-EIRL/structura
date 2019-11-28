@@ -4,7 +4,7 @@ namespace App\FormDataObject;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
 
-class UpdatePeopleDataFDO
+class UpdateMemberDataFDO
 {
 
     /**
@@ -102,26 +102,26 @@ class UpdatePeopleDataFDO
     /**
      *
      */
-    public static function fromPeople(People $people): self
+    public static function fromMember(People $people): self
     {
-        $updatePeopleDataFDO = new self();
+        $updateMemberDataFDO = new self();
 
-        //$updatePeopleDataFDO->id = $people->getId();
-        $updatePeopleDataFDO->denomination = $people->getDenomination();
-        $updatePeopleDataFDO->firstName = $people->getFirstName();
-        $updatePeopleDataFDO->lastName = $people->getLastName();
-        $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
-        $updatePeopleDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
-        $updatePeopleDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
-        $updatePeopleDataFDO->cellPhoneNumber = $people->getCellPhoneNumber();
-        $updatePeopleDataFDO->homePhoneNumber = $people->getHomePhoneNumber();
-        $updatePeopleDataFDO->workFaxNumber = $people->getWorkFaxNumber();
-        $updatePeopleDataFDO->workPhoneNumber = $people->getWorkPhoneNumber();
-        $updatePeopleDataFDO->observations = $people->getObservations();
-        $updatePeopleDataFDO->sensitiveObservations = $people->getSensitiveObservations();
-        $updatePeopleDataFDO->addresses = $people->getAddresses();
+        //$updateMemberDataFDO->id = $people->getId();
+        $updateMemberDataFDO->denomination = $people->getDenomination();
+        $updateMemberDataFDO->firstName = $people->getFirstName();
+        $updateMemberDataFDO->lastName = $people->getLastName();
+        $updateMemberDataFDO->emailAddress = $people->getEmailAddress();
+        $updateMemberDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
+        $updateMemberDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
+        $updateMemberDataFDO->cellPhoneNumber = $people->getCellPhoneNumber();
+        $updateMemberDataFDO->homePhoneNumber = $people->getHomePhoneNumber();
+        $updateMemberDataFDO->workFaxNumber = $people->getWorkFaxNumber();
+        $updateMemberDataFDO->workPhoneNumber = $people->getWorkPhoneNumber();
+        $updateMemberDataFDO->observations = $people->getObservations();
+        $updateMemberDataFDO->sensitiveObservations = $people->getSensitiveObservations();
+        $updateMemberDataFDO->addresses = $people->getAddresses();
 
-        return $updatePeopleDataFDO;
+        return $updateMemberDataFDO;
     }
 
     /**

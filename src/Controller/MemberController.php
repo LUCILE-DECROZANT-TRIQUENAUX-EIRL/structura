@@ -34,7 +34,8 @@ class MemberController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $people = $em->getRepository(People::class)->findAll();
+        $people = $em->getRepository(People::class)->findWithActiveMembership();
+//        dump($people);die();
 
         $deleteForms = [];
         foreach ($people as $individual) {
