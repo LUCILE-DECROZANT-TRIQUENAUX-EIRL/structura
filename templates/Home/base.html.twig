@@ -60,10 +60,8 @@
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
                                     {% if is_granted("ROLE_GESTION") %}
                                         <a
-                                            class="dropdown-item disabled"
-                                            href="#"
-                                            data-toggle="tooltip"
-                                            title="Work in progress..."
+                                            class="dropdown-item"
+                                            href="{{ path('member_list') }}"
                                         >
                                             Adhérent·es
                                         </a>
