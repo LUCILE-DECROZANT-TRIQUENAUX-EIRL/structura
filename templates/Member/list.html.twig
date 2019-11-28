@@ -24,9 +24,6 @@
         <table
             class="table table-striped"
             data-toggle="datatable"
-            data-create-label="Enregistrer un·e nouvel·le adhérent·es"
-            data-create-path="{{ path('member_create') }}"
-            data-fixed-columns-right="3"
             data-copy-button="toggle"
             data-csv-button="toggle"
             data-pdf-button="togle"
@@ -36,6 +33,8 @@
                     <th data-sortable="true" data-exportable="true">Nom</th>
                     <th data-sortable="true" data-exportable="true">Prénom</th>
                     <th data-exportable="true">Mail</th>
+                    <th data-exportable="true" class="text-center">Téléphone fixe</th>
+                    <th data-exportable="true" class="text-center">Téléphone portable</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -46,7 +45,27 @@
                     <tr>
                         <td class="align-middle">{{ member.lastname }}</td>
                         <td class="align-middle">{{ member.firstname }}</td>
-                        <td class="align-middle">{{ member.emailAddress }}</td>
+                        <td class="align-middle">
+                            {% if member.emailAddress is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="">{{ member.emailAddress }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.homePhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ member.homePhoneNumber }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.cellPhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ member.cellPhoneNumber }}</span>
+                            {% endif %}
+                        </td>
                         <td class="align-middle column-action">
                             <a
                                 href="{{ path('member_show', { 'id': member.id }) }}"
