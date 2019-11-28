@@ -91,10 +91,14 @@ $(document).ready(function () {
             // Check the number of rows wanted (default: 10)
             let countRowsDisplayed = 10; // Set default to 10 rows
             let customCountRowsDisplayed = $table.data('number-rows-display'); // Get the custom settings
-            if (Number.isInteger(customCountRowsDisplayed)) { // Check if the parameter is an integer before using it
-                countRowsDisplayed = customCountRowsDisplayed;
+            if (customCountRowsDisplayed) {
+                if (Number.isInteger(customCountRowsDisplayed)) { // Check if the parameter is an integer before using it
+                    countRowsDisplayed = customCodata-number-rows-displayuntRowsDisplayed;
+                } else {
+                    console.warn('The attribute `data-number-rows-display` has to be an integer.');
+                }
             } else {
-                console.warn('The attribute `data-number-rows-display` has to be an integer.');
+                console.debug('There will be the default 10 rows displayed per page.');
             }
 
             // Check if there is a specific configuration wanted to fix columns
@@ -115,13 +119,17 @@ $(document).ready(function () {
             });
 
             // Select which column will be sorted at start
-
             let orderedColumnIndex = 0; // Set default to 0 (first column)
             let customOrderedColumnIndex = $table.data('ordered-column-index'); // Get the custom setting
-            if (Number.isInteger(customOrderedColumnIndex)) { // Check if the parameter is an integer before using it
-                orderedColumnIndex = customOrderedColumnIndex;
+
+            if (customOrderedColumnIndex) {
+                if (Number.isInteger(customOrderedColumnIndex)) { // Check if the parameter is an integer before using it
+                    orderedColumnIndex = customOrderedColumnIndex;
+                } else {
+                    console.warn('The attribute `data-ordered-column-index` has to be an integer.');
+                }
             } else {
-                console.warn('The attribute `ordered-column-index` has to be an integer.');
+                console.debug('The data will be sorted by default.');
             }
             let orderedColumn = [[orderedColumnIndex, 'asc']];
 
