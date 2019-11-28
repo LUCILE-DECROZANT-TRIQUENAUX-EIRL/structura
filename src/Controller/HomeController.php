@@ -28,22 +28,10 @@ class HomeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $peoplesWithoutActiveMembership = $em->getRepository(People::class)
-            ->findWithNoActiveMembership();
-
-        $peoplesWithoutMembership = $em->getRepository(People::class)
-            ->findWithNoMembership();
-
-        $peoples = \array_udiff(
-            $peoplesWithoutActiveMembership,
-            $peoplesWithoutMembership,
-            function($peopleA, $peopleB) {
-                return $peopleA->getId() - $peopleB->getId();
-            }
-        );
-
+        $people = $em->getRepository(People::class)
+                ->findWithOutdatedMembership();
         return $this->render('Home/index.html.twig', array(
-            'peoples' => $peoples
+            'people' => $people
         ));
     }
 }
