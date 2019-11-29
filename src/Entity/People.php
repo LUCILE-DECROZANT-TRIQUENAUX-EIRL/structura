@@ -620,7 +620,19 @@ class People
         return true;
     }
 
-    public function getMemberships(): ?Membership
+    public function getActiveMembership()
+    {
+        foreach ($this->memberships as $membership)
+        {
+            if ($membership->getDateEnd() > new \DateTime("now"))
+            {
+                return $membership;
+            }
+        }
+        return null;
+    }
+
+    public function getMemberships()
     {
         return $this->memberships;
     }

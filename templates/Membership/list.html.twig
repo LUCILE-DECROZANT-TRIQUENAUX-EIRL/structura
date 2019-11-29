@@ -1,0 +1,71 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Liste des adhésions actives
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Liste des adhésions actives</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-copy-button="toggle"
+            data-csv-button="toggle"
+            data-pdf-button="togle"
+            >
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-exportable="true">Nom</th>
+                    <th data-sortable="true" data-exportable="true">Prénom</th>
+                    <th data-exportable="true" class="text-center">Dates de la dernière adhésion</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">Type d'adhésion</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">Payée via...</th>
+                    <th data-exportable="true" class="text-center">Encaissée le...</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td class="align-middle">{{ member.lastname }}</td>
+                        <td class="align-middle">{{ member.firstname }}</td>
+                        <td class="align-middle text-center">
+                            Du {{ member.getActiveMembership.getDateStart | date('d M. Y') }}
+                            <br>
+                            au {{ member.getActiveMembership.getDateEnd | date('d M. Y') }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ member.getActiveMembership.type.label }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ member.getActiveMembership.payment.type.label }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.getActiveMembership.payment.dateCashed is null %}
+                                <span class=""><i class="icon ion-md-warning"></i> Pas encore encaissé</span>
+                            {% else %}
+                                {{ member.getActiveMembership.payment.dateCashed }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

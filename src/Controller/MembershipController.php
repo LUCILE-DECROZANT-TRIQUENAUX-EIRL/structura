@@ -55,4 +55,22 @@ class MembershipController extends AbstractController
             'member_selection_form' => $memberSelectionForm->createView()
         ]);
     }
+
+    /**
+     * Lists all memberships entities.
+     * @return views
+     * @Route(path="/", name="membership_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $members = $em->getRepository(People::class)->findWithActiveMembership();
+
+        return $this->render('Membership/list.html.twig', array(
+            'members' => $members,
+        ));
+    }
+
 }
