@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 use App\Entity\People;
+use App\Entity\Membership;
 use App\Form\MemberSelectionType;
 use App\FormDataObject\MemberSelectionFDO;
 
@@ -70,6 +71,20 @@ class MembershipController extends AbstractController
 
         return $this->render('Membership/list.html.twig', array(
             'members' => $members,
+        ));
+    }
+
+    /**
+     * Finds and displays the memberships of a people.
+     * @return views
+     * @param People $people The user to find to display memberships.
+     * @Route("/{id}", name="membership_show", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
+     */
+    public function showAction(Membership $membership)
+    {
+        return $this->render('Membership/show.html.twig', array(
+            'membership' => $membership,
         ));
     }
 

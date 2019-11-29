@@ -138,7 +138,7 @@ class Membership
         return $this;
     }
 
-    public function getMembers(): ?ArrayCollection
+    public function getMembers()
     {
         return $this->members;
     }
