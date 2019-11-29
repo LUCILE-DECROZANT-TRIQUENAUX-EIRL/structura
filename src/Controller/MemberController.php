@@ -35,7 +35,6 @@ class MemberController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $people = $em->getRepository(People::class)->findWithActiveMembership();
-//        dump($people);die();
 
         $deleteForms = [];
         foreach ($people as $individual) {
@@ -170,6 +169,21 @@ class MemberController extends AbstractController
             'member' => $individual,
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Finds and displays a People memberships.
+     *
+     * @return views
+     * @param People $individual The user corresponding to the wanted memberships.
+     * @Route("/{id}/memberships", name="member_memberships_show", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
+     */
+    public function showMembershipsAction(People $individual)
+    {
+        return $this->render('Member/show-memberships.html.twig', [
+            'member' => $individual,
+        ]);
     }
 
     /**

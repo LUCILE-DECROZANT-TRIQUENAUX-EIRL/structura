@@ -30,8 +30,8 @@
             <div class="col-8 col-md-2">
                 <ul class="list-group">
                   <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
-                  <a href="#" class="list-group-item list-group-item-action ">Adhésions</a>
-                  <a href="#" class="list-group-item list-group-item-action">Dons</a>
+                  <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
                   <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Édition</a>
                 </ul>
             </div>

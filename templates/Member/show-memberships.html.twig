@@ -1,0 +1,144 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if member.user != NULL and app.user.username == member.user.username %}
+            Mon profil
+        {% else %}
+        Profil de {{ member.firstName }} {{ member.lastName }}
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+                  <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="active list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
+                  <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                </ul>
+            </div>
+
+
+
+            <div class="col-12 col-md-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>
+                                Liste des adhésions de l'utilisateurice
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if member.activeMembership is not null %}
+                                <div class="card">
+                                    <div class="card-header text-white bg-primary">
+                                        Adhésion en cours
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Adhésion {{ member.activeMembership.type.label }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted text-center">{{ member.activeMembership.type.description }}</h6>
+                                        <p class="card-text text-center">
+                                            Adhésion du {{ member.activeMembership.getDateStart | date('d M. Y') }}
+                                                     au {{ member.activeMembership.getDateEnd | date('d M. Y') }}
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    Montant&nbsp;: {{ member.activeMembership.payment.amount }}&nbsp;€
+                                                    <br>
+                                                    Payée via&nbsp;: {{ member.activeMembership.payment.type.label }}
+                                                </div>
+                                                <br>
+                                                <div class="col-6">
+                                                    {% if member.activeMembership.payment.dateReceived is null %}
+                                                        <i class="icon ion-md-warning"></i> Paiement pas encore reçu
+                                                    {% else %}
+                                                        Paiement reçu le {{ member.activeMembership.payment.dateReceived }}
+                                                    {% endif %}
+                                                    <br>
+                                                    {% if member.activeMembership.payment.dateCashed is null %}
+                                                        <i class="icon ion-md-warning"></i> Paiement pas encore encaissé
+                                                    {% else %}
+                                                        Paiement encaissé le {{ member.activeMembership.payment.dateCashed }}
+                                                    {% endif %}
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="card-text">
+                                                        Commentaire :
+                                                        {{ member.activeMembership.comment is null ? '-' : membership.comment }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if member.activeMembership.members | length > 1 %}
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">Autres adhérent.es concerné.es</h5>
+                                            <div class="container">
+                                                <div class="row">
+                                                    {% for otherMember in member.activeMembership.members %}
+                                                        {% if member.id != otherMember.id %}
+                                                            <div class="col-4">
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            <br>
+
+            <div class="container">
+                <div class="row">
+                    {% if is_granted("ROLE_GESTION") %}
+                    <div class="col-6">
+                        <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
