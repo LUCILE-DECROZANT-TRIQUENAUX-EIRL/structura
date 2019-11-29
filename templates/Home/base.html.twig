@@ -90,16 +90,38 @@
                                     </a>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link disabled"
-                                    href="#"
-                                    data-toggle="tooltip"
-                                    title="Work in progress..."
-                                >
-                                    Adhésions
-                                </a>
-                            </li>
+                            {% if is_granted("ROLE_GESTION") %}
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="dropdown-directory"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        Adhésions
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
+                                            <a
+                                                class="dropdown-item"
+                                                href="{{ path('membership_list') }}"
+                                            >
+                                                Liste des adhésions actives
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a
+                                                class="dropdown-item disabled"
+                                                href=""
+                                                data-toggle="tooltip"
+                                                title="Work in progress..."
+                                            >
+                                                Enregistrer une nouvelle adhésion
+                                            </a>
+                                    </div>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a
                                     class="nav-link disabled"
