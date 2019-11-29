@@ -34,6 +34,7 @@
                     <th data-sortable="true" data-exportable="true">Prénom</th>
                     <th data-exportable="true" class="text-center">Dates de la dernière adhésion</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">Type d'adhésion</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">Montant</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">Payée via...</th>
                     <th data-exportable="true" class="text-center">Encaissée le...</th>
                 </tr>
@@ -50,6 +51,9 @@
                         </td>
                         <td class="align-middle text-center">
                             {{ member.getActiveMembership.type.label }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ member.getActiveMembership.payment.amount }}&nbsp;€
                         </td>
                         <td class="align-middle text-center">
                             {{ member.getActiveMembership.payment.type.label }}
