@@ -15,9 +15,9 @@ final class Version20191030223835 extends AbstractMigration
     public function getDescription() : string
     {
         return
-            'Adds a default amount to a membershipType, an amount to a membership.'.
-            'Removes the is_settled field from payment.'.
-            'Insert the PaymentType and MembershipType into the DB.';
+            'Add defaultAmount to membershipType and amount to membership.'.
+            'Remove isSettled field from payment.'.
+            'Insert default PaymentType data into the DB.';
     }
 
     public function up(Schema $schema) : void
@@ -36,13 +36,6 @@ final class Version20191030223835 extends AbstractMigration
             . "(3, 'Virement', 'Paiement par virement bancaire.'),"
             . "(4, 'Chèque', 'Paiement en chèque.'),"
             . "(5, 'HelloAsso', 'Paiement perçu via la plateforme HelloAsso.')"
-        );
-
-        // Inserting MembershipType
-        $this->addSql(
-            "INSERT INTO `membership_type` (`id`, `label`, `description`, `default_amount`) VALUES "
-            . "(1, 'Normale', 'Adhésion d\'une personne à l\'association pour une année.', 20),"
-            . "(2, 'Famille', 'Adhésion d\'une famille à l\'association pour une année.', 30)"
         );
     }
 
