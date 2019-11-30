@@ -38,6 +38,16 @@ class MembershipType
      */
     private $memberships;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMultiMembers;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $numberMaxMembers;
+
     public function __construct()
     {
         $this->memberships = new ArrayCollection();
@@ -98,6 +108,28 @@ class MembershipType
     public function getMemberships(): Collection
     {
         return $this->memberships;
+    }
+
+    function getIsMultiMembers(): bool
+    {
+        return $this->isMultiMembers;
+    }
+
+    function getNumberMaxMembers(): int
+    {
+        return $this->numberMaxMembers;
+    }
+
+    function setIsMultiMembers(bool $isMultiMembers): MembershipType
+    {
+        $this->isMultiMembers = $isMultiMembers;
+        return $this;
+    }
+
+    function setNumberMaxMembers(int $numberMaxMembers): MembershipType
+    {
+        $this->numberMaxMembers = $numberMaxMembers;
+        return $this;
     }
 
     public function addMembership(Membership $membership): self
