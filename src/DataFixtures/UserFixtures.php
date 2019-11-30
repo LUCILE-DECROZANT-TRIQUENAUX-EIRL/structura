@@ -460,6 +460,316 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE5->setUser($userAdherentE5);
         $manager->persist($peopleAdherentE5);
 
+        // adhe6
+        $userAdherentE6 = new User();
+        $userAdherentE6->setUsername('adhe6');
+
+        $passwordAdherentE6 = $this->encoder->encodePassword($userAdherentE6, 'a');
+        $userAdherentE6->setPassword($passwordAdherentE6);
+
+        $peopleAdherentE6 = new People();
+
+        $peopleAdherentE6->setDenomination($madame);
+        $peopleAdherentE6->setFirstName('Christine');
+        $peopleAdherentE6->setLastName('Rit');
+        $peopleAdherentE6->setEmailAddress('adherente6@fake.mail');
+
+        $peopleAdherentE6Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE6Address);
+        $peopleAdherentE6->addAddress($peopleAdherentE6Address);
+
+        $peopleAdherentE6->setIsReceivingNewsletter(true);
+        $peopleAdherentE6->setNewsletterDematerialization(false);
+        $peopleAdherentE6->setHomePhoneNumber('0167123456');
+        $peopleAdherentE6->setCellPhoneNumber('0712345678');
+        $peopleAdherentE6->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE6->addResponsibility($roleAdherentE);
+        $userAdherentE6->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE6);
+        $peopleAdherentE6->setUser($userAdherentE6);
+        $manager->persist($peopleAdherentE6);
+
+        // adhe7
+        $userAdherentE7 = new User();
+        $userAdherentE7->setUsername('adhe7');
+
+        $passwordAdherentE7 = $this->encoder->encodePassword($userAdherentE7, 'a');
+        $userAdherentE7->setPassword($passwordAdherentE7);
+
+        $peopleAdherentE7 = new People();
+
+        $peopleAdherentE7->setDenomination($madame);
+        $peopleAdherentE7->setFirstName('Maurelle');
+        $peopleAdherentE7->setLastName('Lespérance');
+        $peopleAdherentE7->setEmailAddress('adherente7@fake.mail');
+
+        $peopleAdherentE7Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE7Address);
+        $peopleAdherentE7->addAddress($peopleAdherentE7Address);
+
+        $peopleAdherentE7->setIsReceivingNewsletter(true);
+        $peopleAdherentE7->setNewsletterDematerialization(false);
+        $peopleAdherentE7->setHomePhoneNumber('0167123456');
+        $peopleAdherentE7->setCellPhoneNumber('0712345678');
+        $peopleAdherentE7->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE7->addResponsibility($roleAdherentE);
+        $userAdherentE7->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE7);
+        $peopleAdherentE7->setUser($userAdherentE7);
+        $manager->persist($peopleAdherentE7);
+
+        // adhe8
+        $userAdherentE8 = new User();
+        $userAdherentE8->setUsername('adhe8');
+
+        $passwordAdherentE8 = $this->encoder->encodePassword($userAdherentE8, 'a');
+        $userAdherentE8->setPassword($passwordAdherentE8);
+
+        $peopleAdherentE8 = new People();
+
+        $peopleAdherentE8->setDenomination($madame);
+        $peopleAdherentE8->setFirstName('Joseph');
+        $peopleAdherentE8->setLastName('Lagueux');
+        $peopleAdherentE8->setEmailAddress('adherente8@fake.mail');
+
+        $peopleAdherentE8Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE8Address);
+        $peopleAdherentE8->addAddress($peopleAdherentE8Address);
+
+        $peopleAdherentE8->setIsReceivingNewsletter(true);
+        $peopleAdherentE8->setNewsletterDematerialization(false);
+        $peopleAdherentE8->setHomePhoneNumber('0167123456');
+        $peopleAdherentE8->setCellPhoneNumber('0712345678');
+        $peopleAdherentE8->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE8->addResponsibility($roleAdherentE);
+        $userAdherentE8->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE8);
+        $peopleAdherentE8->setUser($userAdherentE8);
+        $manager->persist($peopleAdherentE8);
+
+        // adhe9
+        $userAdherentE9 = new User();
+        $userAdherentE9->setUsername('adhe9');
+
+        $passwordAdherentE9 = $this->encoder->encodePassword($userAdherentE9, 'a');
+        $userAdherentE9->setPassword($passwordAdherentE9);
+
+        $peopleAdherentE9 = new People();
+
+        $peopleAdherentE9->setDenomination($madame);
+        $peopleAdherentE9->setFirstName('Mirabelle');
+        $peopleAdherentE9->setLastName('Totah');
+        $peopleAdherentE9->setEmailAddress('adherente9@fake.mail');
+
+        $peopleAdherentE9Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE9Address);
+        $peopleAdherentE9->addAddress($peopleAdherentE9Address);
+
+        $peopleAdherentE9->setIsReceivingNewsletter(true);
+        $peopleAdherentE9->setNewsletterDematerialization(false);
+        $peopleAdherentE9->setHomePhoneNumber('0167123456');
+        $peopleAdherentE9->setCellPhoneNumber('0712345678');
+        $peopleAdherentE9->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE9->addResponsibility($roleAdherentE);
+        $userAdherentE9->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE9);
+        $peopleAdherentE9->setUser($userAdherentE9);
+        $manager->persist($peopleAdherentE9);
+
+        // adhe10
+        $userAdherentE10 = new User();
+        $userAdherentE10->setUsername('adhe10');
+
+        $passwordAdherentE10 = $this->encoder->encodePassword($userAdherentE10, 'a');
+        $userAdherentE10->setPassword($passwordAdherentE10);
+
+        $peopleAdherentE10 = new People();
+
+        $peopleAdherentE10->setDenomination($madame);
+        $peopleAdherentE10->setFirstName('Myriam');
+        $peopleAdherentE10->setLastName('Kouri');
+        $peopleAdherentE10->setEmailAddress('adherente10@fake.mail');
+
+        $peopleAdherentE10Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE10Address);
+        $peopleAdherentE10->addAddress($peopleAdherentE10Address);
+
+        $peopleAdherentE10->setIsReceivingNewsletter(true);
+        $peopleAdherentE10->setNewsletterDematerialization(false);
+        $peopleAdherentE10->setHomePhoneNumber('0167123456');
+        $peopleAdherentE10->setCellPhoneNumber('0712345678');
+        $peopleAdherentE10->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE10->addResponsibility($roleAdherentE);
+        $userAdherentE10->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE10);
+        $peopleAdherentE10->setUser($userAdherentE10);
+        $manager->persist($peopleAdherentE10);
+
+        // adhe11
+        $userAdherentE11 = new User();
+        $userAdherentE11->setUsername('adhe11');
+
+        $passwordAdherentE11 = $this->encoder->encodePassword($userAdherentE11, 'a');
+        $userAdherentE11->setPassword($passwordAdherentE11);
+
+        $peopleAdherentE11 = new People();
+
+        $peopleAdherentE11->setDenomination($madame);
+        $peopleAdherentE11->setFirstName('Wei');
+        $peopleAdherentE11->setLastName('Ch\'eng');
+        $peopleAdherentE11->setEmailAddress('adherente11@fake.mail');
+
+        $peopleAdherentE11Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE11Address);
+        $peopleAdherentE11->addAddress($peopleAdherentE11Address);
+
+        $peopleAdherentE11->setIsReceivingNewsletter(true);
+        $peopleAdherentE11->setNewsletterDematerialization(false);
+        $peopleAdherentE11->setHomePhoneNumber('0167123456');
+        $peopleAdherentE11->setCellPhoneNumber('0712345678');
+        $peopleAdherentE11->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE11->addResponsibility($roleAdherentE);
+        $userAdherentE11->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE11);
+        $peopleAdherentE11->setUser($userAdherentE11);
+        $manager->persist($peopleAdherentE11);
+
+        // adhe12
+        $userAdherentE12 = new User();
+        $userAdherentE12->setUsername('adhe12');
+
+        $passwordAdherentE12 = $this->encoder->encodePassword($userAdherentE12, 'a');
+        $userAdherentE12->setPassword($passwordAdherentE12);
+
+        $peopleAdherentE12 = new People();
+
+        $peopleAdherentE12->setDenomination($mix);
+        $peopleAdherentE12->setFirstName('Jaska');
+        $peopleAdherentE12->setLastName('Reho');
+        $peopleAdherentE12->setEmailAddress('adherente12@fake.mail');
+
+        $peopleAdherentE12Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE12Address);
+        $peopleAdherentE12->addAddress($peopleAdherentE12Address);
+
+        $peopleAdherentE12->setIsReceivingNewsletter(true);
+        $peopleAdherentE12->setNewsletterDematerialization(false);
+        $peopleAdherentE12->setHomePhoneNumber('0167123456');
+        $peopleAdherentE12->setCellPhoneNumber('0712345678');
+        $peopleAdherentE12->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE12->addResponsibility($roleAdherentE);
+        $userAdherentE12->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE12);
+        $peopleAdherentE12->setUser($userAdherentE12);
+        $manager->persist($peopleAdherentE12);
+
+        // adhe13
+        $userAdherentE13 = new User();
+        $userAdherentE13->setUsername('adhe13');
+
+        $passwordAdherentE13 = $this->encoder->encodePassword($userAdherentE13, 'a');
+        $userAdherentE13->setPassword($passwordAdherentE13);
+
+        $peopleAdherentE13 = new People();
+
+        $peopleAdherentE13->setDenomination($madame);
+        $peopleAdherentE13->setFirstName('Arbi');
+        $peopleAdherentE13->setLastName('Musliyevich');
+        $peopleAdherentE13->setEmailAddress('adherente13@fake.mail');
+
+        $peopleAdherentE13Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE13Address);
+        $peopleAdherentE13->addAddress($peopleAdherentE13Address);
+
+        $peopleAdherentE13->setIsReceivingNewsletter(true);
+        $peopleAdherentE13->setNewsletterDematerialization(false);
+        $peopleAdherentE13->setHomePhoneNumber('0167123456');
+        $peopleAdherentE13->setCellPhoneNumber('0712345678');
+        $peopleAdherentE13->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE13->addResponsibility($roleAdherentE);
+        $userAdherentE13->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE13);
+        $peopleAdherentE13->setUser($userAdherentE13);
+        $manager->persist($peopleAdherentE13);
+
+        // adhe14
+        $userAdherentE14 = new User();
+        $userAdherentE14->setUsername('adhe14');
+
+        $passwordAdherentE14 = $this->encoder->encodePassword($userAdherentE14, 'a');
+        $userAdherentE14->setPassword($passwordAdherentE14);
+
+        $peopleAdherentE14 = new People();
+
+        $peopleAdherentE14->setDenomination($madame);
+        $peopleAdherentE14->setFirstName('Hana');
+        $peopleAdherentE14->setLastName('Moravcová');
+        $peopleAdherentE14->setEmailAddress('adherente14@fake.mail');
+
+        $peopleAdherentE14Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE14Address);
+        $peopleAdherentE14->addAddress($peopleAdherentE14Address);
+
+        $peopleAdherentE14->setIsReceivingNewsletter(true);
+        $peopleAdherentE14->setNewsletterDematerialization(false);
+        $peopleAdherentE14->setHomePhoneNumber('0167123456');
+        $peopleAdherentE14->setCellPhoneNumber('0712345678');
+        $peopleAdherentE14->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE14->addResponsibility($roleAdherentE);
+        $userAdherentE14->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE14);
+        $peopleAdherentE14->setUser($userAdherentE14);
+        $manager->persist($peopleAdherentE14);
+
+        // adhe15
+        $userAdherentE15 = new User();
+        $userAdherentE15->setUsername('adhe15');
+
+        $passwordAdherentE15 = $this->encoder->encodePassword($userAdherentE15, 'a');
+        $userAdherentE15->setPassword($passwordAdherentE15);
+
+        $peopleAdherentE15 = new People();
+
+        $peopleAdherentE15->setDenomination($madame);
+        $peopleAdherentE15->setFirstName('Renata');
+        $peopleAdherentE15->setLastName('Milić');
+        $peopleAdherentE15->setEmailAddress('adherente15@fake.mail');
+
+        $peopleAdherentE15Address = new Address('55 Rue Emile Zola', '69100', 'Villeurbanne', 'France');
+        $manager->persist($peopleAdherentE15Address);
+        $peopleAdherentE15->addAddress($peopleAdherentE15Address);
+
+        $peopleAdherentE15->setIsReceivingNewsletter(true);
+        $peopleAdherentE15->setNewsletterDematerialization(false);
+        $peopleAdherentE15->setHomePhoneNumber('0167123456');
+        $peopleAdherentE15->setCellPhoneNumber('0712345678');
+        $peopleAdherentE15->setWorkPhoneNumber('0112345678');
+
+        $userAdherentE15->addResponsibility($roleAdherentE);
+        $userAdherentE15->addResponsibility($roleInscritE);
+
+        $manager->persist($userAdherentE15);
+        $peopleAdherentE15->setUser($userAdherentE15);
+        $manager->persist($peopleAdherentE15);
+
         // supportive user
         $userSupportive = new User();
         $userSupportive->setUsername('supp1');
