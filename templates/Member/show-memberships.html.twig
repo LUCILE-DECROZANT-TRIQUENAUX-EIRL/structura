@@ -61,7 +61,7 @@
                                         Adhésion en cours
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title text-center">Adhésion {{ member.activeMembership.type.label }}</h5>
+                                        <h5 class="card-title text-center">Adhésion {{ member.activeMembership.type.label }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
                                         <h6 class="card-subtitle mb-2 text-muted text-center">{{ member.activeMembership.type.description }}</h6>
                                         <p class="card-text text-center">
                                             Adhésion du {{ member.activeMembership.getDateStart | date('d M. Y') }}
@@ -72,7 +72,7 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    Montant&nbsp;: {{ member.activeMembership.payment.amount }}&nbsp;€
+                                                    Montant du paiement&nbsp;: {{ member.activeMembership.payment.amount }}&nbsp;€
                                                     <br>
                                                     Payée via&nbsp;: {{ member.activeMembership.payment.type.label }}
                                                 </div>
@@ -81,13 +81,13 @@
                                                     {% if member.activeMembership.payment.dateReceived is null %}
                                                         <i class="icon ion-md-warning"></i> Paiement pas encore reçu
                                                     {% else %}
-                                                        Paiement reçu le {{ member.activeMembership.payment.dateReceived }}
+                                                        Paiement reçu le {{ member.activeMembership.payment.dateReceived | date('d M. Y') }}
                                                     {% endif %}
                                                     <br>
                                                     {% if member.activeMembership.payment.dateCashed is null %}
                                                         <i class="icon ion-md-warning"></i> Paiement pas encore encaissé
                                                     {% else %}
-                                                        Paiement encaissé le {{ member.activeMembership.payment.dateCashed }}
+                                                        Paiement encaissé le {{ member.activeMembership.payment.dateCashed | date('d M. Y') }}
                                                     {% endif %}
                                                     <br>
                                                 </div>
@@ -143,7 +143,7 @@
                                                 Ancienne adhésion
                                             </div>
                                             <div class="card-body">
-                                                <h5 class="card-title text-center">Adhésion {{ membership.type.label }}</h5>
+                                                <h5 class="card-title text-center">Adhésion {{ membership.type.label }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
                                                 <h6 class="card-subtitle mb-2 text-muted text-center">{{ membership.type.description }}</h6>
                                                 <p class="card-text text-center">
                                                     Adhésion du {{ membership.getDateStart | date('d M. Y') }}
@@ -154,7 +154,7 @@
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            Montant&nbsp;: {{ membership.payment.amount }}&nbsp;€
+                                                            Montant du paiement &nbsp;: {{ membership.payment.amount }}&nbsp;€
                                                             <br>
                                                             Payée via&nbsp;: {{ membership.payment.type.label }}
                                                         </div>
