@@ -34,6 +34,23 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $normale = $membershipTypeRepository->findOneBy(['label' => 'Normale']);
         $famille = $membershipTypeRepository->findOneBy(['label' => 'Famille']);
 
+        // Creating MembershipType
+        $famille = new MembershipType();
+        $famille->setDefaultAmount(30.0);
+        $famille->setLabel('Famille');
+        $famille->setDescription('Adhésion d\'une personne à l\'association pour une année.');
+        $famille->setIsMultiMembers(true);
+        $famille->setNumberMaxMembers(2);
+
+        $normale = new MembershipType();
+        $normale->setDefaultAmount(20.0);
+        $normale->setLabel('Normale');
+        $normale->setDescription('Adhésion d\'une famille à l\'association pour une année.');
+        $normale->setIsMultiMembers(false);
+        $normale->setNumberMaxMembers(1);
+
+        $manager->persist($famille);
+        $manager->persist($normale);
 
         // Retreiving PaymentType from DB
         $paymentTypeRepository = $manager->getRepository(PaymentType::class);
@@ -66,28 +83,32 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         // -- Payments -- //
 
         // First payment
-        $paymentAdhesion1 = new Payment();
+        $paymentAdhesionCheque50 = new Payment();
 
-        $paymentAdhesion1->setAmount(30);
-        $paymentAdhesion1->setType($cheque);
+        $paymentAdhesionCheque50->setAmount(50);
+        $paymentAdhesionCheque50->setType($cheque);
 
-        $manager->persist($paymentAdhesion1);
+        $manager->persist($paymentAdhesionCheque50);
 
         // Second payment
-        $paymentAdhesion2 = new Payment();
+        $paymentAdhesionHelloAsso30 = new Payment();
 
-        $paymentAdhesion2->setAmount(50);
-        $paymentAdhesion2->setType($helloAsso);
+        $paymentAdhesionHelloAsso30->setAmount(30);
+        $paymentAdhesionHelloAsso30->setType($helloAsso);
+        $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime());
+        $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime());
 
-        $manager->persist($paymentAdhesion2);
+        $manager->persist($paymentAdhesionHelloAsso30);
 
         // Third payment
-        $paymentAdhesion3 = new Payment();
+        $paymentAdhesionHelloAsso20 = new Payment();
 
-        $paymentAdhesion3->setAmount(30);
-        $paymentAdhesion3->setType($helloAsso);
+        $paymentAdhesionHelloAsso20->setAmount(20);
+        $paymentAdhesionHelloAsso20->setType($helloAsso);
+        $paymentAdhesionHelloAsso20->setDateReceived(new \DateTime());
+        $paymentAdhesionHelloAsso20->setDateCashed(new \DateTime());
 
-        $manager->persist($paymentAdhesion3);
+        $manager->persist($paymentAdhesionHelloAsso20);
 
         // Date managment
         $plusOneYear = new \DateInterval('P1Y');
@@ -107,10 +128,10 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $membershipNormal1 = new Membership();
 
         $membershipNormal1
-            ->setAmount(30)
+            ->setAmount(20)
             ->setDateStart($lastYear)
             ->setDateEnd($now)
-            ->setPayment($paymentAdhesion1)
+            ->setPayment($paymentAdhesionCheque50)
             ->setType($normale);
 
         $manager->persist($membershipNormal1);
@@ -119,10 +140,10 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $membershipNormal2 = new Membership();
 
         $membershipNormal2
-            ->setAmount(30)
+            ->setAmount(20)
             ->setDateStart($lastYear)
             ->setDateEnd($now)
-            ->setPayment($paymentAdhesion3)
+            ->setPayment($paymentAdhesionHelloAsso20)
             ->setType($normale);
 
         $manager->persist($membershipNormal2);
@@ -130,15 +151,15 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         // Family
         $membershipFamily = new Membership();
 
-        $membershipFamily->setAmount(50);
+        $membershipFamily->setAmount(30);
         $membershipFamily->setDateStart($now);
         $membershipFamily->setDateEnd($inOneYear);
-        $membershipFamily->setPayment($paymentAdhesion2);
+        $membershipFamily->setPayment($paymentAdhesionHelloAsso30);
         $membershipFamily->setType($famille);
 
         $manager->persist($membershipFamily);
 
-        // Adding the memberships to the peoples
+        // Adding the memberships to the people
         $peopleAdherentE1->addMembership($membershipNormal2);
         $peopleAdherentE2->addMembership($membershipFamily);
         $peopleAdherentE3->addMembership($membershipNormal1);
