@@ -183,7 +183,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $manager->persist($peopleGestionnaireSensible);
 
         // Gestionnaire user
-        //gest1
+        // gest1
         $userGestionnaire1 = new User();
         $userGestionnaire1->setUsername('gest1');
 
@@ -219,7 +219,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleGestionnaire1->setUser($userGestionnaire1);
         $manager->persist($peopleGestionnaire1);
 
-        //gest2
+        // gest2
         $userGestionnaire2 = new User();
         $userGestionnaire2->setUsername('gest2');
 
