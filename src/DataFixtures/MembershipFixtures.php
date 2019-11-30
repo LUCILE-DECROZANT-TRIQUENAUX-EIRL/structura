@@ -29,36 +29,31 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        // Retreiving MembershipType from DB
-        $membershipTypeRepository = $manager->getRepository(MembershipType::class);
-        $normale = $membershipTypeRepository->findOneBy(['label' => 'Normale']);
-        $famille = $membershipTypeRepository->findOneBy(['label' => 'Famille']);
-
         // Creating MembershipType
-        $famille = new MembershipType();
-        $famille->setDefaultAmount(30.0);
-        $famille->setLabel('Famille');
-        $famille->setDescription('Adhésion d\'une personne à l\'association pour une année.');
-        $famille->setIsMultiMembers(true);
-        $famille->setNumberMaxMembers(2);
+        $MembershipTypeFamily = new MembershipType();
+        $MembershipTypeFamily->setDefaultAmount(30.0);
+        $MembershipTypeFamily->setLabel('Famille');
+        $MembershipTypeFamily->setDescription('Adhésion d\'une famille à l\'association pour une année.');
+        $MembershipTypeFamily->setIsMultiMembers(true);
+        $MembershipTypeFamily->setNumberMaxMembers(2);
 
-        $normale = new MembershipType();
-        $normale->setDefaultAmount(20.0);
-        $normale->setLabel('Normale');
-        $normale->setDescription('Adhésion d\'une famille à l\'association pour une année.');
-        $normale->setIsMultiMembers(false);
-        $normale->setNumberMaxMembers(1);
+        $MembershipTypeRegular = new MembershipType();
+        $MembershipTypeRegular->setDefaultAmount(20.0);
+        $MembershipTypeRegular->setLabel('Normale');
+        $MembershipTypeRegular->setDescription('Adhésion d\'une personne à l\'association pour une année.');
+        $MembershipTypeRegular->setIsMultiMembers(false);
+        $MembershipTypeRegular->setNumberMaxMembers(1);
 
-        $manager->persist($famille);
-        $manager->persist($normale);
+        $manager->persist($MembershipTypeFamily);
+        $manager->persist($MembershipTypeRegular);
 
         // Retreiving PaymentType from DB
         $paymentTypeRepository = $manager->getRepository(PaymentType::class);
-        $especes = $paymentTypeRepository->findOneBy(['label' => 'Espèces']);
-        $cb = $paymentTypeRepository->findOneBy(['label' => 'Carte Bleue']);
-        $virement = $paymentTypeRepository->findOneBy(['label' => 'Virement']);
-        $cheque = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
-        $helloAsso = $paymentTypeRepository->findOneBy(['label' => 'HelloAsso']);
+        $paymentTypeCash = $paymentTypeRepository->findOneBy(['label' => 'Espèces']);
+        $paymentTypeCard = $paymentTypeRepository->findOneBy(['label' => 'Carte Bleue']);
+        $paymentTypeTransfer = $paymentTypeRepository->findOneBy(['label' => 'Virement']);
+        $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
+        $paymentTypeHelloAsso = $paymentTypeRepository->findOneBy(['label' => 'HelloAsso']);
 
 
         // Retreiving adherent.e.s from DB
@@ -86,7 +81,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $paymentAdhesionCheque50 = new Payment();
 
         $paymentAdhesionCheque50->setAmount(50);
-        $paymentAdhesionCheque50->setType($cheque);
+        $paymentAdhesionCheque50->setType($paymentTypeCheck);
 
         $manager->persist($paymentAdhesionCheque50);
 
@@ -94,7 +89,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $paymentAdhesionHelloAsso30 = new Payment();
 
         $paymentAdhesionHelloAsso30->setAmount(30);
-        $paymentAdhesionHelloAsso30->setType($helloAsso);
+        $paymentAdhesionHelloAsso30->setType($paymentTypeHelloAsso);
         $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime());
         $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime());
 
@@ -104,7 +99,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $paymentAdhesionHelloAsso20 = new Payment();
 
         $paymentAdhesionHelloAsso20->setAmount(20);
-        $paymentAdhesionHelloAsso20->setType($helloAsso);
+        $paymentAdhesionHelloAsso20->setType($paymentTypeHelloAsso);
         $paymentAdhesionHelloAsso20->setDateReceived(new \DateTime());
         $paymentAdhesionHelloAsso20->setDateCashed(new \DateTime());
 
@@ -132,7 +127,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
             ->setDateStart($lastYear)
             ->setDateEnd($now)
             ->setPayment($paymentAdhesionCheque50)
-            ->setType($normale);
+            ->setType($MembershipTypeRegular);
 
         $manager->persist($membershipNormal1);
 
@@ -144,7 +139,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
             ->setDateStart($lastYear)
             ->setDateEnd($now)
             ->setPayment($paymentAdhesionHelloAsso20)
-            ->setType($normale);
+            ->setType($MembershipTypeRegular);
 
         $manager->persist($membershipNormal2);
 
@@ -155,7 +150,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         $membershipFamily->setDateStart($now);
         $membershipFamily->setDateEnd($inOneYear);
         $membershipFamily->setPayment($paymentAdhesionHelloAsso30);
-        $membershipFamily->setType($famille);
+        $membershipFamily->setType($MembershipTypeFamily);
 
         $manager->persist($membershipFamily);
 
