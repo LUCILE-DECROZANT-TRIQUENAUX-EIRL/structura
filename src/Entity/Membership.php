@@ -56,6 +56,16 @@ class Membership
      */
     private $members;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMultiMembers;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $numberMaxMembers;
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
@@ -149,6 +159,29 @@ class Membership
 
         return $this;
     }
+
+    function getIsMultiMembers(): bool
+    {
+        return $this->isMultiMembers;
+    }
+
+    function getNumberMaxMembers(): int
+    {
+        return $this->numberMaxMembers;
+    }
+
+    function setIsMultiMembers($isMultiMembers): Membership
+    {
+        $this->isMultiMembers = $isMultiMembers;
+        return $this;
+    }
+
+    function setNumberMaxMembers($numberMaxMembers): Membership
+    {
+        $this->numberMaxMembers = $numberMaxMembers;
+        return $this;
+    }
+
 
     /**
      * Add a person to the membership
