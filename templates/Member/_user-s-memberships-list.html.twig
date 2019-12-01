@@ -91,7 +91,7 @@
 
     {% if member.memberships | length > 0 %}
         {% for membership in member.memberships %}
-            {% if membership.id != member.activeMembership.id %}
+            {% if member.activeMembership is null or membership.id != member.activeMembership.id %}
                 <div class="container mt-4">
                     <div class="row">
                         <div class="col-12">

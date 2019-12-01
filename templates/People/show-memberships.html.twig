@@ -1,0 +1,44 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if member.user != NULL and app.user.username == member.user.username %}
+            <a href="{{ path('member_show', { 'id': member.id }) }}">Mon profil</a>
+        {% else %}
+            <a href="{{ path('member_show', { 'id': member.id }) }}">Profil de {{ member.firstName }} {{ member.lastName }}</a>
+        {% endif %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Liste des adhésions de l'utilisateurice
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+                  <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="active list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
+                  <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                </ul>
+            </div>
+
+            {{ include('Member/_user-s-memberships-list.html.twig') }}
+    </div>
+{% endblock %}
