@@ -174,6 +174,7 @@ class People
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Membership", inversedBy="members", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"date_start" = "DESC"})
      * @ORM\JoinTable(
      *      name="peoples_memberships",
      *      joinColumns={@JoinColumn(name="membership_id", referencedColumnName="id")},
