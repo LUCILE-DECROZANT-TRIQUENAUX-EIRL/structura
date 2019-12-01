@@ -14,10 +14,10 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% if people.user != NULL and app.user.username == people.user.username %}
+        {% if people.user != null and app.user.username == people.user.username %}
             Mon profil
         {% else %}
-        Profil de {{ people.firstName }} {{ people.lastName }}
+            Profil de {{ people.firstName }} {{ people.lastName }}
         {% endif %}
     </li>
 {% endblock %}
@@ -30,8 +30,8 @@
             <div class="col-8 col-md-2">
                 <ul class="list-group">
                   <a href="{{ path('people_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
-                  <a href="#" class="list-group-item list-group-item-action ">Adhésions</a>
-                  <a href="#" class="list-group-item list-group-item-action">Dons</a>
+                  <a href="{{ path('people_memberships_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
                   <a href="{{ path('people_edit', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Édition</a>
                 </ul>
             </div>

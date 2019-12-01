@@ -10,14 +10,14 @@
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
+        <a href="{{ path('people_list') }}">Annuaire global</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% if member.user != NULL and app.user.username == member.user.username %}
-            <a href="{{ path('member_show', { 'id': member.id }) }}">Mon profil</a>
+        {% if people.user != NULL and app.user.username == people.user.username %}
+            <a href="{{ path('people_show', { 'id': people.id }) }}">Mon profil</a>
         {% else %}
-            <a href="{{ path('member_show', { 'id': member.id }) }}">Profil de {{ member.firstName }} {{ member.lastName }}</a>
+            <a href="{{ path('people_show', { 'id': people.id }) }}">Profil de {{ people.firstName }} {{ people.lastName }}</a>
         {% endif %}
     </li>
     <li class="breadcrumb-item active" aria-current="page">
@@ -32,10 +32,10 @@
 
             <div class="col-8 col-md-2">
                 <ul class="list-group">
-                  <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Profil</a>
-                  <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="active list-group-item list-group-item-action ">Adhésions</a>
+                  <a href="{{ path('people_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+                  <a href="{{ path('people_memberships_show', { 'id': people.id }) }}" class="active list-group-item list-group-item-action ">Adhésions</a>
                   <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
-                  <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                  <a href="{{ path('people_edit', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Édition</a>
                 </ul>
             </div>
 
