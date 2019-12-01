@@ -52,13 +52,13 @@
                                 {% if membership.payment.dateReceived is null %}
                                     <h4><i class="icon ion-md-warning"></i> Paiement pas encore reçu</h4>
                                 {% else %}
-                                    <h4>Paiement reçu le <small>{{ membership.payment.dateReceived }}</small></h4>
+                                    <h4>Paiement reçu le <small>{{ membership.payment.dateReceived | date('d M. Y') }}</small></h4>
                                 {% endif %}
                                 <br>
                                 {% if membership.payment.dateCashed is null %}
                                     <h4><i class="icon ion-md-warning"></i> Paiement pas encore encaissé</h4>
                                 {% else %}
-                                    <h4>Paiement encaissé le <small>{{ membership.payment.dateCashed }}</small></h4>
+                                    <h4>Paiement encaissé le <small>{{ membership.payment.dateCashed | date('d M. Y') }}</small></h4>
                                 {% endif %}
                                 <br>
                             </div>

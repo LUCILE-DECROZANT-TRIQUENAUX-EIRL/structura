@@ -63,7 +63,7 @@
                             {% if member.getActiveMembership.payment.dateCashed is null %}
                                 <span class=""><i class="icon ion-md-warning"></i> Pas encore encaissé</span>
                             {% else %}
-                                {{ member.getActiveMembership.payment.dateCashed }}
+                                {{ member.getActiveMembership.payment.dateCashed | date('d M. Y') }}
                             {% endif %}
                         </td>
                         <td class="align-middle column-action">
