@@ -1,0 +1,70 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('membership_list') }}">Adhésions</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname }} {{ people.firstname }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <!-- <br> -->
+    <div class="container mt-4">
+        <div class="border p-3">
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-thumbnail" src="{{ asset('images/placeholder-personne.jpg') }}" alt="Profile photo placeholder">
+                </div>
+                <div class="col-10">
+                    <div class="row"> <!--row name -->
+                        <div class="col">
+                            {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname | upper }} {{ people.firstname }}
+                        </div>
+                    </div>
+                    <div class="row"> <!--row address -->
+                        {% if not people.hasNoAddressDefined() %}
+                            {% for address in people.addresses %}
+                            <div class="col-sm-12">
+                                {{address.line}} {{address.postalCode}} {{address.city}}, {{address.country}}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <div class="col">
+                            Pas d'adresse enregistrée.
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row"> <!--row email address -->
+                        <div class="col">
+                            {{ people.emailAddress ? people.emailAddress : "-"}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ people.cellPhoneNumber ? people.cellPhoneNumber : "-"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <div class="border p-3">
+                    COIN
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="border p-3">
+                    COIN
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

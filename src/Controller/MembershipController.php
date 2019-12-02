@@ -29,8 +29,6 @@ class MembershipController extends AbstractController
 
         $peoples = $em->getRepository(People::class)->findWithNoActiveMembership();
 
-        // dump($peoples); die;
-
         $memberSelectionFDO = new MemberSelectionFDO();
 
         $memberSelectionForm = $this->createForm(MemberSelectionType::class, $memberSelectionFDO, [
@@ -39,8 +37,6 @@ class MembershipController extends AbstractController
 
         $options = $memberSelectionForm->get('newMembers')->getConfig()->getOptions();
         $choices = $options['choices'];
-
-        //  dump($choices); die;
 
         $memberSelectionForm->handleRequest($request);
 
@@ -88,4 +84,34 @@ class MembershipController extends AbstractController
         ));
     }
 
+    /**
+     * Create a new membership
+     * @return views
+     * @param People $people The user to find to display memberships.
+     * @Route("/new/people/{peopleId}", name="membership_create")
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function createAction(Request $request, int $peopleId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $futureMember = $em->getRepository(People::class)->find($peopleId);
+
+        // $membershipFDO = new MembershipFDO();
+
+        // $membershipCreationForm = $this->createForm(MemberSelectionType::class, $memberSelectionFDO);
+
+        // $membershipCreationForm->handleRequest($request);
+
+        // // Submit change
+        // if ($membershipCreationForm->isSubmitted() && $membershipCreationForm->isValid())
+        // {
+        //     // TODO
+        // }
+
+        return $this->render('Membership/new.html.twig', [
+            'people' => $futureMember,
+            // 'membership_creation_form' => $membershipCreationForm->createView()
+        ]);
+    }
 }
