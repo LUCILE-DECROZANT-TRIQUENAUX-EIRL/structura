@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -184,6 +185,11 @@ class People
     private $memberships;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="donator", orphanRemoval=true)
+     */
+    private $donations;
+
+    /**
      *
      */
     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
@@ -194,6 +200,7 @@ class People
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->memberships = new ArrayCollection();
+        $this->donations = new ArrayCollection();
     }
 
     /**
@@ -665,5 +672,36 @@ class People
         $index = array_search($membership, $this->memberships);
 
         unset($memberships[$index]);
+    }
+
+    /**
+     * @return Collection|Donation[]
+     */
+    public function getDonations(): Collection
+    {
+        return $this->donations;
+    }
+
+    public function addDonation(Donation $donation): self
+    {
+        if (!$this->donations->contains($donation)) {
+            $this->donations[] = $donation;
+            $donation->setDonator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonation(Donation $donation): self
+    {
+        if ($this->donations->contains($donation)) {
+            $this->donations->removeElement($donation);
+            // set the owning side to null (unless already changed)
+            if ($donation->getDonator() === $this) {
+                $donation->setDonator(null);
+            }
+        }
+
+        return $this;
     }
 }

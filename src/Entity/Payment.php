@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,11 @@ class Payment
      * @ORM\OneToOne(targetEntity="App\Entity\Membership", mappedBy="payment", cascade={"persist", "remove"})
      */
     private $membership;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Donation", mappedBy="payment")
+     */
+    private $donation;
 
     public function getId(): ?int
     {
@@ -126,6 +133,21 @@ class Payment
         if ($newPayment !== $membership->getPayment()) {
             $membership->setPayment($newPayment);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Donation
+     */
+    public function getDonation(): Donation
+    {
+        return $this->donations;
+    }
+
+    public function setDonation(Donation $donation): self
+    {
+        $this->donation = $donation;
 
         return $this;
     }
