@@ -821,6 +821,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleRichAddress = new Address('12 Avenue des Champs-Élysées', '75008', 'Paris', 'France');
         $manager->persist($peopleRichAddress);
         $peopleRich->addAddress($peopleRichAddress);
+        $peopleRich->addAddress($peopleAdherentE5Address);
 
         $peopleRich->setIsReceivingNewsletter(true);
         $peopleRich->setNewsletterDematerialization(false);
