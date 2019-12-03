@@ -93,7 +93,7 @@ $(document).ready(function () {
             let customCountRowsDisplayed = $table.data('number-rows-display'); // Get the custom settings
             if (customCountRowsDisplayed) {
                 if (Number.isInteger(customCountRowsDisplayed)) { // Check if the parameter is an integer before using it
-                    countRowsDisplayed = customCodata-number-rows-displayuntRowsDisplayed;
+                    countRowsDisplayed = customCountRowsDisplayed;
                 } else {
                     console.warn('The attribute `data-number-rows-display` has to be an integer.');
                 }
@@ -130,9 +130,31 @@ $(document).ready(function () {
                 }
             } else {
                 console.debug('The data will be sorted by default.');
+                orderedColumnIndex = 0;
             }
             let orderedColumn = [[orderedColumnIndex, 'asc']];
 
+            // Check if rows are openable
+            let openable = {};
+            let isRowsOpenable = $table.data('rows'); // Get the custom setting
+
+            if (isRowsOpenable) {
+                if (isRowsOpenable === 'openable') {
+                    openable = {
+                        details: {
+                            type: 'column',
+                            target: 'tr'
+                        }
+                    };
+                    orderedColumnIndex = customOrderedColumnIndex;
+                } else {
+                    openable = false;
+                    console.debug('The rows will not be openable on click.');
+                }
+            } else {
+                openable = false;
+                console.debug('The rows will not be openable on click.');
+            }
 
             // Instanciate the DataTable
             $table.DataTable({
@@ -141,6 +163,7 @@ $(document).ready(function () {
                 },
                 order: orderedColumn,
                 columns: sortableColumns,
+                responsive: openable,
                 language: {
                     url: '/json/datatable/fr_FR.json',
                 },

@@ -11,3 +11,30 @@
     display: box;
     font-size: 50px;
 }
+
+/* Avoid tooltip break on disabled elements */
+.tooltip-wrapper {
+    display: inline-block;
+}
+
+/* Allow the opened row to take the full width */
+.dtr-details {
+    width: 100%;
+}
+
+/* Hide the generated title of an openened row */
+table.dataTable > tbody > tr.child span.dtr-title {
+    display: none;
+}
+
+/* make buttons full width */
+table.dataTable > tbody > tr span,
+table.dataTable > tbody > tr span > .btn {
+    width: 100%;
+}
+
+/* Add specific cursor on openable rows */
+table.dataTable[data-rows="openable"] > tbody > tr,
+table.dataTable[data-rows="openable"] > tbody > tr > td {
+    cursor: pointer;
+}
