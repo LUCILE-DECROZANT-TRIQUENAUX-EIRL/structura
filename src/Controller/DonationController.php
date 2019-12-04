@@ -44,7 +44,7 @@ class DonationController extends AbstractController
             return $this->redirectToRoute('donation_index');
         }
 
-        return $this->render('donation/new.html.twig', [
+        return $this->render('Donation/new.html.twig', [
             'donation' => $donation,
             'form' => $form->createView(),
         ]);
@@ -55,7 +55,7 @@ class DonationController extends AbstractController
      */
     public function show(Donation $donation): Response
     {
-        return $this->render('donation/show.html.twig', [
+        return $this->render('Donation/show.html.twig', [
             'donation' => $donation,
         ]);
     }
@@ -74,7 +74,7 @@ class DonationController extends AbstractController
             return $this->redirectToRoute('donation_index');
         }
 
-        return $this->render('donation/edit.html.twig', [
+        return $this->render('Donation/edit.html.twig', [
             'donation' => $donation,
             'form' => $form->createView(),
         ]);
