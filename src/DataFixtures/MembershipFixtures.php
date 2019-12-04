@@ -24,7 +24,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-        return ['group2'];
+        return ['memberships'];
     }
 
     public function load(ObjectManager $manager)
@@ -187,7 +187,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
             $paymentAdhesionCard20->setDateReceived(new \DateTime());
             $paymentAdhesionCard20->setDateCashed(new \DateTime());
 
-            // Create ans associate active and inactive memberships evenly on members
+            // Create and associate active and inactive memberships evenly on members
             if ($index % 2 == 0)
             {
                 // Active membership
@@ -212,6 +212,16 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
             $members[$index]['membership'] = $membershipRegular;
         }
 
+        // Adding payers to the firsts payments
+        $membershipNormal2->getPayment()->setPayer($members[0]['member']);
+        $membershipFamily->getPayment()->setPayer($members[1]['member']);
+        $membershipNormal1->getPayment()->setPayer($members[2]['member']);
+        $membershipFamily->getPayment()->setPayer($members[2]['member']);
+        // Save the payments
+        $manager->persist($membershipNormal2->getPayment());
+        $manager->persist($membershipFamily->getPayment());
+        $manager->persist($membershipNormal1->getPayment());
+        $manager->persist($membershipFamily->getPayment());
         // Adding other memberships to the people
         $members[0]['member']->addMembership($membershipNormal2);
         $members[1]['member']->addMembership($membershipFamily);
@@ -228,7 +238,10 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
         {
             $member = $memberAndMembership['member'];
             $membership = $memberAndMembership['membership'];
+            $payment = $membershipNormal2->getPayment();
             $member->addMembership($membership);
+            $payment->setPayer($member);
+            $manager->persist($payment);
             $manager->persist($member);
         }
 
