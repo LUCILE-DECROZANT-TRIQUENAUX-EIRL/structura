@@ -54,6 +54,11 @@ class Payment
      */
     private $donation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\People", inversedBy="payments")
+     */
+    private $payer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +141,18 @@ class Payment
 
         return $this;
     }
+
+    function getPayer(): People
+    {
+        return $this->payer;
+    }
+
+    function setPayer($payer): self
+    {
+        $this->payer = $payer;
+        return $this;
+    }
+
 
     /**
      * @return Donation

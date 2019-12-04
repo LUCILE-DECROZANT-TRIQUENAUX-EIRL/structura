@@ -190,6 +190,11 @@ class People
     private $donations;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="payer", orphanRemoval=true)
+     */
+    private $payments;
+
+    /**
      *
      */
     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
