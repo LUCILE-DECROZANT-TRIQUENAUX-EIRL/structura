@@ -89,6 +89,13 @@ class DonationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($donation);
             $entityManager->flush();
+            $this->addFlash(
+                    'success', 'Don supprimé.'
+            );
+        } else {
+            $this->addFlash(
+                    'danger', 'Une erreur est survenue.'
+            );
         }
 
         return $this->redirectToRoute('donation_index');

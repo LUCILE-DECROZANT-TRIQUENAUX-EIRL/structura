@@ -1,30 +1,125 @@
-<!DOCTYPE html>
+{% extends 'Home/base.html.twig' %}
 
-<title>Donation</title>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('donation_index') }}">Liste des dons</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+    </li>
+{% endblock %}
 
 {% block body %}
-    <h1>Donation</h1>
+    <br>
+    <div class="container">
+        <div class="row">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ donation.id }}</td>
-            </tr>
-            <tr>
-                <th>Amount</th>
-                <td>{{ donation.amount }}</td>
-            </tr>
-            <tr>
-                <th>Donation_date</th>
-                <td>{{ donation.donationDate ? donation.donationDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                  <a href="{{ path('donation_show', { 'id': donation.id }) }}" class="list-group-item list-group-item-action active">Don</a>
+                  <a href="" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Édition</a>
+                </ul>
+            </div>
 
-    <a href="{{ path('donation_index') }}">back to list</a>
+        <div class="col-12 col-md-10">
+            <h1>
+                Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+            </h1>
+            <br>
+            <div class="container styledtable">
+            <br>
+                <h3>Informations du don</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Montant</th>
+                            <td>{{ donation.amount }}&nbsp;€</td>
+                        </tr>
+                        <tr>
+                            <th>Date de règlement</th>
+                            <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Donateurice</th>
+                            <td>{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Informations du paiement</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Montant</th>
+                            <td>{{ donation.payment.amount }}&nbsp;€</td>
+                        </tr>
+                        <tr>
+                            <th>Date de réception</th>
+                            <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date d'encaissement</th>
+                            <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Réglé via...</th>
+                            <td>{{ donation.payment.type.label }}</td>
+                        </tr>
+                        <tr>
+                            <th>Commentaire</th>
+                            <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
 
-    <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a>
+            <div class="row">
+                {% if is_granted("ROLE_GESTION") %}
+                <div class="col">
+                    <a href="{{ path('donation_index') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+                </div>
+                {% endif %}
+                <div class="col text-right">
+                    <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
+                        <i class="icon ion-md-trash"></i>&nbsp;Supprimer le don
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {{ include('Donation/_delete_form.html.twig') }}
+    <div id="confirmation-modal-deletion-donation-{{ donation.id }}" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>
+                        Souhaitez-vous réellement supprimer ce don de <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
+                    </p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                    </div>
+                    <div class="col text-right">
+                        {{ include('Donation/_delete_form_button.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
