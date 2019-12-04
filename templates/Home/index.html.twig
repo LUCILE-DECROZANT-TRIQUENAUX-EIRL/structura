@@ -10,6 +10,10 @@
     </li>
 {% endblock %}
 
+{% block javascript %}
+    <script src="{{ asset('javascript/Home/index.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">
@@ -78,6 +82,7 @@
             <div class="col-7">
                 <h3>Ex-Adhérents à relancer</h4>
                 <table
+                    id="people-waiting-send-up"
                     class="table table-striped"
                     data-toggle="datatable"
                     data-number-rows-display=5
@@ -191,8 +196,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('javascript/Home/index.js') }}"></script>
 {% endblock %}

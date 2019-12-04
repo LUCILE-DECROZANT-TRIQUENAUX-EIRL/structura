@@ -38,3 +38,17 @@ table.dataTable[data-rows="openable"] > tbody > tr,
 table.dataTable[data-rows="openable"] > tbody > tr > td {
     cursor: pointer;
 }
+
+.table-striped tbody tr {
+    transition-property: background-color color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+.table-striped tbody tr.row-opened {
+    transition-property: background-color color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    background-color: #af4e7a;
+    color: #fff;
+}
