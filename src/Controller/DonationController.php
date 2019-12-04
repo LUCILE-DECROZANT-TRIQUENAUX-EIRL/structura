@@ -18,10 +18,12 @@ class DonationController extends AbstractController
     /**
      * @Route("/", name="donation_index", methods={"GET"})
      */
-    public function index(DonationRepository $donationRepository): Response
+    public function listAction(DonationRepository $donationRepository): Response
     {
-        return $this->render('donation/index.html.twig', [
-            'donations' => $donationRepository->findAll(),
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('Donation/list.html.twig', [
+            'donations' => $em->getRepository(Donation::class)->findAll(),
         ]);
     }
 

@@ -19,32 +19,17 @@ class PaymentTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, PaymentType::class);
     }
 
-    // /**
-    //  * @return PaymentType[] Returns an array of PaymentType objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function findByAmountTooBigForMembership() {
+        $entityManager = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?PaymentType
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // All people with active membership
+        $query = $entityManager->createQuery(
+           'SELECT p FROM App\Entity\Payment p
+            JOIN p.membership m
+            JOIN m.type t
+            WHERE p.amount > t.defaultAmount'
+        );
+
+        return $query->execute();
     }
-    */
 }

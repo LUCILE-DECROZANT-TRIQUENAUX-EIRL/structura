@@ -1,0 +1,8 @@
+<form
+      method="post"
+      action="{{ path('donation_delete', {'id': donation.id}) }}"
+      >
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ donation.id) }}">
+    <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;Supprimer</button>
+</form>

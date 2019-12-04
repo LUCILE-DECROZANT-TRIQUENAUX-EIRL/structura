@@ -1,0 +1,155 @@
+{#<!DOCTYPE html>
+
+<title>Donation index</title>#}
+
+{#{% block body %}
+    <h1>Donation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>Donation_date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for donation in donations %}
+            <tr>
+                <td>{{ donation.id }}</td>
+                <td>{{ donation.amount }}</td>
+                <td>{{ donation.donationDate ? donation.donationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('donation_show', {'id': donation.id}) }}">show</a>
+                    <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('donation_new') }}">Create new</a>
+{% endblock %}#}
+
+
+
+
+
+
+{% extends 'Home/base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Liste des dons
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Liste des dons</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-copy-button="toggle"
+            data-csv-button="toggle"
+            data-pdf-button="togle"
+            data-create-label="Enregistrer un nouveau don"
+            data-create-path="{{ path('donation_create') }}"
+            >
+            <thead>
+                <tr>
+                    <th class="text-center" data-sortable="true" data-exportable="true">Montant</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">Date de règlement</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">Donateurice</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donation in donations %}
+                    <tr>
+                        <td class="align-middle text-center">{{ donation.amount }}&nbsp;€</td>
+                        <td class="align-middle text-center">{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} </td>
+                        <td class="align-middle text-center">{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }} </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('donation_show', { 'id': donation.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Voir le don"
+                                >
+                                <i class="icon ion-md-eye"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('donation_edit', { 'id': donation.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Éditer le don"
+                                >
+                                <i class="icon ion-md-create"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}">
+                            <a
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="Supprimer le don"
+                                >
+                                <i class="icon ion-md-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    {# Creation of the confirmation modals, one per member #}
+    {% for donation in donations %}
+        {% set delete_donation_form = donation_deletion_forms[donation.id] %}
+        <div id="confirmation-modal-deletion-donation-{{ donation.id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>
+                            Souhaitez-vous réellement supprimer ce don de <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
+                        </p>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                        </div>
+                        <div class="col text-right">
+                            {{ include('Donation/_delete_form_button.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
