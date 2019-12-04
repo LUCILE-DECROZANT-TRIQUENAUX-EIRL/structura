@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>Donation</title>
+
+{% block body %}
+    <h1>Donation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ donation.id }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ donation.amount }}</td>
+            </tr>
+            <tr>
+                <th>Donation_date</th>
+                <td>{{ donation.donationDate ? donation.donationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('donation_index') }}">back to list</a>
+
+    <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a>
+
+    {{ include('donation/_delete_form.html.twig') }}
+{% endblock %}

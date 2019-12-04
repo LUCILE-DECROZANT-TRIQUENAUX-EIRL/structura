@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Donation</title>
+
+{% block body %}
+    <h1>Edit Donation</h1>
+
+    {{ include('donation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('donation_index') }}">back to list</a>
+
+    {{ include('donation/_delete_form.html.twig') }}
+{% endblock %}
