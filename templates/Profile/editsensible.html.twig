@@ -36,67 +36,113 @@
         <h4>Édition</h4>
 
         <ul class="list-group">
-          {% if people.firstname is not empty %}
-          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
-          <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
-          {% endif %}
-          <a href="{{ path('profile_editsensible', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations sensibles</a>
-          <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
+            <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations du profil</a>
+            {% if people.firstname is not empty %}
+                <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
+                <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
+            {% endif %}
+            <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
         </ul>
     </div>
 
 
 
         <div class="col-12 col-md-10">
-
-        <div class="col">
-            <h1>
-            Édition des informations sensibles
-            </h1>
-        </div>
-
-        <div style="margin-top:24px;">
-        {{ form_start(editsensible_form, {'attr': {'id': 'form-edit-userprofile'}}) }}
-            <div class="form-group">
-                {{ form_label(editsensible_form.username) }}
-                {{ form_widget(editsensible_form.username) }}
+            <div class="row">
+                <div class="col">
+                    <h2>
+                        Modifier le profil
+                    </h2>
+                </div>
             </div>
-            <div class="form-group">
+
+            <div class="mt-4 row">
+                <div class="col-2">
+                    <img
+                        class="img-thumbnail"
+                        src="{{ asset('images/placeholder-personne.jpg') }}"
+                        alt="Emplacement pour l'avatar"
+                        data-toggle="tooltip"
+                        title="Work in progress..."
+                        >
+                </div>
+                <div class="col-10 pt-4">
+                    {{ form_start(editsensible_form, {'attr': {'id': 'form-edit-userprofile'}}) }}
+                    <div class="form-group">
+                        <label for="app_user_username" class="required">Pseudonyme</label>
+                        {{ form_widget(editsensible_form.username) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(editsensible_form._token) }}
+                        {{ form_end(editsensible_form, {'render_rest': false}) }}
+                    </div>
+                </div>
             </div>
-            {{ form_row(editsensible_form._token) }}
-        {{ form_end(editsensible_form, {'render_rest': false}) }}
-        <div class="col text-right">
-            <button
-                id="edit-sensible-submit-button"
-                type="submit"
-                form="form-edit-userprofile"
-                class="btn btn-primary"
-                >
-                Modifier le nom d'utilisateurice
-            </button>
-        </div>
-        </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button
+                        id="edit-sensible-submit-button"
+                        type="submit"
+                        form="form-edit-userprofile"
+                        class="btn btn-primary"
+                        >
+                        <i class="icon ion-md-save"></i>&nbsp;Sauver
+                    </button>
+                </div>
+            </div>
 
-        <div style="margin-top:48px;">
-        <h2>Mot de passe</h2>
-        {{ form_start(password_form, {'attr': {'id': 'form-edit-password'}}) }}
-        {{ form_errors(password_form) }}
-        <div class="form-group">
-            {{ form_widget(password_form) }}
-        </div>
-        {{ form_end(password_form) }}
-        <div class="col text-right">
-            <button
-                id="edit-password-submit-button"
-                type="submit"
-                form="form-edit-password"
-                class="btn btn-primary"
-                >
-                Modifier le mot de passe
-            </button>
-        </div>
-        </div>
-
+            <div class="row mt-4">
+                <div class="col">
+                    <h2>
+                        Modifier le mot de passe
+                    </h2>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col">
+                    {{ form_start(password_form, {'attr': {'id': 'form-edit-password'}}) }}
+                        {{ form_errors(password_form) }}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-3">
+                                    Ancien mot de passe
+                                </div>
+                                <div class="col-9">
+                                    {{ form_widget(password_form.oldPassword) }}
+                                </div>
+                            </div>
+                        </div>
+                        {% for key, passwordField in password_form.plainPassword %}
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-3">
+                                        {% if loop.first %}
+                                            Nouveau mot de passe
+                                        {% else %}
+                                            Confirmer le mot de passe
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-9">
+                                        {{ form_widget(passwordField) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {{ form_end(password_form) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button
+                        id="edit-password-submit-button"
+                        type="submit"
+                        form="form-edit-password"
+                        class="btn btn-primary"
+                        >
+                        <i class="icon ion-md-save"></i>&nbsp;Sauver
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
