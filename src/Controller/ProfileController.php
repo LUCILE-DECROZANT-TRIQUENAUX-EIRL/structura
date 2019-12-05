@@ -139,7 +139,7 @@ class ProfileController extends AbstractController
      * @param Request $request The request.
      * @param User $currentUser The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
-     * @Route("/{id}/editsensible", name="profile_editsensible", methods={"GET", "POST"})
+     * @Route("/{id}/editsensible", name="profile_edit_profile", methods={"GET", "POST"})
      * @Security("user.getId() == id")
      */
     public function editSensibleAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
@@ -181,7 +181,7 @@ class ProfileController extends AbstractController
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editsensible', ['id' => $currentUser->getId()]);
+            return $this->redirectToRoute('profile_edit_profile', ['id' => $currentUser->getId()]);
         }
 
         // Submit change of password
