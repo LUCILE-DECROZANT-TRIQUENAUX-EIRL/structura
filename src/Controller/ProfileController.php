@@ -184,47 +184,5 @@ class ProfileController extends AbstractController
             'password_form' => $passwordForm->createView(),
         ));
     }
-
-    /**
-     * Displays a form to edit roles of the connected user.
-     * @return views
-     * @param Request $request The request.
-     * @param User $currentUser The user to edit.
-     * @Route("/{id}/editroles", name="profile_editroles", methods={"GET", "POST"})
-     * @Security("(user.getId() == id) && is_granted('ROLE_ADMIN')")
-     */
-    public function editRolesAction(Request $request, User $currentUser)
-    {
-        if($currentUser->getPeople() != NULL)
-        {
-            $people = $currentUser->getPeople();
-        }
-        else {
-            $people = new People();
-        }
-
-        $editForm = $this->createForm(UserRolesType::class, $currentUser);
-        $editForm->handleRequest($request);
-
-        // Submit change of general infos
-        if ($editForm->isSubmitted() && $editForm->isValid())
-        {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
-            );
-
-            return $this->redirectToRoute('profile_editroles', ['id' => $currentUser->getId()]);
-        }
-
-        return $this->render('Profile/editroles.html.twig', array(
-            // Returns people and user to be able to access both infos in view
-            'people' => $people,
-            'user' => $currentUser,
-            'editroles_form' => $editForm->createView()
-        ));
-    }
-
-
 }
 
