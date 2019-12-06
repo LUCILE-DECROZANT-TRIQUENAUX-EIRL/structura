@@ -94,4 +94,3 @@ class LoginControllerTest extends WebTestCase
         );
     }
 }
-?>

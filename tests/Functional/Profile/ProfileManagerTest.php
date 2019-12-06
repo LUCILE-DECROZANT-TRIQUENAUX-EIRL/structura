@@ -122,4 +122,3 @@ class ProfileManagerTest extends WebTestCase
 
 }
 
-?>

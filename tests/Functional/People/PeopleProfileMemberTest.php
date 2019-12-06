@@ -52,4 +52,3 @@ class PeopleProfilePeopleest extends WebTestCase
      }
 }
 
-?>

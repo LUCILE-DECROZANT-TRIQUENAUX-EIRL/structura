@@ -78,4 +78,3 @@ class PeopleProfileManagerTest extends WebTestCase
         $this->assertContains('Édition', $crawler->filterXPath('(//ul/a)[4]')->text());
     }
 }
-?>

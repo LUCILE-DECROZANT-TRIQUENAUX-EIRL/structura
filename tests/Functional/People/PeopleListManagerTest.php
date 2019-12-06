@@ -131,4 +131,3 @@ class PeopleListManagerTest extends WebTestCase
 
 }
 
-?>

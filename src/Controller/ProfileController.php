@@ -228,4 +228,3 @@ class ProfileController extends AbstractController
 
 }
 
-?>

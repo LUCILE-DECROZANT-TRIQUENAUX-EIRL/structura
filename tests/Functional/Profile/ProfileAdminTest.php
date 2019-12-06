@@ -124,4 +124,3 @@ class ProfileAdminTest extends WebTestCase
 
 }
 
-?>

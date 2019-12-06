@@ -48,4 +48,3 @@ class PeopleListPeopleTest extends WebTestCase
 
 }
 
-?>

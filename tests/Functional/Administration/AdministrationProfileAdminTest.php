@@ -75,4 +75,3 @@ class AdministrationProfileAdminTest extends WebTestCase
     }
 }
 
-?>

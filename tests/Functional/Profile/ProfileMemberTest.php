@@ -121,4 +121,3 @@ class ProfilePeopleTest extends WebTestCase
 
 }
 
-?>

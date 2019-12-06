@@ -126,4 +126,3 @@ class AdministrationListAdminTest extends WebTestCase
 
 }
 
-?>

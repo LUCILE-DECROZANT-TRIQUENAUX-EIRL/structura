@@ -57,4 +57,3 @@ class AdministrationListPeopleTest extends WebTestCase
 
 }
 
-?>

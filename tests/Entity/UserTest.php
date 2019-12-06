@@ -94,4 +94,3 @@ class UserTest extends TestCase
 
 }
 
-?>

@@ -1112,4 +1112,3 @@ class PeopleControllerTest extends WebTestCase
 
 
 }
-?>

@@ -84,4 +84,3 @@ class HomePeopleTest extends WebTestCase
 
 }
 
-?>
