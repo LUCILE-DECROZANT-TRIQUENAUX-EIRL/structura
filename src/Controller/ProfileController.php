@@ -93,47 +93,6 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * Displays a form to edit contact infos of the connected user.
-     * @return views
-     * @param Request $request The request.
-     * @param People $people The user to edit.
-     * @Route("/{id}/editcontact", name="profile_editcontact", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
-     */
-    public function editContactAction(Request $request, User $currentUser)
-    {
-        if($currentUser->getPeople() != NULL)
-        {
-            $people = $currentUser->getPeople();
-        }
-        else {
-            $people = new People();
-        }
-
-
-        $editForm = $this->createForm(PeopleContactType::class, $people);
-        $editForm->handleRequest($request);
-
-        // Submit change of general infos
-        if ($editForm->isSubmitted() && $editForm->isValid())
-        {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
-            );
-
-            return $this->redirectToRoute('profile_editcontact', ['id' => $currentUser->getId()]);
-        }
-
-        return $this->render('Profile/editcontact.html.twig', array(
-            // Returns people and user to be able to access both infos in view
-            'people' => $people,
-            'user' => $currentUser,
-            'profile_editcontact' => $editForm->createView()
-        ));
-    }
-
-    /**
      * Displays a form to edit sensible infos of the connected user.
      * @return views
      * @param Request $request The request.
