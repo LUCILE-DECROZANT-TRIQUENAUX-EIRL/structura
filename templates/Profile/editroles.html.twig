@@ -38,7 +38,7 @@
         <ul class="list-group">
           <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations du profil</a>
           {% if people.firstname is not empty %}
-          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
+          <a href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
           <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
           {% endif %}
           <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Rôles</a>

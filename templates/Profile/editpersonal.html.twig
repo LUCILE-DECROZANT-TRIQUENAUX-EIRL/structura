@@ -29,7 +29,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-8 col-md-2">
+            <div class="col-2">
                 <ul class="list-group">
                     <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
                 </ul>
@@ -39,7 +39,7 @@
 
                 <ul class="list-group">
                     <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations du profil</a>
-                    <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
+                    <a href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
                     <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
                     <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
                 </ul>
@@ -64,9 +64,6 @@
                         Enregistrer les changements
                     </button>
                 </div>
-
             </div>
-        </div>
-    </div>
 
 {% endblock %}

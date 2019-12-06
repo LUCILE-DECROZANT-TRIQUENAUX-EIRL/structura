@@ -56,7 +56,7 @@ class ProfileController extends AbstractController
      * @return views
      * @param Request $request The request.
      * @param People $people The user to edit.
-     * @Route("/{id}/editpersonal", name="profile_editpersonal", methods={"GET", "POST"})
+     * @Route("/{id}/editpersonal", name="profile_edit_personal_data", methods={"GET", "POST"})
      * @Security("(user.getId() == id)")
      */
     public function editPersonalAction(Request $request, User $currentUser)
@@ -81,14 +81,14 @@ class ProfileController extends AbstractController
                     'success', sprintf('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_editpersonal', ['id' => $currentUser->getId()]);
+            return $this->redirectToRoute('profile_edit_personal_data', ['id' => $currentUser->getId()]);
         }
 
         return $this->render('Profile/editpersonal.html.twig', array(
             // Returns people and user to be able to access both infos in view
             'people' => $people,
             'user' => $currentUser,
-            'profile_editpersonal' => $editForm->createView()
+            'profile_edit_personal_data' => $editForm->createView()
         ));
     }
 
