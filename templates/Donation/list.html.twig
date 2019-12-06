@@ -84,7 +84,6 @@
 
     {# Creation of the confirmation modals, one per member #}
     {% for donation in donations %}
-        {% set delete_donation_form = donation_deletion_forms[donation.id] %}
         <div id="confirmation-modal-deletion-donation-{{ donation.id }}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
