@@ -45,25 +45,195 @@
                 </ul>
             </div>
 
-            <div class="col-12 col-md-10">
-                <div class="col">
-                    <h1>
-                        Édition des informations personnelles
-                    </h1>
-                </div>
+            <div class="col-10">
+                <h1>
+                    Identité
+                </h1>
 
-                {{ form_start(profile_editpersonal, {'attr': {'id': 'form-editpersonal-profile'}}) }}
-                {{ form_end(profile_editpersonal) }}
-                <div class="col text-right">
-                    <button
-                        id="edit-contact-submit-button"
-                        type="submit"
-                        form="form-editpersonal-profile"
-                        class="btn btn-primary"
-                        >
-                        Enregistrer les changements
-                    </button>
+                <div class="mt-4 row">
+                    <div class="col-2">
+                        <img
+                            class="img-thumbnail"
+                            src="{{ asset('images/placeholder-personne.jpg') }}"
+                            alt="Emplacement pour l'avatar"
+                            data-toggle="tooltip"
+                            title="Work in progress..."
+                            >
+                    </div>
+                    <div class="col-10">
+                        {{ form_start(profile_edit_personal_data, {'attr': {'id': 'form-edit-personal-data'}}) }}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-1 align-middle">
+                                    <label for="app_user_denomination" class="required">Civilité</label>
+                                </div>
+                                <div class="col-11">
+                                    {{ form_widget(profile_edit_personal_data.denomination) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="app_user_username" class="required">Prénom</label>
+                                    {{ form_widget(profile_edit_personal_data.firstName) }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="app_user_username" class="required">Nom de famille</label>
+                                    {{ form_widget(profile_edit_personal_data.lastName) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    Adresse
+                                </h2>
+                            </div>
+                        </div>
+                        {% for address in profile_edit_personal_data.addresses %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">Adresse</label>
+                                        {{ form_widget(address.line) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">Code postal</label>
+                                        {{ form_widget(address.postalCode) }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">Ville</label>
+                                        {{ form_widget(address.city) }}
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">Pays</label>
+                                        {{ form_widget(address.country) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    Téléphone et email
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">Téléphone fixe</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.homePhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">Téléphone portable</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.cellPhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">Téléphone professionnel</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.workPhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">Fax</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.workFaxNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <label for="app_user_username" class="required">Email</label>
+                                        </div>
+                                        <div class="col-11">
+                                            {{ form_widget(profile_edit_personal_data.emailAddress) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    Commentaires
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for="app_user_username" class="required">Observations</label>
+                                </div>
+                                <div class="col-10">
+                                    {{ form_widget(profile_edit_personal_data.observations) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for="app_user_username" class="required">Détails médicaux</label>
+                                </div>
+                                <div class="col-10">
+                                    {{ form_widget(profile_edit_personal_data.sensitiveObservations) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(profile_edit_personal_data) }}
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="col text-center">
+                                        <button
+                                            id="edit-contact-submit-button"
+                                            type="submit"
+                                            form="form-edit-personal-data"
+                                            class="btn btn-primary"
+                                            >
+                                            <i class="icon ion-md-save"></i>&nbsp;Enregistrer les changements
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
 {% endblock %}

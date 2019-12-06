@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -41,13 +43,43 @@ class PeoplePersonalType extends AbstractType
                         return ['data-denomination-description' => $denomination->getLabel()];
                     },
                 ])
-                ->add('firstname', TextType::class, [
+                ->add('firstName', TextType::class, [
                     'label' => 'Prénom',
                     'required' => true
                 ])
-                ->add('lastname', TextType::class, [
+                ->add('lastName', TextType::class, [
                     'label' => 'Nom de famille',
                     'required' => true
+                ])
+                ->add('addresses', CollectionType::class, [
+                    'label' => false,
+                    'entry_type' => AddressType::class,
+                    'entry_options' => ['label' => false],
+                    'required' => false
+                ])
+                ->add('homePhoneNumber', TelType::class, [
+                    'label' => 'Téléphone fixe',
+                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres',
+                    'required' => false
+                ])
+                ->add('cellPhoneNumber', TelType::class, [
+                    'label' => 'Téléphone portable',
+                    'help' => 'Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres',
+                    'required' => false
+                ])
+                ->add('workPhoneNumber', TelType::class, [
+                    'label' => 'Téléphone de travail',
+                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
+                    'required' => false
+                ])
+                ->add('workFaxNumber', TelType::class, [
+                    'label' => 'Fax de travail',
+                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
+                    'required' => false
+                ])
+                ->add('emailAddress', EmailType::class, [
+                    'label' => 'Adresse mail',
+                    'required' => false
                 ])
                 ->add('observations', TextareaType::class, [
                     'label' => 'Observations',
