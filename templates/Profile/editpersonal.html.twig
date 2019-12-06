@@ -25,53 +25,48 @@
 {% endblock %}
 
 {% block body %}
-<br>
-<div class="container">
-    <div class="row">
+    <br>
+    <div class="container">
+        <div class="row">
 
-    <div class="col-8 col-md-2">
-        <ul class="list-group">
-          <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
-        </ul>
+            <div class="col-8 col-md-2">
+                <ul class="list-group">
+                    <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
+                </ul>
 
-        <br>
-        <h4>Édition</h4>
+                <br>
+                <h4>Édition</h4>
 
-        <ul class="list-group">
-          <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations du profil</a>
-          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
-          <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
-          <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
-        </ul>
-    </div>
-
-
-
-        <div class="col-12 col-md-10">
-
-        <div class="col">
-            <h1>
-            Édition des informations personnelles
-            </h1>
-        </div>
-
-        {{ form_start(profile_editpersonal, {'attr': {'id': 'form-editpersonal-profile'}}) }}
-            <div class="form-group">
+                <ul class="list-group">
+                    <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations du profil</a>
+                    <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
+                    <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
+                    <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
+                </ul>
             </div>
-        {{ form_end(profile_editpersonal) }}
-        <div class="col text-right">
-            <button
-                id="edit-contact-submit-button"
-                type="submit"
-                form="form-editpersonal-profile"
-                class="btn btn-primary"
-                >
-                Enregistrer les changements
-            </button>
-        </div>
 
+            <div class="col-12 col-md-10">
+                <div class="col">
+                    <h1>
+                        Édition des informations personnelles
+                    </h1>
+                </div>
+
+                {{ form_start(profile_editpersonal, {'attr': {'id': 'form-editpersonal-profile'}}) }}
+                {{ form_end(profile_editpersonal) }}
+                <div class="col text-right">
+                    <button
+                        id="edit-contact-submit-button"
+                        type="submit"
+                        form="form-editpersonal-profile"
+                        class="btn btn-primary"
+                        >
+                        Enregistrer les changements
+                    </button>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
