@@ -101,7 +101,7 @@ class ProfileController extends AbstractController
      * @Route("/{id}/editsensible", name="profile_edit_profile", methods={"GET", "POST"})
      * @Security("user.getId() == id")
      */
-    public function editSensibleAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
+    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
     {
 
         $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
@@ -135,7 +135,6 @@ class ProfileController extends AbstractController
             $entityManager->persist($currentUser);
             $entityManager->flush();
 
-            //$this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                     'success', sprintf('Les informations ont bien été modifiées')
             );
