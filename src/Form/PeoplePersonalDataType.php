@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Form to edit a user personal infos
  */
-class PeoplePersonalType extends AbstractType
+class PeoplePersonalDataType extends AbstractType
 {
 
     /**

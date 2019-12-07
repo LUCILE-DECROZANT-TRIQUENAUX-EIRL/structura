@@ -11,7 +11,7 @@ use App\Form\UserGeneralDataType;
 use App\Form\UserPasswordType;
 use App\Form\UserRolesType;
 use App\Form\PeopleContactType;
-use App\Form\PeoplePersonalType;
+use App\Form\PeoplePersonalDataType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -69,8 +69,7 @@ class ProfileController extends AbstractController
             $people = new People();
         }
 
-
-        $editForm = $this->createForm(PeoplePersonalType::class, $people);
+        $editForm = $this->createForm(PeoplePersonalDataType::class, $people);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -182,6 +181,11 @@ class ProfileController extends AbstractController
             'editsensible_form' => $editForm->createView(),
             'password_form' => $passwordForm->createView(),
         ));
+    }
+
+    public function editNewsletterSubscriptionAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
+    {
+
     }
 }
 
