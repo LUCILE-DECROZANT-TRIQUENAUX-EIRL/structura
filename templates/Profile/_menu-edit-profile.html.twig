@@ -1,0 +1,25 @@
+{% block body %}
+    {% set show = show is defined ? show : null %}
+    {% set profile = profile is defined ? profile : null %}
+    {% set personal = personal is defined ? personal : null %}
+    <ul class="list-group">
+        <a href="{{ path('profile_show', { 'id': user.id }) }}"
+           class="list-group-item list-group-item-action {{ show }}">
+            Profil
+        </a>
+    </ul>
+    <h4 class="mt-4">Édition</h4>
+    <ul class="list-group">
+        <a
+            href="{{ path('profile_edit_profile', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ profile }}"
+            >
+            Informations du profil
+        </a>
+        <a
+            href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ personal }}">
+            Informations personnelles
+        </a>
+    </ul>
+{% endblock %}

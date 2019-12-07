@@ -30,17 +30,7 @@
         <div class="row">
 
             <div class="col-2">
-                <ul class="list-group">
-                    <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
-                </ul>
-
-                <br>
-                <h4>Édition</h4>
-
-                <ul class="list-group">
-                    <a href="{{ path('profile_edit_profile', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations du profil</a>
-                    <a href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
-                </ul>
+                {{ include('Profile/_menu-edit-profile.html.twig', { personal: 'active' }) }}
             </div>
 
             <div class="col-10">
