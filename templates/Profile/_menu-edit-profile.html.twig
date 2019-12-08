@@ -2,6 +2,7 @@
     {% set show = show is defined ? show : null %}
     {% set profile = profile is defined ? profile : null %}
     {% set personal = personal is defined ? personal : null %}
+    {% set newsletter = newsletter is defined ? newsletter : null %}
     <ul class="list-group">
         <a href="{{ path('profile_show', { 'id': user.id }) }}"
            class="list-group-item list-group-item-action {{ show }}">
@@ -20,6 +21,11 @@
             href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ personal }}">
             Informations personnelles
+        </a>
+        <a
+            href="{{ path('profile_edit_newsletter', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ newsletter }}">
+            Abonnement aux newsletter
         </a>
     </ul>
 {% endblock %}
