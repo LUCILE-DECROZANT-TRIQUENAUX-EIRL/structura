@@ -12,6 +12,7 @@ use App\Form\UserPasswordType;
 use App\Form\UserRolesType;
 use App\Form\PeopleContactType;
 use App\Form\PeoplePersonalDataType;
+use App\Form\PeopleNewsletterType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -183,9 +184,45 @@ class ProfileController extends AbstractController
         ));
     }
 
-    public function editNewsletterSubscriptionAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * Displays a form to edit newsletter parameters of the connected user.
+     * @return views
+     * @param Request $request The request.
+     * @param User $currentUser The user to edit.
+     * @Route("/{id}/editnewsletter", name="profile_edit_newsletter", methods={"GET", "POST"})
+     * @Security("user.getId() == id")
+     */
+    public function editNewsletterSubscriptionAction(Request $request, User $currentUser)
     {
+        if ($currentUser->getPeople() != null)
+        {
+            $people = $currentUser->getPeople();
+        }
+        else
+        {
+            $people = new People();
+        }
 
+        $editForm = $this->createForm(PeopleNewsletterType::class, $people);
+        $editForm->handleRequest($request);
+
+        // Submit change of general infos
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                    'success', sprintf('Les informations ont bien été modifiées')
+            );
+
+            return $this->redirectToRoute('profile_edit_newsletter', ['id' => $currentUser->getId()]);
+        }
+
+        return $this->render('Profile/edit-newsletter.html.twig', [
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
+            'user' => $currentUser,
+            'form' => $editForm->createView(),
+        ]);
     }
 }
 
