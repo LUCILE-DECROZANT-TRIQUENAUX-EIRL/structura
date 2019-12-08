@@ -122,16 +122,36 @@
                                     </div>
                                 </li>
                             {% endif %}
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link disabled"
-                                    href="#"
-                                    data-toggle="tooltip"
-                                    title="Work in progress..."
-                                >
-                                    Dons
-                                </a>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="dropdown-directory"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        Dons
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
+                                            <a
+                                                class="dropdown-item"
+                                                href="{{ path('donation_index') }}"
+                                            >
+                                                Liste des dons
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a
+                                                class="dropdown-item disabled"
+                                                href=""
+                                                data-toggle="tooltip"
+                                                title="Work in progress..."
+                                            >
+                                                Enregistrer un nouveau don
+                                            </a>
+                                    </div>
+                                </li>
                         {% endif %}
                     </ul>
                     <ul class="navbar-nav ml-auto">
