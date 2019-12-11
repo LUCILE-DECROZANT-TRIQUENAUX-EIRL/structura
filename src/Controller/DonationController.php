@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Donation;
 use App\Form\DonationType;
+use App\FormDataObject\UpdateDonationFDO;
 use App\Repository\DonationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,13 +66,34 @@ class DonationController extends AbstractController
      */
     public function edit(Request $request, Donation $donation): Response
     {
-        $form = $this->createForm(DonationType::class, $donation);
+        $updatePeopleDataFDO = new UpdateDonationFDO($donation);
+
+        $form = $this->createForm(DonationType::class, $updatePeopleDataFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
 
-            return $this->redirectToRoute('donation_index');
+            $donator = $updatePeopleDataFDO->getDonator();
+
+            $donation->setAmount($updatePeopleDataFDO->getAmount());
+            $donation->setDonator($donator);
+            $donation->setDonationDate($updatePeopleDataFDO->getDonationDate());
+
+            $payment = $donation->getPayment();
+
+            $payment->setPayer($donator);
+            $payment->setType($updatePeopleDataFDO->getPaymentType());
+            $payment->setAmount($updatePeopleDataFDO->getAmount());
+            $payment->setDateReceived($updatePeopleDataFDO->getDonationDate());
+            $payment->setDateCashed($updatePeopleDataFDO->getCashedDate());
+
+            $em->persist($payment);
+            $em->persist($donation);
+
+            $em->flush();
+
+            return $this->redirectToRoute('donation_show', ['id' => $donation->getId()]);
         }
 
         return $this->render('Donation/edit.html.twig', [

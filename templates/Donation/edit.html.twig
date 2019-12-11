@@ -1,13 +1,89 @@
-<!DOCTYPE html>
+{% extends 'Home/base.html.twig' %}
 
-<title>Edit Donation</title>
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('donation_index') }}">Liste des dons</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+    </li>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/Donation/edit.js') }}"></script>
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Donation</h1>
-
-    {{ include('donation/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('donation_index') }}">back to list</a>
-
-    {{ include('donation/_delete_form.html.twig') }}
+    {{ form_start(form, {'attr': {'id': 'form-edit-donation'}}) }}
+    {% set hasDonator = donation.donator is defined %}
+    {% set donator = donation.donator %}
+    <div class="container mt-4">
+        <div class="border p-3">
+            <div id="people-selected" class="row {{ hasDonator ? '' : 'd-none' }}">
+                {{ include('Donation/_people_selected.html.twig') }}
+            </div>
+            <div id="people-selector" class="row {{ hasDonator ? 'd-none' : '' }}">
+                {% include 'Donation/_people_selector.html.twig'
+                    with {'form_donator_widget' : form_widget(form.donator)} %}
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <div class="border p-3">
+                    <div class="col-12">
+                        <label for="donation_amount">Fait un don de</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.amount) }}
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="donation_donation_date">Le</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.donation_date) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="border p-3">
+                    <div class="col-12">
+                        <label for="donation_payment_type">Règle via</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.payment_type) }}
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="donation_cashed_date">Paiment encaissé le</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.cashed_date) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <a href="{{ path('donation_index') }}" class="btn btn-secondary">Retour à la liste des dons</a>
+            </div>
+            <div class="col-md-6">
+                <button
+                    class="btn btn-primary float-right"
+                    type="submit"
+                    form="form-edit-donation"
+                >
+                    Enregistrer les modifications
+                </button>
+            </div>
+        </div>
+    </div>
 {% endblock %}
