@@ -7,6 +7,8 @@
         "ext-iconv": "*",
         "dmore/chrome-mink-driver": "^2.7",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "friendsofsymfony/rest-bundle": "^2.6",
+        "jms/serializer-bundle": "^3.5",
         "sensio/framework-extra-bundle": "^5.4",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",
