@@ -8,6 +8,9 @@
       <trans-unit id="UzFhc1Y" resname="Accueil" approved="yes">
         <source>Accueil</source>
         <target state="final">Home</target>
+        <alt-trans>
+          <target>__Accueil</target>
+        </alt-trans>
       </trans-unit>
     </body>
   </file>
