@@ -5,9 +5,12 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="UzFhc1Y" resname="Accueil">
+      <trans-unit id="UzFhc1Y" resname="Accueil" approved="yes">
         <source>Accueil</source>
-        <target state="needs-translation">Accueil</target>
+        <target state="final">Accueil</target>
+        <alt-trans>
+          <target>__Accueil</target>
+        </alt-trans>
       </trans-unit>
     </body>
   </file>
