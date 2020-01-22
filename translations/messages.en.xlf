@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="UzFhc1Y" resname="Accueil">
         <source>Accueil</source>
-        <target>__Accueil</target>
+        <target state="translated">__Accueil</target>
       </trans-unit>
     </body>
   </file>
