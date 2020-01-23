@@ -34,11 +34,6 @@ class MembershipType
     private $defaultAmount;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Membership", mappedBy="type")
-     */
-    private $memberships;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isMultiMembers;
@@ -102,14 +97,6 @@ class MembershipType
         return $this;
     }
 
-    /**
-     * @return Collection|Membership[]
-     */
-    public function getMemberships(): Collection
-    {
-        return $this->memberships;
-    }
-
     function getIsMultiMembers(): bool
     {
         return $this->isMultiMembers;
@@ -129,29 +116,6 @@ class MembershipType
     function setNumberMaxMembers(int $numberMaxMembers): MembershipType
     {
         $this->numberMaxMembers = $numberMaxMembers;
-        return $this;
-    }
-
-    public function addMembership(Membership $membership): self
-    {
-        if (!$this->memberships->contains($membership)) {
-            $this->memberships[] = $membership;
-            $membership->setType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMembership(Membership $membership): self
-    {
-        if ($this->memberships->contains($membership)) {
-            $this->memberships->removeElement($membership);
-            // set the owning side to null (unless already changed)
-            if ($membership->getType() === $this) {
-                $membership->setType(null);
-            }
-        }
-
         return $this;
     }
 }
