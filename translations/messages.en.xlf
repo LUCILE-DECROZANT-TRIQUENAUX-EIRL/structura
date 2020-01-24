@@ -810,23 +810,38 @@
       </trans-unit>
       <trans-unit id="mJMkdXe" resname="Informations personnelles">
         <source>Informations personnelles</source>
-        <target state="translated">__Informations personnelles</target>
+        <target state="translated">Account Information</target>
+        <alt-trans>
+          <target>__Informations personnelles</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="v_mOH3Y" resname="Abonnement aux newsletter">
         <source>Abonnement aux newsletter</source>
-        <target state="translated">__Abonnement aux newsletter</target>
+        <target state="translated">Newsletter subscription</target>
+        <alt-trans>
+          <target>__Abonnement aux newsletter</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="_Eyi53F" resname="Newsletter">
         <source>Newsletter</source>
-        <target state="translated">__Newsletter</target>
+        <target state="translated">Newsletter</target>
+        <alt-trans>
+          <target>__Newsletter</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NxG8b.B" resname="Identité">
         <source>Identité</source>
-        <target state="translated">__Identité</target>
+        <target state="translated">Identity</target>
+        <alt-trans>
+          <target>__Identité</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NKo4s1_" resname="Emplacement pour l'avatar">
         <source>Emplacement pour l'avatar</source>
-        <target state="translated">__Emplacement pour l'avatar</target>
+        <target state="translated">Avatar placeholder</target>
+        <alt-trans>
+          <target>__Emplacement pour l'avatar</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="kBziTMq" resname="Civilité">
         <source>Civilité</source>
