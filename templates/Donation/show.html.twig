@@ -6,15 +6,15 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('donation_index') }}">Liste des dons</a>
+        <a href="{{ path('donation_index') }}">{% trans %}Liste des dons{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
     </li>
 {% endblock %}
 
@@ -25,59 +25,59 @@
 
             <div class="col-8 col-md-2">
                 <ul class="list-group">
-                  <a href="{{ path('donation_show', { 'id': donation.id }) }}" class="list-group-item list-group-item-action active">Don</a>
-                  <a href="" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Édition</a>
+                    <a href="{{ path('donation_show', { 'id': donation.id }) }}" class="list-group-item list-group-item-action active">{% trans %}Don{% endtrans %}</a>
+                    <a href="" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">{% trans %}Édition{% endtrans %}</a>
                 </ul>
             </div>
 
         <div class="col-12 col-md-10">
             <h1>
-                Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+                {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
             </h1>
             <br>
             <div class="container styledtable">
             <br>
-                <h3>Informations du don</h3>
+            <h3>{% trans %}Informations du don{% endtrans %}</h3>
                 <br>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Montant</th>
+                            <th>{% trans %}Montant{% endtrans %}</th>
                             <td>{{ donation.amount }}&nbsp;€</td>
                         </tr>
                         <tr>
-                            <th>Date de règlement</th>
+                            <th>{% trans %}Date de règlement{% endtrans %}</th>
                             <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
                         </tr>
                         <tr>
-                            <th>Donateurice</th>
+                            <th>{% trans %}Donateurice{% endtrans %}</th>
                             <td>{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <br>
-                <h3>Informations du paiement</h3>
+                <h3>{% trans %}Informations du paiement{% endtrans %}</h3>
                 <br>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Montant</th>
+                            <th>{% trans %}Montant{% endtrans %}</th>
                             <td>{{ donation.payment.amount }}&nbsp;€</td>
                         </tr>
                         <tr>
-                            <th>Date de réception</th>
+                            <th>{% trans %}Date de réception{% endtrans %}</th>
                             <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
                         </tr>
                         <tr>
-                            <th>Date d'encaissement</th>
+                            <th>{% trans %}Date d'encaissement{% endtrans %}</th>
                             <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
                         </tr>
                         <tr>
-                            <th>Réglé via...</th>
+                            <th>{% trans %}Réglé via...{% endtrans %}</th>
                             <td>{{ donation.payment.type.label }}</td>
                         </tr>
                         <tr>
-                            <th>Commentaire</th>
+                            <th>{% trans %}Commentaire{% endtrans %}</th>
                             <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
                         </tr>
                     </tbody>
@@ -88,12 +88,12 @@
             <div class="row">
                 {% if is_granted("ROLE_GESTION") %}
                 <div class="col">
-                    <a href="{{ path('donation_index') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des utilisateurices</a>
+                    <a href="{{ path('donation_index') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
                 </div>
                 {% endif %}
                 <div class="col text-right">
                     <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
-                        <i class="icon ion-md-trash"></i>&nbsp;Supprimer le don
+                        <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
                     </button>
                 </div>
             </div>
@@ -105,15 +105,15 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p>
-                        Souhaitez-vous réellement supprimer ce don de <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
+                        {% trans %}Souhaitez-vous réellement supprimer ce don de{% endtrans %} <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
                     </p>
                     <div class="alert alert-warning" role="alert">
-                        <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                        <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
                     </div>
                     <div class="col text-right">
                         {{ include('Donation/_delete_form_button.html.twig') }}

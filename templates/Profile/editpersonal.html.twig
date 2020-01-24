@@ -1,3 +1,4 @@
+
 {% extends 'Home/base.html.twig' %}
 
 {% set profileLabel = app.user.username == people.user.username ? "mon profil" : "l'utilisateurice" %}
@@ -12,15 +13,15 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ path('profile_show', { 'id': user.id }) }}">
-            Mon profil
+            {% trans %}Mon profil{% endtrans %}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Éditer mon profil
+        {% trans %}Éditer mon profil{% endtrans %}
     </li>
 {% endblock %}
 
@@ -35,7 +36,7 @@
 
             <div class="col-10">
                 <h1>
-                    Identité
+                    {% trans %}Identité{% endtrans %}
                 </h1>
 
                 <div class="mt-4 row">
@@ -43,9 +44,9 @@
                         <img
                             class="img-thumbnail"
                             src="{{ asset('images/placeholder-personne.jpg') }}"
-                            alt="Emplacement pour l'avatar"
+                            alt="{% trans %}Emplacement pour l'avatar{% endtrans %}"
                             data-toggle="tooltip"
-                            title="Work in progress..."
+                            title="{% trans %}Work in progress...{% endtrans %}"
                             >
                     </div>
                     <div class="col-10">
@@ -53,7 +54,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-1 align-middle">
-                                    <label for="app_user_denomination" class="required">Civilité</label>
+                                    <label for="app_user_denomination" class="required">{% trans %}Civilité{% endtrans %}</label>
                                 </div>
                                 <div class="col-11">
                                     {{ form_widget(profile_edit_personal_data.denomination) }}
@@ -63,13 +64,13 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="app_user_username" class="required">Prénom</label>
+                                    <label for="app_user_username" class="required">{% trans %}Prénom{% endtrans %}</label>
                                     {{ form_widget(profile_edit_personal_data.firstName) }}
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="app_user_username" class="required">Nom de famille</label>
+                                    <label for="app_user_username" class="required">{% trans %}Nom de famille{% endtrans %}</label>
                                     {{ form_widget(profile_edit_personal_data.lastName) }}
                                 </div>
                             </div>
@@ -79,7 +80,7 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <h2>
-                                    Adresse
+                                    {% trans %}Adresse{% endtrans %}
                                 </h2>
                             </div>
                         </div>
@@ -87,7 +88,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="app_user_username" class="required">Adresse</label>
+                                        <label for="app_user_username" class="required">{% trans %}Adresse{% endtrans %}</label>
                                         {{ form_widget(address.line) }}
                                     </div>
                                 </div>
@@ -95,19 +96,19 @@
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="app_user_username" class="required">Code postal</label>
+                                        <label for="app_user_username" class="required">{% trans %}Code postal{% endtrans %}</label>
                                         {{ form_widget(address.postalCode) }}
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="app_user_username" class="required">Ville</label>
+                                        <label for="app_user_username" class="required">{% trans %}Ville{% endtrans %}</label>
                                         {{ form_widget(address.city) }}
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="app_user_username" class="required">Pays</label>
+                                        <label for="app_user_username" class="required">{% trans %}Pays{% endtrans %}</label>
                                         {{ form_widget(address.country) }}
                                     </div>
                                 </div>
@@ -116,7 +117,7 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <h2>
-                                    Téléphone et email
+                                    {% trans %}Téléphone et email{% endtrans %}
                                 </h2>
                             </div>
                         </div>
@@ -125,7 +126,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label for="app_user_username" class="required">Téléphone fixe</label>
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone fixe{% endtrans %}</label>
                                         </div>
                                         <div class="col-9">
                                             {{ form_widget(profile_edit_personal_data.homePhoneNumber) }}
@@ -135,7 +136,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label for="app_user_username" class="required">Téléphone portable</label>
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone portable{% endtrans %}</label>
                                         </div>
                                         <div class="col-9">
                                             {{ form_widget(profile_edit_personal_data.cellPhoneNumber) }}
@@ -145,7 +146,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label for="app_user_username" class="required">Téléphone professionnel</label>
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone professionnel{% endtrans %}</label>
                                         </div>
                                         <div class="col-9">
                                             {{ form_widget(profile_edit_personal_data.workPhoneNumber) }}
@@ -155,7 +156,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label for="app_user_username" class="required">Fax</label>
+                                            <label for="app_user_username" class="required">{% trans %}Fax{% endtrans %}</label>
                                         </div>
                                         <div class="col-9">
                                             {{ form_widget(profile_edit_personal_data.workFaxNumber) }}
@@ -165,7 +166,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-1">
-                                            <label for="app_user_username" class="required">Email</label>
+                                            <label for="app_user_username" class="required">{% trans %}Email{% endtrans %}</label>
                                         </div>
                                         <div class="col-11">
                                             {{ form_widget(profile_edit_personal_data.emailAddress) }}
@@ -177,14 +178,14 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <h2>
-                                    Commentaires
+                                    {% trans %}Commentaires{% endtrans %}
                                 </h2>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-2">
-                                    <label for="app_user_username" class="required">Observations</label>
+                                    <label for="app_user_username" class="required">{% trans %}Observations{% endtrans %}</label>
                                 </div>
                                 <div class="col-10">
                                     {{ form_widget(profile_edit_personal_data.observations) }}
@@ -194,7 +195,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-2">
-                                    <label for="app_user_username" class="required">Détails médicaux</label>
+                                    <label for="app_user_username" class="required">{% trans %}Détails médicaux{% endtrans %}</label>
                                 </div>
                                 <div class="col-10">
                                     {{ form_widget(profile_edit_personal_data.sensitiveObservations) }}
@@ -212,7 +213,7 @@
                                             form="form-edit-personal-data"
                                             class="btn btn-primary"
                                             >
-                                            <i class="icon ion-md-save"></i>&nbsp;Enregistrer les changements
+                                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Enregistrer les changements{% endtrans %}
                                         </button>
                                     </div>
                                 </div>

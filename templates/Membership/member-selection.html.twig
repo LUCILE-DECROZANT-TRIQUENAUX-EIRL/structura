@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Sélection des personnes à faire adhérer
+        {% trans %}Sélection des personnes à faire adhérer{% endtrans %}
     </li>
 {% endblock %}
 
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Sélectionnez les personnes à faire adhérer</h1>
+                <h1>{% trans %}Sélectionnez les personnes à faire adhérer{% endtrans %}</h1>
             </div>
         </div>
     </div>
@@ -25,17 +25,17 @@
             <table
                 class="table table-striped"
                 data-toggle="datatable"
-                data-create-label="Enregistrer un·e nouvel·le personne dans l'annuaire"
+                data-create-label="{% trans %}Enregistrer un·e nouvel·le personne dans l'annuaire{% endtrans %}"
                 data-create-path="{{ path('people_create') }}"
                 data-ordered-column-index="2"
             >
                 <thead>
                     <tr>
                         <th data-sortable="false"></th>
-                        <th data-sortable="true">Dénomination</th>
-                        <th data-sortable="true">Nom</th>
-                        <th data-sortable="true">Prénom</th>
-                        <th data-exportable="true">Adresse.s</th>
+                        <th data-sortable="true">{% trans %}Dénomination{% endtrans %}</th>
+                        <th data-sortable="true">{% trans %}Nom{% endtrans %}</th>
+                        <th data-sortable="true">{% trans %}Prénom{% endtrans %}</th>
+                        <th data-exportable="true">{% trans %}Adresse.s{% endtrans %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col">
                     <a href="{{ path('home') }}" class="btn btn-secondary">
-                        <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'accueil
+                        <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à l'accueil{% endtrans %}
                     </a>
                 </div>
                 <div class="col text-right">
@@ -77,7 +77,7 @@
                     type="submit"
                     form="member-selection-form"
                     class="btn btn-primary">
-                        Valider la sélection
+                        {% trans %}Valider la sélection{% endtrans %}
                     </button>
                 </div>
             </div>

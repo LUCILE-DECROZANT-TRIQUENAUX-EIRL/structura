@@ -10,15 +10,15 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ path('profile_show', { 'id': user.id }) }}">
-            Mon profil
+            {% trans %}Mon profil{% endtrans %}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Éditer mon profil
+        {% trans %}Éditer mon profil{% endtrans %}
     </li>
 {% endblock %}
 
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col">
                     <h2>
-                        Modifier le profil
+                        {% trans %}Modifier le profil{% endtrans %}
                     </h2>
                 </div>
             </div>
@@ -49,13 +49,13 @@
                         src="{{ asset('images/placeholder-personne.jpg') }}"
                         alt="Emplacement pour l'avatar"
                         data-toggle="tooltip"
-                        title="Work in progress..."
+                        title="{% trans %}Work in progress...{% endtrans %}"
                         >
                 </div>
                 <div class="col-10 pt-4">
                     {{ form_start(editsensible_form, {'attr': {'id': 'form-edit-userprofile'}}) }}
                     <div class="form-group">
-                        <label for="app_user_username" class="required">Pseudonyme</label>
+                        <label for="app_user_username" class="required">{% trans %}Pseudonyme{% endtrans %}</label>
                         {{ form_widget(editsensible_form.username) }}
                     </div>
                     <div class="form-group">
@@ -72,7 +72,7 @@
                         form="form-edit-userprofile"
                         class="btn btn-primary"
                         >
-                        <i class="icon ion-md-save"></i>&nbsp;Sauver
+                        <i class="icon ion-md-save"></i>&nbsp;{% trans %}Sauver{% endtrans %}
                     </button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
             <div class="row mt-4">
                 <div class="col">
                     <h2>
-                        Modifier le mot de passe
+                        {% trans %}Modifier le mot de passe{% endtrans %}
                     </h2>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-3">
-                                    Ancien mot de passe
+                                    {% trans %}Ancien mot de passe{% endtrans %}
                                 </div>
                                 <div class="col-9">
                                     {{ form_widget(password_form.oldPassword) }}
@@ -103,9 +103,9 @@
                                 <div class="row">
                                     <div class="col-3">
                                         {% if loop.first %}
-                                            Nouveau mot de passe
+                                            {% trans %}Nouveau mot de passe{% endtrans %}
                                         {% else %}
-                                            Confirmer le mot de passe
+                                            {% trans %}Confirmer le mot de passe{% endtrans %}
                                         {% endif %}
                                     </div>
                                     <div class="col-9">
@@ -125,7 +125,7 @@
                         form="form-edit-password"
                         class="btn btn-primary"
                         >
-                        <i class="icon ion-md-save"></i>&nbsp;Sauver
+                        <i class="icon ion-md-save"></i>&nbsp;{% trans %}Sauver{% endtrans %}
                     </button>
                 </div>
             </div>

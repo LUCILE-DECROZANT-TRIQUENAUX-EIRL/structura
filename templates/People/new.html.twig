@@ -12,13 +12,13 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('people_list') }}">Annuaire global</a>
+        <a href="{{ path('people_list') }}">{% trans %}Annuaire global{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Enregistrer une nouvelle personne dans l'annuaire
+        {% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}
     </li>
 {% endblock %}
 
@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
+                <h1>{% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}</h1>
             </div>
             <div class="col text-right">
             </div>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="container">
-        <p> Les champs notés avec * sont requis. </p>
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
         {{ form_start(form, {'attr': {'id': 'form-create-people'}}) }}
             <div class="form-group">
                 {{ form_label(form.denomination)}} *
@@ -120,7 +120,7 @@
         <div class="row">
             <div class="col">
                 <a href="{{ path('people_list') }}" class="btn btn-secondary">
-                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire global
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à l'annuaire global{% endtrans %}
                 </a>
             </div>
             <div class="col text-right">
@@ -128,7 +128,7 @@
                 id="create-people-submit-button"
                 type="submit" form="form-create-people"
                 class="btn btn-primary">
-                    <i class="icon ion-md-add"></i>&nbsp;Créer
+                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
                 </button>
             </div>
         </div>

@@ -3,16 +3,16 @@
 {% block body %}
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-4">Erreur 404</h1>
-    <p class="lead">La page demandée n'a pas été trouvée.</p>
+      <h1 class="display-4">{% trans %}Erreur 404{% endtrans %}</h1>
+      <p class="lead">{% trans %}La page demandée n'a pas été trouvée.{% endtrans %}</p>
     <hr class="my-4">
-    <p>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.<br>
-    Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</p>
+    <p>{% trans %}Vérifiez qu'il n'y ait pas d'erreur dans l'URL.{% endtrans %}<br>
+        {% trans %}Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.{% endtrans %}</p>
     <p class="lead">
 
     <br>
       <button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="history.back(-1)">
-          <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la page précedente
+          <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la page précedente{% endtrans %}
       </button>
 
     </p>

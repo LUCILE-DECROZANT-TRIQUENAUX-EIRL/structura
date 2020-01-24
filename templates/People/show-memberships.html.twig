@@ -6,22 +6,22 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('people_list') }}">Annuaire global</a>
+        <a href="{{ path('people_list') }}">{% trans %}Annuaire global{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
         {% if people.user != NULL and app.user.username == people.user.username %}
-            <a href="{{ path('people_show', { 'id': people.id }) }}">Mon profil</a>
+            <a href="{{ path('people_show', { 'id': people.id }) }}">{% trans %}Mon profil{% endtrans %}</a>
         {% else %}
-            <a href="{{ path('people_show', { 'id': people.id }) }}">Profil de {{ people.firstName }} {{ people.lastName }}</a>
+            <a href="{{ path('people_show', { 'id': people.id }) }}">{% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}</a>
         {% endif %}
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Liste des adhésions de l'utilisateurice
+        {% trans %}Liste des adhésions de l'utilisateurice{% endtrans %}
     </li>
 {% endblock %}
 
@@ -32,10 +32,10 @@
 
             <div class="col-8 col-md-2">
                 <ul class="list-group">
-                  <a href="{{ path('people_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Profil</a>
-                  <a href="{{ path('people_memberships_show', { 'id': people.id }) }}" class="active list-group-item list-group-item-action ">Adhésions</a>
-                  <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">Dons</a>
-                  <a href="{{ path('people_edit', { 'id': people.id }) }}" class="list-group-item list-group-item-action">Édition</a>
+                    <a href="{{ path('people_show', { 'id': people.id }) }}" class="list-group-item list-group-item-action">{% trans %}Profil{% endtrans %}</a>
+                    <a href="{{ path('people_memberships_show', { 'id': people.id }) }}" class="active list-group-item list-group-item-action ">{% trans %}Adhésions{% endtrans %}</a>
+                    <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">{% trans %}Dons{% endtrans %}</a>
+                    <a href="{{ path('people_edit', { 'id': people.id }) }}" class="list-group-item list-group-item-action">{% trans %}Édition{% endtrans %}</a>
                 </ul>
             </div>
 
