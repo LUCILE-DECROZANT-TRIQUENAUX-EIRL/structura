@@ -516,63 +516,108 @@
       </trans-unit>
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
-        <target state="translated">__Téléphone professionnel</target>
+        <target state="translated">Business phone</target>
+        <alt-trans>
+          <target>__Téléphone professionnel</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ANhKtG5" resname="Fax">
         <source>Fax</source>
-        <target state="translated">__Fax</target>
+        <target state="translated">Fax</target>
+        <alt-trans>
+          <target>__Fax</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="o6NscQv" resname="Champs de saisie libre">
         <source>Champs de saisie libre</source>
-        <target state="translated">__Champs de saisie libre</target>
+        <target state="translated">Text field</target>
+        <alt-trans>
+          <target>__Champs de saisie libre</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="_HVYhpv" resname="Observations">
         <source>Observations</source>
-        <target state="translated">__Observations</target>
+        <target state="translated">Observations</target>
+        <alt-trans>
+          <target>__Observations</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NmQYtLt" resname="Détails médicaux">
         <source>Détails médicaux</source>
-        <target state="translated">__Détails médicaux</target>
+        <target state="translated">Medical details</target>
+        <alt-trans>
+          <target>__Détails médicaux</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="wGlGp1L" resname="Retourner à la liste des utilisateurices">
         <source>Retourner à la liste des utilisateurices</source>
-        <target state="translated">__Retourner à la liste des utilisateurices</target>
+        <target state="translated">Back to user list</target>
+        <alt-trans>
+          <target>__Retourner à la liste des utilisateurices</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Xl0CFs4" resname="Supprimer">
         <source>Supprimer</source>
-        <target state="translated">__Supprimer</target>
+        <target state="translated">Delete</target>
+        <alt-trans>
+          <target>__Supprimer</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fTKob04" resname="Souhaitez-vous réellement supprimer ce profil ?">
         <source>Souhaitez-vous réellement supprimer ce profil ?</source>
-        <target state="translated">__Souhaitez-vous réellement supprimer ce profil ?</target>
+        <target state="translated">Do you really want to delete this profile?</target>
+        <alt-trans>
+          <target>__Souhaitez-vous réellement supprimer ce profil ?</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ZnYeqZg" resname="Les données seront supprimées de manière définitive.">
         <source>Les données seront supprimées de manière définitive.</source>
-        <target state="translated">__Les données seront supprimées de manière définitive.</target>
+        <target state="translated">The data will be permanently deleted.</target>
+        <alt-trans>
+          <target>__Les données seront supprimées de manière définitive.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Rq05Fva" resname="Annuler">
         <source>Annuler</source>
-        <target state="translated">__Annuler</target>
+        <target state="translated">Cancel</target>
+        <alt-trans>
+          <target>__Annuler</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="a3V2R49" resname="Enregistrer une nouvelle personne dans l'annuaire">
         <source>Enregistrer une nouvelle personne dans l'annuaire</source>
-        <target state="translated">__Enregistrer une nouvelle personne dans l'annuaire</target>
+        <target state="translated">Register a new person in the directory</target>
+        <alt-trans>
+          <target>__Enregistrer une nouvelle personne dans l'annuaire</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="4nbj_tA" resname="Les champs notés avec * sont requis.">
         <source>Les champs notés avec * sont requis.</source>
-        <target state="translated">__Les champs notés avec * sont requis.</target>
+        <target state="translated">Fields marked with * are required.</target>
+        <alt-trans>
+          <target>__Les champs notés avec * sont requis.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="KI5Hthm" resname="Retourner à l'annuaire global">
         <source>Retourner à l'annuaire global</source>
-        <target state="translated">__Retourner à l'annuaire global</target>
+        <target state="translated">Return to global directory</target>
+        <alt-trans>
+          <target>__Retourner à l'annuaire global</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="lpQY9NW" resname="Créer">
         <source>Créer</source>
-        <target state="translated">__Créer</target>
+        <target state="translated">Create</target>
+        <alt-trans>
+          <target>__Créer</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="0TTDiM6" resname="Liste des adhésions de l'utilisateurice">
         <source>Liste des adhésions de l'utilisateurice</source>
-        <target state="translated">__Liste des adhésions de l'utilisateurice</target>
+        <target state="translated">User Memberships List</target>
+        <alt-trans>
+          <target>__Liste des adhésions de l'utilisateurice</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="3rleGWN" resname="Éditer le profil de">
         <source>Éditer le profil de</source>
