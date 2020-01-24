@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item active">
-        <a href="{{ path('home') }}">Accueil</a>
+        <a href="{{ path('home') }}">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Administration
+        {% trans %}Administration{% endtrans %}
     </li>
 {% endblock %}
 
@@ -24,21 +24,21 @@
                                 <i class="icon ion-md-people"></i>
                             </div>
                             <h4>
-                                Gestion des utilisateurices
+                                {% trans %}Gestion des utilisateurices{% endtrans %}
                             </h4>
                             <p class="">
-                                Tout ce qui concerne les comptes pouvant se connecter à l'application.
+                                {% trans %}Tout ce qui concerne les comptes pouvant se connecter à l'application.{% endtrans %}
                             </p>
                         </div>
                         <div class="flip-card-back">
                             <div class="flip-card-item">
                                 <a class="" href="{{ path('user_list') }}">
-                                    Liste des comptes
+                                    {% trans %}Liste des comptes{% endtrans %}
                                 </a>
                             </div>
                             <div>
                                 <a class="btn btn-primary btn-block" href="{{ path('user_create', {from: 'dashboard'}) }}">
-                                    Enregistrer un nouveau compte
+                                    {% trans %}Enregistrer un nouveau compte{% endtrans %}
                                 </a>
                             </div>
                         </div>
