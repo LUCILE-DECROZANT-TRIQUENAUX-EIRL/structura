@@ -831,7 +831,10 @@
       </trans-unit>
       <trans-unit id="NxG8b.B" resname="Identité">
         <source>Identité</source>
-        <target state="translated">Identity</target>
+        <target state="translated">Title</target>
+        <alt-trans>
+          <target>Identity</target>
+        </alt-trans>
         <alt-trans>
           <target>__Identité</target>
         </alt-trans>
@@ -845,83 +848,143 @@
       </trans-unit>
       <trans-unit id="kBziTMq" resname="Civilité">
         <source>Civilité</source>
-        <target state="translated">__Civilité</target>
+        <target state="translated">Gender</target>
+        <alt-trans>
+          <target>__Civilité</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="g_0B0Zd" resname="Nom de famille">
         <source>Nom de famille</source>
-        <target state="translated">__Nom de famille</target>
+        <target state="translated">Last Name</target>
+        <alt-trans>
+          <target>__Nom de famille</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="vnBxYSs" resname="Code postal">
         <source>Code postal</source>
-        <target state="translated">__Code postal</target>
+        <target state="translated">Postal Code</target>
+        <alt-trans>
+          <target>__Code postal</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Dr0lo0H" resname="Ville">
         <source>Ville</source>
-        <target state="translated">__Ville</target>
+        <target state="translated">City / Town</target>
+        <alt-trans>
+          <target>__Ville</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id=".nU._5u" resname="Pays">
         <source>Pays</source>
-        <target state="translated">__Pays</target>
+        <target state="translated">Country</target>
+        <alt-trans>
+          <target>__Pays</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="BbKygTx" resname="Téléphone et email">
         <source>Téléphone et email</source>
-        <target state="translated">__Téléphone et email</target>
+        <target state="translated">Phone &amp; Email</target>
+        <alt-trans>
+          <target>__Téléphone et email</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
-        <target state="translated">__Email</target>
+        <target state="translated">Email</target>
+        <alt-trans>
+          <target>__Email</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="9516ize" resname="Commentaires">
         <source>Commentaires</source>
-        <target state="translated">__Commentaires</target>
+        <target state="translated">Comments</target>
+        <alt-trans>
+          <target>__Commentaires</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="3xrlDfZ" resname="Enregistrer les changements">
         <source>Enregistrer les changements</source>
-        <target state="translated">__Enregistrer les changements</target>
+        <target state="translated">Save changes</target>
+        <alt-trans>
+          <target>__Enregistrer les changements</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="K.uNjpv" resname="Modifier le profil">
         <source>Modifier le profil</source>
-        <target state="translated">__Modifier le profil</target>
+        <target state="translated">Edit profile</target>
+        <alt-trans>
+          <target>__Modifier le profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="jd6P4oT" resname="Pseudonyme">
         <source>Pseudonyme</source>
-        <target state="translated">__Pseudonyme</target>
+        <target state="translated">Username</target>
+        <alt-trans>
+          <target>__Pseudonyme</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="qO4reia" resname="Sauver">
         <source>Sauver</source>
-        <target state="translated">__Sauver</target>
+        <target state="translated">Save</target>
+        <alt-trans>
+          <target>__Sauver</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="lW.Fwvv" resname="Modifier le mot de passe">
         <source>Modifier le mot de passe</source>
-        <target state="translated">__Modifier le mot de passe</target>
+        <target state="translated">Change password</target>
+        <alt-trans>
+          <target>__Modifier le mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="XFVRV7B" resname="Ancien mot de passe">
         <source>Ancien mot de passe</source>
-        <target state="translated">__Ancien mot de passe</target>
+        <target state="translated">Old password</target>
+        <alt-trans>
+          <target>__Ancien mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="o9ZcpWl" resname="Nouveau mot de passe">
         <source>Nouveau mot de passe</source>
-        <target state="translated">__Nouveau mot de passe</target>
+        <target state="translated">New password</target>
+        <alt-trans>
+          <target>__Nouveau mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="SQlNO6e" resname="Confirmer le mot de passe">
         <source>Confirmer le mot de passe</source>
-        <target state="translated">__Confirmer le mot de passe</target>
+        <target state="translated">Confirm password</target>
+        <alt-trans>
+          <target>__Confirmer le mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="YdaVBBA" resname="Connexion">
         <source>Connexion</source>
-        <target state="translated">__Connexion</target>
+        <target state="translated">Log in</target>
+        <alt-trans>
+          <target>__Connexion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="_Mv8t5." resname="Bienvenue sur la base de données de l'association">
         <source>Bienvenue sur la base de données de l'association</source>
-        <target state="translated">__Bienvenue sur la base de données de l'association</target>
+        <target state="translated">Welcome to the association database</target>
+        <alt-trans>
+          <target>__Bienvenue sur la base de données de l'association</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="I67gC1S" resname="Huntington Avenir">
         <source>Huntington Avenir</source>
-        <target state="translated">__Huntington Avenir</target>
+        <target state="translated">Huntington Avenir</target>
+        <alt-trans>
+          <target>__Huntington Avenir</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="EieiYHe" resname="Pour accéder au logiciel, identifiez-vous">
         <source>Pour accéder au logiciel, identifiez-vous</source>
-        <target state="translated">__Pour accéder au logiciel, identifiez-vous</target>
+        <target state="translated">Log in to access the software</target>
+        <alt-trans>
+          <target>__Pour accéder au logiciel, identifiez-vous</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="acQE2iy" resname="Adhésion du">
         <source>Adhésion du</source>
