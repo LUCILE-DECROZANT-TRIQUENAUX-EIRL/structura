@@ -806,7 +806,10 @@
       </trans-unit>
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
-        <target state="translated">__Éditer le don</target>
+        <target state="translated">Éditer le don</target>
+        <alt-trans>
+          <target>__Éditer le don</target>
+        </alt-trans>
       </trans-unit>
     </body>
   </file>
