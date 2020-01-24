@@ -7,134 +7,239 @@
     <body>
       <trans-unit id="UzFhc1Y" resname="Accueil">
         <source>Accueil</source>
-        <target state="translated">__Accueil</target>
+        <target state="translated">Home</target>
         <alt-trans>
-          <target>Home</target>
+          <target>__Accueil</target>
         </alt-trans>
       </trans-unit>
       <trans-unit id="Urvf1aZ" resname="Erreur 502">
         <source>Erreur 502</source>
-        <target state="translated">__Erreur 502</target>
+        <target state="translated">Error 502</target>
+        <alt-trans>
+          <target>__Erreur 502</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="KannIQv" resname="Erreur interne du serveur.">
         <source>Erreur interne du serveur.</source>
-        <target state="translated">__Erreur interne du serveur.</target>
+        <target state="translated">Internal Server Error.</target>
+        <alt-trans>
+          <target>An internal server error occurred.</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Erreur interne du serveur.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="kcp1pt2" resname="Si l'erreur persiste, attendez quelques minutes avant de réessayer.">
         <source>Si l'erreur persiste, attendez quelques minutes avant de réessayer.</source>
-        <target state="translated">__Si l'erreur persiste, attendez quelques minutes avant de réessayer.</target>
+        <target state="translated">If the error persists, wait a few minutes before trying again.</target>
+        <alt-trans>
+          <target>__Si l'erreur persiste, attendez quelques minutes avant de réessayer.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="C3VjSrf" resname="Retourner à la page précedente">
         <source>Retourner à la page précedente</source>
-        <target state="translated">__Retourner à la page précedente</target>
+        <target state="translated">Return to the previous page</target>
+        <alt-trans>
+          <target>__Retourner à la page précedente</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="48geUnj" resname="Erreur 500">
         <source>Erreur 500</source>
-        <target state="translated">__Erreur 500</target>
+        <target state="translated">Error 500</target>
+        <alt-trans>
+          <target>__Erreur 500</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="U5GtZ9K" resname="Erreur 403">
         <source>Erreur 403</source>
-        <target state="translated">__Erreur 403</target>
+        <target state="translated">Error 403</target>
+        <alt-trans>
+          <target>__Erreur 403</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="TdruZda" resname="Vous ne pouvez pas accéder à cette page.">
         <source>Vous ne pouvez pas accéder à cette page.</source>
-        <target state="translated">__Vous ne pouvez pas accéder à cette page.</target>
+        <target state="translated">You can not access this page.</target>
+        <alt-trans>
+          <target>__Vous ne pouvez pas accéder à cette page.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="YNJAuDL" resname="Vérifiez qu'il n'y ait pas d'erreur dans l'URL.">
         <source>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</source>
-        <target state="translated">__Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</target>
+        <target state="translated">Check for errors in the URL.</target>
+        <alt-trans>
+          <target>Check that there is no error in the URL.</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="J1kUvxp" resname="Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.">
         <source>Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</source>
-        <target state="translated">__Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</target>
+        <target state="translated">If the URL you entered is correct, then it means that your access rights do not allow you to view this page.</target>
+        <alt-trans>
+          <target>__Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="adufyLS" resname="Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
-        <target state="translated">__Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
+        <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
+        <alt-trans>
+          <target>Go back to the front page or the previous page to continue your navigation.</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="cw8EcCt" resname="Erreur 404">
         <source>Erreur 404</source>
-        <target state="translated">__Erreur 404</target>
+        <target state="translated">404 error</target>
+        <alt-trans>
+          <target>__Erreur 404</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="HwCVAH8" resname="La page demandée n'a pas été trouvée.">
         <source>La page demandée n'a pas été trouvée.</source>
-        <target state="translated">__La page demandée n'a pas été trouvée.</target>
+        <target state="translated">Requested page could not be found.</target>
+        <alt-trans>
+          <target>__La page demandée n'a pas été trouvée.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="5KlnPQL" resname="Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
-        <target state="translated">__Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
+        <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
+        <alt-trans>
+          <target>Go back to home or the previous page to continue your navigation.</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="RhSOJQ5" resname="Erreur">
         <source>Erreur</source>
-        <target state="translated">__Erreur</target>
+        <target state="translated">Error</target>
+        <alt-trans>
+          <target>__Erreur</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="nI4n9Cr" resname="Il y a eu une erreur lors du chargement de la page.">
         <source>Il y a eu une erreur lors du chargement de la page.</source>
-        <target state="translated">__Il y a eu une erreur lors du chargement de la page.</target>
+        <target state="translated">Error while trying to load the page.</target>
+        <alt-trans>
+          <target>__Il y a eu une erreur lors du chargement de la page.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="asCKZ6o" resname="Vérifiez qu'il n'y ai pas d'erreur dans l'URL.">
         <source>Vérifiez qu'il n'y ai pas d'erreur dans l'URL.</source>
-        <target state="translated">__Vérifiez qu'il n'y ai pas d'erreur dans l'URL.</target>
+        <target state="translated">Check for errors in the URL.</target>
+        <alt-trans>
+          <target>__Vérifiez qu'il n'y ai pas d'erreur dans l'URL.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="kRzGI43" resname="Erreur 504">
         <source>Erreur 504</source>
-        <target state="translated">__Erreur 504</target>
+        <target state="translated">Error 504</target>
+        <alt-trans>
+          <target>__Erreur 504</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="tUKeHfd" resname="Temps d'attente écoulé.">
         <source>Temps d'attente écoulé.</source>
-        <target state="translated">__Temps d'attente écoulé.</target>
+        <target state="translated">Time out.</target>
+        <alt-trans>
+          <target>__Temps d'attente écoulé.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="WCSHoCe" resname="Erreur 401">
         <source>Erreur 401</source>
-        <target state="translated">__Erreur 401</target>
+        <target state="translated">Error 401</target>
+        <alt-trans>
+          <target>__Erreur 401</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="JKy1T87" resname="Authentification nécessaire.">
         <source>Authentification nécessaire.</source>
-        <target state="translated">__Authentification nécessaire.</target>
+        <target state="translated">Authentication required.</target>
+        <alt-trans>
+          <target>__Authentification nécessaire.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="sg1VqHE" resname="S'authentifier">
         <source>S'authentifier</source>
-        <target state="translated">__S'authentifier</target>
+        <target state="translated">Login</target>
+        <alt-trans>
+          <target>__S'authentifier</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="W77wNtS" resname="Base de données Huntington Avenir -">
         <source>Base de données Huntington Avenir -</source>
-        <target state="translated">__Base de données Huntington Avenir -</target>
+        <target state="translated">Huntington Avenir database -</target>
+        <alt-trans>
+          <target>__Base de données Huntington Avenir -</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="AcDVvVU" resname="(page courante)">
         <source>(page courante)</source>
-        <target state="translated">__(page courante)</target>
+        <target state="translated">(Current Page)</target>
+        <alt-trans>
+          <target>__(page courante)</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Q60lCM7" resname="Annuaires">
         <source>Annuaires</source>
-        <target state="translated">__Annuaires</target>
+        <target state="translated">Directories</target>
+        <alt-trans>
+          <target>__Annuaires</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="9Jb0lAV" resname="Adhérent·es">
         <source>Adhérent·es</source>
-        <target state="translated">__Adhérent·es</target>
+        <target state="translated">Members</target>
+        <alt-trans>
+          <target>__Adhérent·es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Ol66bep" resname="Sympatisant.es">
         <source>Sympatisant.es</source>
-        <target state="translated">__Sympatisant.es</target>
+        <target state="translated">Supporters</target>
+        <alt-trans>
+          <target>__Sympatisant.es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="CHM_3XK" resname="Professionnels de santé">
         <source>Professionnels de santé</source>
-        <target state="translated">__Professionnels de santé</target>
+        <target state="translated">Health Care Professionals</target>
+        <alt-trans>
+          <target>__Professionnels de santé</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="olizD4j" resname="Global">
         <source>Global</source>
-        <target state="translated">__Global</target>
+        <target state="translated">Global</target>
+        <alt-trans>
+          <target>__Global</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="IMyiDkD" resname="Adhésions">
         <source>Adhésions</source>
-        <target state="translated">__Adhésions</target>
+        <target state="translated">Memberships</target>
+        <alt-trans>
+          <target>__Adhésions</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id=".2WRhHJ" resname="Liste des adhésions actives">
         <source>Liste des adhésions actives</source>
-        <target state="translated">__Liste des adhésions actives</target>
+        <target state="translated">List of active memberships</target>
+        <alt-trans>
+          <target>__Liste des adhésions actives</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="zbLNhBw" resname="Enregistrer une nouvelle adhésion">
         <source>Enregistrer une nouvelle adhésion</source>
-        <target state="translated">__Enregistrer une nouvelle adhésion</target>
+        <target state="translated">Register a new membership</target>
+        <alt-trans>
+          <target>__Enregistrer une nouvelle adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="7RogeRe" resname="Dons">
         <source>Dons</source>
