@@ -5,12 +5,9 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="UzFhc1Y" resname="Accueil" approved="yes">
+      <trans-unit id="UzFhc1Y" resname="Accueil">
         <source>Accueil</source>
-        <target state="final">Accueil</target>
-        <alt-trans>
-          <target>__Accueil</target>
-        </alt-trans>
+        <target state="translated">__Accueil</target>
       </trans-unit>
       <trans-unit id="Urvf1aZ" resname="Erreur 502">
         <source>Erreur 502</source>
@@ -806,10 +803,7 @@
       </trans-unit>
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
-        <target state="translated">Éditer le don</target>
-        <alt-trans>
-          <target>__Éditer le don</target>
-        </alt-trans>
+        <target state="translated">__Éditer le don</target>
       </trans-unit>
     </body>
   </file>
