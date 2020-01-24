@@ -621,111 +621,192 @@
       </trans-unit>
       <trans-unit id="3rleGWN" resname="Éditer le profil de">
         <source>Éditer le profil de</source>
-        <target state="translated">__Éditer le profil de</target>
+        <target state="translated">Edit profile of</target>
+        <alt-trans>
+          <target>__Éditer le profil de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="K6FqGw9" resname="Édition de la personne dans l'annuaire">
         <source>Édition de la personne dans l'annuaire</source>
-        <target state="translated">__Édition de la personne dans l'annuaire</target>
+        <target state="translated">Edit person in directory</target>
+        <alt-trans>
+          <target>__Édition de la personne dans l'annuaire</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="RZUfasG" resname="Enregistrer les modifications">
         <source>Enregistrer les modifications</source>
-        <target state="translated">__Enregistrer les modifications</target>
+        <target state="translated">Save Changes</target>
+        <alt-trans>
+          <target>__Enregistrer les modifications</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="uGO9Yh6" resname="Voir le profil">
         <source>Voir le profil</source>
-        <target state="translated">__Voir le profil</target>
+        <target state="translated">Show profile</target>
+        <alt-trans>
+          <target>__Voir le profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Ep6pmFB" resname="Éditer le profil">
         <source>Éditer le profil</source>
-        <target state="translated">__Éditer le profil</target>
+        <target state="translated">Edit profile</target>
+        <alt-trans>
+          <target>__Éditer le profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="mdj5Puy" resname="Supprimer le profil">
         <source>Supprimer le profil</source>
-        <target state="translated">__Supprimer le profil</target>
+        <target state="translated">Delete profile</target>
+        <alt-trans>
+          <target>__Supprimer le profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="WT655CB" resname="Souhaitez-vous réellement supprimer les données de">
         <source>Souhaitez-vous réellement supprimer les données de</source>
-        <target state="translated">__Souhaitez-vous réellement supprimer les données de</target>
+        <target state="translated">Are you sure you want to delete %user%'s data</target>
+        <alt-trans>
+          <target>__Souhaitez-vous réellement supprimer les données de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="x8cpEsG" resname="Liste des utilisateurices">
         <source>Liste des utilisateurices</source>
-        <target state="translated">__Liste des utilisateurices</target>
+        <target state="translated">User list</target>
+        <alt-trans>
+          <target>__Liste des utilisateurices</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="hl3zMkr" resname="Historique">
         <source>Historique</source>
-        <target state="translated">__Historique</target>
+        <target state="translated">History</target>
+        <alt-trans>
+          <target>__Historique</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="P2sBzeD" resname="Identifiant :">
         <source>Identifiant :</source>
-        <target state="translated">__Identifiant :</target>
+        <target state="translated">Login ID:</target>
+        <alt-trans>
+          <target>__Identifiant :</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="xMfIvh9" resname="Enregistrer un.e nouvel.le utilisateurice">
         <source>Enregistrer un.e nouvel.le utilisateurice</source>
-        <target state="translated">__Enregistrer un.e nouvel.le utilisateurice</target>
+        <target state="translated">Register a new user</target>
+        <alt-trans>
+          <target>__Enregistrer un.e nouvel.le utilisateurice</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="5KBqMRs" resname="Retourner au tableau de bord">
         <source>Retourner au tableau de bord</source>
-        <target state="translated">__Retourner au tableau de bord</target>
+        <target state="translated">Back to the dashboard</target>
+        <alt-trans>
+          <target>__Retourner au tableau de bord</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Qv3uyBk" resname="Éditer mon profil">
         <source>Éditer mon profil</source>
-        <target state="translated">__Éditer mon profil</target>
+        <target state="translated">Edit profile</target>
+        <alt-trans>
+          <target>__Éditer mon profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="pGyjkXu" resname="Édition de">
         <source>Édition de</source>
-        <target state="translated">__Édition de</target>
+        <target state="translated">Edit</target>
+        <alt-trans>
+          <target>__Édition de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id=".5yLjAZ" resname="Mot de passe">
         <source>Mot de passe</source>
-        <target state="translated">__Mot de passe</target>
+        <target state="translated">Password</target>
+        <alt-trans>
+          <target>__Mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="wMrnSH8" resname="Enregistrer le mot de passe">
         <source>Enregistrer le mot de passe</source>
-        <target state="translated">__Enregistrer le mot de passe</target>
+        <target state="translated">Register a new password</target>
+        <alt-trans>
+          <target>__Enregistrer le mot de passe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="_efUnkd" resname="Identifiant">
         <source>Identifiant</source>
-        <target state="translated">__Identifiant</target>
+        <target state="translated">Login</target>
+        <alt-trans>
+          <target>__Identifiant</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fNFLqaG" resname="Nom d'utilisateurice">
         <source>Nom d'utilisateurice</source>
-        <target state="translated">__Nom d'utilisateurice</target>
+        <target state="translated">Username</target>
+        <alt-trans>
+          <target>__Nom d'utilisateurice</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="f9UDoym" resname="Rôles">
         <source>Rôles</source>
-        <target state="translated">__Rôles</target>
+        <target state="translated">Roles</target>
+        <alt-trans>
+          <target>__Rôles</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="l8olYqf" resname="Souhaitez-vous réellement supprimer le profil de">
         <source>Souhaitez-vous réellement supprimer le profil de</source>
-        <target state="translated">__Souhaitez-vous réellement supprimer le profil de</target>
+        <target state="translated">Do you really want to delete %user%'s profile</target>
+        <alt-trans>
+          <target>__Souhaitez-vous réellement supprimer le profil de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="03PnLrT" resname="Gestion des utilisateurices">
         <source>Gestion des utilisateurices</source>
-        <target state="translated">__Gestion des utilisateurices</target>
+        <target state="translated">User Management</target>
+        <alt-trans>
+          <target>__Gestion des utilisateurices</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="cfvJ2qu" resname="Tout ce qui concerne les comptes pouvant se connecter à l'application.">
         <source>Tout ce qui concerne les comptes pouvant se connecter à l'application.</source>
-        <target state="translated">__Tout ce qui concerne les comptes pouvant se connecter à l'application.</target>
+        <target state="translated">Everything related to accounts that can log into the application.</target>
+        <alt-trans>
+          <target>__Tout ce qui concerne les comptes pouvant se connecter à l'application.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="E6fslTP" resname="Liste des comptes">
         <source>Liste des comptes</source>
-        <target state="translated">__Liste des comptes</target>
+        <target state="translated">List of accounts</target>
+        <alt-trans>
+          <target>__Liste des comptes</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="VtRLb38" resname="Enregistrer un nouveau compte">
         <source>Enregistrer un nouveau compte</source>
-        <target state="translated">__Enregistrer un nouveau compte</target>
+        <target state="translated">Register a new account</target>
+        <alt-trans>
+          <target>__Enregistrer un nouveau compte</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ixq8qLa" resname="Ce.tte personne n'a pas de nom">
         <source>Ce.tte personne n'a pas de nom</source>
-        <target state="translated">__Ce.tte personne n'a pas de nom</target>
+        <target state="translated">This person has no name</target>
+        <alt-trans>
+          <target>__Ce.tte personne n'a pas de nom</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="SWvGzoP" resname="Vous n'avez pas d'addresse enregistrée.">
         <source>Vous n'avez pas d'addresse enregistrée.</source>
-        <target state="translated">__Vous n'avez pas d'addresse enregistrée.</target>
+        <target state="translated">You don't have any registered address.</target>
+        <alt-trans>
+          <target>__Vous n'avez pas d'addresse enregistrée.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="S.n0DN3" resname="Informations du profil">
         <source>Informations du profil</source>
-        <target state="translated">__Informations du profil</target>
+        <target state="translated">Profile info</target>
+        <alt-trans>
+          <target>__Informations du profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="mJMkdXe" resname="Informations personnelles">
         <source>Informations personnelles</source>
