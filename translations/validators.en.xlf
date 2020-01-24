@@ -195,7 +195,7 @@
       </trans-unit>
       <trans-unit id="mHfEaB3" resname="No temporary folder was configured in php.ini.">
         <source>No temporary folder was configured in php.ini.</source>
-        <target state="needs-translation">No temporary folder was configured in php.ini.</target>
+        <target state="translated">No temporary folder was configured in php.ini, or the configured folder does not exist.</target>
       </trans-unit>
       <trans-unit id="y9K3BGb" resname="Cannot write temporary file to disk.">
         <source>Cannot write temporary file to disk.</source>
