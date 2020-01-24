@@ -243,159 +243,276 @@
       </trans-unit>
       <trans-unit id="7RogeRe" resname="Dons">
         <source>Dons</source>
-        <target state="translated">__Dons</target>
+        <target state="translated">Donations</target>
+        <alt-trans>
+          <target>__Dons</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ib80.NU" resname="Liste des dons">
         <source>Liste des dons</source>
-        <target state="translated">__Liste des dons</target>
+        <target state="translated">Donation list</target>
+        <alt-trans>
+          <target>__Liste des dons</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="yi2UlO3" resname="Enregistrer un nouveau don">
         <source>Enregistrer un nouveau don</source>
-        <target state="translated">__Enregistrer un nouveau don</target>
+        <target state="translated">Register a new donation</target>
+        <alt-trans>
+          <target>__Enregistrer un nouveau don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="S0LGaQ6" resname="Administration">
         <source>Administration</source>
-        <target state="translated">__Administration</target>
+        <target state="translated">Administration</target>
+        <alt-trans>
+          <target>__Administration</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="q0Uca0i" resname="Mon profil">
         <source>Mon profil</source>
-        <target state="translated">__Mon profil</target>
+        <target state="translated">My profile</target>
+        <alt-trans>
+          <target>__Mon profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="GaodJDT" resname="Me déconnecter">
         <source>Me déconnecter</source>
-        <target state="translated">__Me déconnecter</target>
+        <target state="translated">Logout</target>
+        <alt-trans>
+          <target>__Me déconnecter</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fZ63rLE" resname="Close">
         <source>Close</source>
-        <target state="translated">__Close</target>
+        <target state="translated">Close</target>
+        <alt-trans>
+          <target>__Close</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="2GfVi6O" resname="Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©">
         <source>Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</source>
-        <target state="translated">__Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</target>
+        <target state="translated">Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</target>
+        <alt-trans>
+          <target>__Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="yzgkn6s" resname="Site réalisé sous licence AGPL v3">
         <source>Site réalisé sous licence AGPL v3</source>
-        <target state="translated">__Site réalisé sous licence AGPL v3</target>
+        <target state="translated">Site made under AGPL v3 license</target>
+        <alt-trans>
+          <target>__Site réalisé sous licence AGPL v3</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="A_VJ8f3" resname="Voir le code source">
         <source>Voir le code source</source>
-        <target state="translated">__Voir le code source</target>
+        <target state="translated">Show source code</target>
+        <alt-trans>
+          <target>__Voir le code source</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NfDiyO7" resname="Renseigner">
         <source>Renseigner</source>
-        <target state="translated">__Renseigner</target>
+        <target state="translated">Contact</target>
+        <alt-trans>
+          <target>__Renseigner</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="m1IYGUz" resname="l'annuaire">
         <source>l'annuaire</source>
-        <target state="translated">__l'annuaire</target>
+        <target state="translated">Directory</target>
+        <alt-trans>
+          <target>__l'annuaire</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="cdx0hz4" resname="Enregistrer">
         <source>Enregistrer</source>
-        <target state="translated">__Enregistrer</target>
+        <target state="translated">Sign in</target>
+        <alt-trans>
+          <target>__Enregistrer</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="V6F550H" resname="une adhésion">
         <source>une adhésion</source>
-        <target state="translated">__une adhésion</target>
+        <target state="translated">membership</target>
+        <alt-trans>
+          <target>__une adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Bs5ZiaU" resname="un don">
         <source>un don</source>
-        <target state="translated">__un don</target>
+        <target state="translated">a donation</target>
+        <alt-trans>
+          <target>__un don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="wFXS7Zr" resname="Ex-Adhérents à relancer">
         <source>Ex-Adhérents à relancer</source>
-        <target state="translated">__Ex-Adhérents à relancer</target>
+        <target state="translated">Ex-Members to recontact</target>
+        <alt-trans>
+          <target>__Ex-Adhérents à relancer</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ssEkU20" resname="Nom">
         <source>Nom</source>
-        <target state="translated">__Nom</target>
+        <target state="translated">Last name</target>
+        <alt-trans>
+          <target>__Nom</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="4yW.j5A" resname="Prénom">
         <source>Prénom</source>
-        <target state="translated">__Prénom</target>
+        <target state="translated">First name</target>
+        <alt-trans>
+          <target>__Prénom</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="YP5oZIU" resname="Téléphone fixe">
         <source>Téléphone fixe</source>
-        <target state="translated">__Téléphone fixe</target>
+        <target state="translated">Home phone</target>
+        <alt-trans>
+          <target>__Téléphone fixe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="e..K3BS" resname="Téléphone portable">
         <source>Téléphone portable</source>
-        <target state="translated">__Téléphone portable</target>
+        <target state="translated">Mobile</target>
+        <alt-trans>
+          <target>__Téléphone portable</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="7ZIdrL7" resname="&quot;Cliquer pour afficher plus de détails&quot;">
         <source>"Cliquer pour afficher plus de détails"</source>
-        <target state="translated">__"Cliquer pour afficher plus de détails"</target>
+        <target state="translated">"Click to show more details"</target>
+        <alt-trans>
+          <target>__"Cliquer pour afficher plus de détails"</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="eeXPIN4" resname="Adresse">
         <source>Adresse</source>
-        <target state="translated">__Adresse</target>
+        <target state="translated">Address</target>
+        <alt-trans>
+          <target>__Adresse</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="SRVRJdG" resname="Enregistrer une relance courrier">
         <source>Enregistrer une relance courrier</source>
-        <target state="translated">__Enregistrer une relance courrier</target>
+        <target state="translated">Register email reminder</target>
+        <alt-trans>
+          <target>__Enregistrer une relance courrier</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="vDVNXb1" resname="Numéros de téléphone">
         <source>Numéros de téléphone</source>
-        <target state="translated">__Numéros de téléphone</target>
+        <target state="translated">Phone numbers</target>
+        <alt-trans>
+          <target>__Numéros de téléphone</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="zeDVLgT" resname="Fixe">
         <source>Fixe</source>
-        <target state="translated">__Fixe</target>
+        <target state="translated">Home phone</target>
+        <alt-trans>
+          <target>__Fixe</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="22_.E_R" resname="Portable">
         <source>Portable</source>
-        <target state="translated">__Portable</target>
+        <target state="translated">Mobile</target>
+        <alt-trans>
+          <target>__Portable</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="G7k0ZFu" resname="Professionnel">
         <source>Professionnel</source>
-        <target state="translated">__Professionnel</target>
+        <target state="translated">Professional</target>
+        <alt-trans>
+          <target>__Professionnel</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="AeT9nGC" resname="Work in progress...">
         <source>Work in progress...</source>
-        <target state="translated">__Work in progress...</target>
+        <target state="translated">Travail en cours...</target>
+        <alt-trans>
+          <target>__Work in progress...</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="usm_swc" resname="Enregistrer une relance téléphonique">
         <source>Enregistrer une relance téléphonique</source>
-        <target state="translated">__Enregistrer une relance téléphonique</target>
+        <target state="translated">Register phone reminder</target>
+        <alt-trans>
+          <target>__Enregistrer une relance téléphonique</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ByAKOLJ" resname="Relancer par mail">
         <source>Relancer par mail</source>
-        <target state="translated">__Relancer par mail</target>
+        <target state="translated">Mail reminder</target>
+        <alt-trans>
+          <target>__Relancer par mail</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fYVNZe_" resname="Annuaire global">
         <source>Annuaire global</source>
-        <target state="translated">__Annuaire global</target>
+        <target state="translated">Global Directory</target>
+        <alt-trans>
+          <target>__Annuaire global</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ZIztra7" resname="Profil de">
         <source>Profil de</source>
-        <target state="translated">__Profil de</target>
+        <target state="translated">Profile of</target>
+        <alt-trans>
+          <target>__Profil de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="4mfTQ4I" resname="Profil">
         <source>Profil</source>
-        <target state="translated">__Profil</target>
+        <target state="translated">Profile</target>
+        <alt-trans>
+          <target>__Profil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="AFEZ2hX" resname="Work in progress">
         <source>Work in progress</source>
-        <target state="translated">__Work in progress</target>
+        <target state="translated">Travail en cours</target>
+        <alt-trans>
+          <target>__Work in progress</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="pJRNBwc" resname="Édition">
         <source>Édition</source>
-        <target state="translated">__Édition</target>
+        <target state="translated">Edit</target>
+        <alt-trans>
+          <target>__Édition</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Tr2rmYP" resname="Cette personne n'a pas de nom">
         <source>Cette personne n'a pas de nom</source>
-        <target state="translated">__Cette personne n'a pas de nom</target>
+        <target state="translated">This user has no name</target>
+        <alt-trans>
+          <target>__Cette personne n'a pas de nom</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="J9Aqf9T" resname="Informations de contact">
         <source>Informations de contact</source>
-        <target state="translated">__Informations de contact</target>
+        <target state="translated">Contact details</target>
+        <alt-trans>
+          <target>__Informations de contact</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="B_1sz2v" resname="Mail">
         <source>Mail</source>
-        <target state="translated">__Mail</target>
+        <target state="translated">Mail</target>
+        <alt-trans>
+          <target>__Mail</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="XMZF5yK" resname="Ce membre n'a pas d'adresse enregistrée.">
         <source>Ce membre n'a pas d'adresse enregistrée.</source>
-        <target state="translated">__Ce membre n'a pas d'adresse enregistrée.</target>
+        <target state="translated">This user does not have a registered address.</target>
+        <alt-trans>
+          <target>__Ce membre n'a pas d'adresse enregistrée.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
