@@ -1,7 +1,7 @@
 files:
-  - source: /translations/messages.fr.xlf
+  - source: /translations/messages.en.xlf
     translation: /translations/messages.%two_letters_code%.xlf
-  - source: /translations/security.fr.xlf
+  - source: /translations/security.en.xlf
     translation: /translations/security.%two_letters_code%.xlf
-  - source: /translations/validators.fr.xlf
+  - source: /translations/validators.en.xlf
     translation: /translations/validators.%two_letters_code%.xlf

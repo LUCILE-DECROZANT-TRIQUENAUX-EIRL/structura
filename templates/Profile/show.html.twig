@@ -6,10 +6,10 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active">
-        Mon profil
+        {% trans %}Mon profil{% endtrans %}
     </li>
 {% endblock %}
 
@@ -30,7 +30,7 @@
                 {% if people.denomination or people.firstname or people.lastname %}
                 {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname }}
                 {% else %}
-                Ce.tte personne n'a pas de nom
+                    {% trans %}Ce.tte personne n'a pas de nom{% endtrans %}
                 {% endif %}
                 </h1>
             </div>
@@ -38,12 +38,12 @@
             <div class="container styledtable">
             <br>
             {% if people.firstname is not empty %}
-                <h3>Informations de contact</h3>
+                <h3>{% trans %}Informations de contact{% endtrans %}</h3>
                 <br>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Mail</th>
+                            <th>{% trans %}Mail{% endtrans %}</th>
                             <td>
                             {{ people.emailAddress }}&nbsp;&nbsp;
                             {{people.isReceivingNewsletter ?
@@ -57,10 +57,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Adresse</th>
+                            <th>{% trans %}Adresse{% endtrans %}</th>
                             <td>
                             {% if people.hasNoAddressDefined() %}
-                                Vous n'avez pas d'addresse enregistrée.
+                                {% trans %}Vous n'avez pas d'addresse enregistrée.{% endtrans %}
                             {% else %}
                                 {% for address in people.addresses %}
                                     {{address.line}}
@@ -71,35 +71,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Téléphone fixe</th>
+                            <th>{% trans %}Téléphone fixe{% endtrans %}</th>
                             <td><div class="phone">{{ people.homePhoneNumber }}</div></td>
                         </tr>
                         <tr>
-                            <th>Téléphone portable</th>
+                            <th>{% trans %}Téléphone portable{% endtrans %}</th>
                             <td><div class="phone">{{ people.cellPhoneNumber }}</div></td>
                         </tr>
                         <tr>
-                            <th>Téléphone professionnel</th>
+                            <th>{% trans %}Téléphone professionnel{% endtrans %}</th>
                             <td><div class="phone">{{ people.workPhoneNumber }}</div></td>
                         </tr>
                         <tr>
-                            <th>Fax</th>
+                            <th>{% trans %}Fax{% endtrans %}</th>
                             <td><div class="phone">{{ people.workFaxNumber }}</div></td>
                         </tr>
                     </tbody>
                 </table>
                 <br>
-                <h3>Champs de saisie libre</h3>
+                <h3>{% trans %}Champs de saisie libre{% endtrans %}</h3>
                 <br>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Observations</th>
+                            <th>{% trans %}Observations{% endtrans %}</th>
                             <td>{{ people.observations}}</td>
                         </tr>
                         {% if is_granted("ROLE_GESTION_SENSIBLE") %}
                         <tr>
-                            <th>Détails médicaux</th>
+                            <th>{% trans %}Détails médicaux{% endtrans %}</th>
                             <td>{{ people.sensitiveObservations }}</td>
                         </tr>
                         {% endif %}

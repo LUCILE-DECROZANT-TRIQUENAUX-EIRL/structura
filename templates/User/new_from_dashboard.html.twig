@@ -10,15 +10,15 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_ADMIN") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('administration_dashboard') }}">Administration</a>
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        Enregistrer un.e nouvel.le utilisateurice
+        {% trans %}Enregistrer un.e nouvel.le utilisateurice{% endtrans %}
     </li>
 {% endblock %}
 
@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Enregistrer un.e nouvel.le utilisateurice</h1>
+                <h1>{% trans %}Enregistrer un.e nouvel.le utilisateurice{% endtrans %}</h1>
             </div>
             <div class="col text-right">
             </div>
@@ -36,7 +36,7 @@
     <br>
 
     <div class="container">
-        <p> Les champs notés avec * sont requis. </p>
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
 
         {{ form_start(form, {'attr': {'id': 'form-create-user'}}) }}
             <div class="form-group">
@@ -79,7 +79,7 @@
                     href="{{ path('administration_dashboard') }}"
                     class="btn btn-secondary"
                     >
-                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner au tableau de bord
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au tableau de bord{% endtrans %}
                 </a>
             </div>
             <div class="col text-right">
@@ -89,7 +89,7 @@
                     form="form-create-user"
                     class="btn btn-primary"
                     >
-                    <i class="icon ion-md-add"></i>&nbsp;Créer
+                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
                 </button>
             </div>
         </div>

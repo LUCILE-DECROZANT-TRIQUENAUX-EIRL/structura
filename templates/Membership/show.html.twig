@@ -6,16 +6,16 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('membership_list') }}">Liste des adhésions actives</a>
+        <a href="{{ path('membership_list') }}">{% trans %}Liste des adhésions actives{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        Adhésion du {{ membership.getDateStart | date('d M. Y') }}
-                 au {{ membership.getDateEnd | date('d M. Y') }}
+        {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
     </li>
 {% endblock %}
 
@@ -27,43 +27,43 @@
             <div class="col">
                 <h1>
                 {% if membership.dateStart and membership.dateStart %}
-                Adhésion du {{ membership.getDateStart | date('d M. Y') }}
-                         au {{ membership.getDateEnd | date('d M. Y') }}
+                    {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+                    {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
                 {% else %}
-                Cette adhésion n'est pas définie dans le temps
+                    {% trans %}Cette adhésion n'est pas définie dans le temps{% endtrans %}
                 {% endif %}
                 </h1>
             </div>
             <br>
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h2 class="text-center">Adhésion {{ membership.type.label }}</h2>
+                    <h2 class="text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }}</h2>
                     <h2 class="lead text-center">{{ membership.type.description }}</h2>
                     <br><br><hr><br>
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <h4>Montant&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
+                                <h4>{% trans %}Montant{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
                                 <br>
-                                <h4>Payée via&nbsp;: <small>{{ membership.payment.type.label }}</small></h4>
+                                <h4>{% trans %}Payée via{% endtrans %}&nbsp;: <small>{{ membership.payment.type.label }}</small></h4>
                             </div>
                             <br>
                             <div class="col-6">
                                 {% if membership.payment.dateReceived is null %}
-                                    <h4><i class="icon ion-md-warning"></i> Paiement pas encore reçu</h4>
+                                    <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}</h4>
                                 {% else %}
-                                    <h4>Paiement reçu le <small>{{ membership.payment.dateReceived | date('d M. Y') }}</small></h4>
+                                    <h4>{% trans %}Paiement reçu le{% endtrans %} <small>{{ membership.payment.dateReceived | date('d M. Y') }}</small></h4>
                                 {% endif %}
                                 <br>
                                 {% if membership.payment.dateCashed is null %}
-                                    <h4><i class="icon ion-md-warning"></i> Paiement pas encore encaissé</h4>
+                                    <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}</h4>
                                 {% else %}
-                                    <h4>Paiement encaissé le <small>{{ membership.payment.dateCashed | date('d M. Y') }}</small></h4>
+                                    <h4>{% trans %}Paiement encaissé le{% endtrans %} <small>{{ membership.payment.dateCashed | date('d M. Y') }}</small></h4>
                                 {% endif %}
                                 <br>
                             </div>
                             <div class="col-12">
-                                <h4>Commentaire :
+                                <h4>{% trans %}Commentaire :{% endtrans %}
                                     <small>{{ membership.comment is null ? '-' : membership.comment }}</small>
                                 </h4>
                             </div>
@@ -71,7 +71,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-12">
-                                        <h2 class="text-center">Adhérent.es</h2>
+                                        <h2 class="text-center">{% trans %}Adhérent.es{% endtrans %}</h2>
                                         <br><hr><br>
                                     </div>
                                     {% for member in membership.members %}
@@ -94,7 +94,7 @@
             <div class="row">
                 {% if is_granted("ROLE_GESTION") %}
                 <div class="col">
-                    <a href="{{ path('membership_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhésions actives</a>
+                    <a href="{{ path('membership_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions actives{% endtrans %}</a>
                 </div>
                 {% endif %}
             </div>

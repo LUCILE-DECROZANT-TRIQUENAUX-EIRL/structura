@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('membership_list') }}">Adhésions</a>
+        <a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
         {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname }} {{ people.firstname }}
@@ -35,7 +35,7 @@
                             {% endfor %}
                         {% else %}
                         <div class="col">
-                            Pas d'adresse enregistrée.
+                            {% trans %}Pas d'adresse enregistrée.{% endtrans %}
                         </div>
                         {% endif %}
                     </div>
@@ -57,12 +57,12 @@
         <div class="row justify-content-between">
             <div class="col-md-6">
                 <div class="border p-3">
-                    COIN
+                    {% trans %}COIN{% endtrans %}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="border p-3">
-                    COIN
+                    {% trans %}COIN{% endtrans %}
                 </div>
             </div>
         </div>

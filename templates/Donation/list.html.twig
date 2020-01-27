@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Liste des dons
+        {% trans %}Liste des dons{% endtrans %}
     </li>
 {% endblock %}
 
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Liste des dons</h1>
+                <h1>{% trans %}Liste des dons{% endtrans %}</h1>
             </div>
         </div>
     </div>
@@ -27,14 +27,14 @@
             data-copy-button="toggle"
             data-csv-button="toggle"
             data-pdf-button="togle"
-            data-create-label="Enregistrer un nouveau don"
+            data-create-label="{% trans %}Enregistrer un nouveau don{% endtrans %}"
             data-create-path="{{ path('donation_new') }}"
             >
             <thead>
                 <tr>
-                    <th class="text-center" data-sortable="true" data-exportable="true">Montant</th>
-                    <th class="text-center" data-sortable="true" data-exportable="true">Date de règlement</th>
-                    <th class="text-center" data-sortable="true" data-exportable="true">Donateurice</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Montant{% endtrans %}</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Date de règlement{% endtrans %}</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Donateurice{% endtrans %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -51,7 +51,7 @@
                                 href="{{ path('donation_show', { 'id': donation.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Voir le don"
+                                title="{% trans %}Voir le don{% endtrans %}"
                                 >
                                 <i class="icon ion-md-eye"></i>
                             </a>
@@ -61,7 +61,7 @@
                                 href="{{ path('donation_edit', { 'id': donation.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Éditer le don"
+                                title="{% trans %}Éditer le don{% endtrans %}"
                                 >
                                 <i class="icon ion-md-create"></i>
                             </a>
@@ -70,7 +70,7 @@
                             <a
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Supprimer le don"
+                                title="{% trans %}Supprimer le don{% endtrans %}"
                                 >
                                 <i class="icon ion-md-trash"></i>
                             </a>
@@ -89,15 +89,15 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <p>
-                            Souhaitez-vous réellement supprimer ce don de <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
+                            {% trans %}Souhaitez-vous réellement supprimer ce don de{% endtrans %} <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
                         </p>
                         <div class="alert alert-warning" role="alert">
-                            <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="col">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
                         </div>
                         <div class="col text-right">
                             {{ include('Donation/_delete_form_button.html.twig') }}

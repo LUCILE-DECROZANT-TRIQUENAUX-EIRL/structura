@@ -2,15 +2,15 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('donation_index') }}">Liste des dons</a>
+        <a href="{{ path('donation_index') }}">{% trans %}Liste des dons{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        Don de {{ donation.amount }}&nbsp;€ du {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
     </li>
 {% endblock %}
 
@@ -38,13 +38,13 @@
             <div class="col-md-6">
                 <div class="border p-3">
                     <div class="col-12">
-                        <label for="donation_amount">Fait un don de</label>
+                        <label for="donation_amount">{% trans %}Fait un don de{% endtrans %}</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.amount) }}
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="donation_donation_date">Le</label>
+                        <label for="donation_donation_date">{% trans %}Le{% endtrans %}</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.donation_date) }}
@@ -54,13 +54,13 @@
             <div class="col-md-6">
                 <div class="border p-3">
                     <div class="col-12">
-                        <label for="donation_payment_type">Règle via</label>
+                        <label for="donation_payment_type">{% trans %}Règle via{% endtrans %}</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.payment_type) }}
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="donation_cashed_date">Paiment encaissé le</label>
+                        <label for="donation_cashed_date">{% trans %}Paiment encaissé le{% endtrans %}</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.cashed_date) }}
@@ -73,7 +73,7 @@
     <div class="container mt-3">
         <div class="row justify-content-between">
             <div class="col-md-6">
-                <a href="{{ path('donation_index') }}" class="btn btn-secondary">Retour à la liste des dons</a>
+                <a href="{{ path('donation_index') }}" class="btn btn-secondary">{% trans %}Retour à la liste des dons{% endtrans %}</a>
             </div>
             <div class="col-md-6">
                 <button
@@ -81,7 +81,7 @@
                     type="submit"
                     form="form-edit-donation"
                 >
-                    Enregistrer les modifications
+                    {% trans %}Enregistrer les modifications{% endtrans %}
                 </button>
             </div>
         </div>
