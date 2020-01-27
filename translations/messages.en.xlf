@@ -831,9 +831,9 @@
       </trans-unit>
       <trans-unit id="NxG8b.B" resname="Identité">
         <source>Identité</source>
-        <target state="translated">Title</target>
+        <target state="translated">Identity</target>
         <alt-trans>
-          <target>Identity</target>
+          <target>Title</target>
         </alt-trans>
         <alt-trans>
           <target>__Identité</target>
@@ -848,7 +848,10 @@
       </trans-unit>
       <trans-unit id="kBziTMq" resname="Civilité">
         <source>Civilité</source>
-        <target state="translated">Gender</target>
+        <target state="translated">Title</target>
+        <alt-trans>
+          <target>Gender</target>
+        </alt-trans>
         <alt-trans>
           <target>__Civilité</target>
         </alt-trans>
@@ -992,15 +995,24 @@
       </trans-unit>
       <trans-unit id="YyzS.qc" resname="au">
         <source>au</source>
-        <target state="translated">__au</target>
+        <target state="translated">to</target>
+        <alt-trans>
+          <target>__au</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="OjFB_Nc" resname="Cette adhésion n'est pas définie dans le temps">
         <source>Cette adhésion n'est pas définie dans le temps</source>
-        <target state="translated">__Cette adhésion n'est pas définie dans le temps</target>
+        <target state="translated">This membership is not set in time</target>
+        <alt-trans>
+          <target>__Cette adhésion n'est pas définie dans le temps</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="BI8DMr_" resname="Adhésion">
         <source>Adhésion</source>
-        <target state="translated">__Adhésion</target>
+        <target state="translated">Membership</target>
+        <alt-trans>
+          <target>__Adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="lHzAfis" resname="Montant">
         <source>Montant</source>
