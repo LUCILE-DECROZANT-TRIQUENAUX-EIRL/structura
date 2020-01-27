@@ -18,6 +18,16 @@ use App\Entity\People;
 class HomeController extends AbstractController
 {
     /**
+     * @Route("/")
+     *
+     * Redirect to the home route to handle translations
+     */
+    public function redirectAction()
+    {
+        return $this->redirectToRoute('home', [], 301);
+    }
+
+    /**
      * @Route("/{_locale}/", name="home", requirements={"_locale"="en|fr"})
      * @param Request $request The request.
      * @param UserInterface $user The user.
