@@ -1016,51 +1016,93 @@
       </trans-unit>
       <trans-unit id="lHzAfis" resname="Montant">
         <source>Montant</source>
-        <target state="translated">__Montant</target>
+        <target state="translated">Cost</target>
+        <alt-trans>
+          <target>__Montant</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="swUmGEm" resname="Payée via">
         <source>Payée via</source>
-        <target state="translated">__Payée via</target>
+        <target state="translated">Paid via</target>
+        <alt-trans>
+          <target>__Payée via</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="OLOVBTh" resname="Paiement pas encore reçu">
         <source>Paiement pas encore reçu</source>
-        <target state="translated">__Paiement pas encore reçu</target>
+        <target state="translated">Payment not received yet</target>
+        <alt-trans>
+          <target>__Paiement pas encore reçu</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="r_fysD." resname="Paiement reçu le">
         <source>Paiement reçu le</source>
-        <target state="translated">__Paiement reçu le</target>
+        <target state="translated">Payment received on</target>
+        <alt-trans>
+          <target>__Paiement reçu le</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="d0a3oBH" resname="Paiement pas encore encaissé">
         <source>Paiement pas encore encaissé</source>
-        <target state="translated">__Paiement pas encore encaissé</target>
+        <target state="translated">Payment not yet cashed out</target>
+        <alt-trans>
+          <target>Payment not redeemed yet</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Paiement pas encore encaissé</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="zPAFtsL" resname="Paiement encaissé le">
         <source>Paiement encaissé le</source>
-        <target state="translated">__Paiement encaissé le</target>
+        <target state="translated">Payment cashed on</target>
+        <alt-trans>
+          <target>__Paiement encaissé le</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fUwZx7T" resname="Commentaire :">
         <source>Commentaire :</source>
-        <target state="translated">__Commentaire :</target>
+        <target state="translated">Comment:</target>
+        <alt-trans>
+          <target>__Commentaire :</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="WsNlXXR" resname="Adhérent.es">
         <source>Adhérent.es</source>
-        <target state="translated">__Adhérent.es</target>
+        <target state="translated">Members</target>
+        <alt-trans>
+          <target>__Adhérent.es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="PCHe7ug" resname="Retourner à la liste des adhésions actives">
         <source>Retourner à la liste des adhésions actives</source>
-        <target state="translated">__Retourner à la liste des adhésions actives</target>
+        <target state="translated">Back to active membership list</target>
+        <alt-trans>
+          <target>__Retourner à la liste des adhésions actives</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="LUBn3CR" resname="Pas d'adresse enregistrée.">
         <source>Pas d'adresse enregistrée.</source>
-        <target state="translated">__Pas d'adresse enregistrée.</target>
+        <target state="translated">No address saved.</target>
+        <alt-trans>
+          <target>__Pas d'adresse enregistrée.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="2vSfWjR" resname="COIN">
         <source>COIN</source>
-        <target state="translated">__COIN</target>
+        <target state="translated">QUACK</target>
+        <alt-trans>
+          <target>__COIN</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="EE8C7tR" resname="Sélection des personnes à faire adhérer">
         <source>Sélection des personnes à faire adhérer</source>
-        <target state="translated">__Sélection des personnes à faire adhérer</target>
+        <target state="translated">Selection of people to become members</target>
+        <alt-trans>
+          <target>Selection of people to join</target>
+        </alt-trans>
+        <alt-trans>
+          <target>__Sélection des personnes à faire adhérer</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="R6vEPGl" resname="Sélectionnez les personnes à faire adhérer">
         <source>Sélectionnez les personnes à faire adhérer</source>
@@ -1068,111 +1110,192 @@
       </trans-unit>
       <trans-unit id="vGKW_PH" resname="Enregistrer un·e nouvel·le personne dans l'annuaire">
         <source>Enregistrer un·e nouvel·le personne dans l'annuaire</source>
-        <target state="translated">__Enregistrer un·e nouvel·le personne dans l'annuaire</target>
+        <target state="translated">Register a new person in the directory</target>
+        <alt-trans>
+          <target>__Enregistrer un·e nouvel·le personne dans l'annuaire</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="lYL3Idb" resname="Dénomination">
         <source>Dénomination</source>
-        <target state="translated">__Dénomination</target>
+        <target state="translated">Title</target>
+        <alt-trans>
+          <target>__Dénomination</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="C3wK6Jq" resname="Adresse.s">
         <source>Adresse.s</source>
-        <target state="translated">__Adresse.s</target>
+        <target state="translated">Address</target>
+        <alt-trans>
+          <target>__Adresse.s</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="DUekZvX" resname="Retourner à l'accueil">
         <source>Retourner à l'accueil</source>
-        <target state="translated">__Retourner à l'accueil</target>
+        <target state="translated">Back to Home</target>
+        <alt-trans>
+          <target>__Retourner à l'accueil</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="9g8ZyHr" resname="Valider la sélection">
         <source>Valider la sélection</source>
-        <target state="translated">__Valider la sélection</target>
+        <target state="translated">Confirm selection</target>
+        <alt-trans>
+          <target>__Valider la sélection</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="dijiq_7" resname="Dates de la dernière adhésion">
         <source>Dates de la dernière adhésion</source>
-        <target state="translated">__Dates de la dernière adhésion</target>
+        <target state="translated">Dates of last membership</target>
+        <alt-trans>
+          <target>__Dates de la dernière adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="FvED9D4" resname="Type d'adhésion">
         <source>Type d'adhésion</source>
-        <target state="translated">__Type d'adhésion</target>
+        <target state="translated">Type of membership</target>
+        <alt-trans>
+          <target>__Type d'adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="XUQ5quC" resname="Payée via...">
         <source>Payée via...</source>
-        <target state="translated">__Payée via...</target>
+        <target state="translated">Paid via...</target>
+        <alt-trans>
+          <target>__Payée via...</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="zlf73kD" resname="Encaissée le...">
         <source>Encaissée le...</source>
-        <target state="translated">__Encaissée le...</target>
+        <target state="translated">Cashed out on:</target>
+        <alt-trans>
+          <target>__Encaissée le...</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="C2ciqK3" resname="Du">
         <source>Du</source>
-        <target state="translated">__Du</target>
+        <target state="translated">From</target>
+        <alt-trans>
+          <target>__Du</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="yY0WQIt" resname="Pas encore encaissé">
         <source>Pas encore encaissé</source>
-        <target state="translated">__Pas encore encaissé</target>
+        <target state="translated">Not yet cashed out</target>
+        <alt-trans>
+          <target>__Pas encore encaissé</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Qj6NQoG" resname="Voir les détails de l'adhésion">
         <source>Voir les détails de l'adhésion</source>
-        <target state="translated">__Voir les détails de l'adhésion</target>
+        <target state="translated">View membership details</target>
+        <alt-trans>
+          <target>__Voir les détails de l'adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ttUAY5t" resname="Liste des adhérent·es">
         <source>Liste des adhérent·es</source>
-        <target state="translated">__Liste des adhérent·es</target>
+        <target state="translated">List of members</target>
+        <alt-trans>
+          <target>__Liste des adhérent·es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="AtMrrT1" resname="Ce·tte membre n'a pas de nom">
         <source>Ce·tte membre n'a pas de nom</source>
-        <target state="translated">__Ce·tte membre n'a pas de nom</target>
+        <target state="translated">This user has no name</target>
+        <alt-trans>
+          <target>__Ce·tte membre n'a pas de nom</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ucjFN5w" resname="Reçoit la newsletter">
         <source>Reçoit la newsletter</source>
-        <target state="translated">__Reçoit la newsletter</target>
+        <target state="translated">Receive newsletter</target>
+        <alt-trans>
+          <target>__Reçoit la newsletter</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="0c9u8s6" resname="Newsletter envoyée sous format dématérialisé">
         <source>Newsletter envoyée sous format dématérialisé</source>
-        <target state="translated">__Newsletter envoyée sous format dématérialisé</target>
+        <target state="translated">Newsletter sent in virtual format</target>
+        <alt-trans>
+          <target>__Newsletter envoyée sous format dématérialisé</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="SvkqbS6" resname="Liste des adhérent.es">
         <source>Liste des adhérent.es</source>
-        <target state="translated">__Liste des adhérent.es</target>
+        <target state="translated">List of members</target>
+        <alt-trans>
+          <target>__Liste des adhérent.es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="h0ARGAm" resname="Retourner à la liste des adhérent⋅es">
         <source>Retourner à la liste des adhérent⋅es</source>
-        <target state="translated">__Retourner à la liste des adhérent⋅es</target>
+        <target state="translated">Back to the list of members</target>
+        <alt-trans>
+          <target>__Retourner à la liste des adhérent⋅es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="wYOjNUb" resname="Édition de l'adhérent.e">
         <source>Édition de l'adhérent.e</source>
-        <target state="translated">__Édition de l'adhérent.e</target>
+        <target state="translated">Edit member</target>
+        <alt-trans>
+          <target>__Édition de l'adhérent.e</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="M7lHDZz" resname="Adhésion en cours">
         <source>Adhésion en cours</source>
-        <target state="translated">__Adhésion en cours</target>
+        <target state="translated">Active membership</target>
+        <alt-trans>
+          <target>__Adhésion en cours</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Hv0tUsf" resname="Montant du paiement">
         <source>Montant du paiement</source>
-        <target state="translated">__Montant du paiement</target>
+        <target state="translated">Payment amount</target>
+        <alt-trans>
+          <target>__Montant du paiement</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="pEtzO2k" resname="Autres adhérent.es concerné.es">
         <source>Autres adhérent.es concerné.es</source>
-        <target state="translated">__Autres adhérent.es concerné.es</target>
+        <target state="translated">Other members involved</target>
+        <alt-trans>
+          <target>__Autres adhérent.es concerné.es</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="L5s48Y2" resname="Ancienne adhésion">
         <source>Ancienne adhésion</source>
-        <target state="translated">__Ancienne adhésion</target>
+        <target state="translated">Old membership</target>
+        <alt-trans>
+          <target>__Ancienne adhésion</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="wxSFGoP" resname="Don de">
         <source>Don de</source>
-        <target state="translated">__Don de</target>
+        <target state="translated">Donation of</target>
+        <alt-trans>
+          <target>__Don de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="kpGMrnC" resname="€ du">
         <source>€ du</source>
-        <target state="translated">__€ du</target>
+        <target state="translated">€ from</target>
+        <alt-trans>
+          <target>__€ du</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="JLa_8l5" resname="Don">
         <source>Don</source>
-        <target state="translated">__Don</target>
+        <target state="translated">Donation</target>
+        <alt-trans>
+          <target>__Don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ahql_n5" resname="Informations du don">
         <source>Informations du don</source>
-        <target state="translated">__Informations du don</target>
+        <target state="translated">Donation details</target>
+        <alt-trans>
+          <target>__Informations du don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="P0VlfA4" resname="Date de règlement">
         <source>Date de règlement</source>
