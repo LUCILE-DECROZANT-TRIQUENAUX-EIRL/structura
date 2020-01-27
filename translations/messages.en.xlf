@@ -1320,63 +1320,108 @@
       </trans-unit>
       <trans-unit id="m79r6x2" resname="Date de réception">
         <source>Date de réception</source>
-        <target state="translated">__Date de réception</target>
+        <target state="translated">Date of receipt</target>
+        <alt-trans>
+          <target>__Date de réception</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="WyZPxeu" resname="Date d'encaissement">
         <source>Date d'encaissement</source>
-        <target state="translated">__Date d'encaissement</target>
+        <target state="translated">Cash Out Date</target>
+        <alt-trans>
+          <target>__Date d'encaissement</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="siiyPEV" resname="Réglé via...">
         <source>Réglé via...</source>
-        <target state="translated">__Réglé via...</target>
+        <target state="translated">Paid via...</target>
+        <alt-trans>
+          <target>__Réglé via...</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="SNPoFla" resname="Commentaire">
         <source>Commentaire</source>
-        <target state="translated">__Commentaire</target>
+        <target state="translated">Comment</target>
+        <alt-trans>
+          <target>__Commentaire</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="VVlzzMP" resname="Supprimer le don">
         <source>Supprimer le don</source>
-        <target state="translated">__Supprimer le don</target>
+        <target state="translated">Delete donation</target>
+        <alt-trans>
+          <target>__Supprimer le don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="WwOiuJK" resname="Souhaitez-vous réellement supprimer ce don de">
         <source>Souhaitez-vous réellement supprimer ce don de</source>
-        <target state="translated">__Souhaitez-vous réellement supprimer ce don de</target>
+        <target state="translated">Do you really want to delete this donation of</target>
+        <alt-trans>
+          <target>__Souhaitez-vous réellement supprimer ce don de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="QuN2BLY" resname="Modifier">
         <source>Modifier</source>
-        <target state="translated">__Modifier</target>
+        <target state="translated">Edit</target>
+        <alt-trans>
+          <target>__Modifier</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="FHD36uX" resname="Donateur">
         <source>Donateur</source>
-        <target state="translated">__Donateur</target>
+        <target state="translated">Donator</target>
+        <alt-trans>
+          <target>__Donateur</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="jWLuSbm" resname="Fait un don de">
         <source>Fait un don de</source>
-        <target state="translated">__Fait un don de</target>
+        <target state="translated">Donated</target>
+        <alt-trans>
+          <target>__Fait un don de</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="ovvHVLn" resname="Le">
         <source>Le</source>
-        <target state="translated">__Le</target>
+        <target state="translated">On</target>
+        <alt-trans>
+          <target>__Le</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="fga8BRn" resname="Règle via">
         <source>Règle via</source>
-        <target state="translated">__Règle via</target>
+        <target state="translated">Paid via</target>
+        <alt-trans>
+          <target>__Règle via</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="7B6wrUR" resname="Paiment encaissé le">
         <source>Paiment encaissé le</source>
-        <target state="translated">__Paiment encaissé le</target>
+        <target state="translated">Payment cashed out on</target>
+        <alt-trans>
+          <target>__Paiment encaissé le</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="QMEDDAI" resname="Retour à la liste des dons">
         <source>Retour à la liste des dons</source>
-        <target state="translated">__Retour à la liste des dons</target>
+        <target state="translated">Back to the list of donations</target>
+        <alt-trans>
+          <target>__Retour à la liste des dons</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="P8v83Gw" resname="Voir le don">
         <source>Voir le don</source>
-        <target state="translated">__Voir le don</target>
+        <target state="translated">View donation</target>
+        <alt-trans>
+          <target>__Voir le don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
-        <target state="translated">__Éditer le don</target>
+        <target state="translated">Edit donation</target>
+        <alt-trans>
+          <target>__Éditer le don</target>
+        </alt-trans>
       </trans-unit>
     </body>
   </file>
