@@ -1299,15 +1299,24 @@
       </trans-unit>
       <trans-unit id="P0VlfA4" resname="Date de règlement">
         <source>Date de règlement</source>
-        <target state="translated">__Date de règlement</target>
+        <target state="translated">Payment date</target>
+        <alt-trans>
+          <target>__Date de règlement</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="CoHh3oP" resname="Donateurice">
         <source>Donateurice</source>
-        <target state="translated">__Donateurice</target>
+        <target state="translated">Donator</target>
+        <alt-trans>
+          <target>__Donateurice</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="3Uc.spg" resname="Informations du paiement">
         <source>Informations du paiement</source>
-        <target state="translated">__Informations du paiement</target>
+        <target state="translated">Payment details</target>
+        <alt-trans>
+          <target>__Informations du paiement</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="m79r6x2" resname="Date de réception">
         <source>Date de réception</source>
