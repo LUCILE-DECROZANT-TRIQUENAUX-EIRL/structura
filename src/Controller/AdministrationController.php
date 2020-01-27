@@ -18,7 +18,7 @@ class AdministrationController extends AbstractController
     /**
      * @return views
      * @param Request $request The request.
-     * @Route("/administration", name="administration_dashboard")
+     * @Route("/{_locale}/administration", name="administration_dashboard", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
     public function administrationAction(Request $request)

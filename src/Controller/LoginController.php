@@ -19,7 +19,7 @@ class LoginController extends AbstractController
 {
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/{_locale}/login", name="login", requirements={"_locale"="en|fr"})
      * @param Request $request The request.
      * @param AuthenticationUtils $authenticationUtils Error.
      * @param UserInterface $currentUser The user.
@@ -70,7 +70,7 @@ class LoginController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route("/{_locale}/logout", name="logout", requirements={"_locale"="en|fr"})
      */
     public function logoutAction($param)
     {

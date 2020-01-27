@@ -20,7 +20,7 @@ use App\FormDataObject\UpdateMemberDataFDO;
 /**
  * Member controller.
  *
- * @Route("member")
+ * @Route(path="/{_locale}/member", requirements={"_locale"="en|fr"})
  */
 class MemberController extends AbstractController
 {

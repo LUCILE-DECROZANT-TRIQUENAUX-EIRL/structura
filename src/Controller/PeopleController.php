@@ -20,7 +20,7 @@ use App\FormDataObject\UpdatePeopleDataFDO;
 /**
  * People controller.
  *
- * @Route("people")
+ * @Route(path="/{_locale}/people", requirements={"_locale"="en|fr"})
  */
 class PeopleController extends AbstractController
 {

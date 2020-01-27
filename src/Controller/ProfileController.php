@@ -24,7 +24,7 @@ use App\FormDataObject\UpdateUserGeneralDataFDO;
 /**
  * People controller.
  *
- * @Route("profile")
+ * @Route(path="/{_locale}/profile", requirements={"_locale"="en|fr"})
  */
 class ProfileController extends AbstractController
 {

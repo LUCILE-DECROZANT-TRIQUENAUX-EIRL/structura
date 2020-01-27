@@ -18,7 +18,7 @@ use App\Entity\People;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/{_locale}/", name="home", requirements={"_locale"="en|fr"})
      * @param Request $request The request.
      * @param UserInterface $user The user.
      * @return views

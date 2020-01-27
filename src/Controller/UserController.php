@@ -25,7 +25,7 @@ use Symfony\Component\Form\FormError;
 /**
  * User controller.
  *
- * @Route("user")
+ * @Route(path="/{_locale}/user", requirements={"_locale"="en|fr"})
  */
 class UserController extends AbstractController
 {
