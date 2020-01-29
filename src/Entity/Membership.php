@@ -40,7 +40,7 @@ class Membership
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MembershipType", inversedBy="memberships")
+     * @ORM\ManyToOne(targetEntity="App\Entity\MembershipType")
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
@@ -143,9 +143,23 @@ class Membership
         return $this->members;
     }
 
-    public function setMembers(?People $members): self
+    public function setMembers($members): self
     {
-        $this->members = $members;
+        foreach($this->members as $oldMember)
+        {
+            // unset the owning side of the relation
+            if ($oldMember->getMemberships()->contains($this))
+            {
+                $oldMember->removeMembership($this);
+            }
+        }
+
+        $this->members = new ArrayCollection();
+
+        foreach($members as $newMember)
+        {
+            $this->addMember($newMember);
+        }
 
         return $this;
     }
@@ -155,12 +169,13 @@ class Membership
      *
      * @param People $people The person to add.
      */
-    public function addMember($people)
+    public function addMember(People $people)
     {
         $this->members[] = $people;
 
         // set the owning side of the relation if necessary
-        if (!in_array($this, $people->getMemberships())) {
+        if (!$people->getMemberships()->contains($this))
+        {
             $people->addMembership($this);
         }
     }
@@ -170,14 +185,15 @@ class Membership
      *
      * @param People $people The person to remove.
      */
-    public function removeMember($people)
+    public function removeMember(People $people)
     {
-        $index = array_search($people, $this->members);
+        $index = $this->members->indexOf($people);
 
         unset($members[$index]);
 
         // unset the owning side of the relation if necessary
-        if (in_array($this, $people->getMemberships())) {
+        if ($people->getMemberships()->contains($this))
+        {
             $people->removeMembership($this);
         }
     }

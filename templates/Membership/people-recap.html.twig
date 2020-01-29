@@ -1,0 +1,54 @@
+<div id="people-recap-{{people.id}}" class="col-md-6 mt-3">
+    <div class="border p-3 h-100">
+        <div class="row">
+            <div class="col-3">
+                <img class="img-thumbnail" src="{{ asset('images/placeholder-personne.jpg') }}" alt="Profile photo placeholder">
+            </div>
+            <div class="col-8 p-1">
+                <div class="row"> <!--row name -->
+                    <div id="people-recap-name-{{people.id}}" class="col">
+                        {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname | upper }}
+                    </div>
+                </div>
+                <div class="row"> <!--row address -->
+                    {% if not people.hasNoAddressDefined() %}
+                        {% for address in people.addresses %}
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col">
+                                    {{address.line}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{address.postalCode}} {{address.city}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{address.country}}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="col">
+                        Pas d'adresse enregistrée.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-1 text-center p-0">
+                <button
+                    id="edit-donator-button-{{people.id}}"
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="handlePeopleDeletion({{people.id}})"
+                    title="Retirer la personne de la nouvelle adhésion"
+                >
+                    <i class="icon ion-md-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

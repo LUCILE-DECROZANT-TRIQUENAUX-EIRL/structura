@@ -1,5 +1,11 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}Création d'une adhésion{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/Membership/new.js') }}"></script>
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
         <a href="/">{% trans %}Accueil{% endtrans %}</a>
@@ -8,63 +14,103 @@
         <a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname }} {{ people.firstname }}
+        Nouvelle adhésion
     </li>
 {% endblock %}
 
 {% block body %}
-    <!-- <br> -->
-    <div class="container mt-4">
+    <div id="people-selector-container" class="container mt-4">
         <div class="border p-3">
             <div class="row">
-                <div class="col-2">
-                    <img class="img-thumbnail" src="{{ asset('images/placeholder-personne.jpg') }}" alt="Profile photo placeholder">
+                <div class="col-12">
+                    <label for="donation_donator">Ajouter une personne à la nouvelle adhésion</label>
                 </div>
-                <div class="col-10">
-                    <div class="row"> <!--row name -->
-                        <div class="col">
-                            {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname | upper }} {{ people.firstname }}
+                <div class="col-12">
+                    {{ form_widget(membership_creation_form.newMember) }}
+                    {{ form_errors(membership_creation_form.newMember) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="people-recaps" class="row">
+        </div>
+    </div>
+    {{ form_start(membership_creation_form, {'attr': {'id': 'member-creation-form'}} ) }}
+        <div class="d-none">
+            {{ form_row(membership_creation_form.members)}}
+        </div>
+        <div class="container mt-3">
+            <div class="row justify-content-between">
+                <div class="col-md-6">
+                    <div class="border p-3 h-100">
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.membershipType)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.membershipDate_start)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.membershipDate_end)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.membershipComment)}}
                         </div>
                     </div>
-                    <div class="row"> <!--row address -->
-                        {% if not people.hasNoAddressDefined() %}
-                            {% for address in people.addresses %}
-                            <div class="col-sm-12">
-                                {{address.line}} {{address.postalCode}} {{address.city}}, {{address.country}}
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                        <div class="col">
-                            {% trans %}Pas d'adresse enregistrée.{% endtrans %}
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 h-100">
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.paymentType)}}
                         </div>
-                        {% endif %}
-                    </div>
-                    <div class="row"> <!--row email address -->
-                        <div class="col">
-                            {{ people.emailAddress ? people.emailAddress : "-"}}
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.membershipAmount)}}
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {{ people.cellPhoneNumber ? people.cellPhoneNumber : "-"}}
+                        <div class="form-group">
+                            <button
+                                id="add-donation-btn"
+                                class="btn btn-lg btn-block btn-secondary"
+                                type="button"
+                            >
+                                Ajouter un don
+                            </button>
+                        </div>
+                        <div id="donation-amount-group" class="form-group d-none">
+                            {{ form_row(membership_creation_form.donationAmount)}}
+                        </div>
+                        <div id="payment-amount-group" class="form-group d-none">
+                            {{ form_row(membership_creation_form.paymentAmount)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.payer)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.paymentDate_received)}}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(membership_creation_form.paymentDate_cashed)}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container mt-3">
-        <div class="row justify-content-between">
-            <div class="col-md-6">
-                <div class="border p-3">
-                    {% trans %}COIN{% endtrans %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col">
+                    <a href="{{ path('membership_list') }}" class="btn btn-secondary">
+                        <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhésions
+                    </a>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="border p-3">
-                    {% trans %}COIN{% endtrans %}
+                <div class="col text-right">
+                    <button
+                    id="member-creation-submit-button"
+                    type="submit"
+                    form="member-creation-form"
+                    class="btn btn-primary">
+                        Enregistrer l'adhésion
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    {{ form_end(membership_creation_form) }}
 {% endblock %}

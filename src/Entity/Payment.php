@@ -93,6 +93,9 @@ class Payment
         return $this->amount;
     }
 
+    /**
+     * Set the payment amount
+     */
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
@@ -150,9 +153,10 @@ class Payment
     function setPayer($payer): self
     {
         $this->payer = $payer;
+
+
         return $this;
     }
-
 
     /**
      * @return Donation
@@ -165,6 +169,12 @@ class Payment
     public function setDonation(Donation $donation): self
     {
         $this->donation = $donation;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPayment = $donation === null ? null : $this;
+        if ($newPayment !== $donation->getPayment()) {
+            $donation->setPayment($newPayment);
+        }
 
         return $this;
     }

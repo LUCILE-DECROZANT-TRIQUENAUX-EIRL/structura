@@ -11,93 +11,135 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class CreateMembershipFDO
 {
-    private $amount;
-
-    private $date_start;
-
-    private $date_end;
-
-    private $comment;
+    private $isMembershipAndDonation;
 
     private $membershipType;
 
-    private $payment;
+    private $membershipAmount;
+
+    private $membershipDate_start;
+
+    private $membershipDate_end;
+
+    private $membershipComment;
+
+    private $donationAmount;
+
+    private $paymentType;
+
+    private $paymentAmount;
+
+    private $paymentDate_received;
+
+    private $paymentDate_cashed;
+
+    private $payer;
 
     private $members;
 
-    public function __construct()
+    private $newMember;
+
+    public function __construct(Membership $membership = null, Donation $donation = null)
     {
-        $this->members = new ArrayCollection();
+        $this->isMembershipAndDonation = false;
+
+        if ($membership !== null)
+        {
+            $this->members = $membership->getMembers();
+
+            $this->membershipType = $membership->getType();
+            $this->membershipAmount = $membership->getAmount();
+            $this->membershipDate_start = $membership->getDateStart();
+            $this->membershipDate_end = $membership->getDateEnd();
+            $this->membershipComment = $membership->getComment();
+
+            $payment = $membership->getPayment();
+
+            $this->paymentType = $payment->getType();
+            $this->paymentAmount = $payment->getAmount();
+            $this->paymentDate_received = $payment->getDateReceived();
+            $this->paymentDate_cashed = $payment->getDateCashed();
+
+            if ($donation !== null)
+            {
+                $this->donationAmount = $donation->getAmount();
+                $this->isMembershipAndDonation = true;
+            }
+        }
+        else
+        {
+            $this->members = new ArrayCollection();
+        }
     }
 
-    public function getAmount(): ?float
+    public function getMembershipAmount(): ?float
     {
-        return $this->amount;
+        return $this->membershipAmount;
     }
 
-    public function setAmount(float $amount): self
+    public function setMembershipAmount(float $membershipAmount): self
     {
-        $this->amount = $amount;
+        $this->membershipAmount = $membershipAmount;
 
         return $this;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    public function getMembershipDateStart(): ?\DateTimeInterface
     {
-        return $this->date_start;
+        return $this->membershipDate_start;
     }
 
-    public function setDateStart(\DateTimeInterface $date_start): self
+    public function setMembershipDateStart(\DateTimeInterface $membershipDate_start): self
     {
-        $this->date_start = $date_start;
+        $this->membershipDate_start = $membershipDate_start;
 
         return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeInterface
+    public function getMembershipDateEnd(): ?\DateTimeInterface
     {
-        return $this->date_end;
+        return $this->membershipDate_end;
     }
 
-    public function setDateEnd(\DateTimeInterface $date_end): self
+    public function setMembershipDateEnd(\DateTimeInterface $membershipDate_end): self
     {
-        $this->date_end = $date_end;
+        $this->membershipDate_end = $membershipDate_end;
 
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getMembershipComment(): ?string
     {
-        return $this->comment;
+        return $this->membershipComment;
     }
 
-    public function setComment(?string $comment): self
+    public function setMembershipComment(?string $membershipComment): self
     {
-        $this->comment = $comment;
+        $this->membershipComment = $membershipComment;
 
         return $this;
     }
 
-    public function getType(): ?MembershipType
+    public function getMembershipType(): ?MembershipType
     {
-        return $this->type;
+        return $this->membershipType;
     }
 
-    public function setType(?MembershipType $type): self
+    public function setMembershipType(?MembershipType $membershipType): self
     {
-        $this->type = $type;
+        $this->membershipType = $membershipType;
 
         return $this;
     }
 
-    public function getPayment(): ?Payment
+    public function getPaymentType(): ?PaymentType
     {
-        return $this->payment;
+        return $this->paymentType;
     }
 
-    public function setPayment(?Payment $payment): self
+    public function setPaymentType(?PaymentType $paymentType): self
     {
-        $this->payment = $payment;
+        $this->paymentType = $paymentType;
 
         return $this;
     }
@@ -119,14 +161,9 @@ class CreateMembershipFDO
      *
      * @param People $people The person to add.
      */
-    public function addMember($people)
+    public function addMembers($people)
     {
         $this->members[] = $people;
-
-        // set the owning side of the relation if necessary
-        if (!in_array($this, $people->getMemberships())) {
-            $people->addMembership($this);
-        }
     }
 
     /**
@@ -134,15 +171,150 @@ class CreateMembershipFDO
      *
      * @param People $people The person to remove.
      */
-    public function removeMember($people)
+    public function removeMembers($people)
     {
         $index = array_search($people, $this->members);
 
         unset($members[$index]);
+    }
 
-        // unset the owning side of the relation if necessary
-        if (in_array($this, $people->getMemberships())) {
-            $people->removeMembership($this);
-        }
+    /**
+     * Get the value of donationAmount
+     */
+    public function getDonationAmount()
+    {
+        return $this->donationAmount;
+    }
+
+    /**
+     * Set the value of donationAmount
+     *
+     * @return  self
+     */
+    public function setDonationAmount($donationAmount)
+    {
+        $this->donationAmount = $donationAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of paymentDate_received
+     */
+    public function getPaymentDateReceived()
+    {
+        return $this->paymentDate_received;
+    }
+
+    /**
+     * Set the value of paymentDate_received
+     *
+     * @return  self
+     */
+    public function setPaymentDateReceived($paymentDate_received)
+    {
+        $this->paymentDate_received = $paymentDate_received;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of paymentDate_cashed
+     */
+    public function getPaymentDateCashed()
+    {
+        return $this->paymentDate_cashed;
+    }
+
+    /**
+     * Set the value of paymentDate_cashed
+     *
+     * @return  self
+     */
+    public function setPaymentDateCashed($paymentDate_cashed)
+    {
+        $this->paymentDate_cashed = $paymentDate_cashed;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of paymentAmount
+     */
+    public function getPaymentAmount()
+    {
+        return $this->paymentAmount;
+    }
+
+    /**
+     * Set the value of paymentAmount
+     *
+     * @return  self
+     */
+    public function setPaymentAmount($paymentAmount)
+    {
+        $this->paymentAmount = $paymentAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isMembershipAndDonation
+     */
+    public function getIsMembershipAndDonation()
+    {
+        return $this->isMembershipAndDonation;
+    }
+
+    /**
+     * Set the value of isMembershipAndDonation
+     *
+     * @return  self
+     */
+    public function setIsMembershipAndDonation($isMembershipAndDonation)
+    {
+        $this->isMembershipAndDonation = $isMembershipAndDonation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of newMember
+     */
+    public function getNewMember()
+    {
+        return $this->newMember;
+    }
+
+    /**
+     * Set the value of newMember
+     *
+     * @return  self
+     */
+    public function setNewMember($newMember)
+    {
+        $this->newMember = $newMember;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of payer
+     */
+    public function getPayer()
+    {
+        return $this->payer;
+    }
+
+    /**
+     * Set the value of payer
+     *
+     * @return  self
+     */
+    public function setPayer($payer)
+    {
+        $this->payer = $payer;
+
+        return $this;
     }
 }
