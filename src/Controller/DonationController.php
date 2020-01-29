@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/donation")
+ * @Route(path="/{_locale}/donation", requirements={"_locale"="en|fr"})
  */
 class DonationController extends AbstractController
 {

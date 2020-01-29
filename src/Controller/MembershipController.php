@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * MembershipController controller.
  *
- * @Route("membership")
+ * @Route(path="/{_locale}/membership", requirements={"_locale"="en|fr"})
  */
 class MembershipController extends AbstractController
 {
