@@ -22,7 +22,7 @@ class Donation
     private $amount;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $donation_date;
 
@@ -60,7 +60,7 @@ class Donation
         return $this->donation_date;
     }
 
-    public function setDonationDate(\DateTimeInterface $donation_date): self
+    public function setDonationDate(?\DateTimeInterface $donation_date): self
     {
         $this->donation_date = $donation_date;
 
