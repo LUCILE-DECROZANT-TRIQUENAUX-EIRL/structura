@@ -63,19 +63,21 @@ class MembershipCreationType extends AbstractType
 
         $builder->add('membershipAmount', MoneyType::class, [
             'label' => 'Règle l\'adhésion d\'un montant de',
+            'attr' => [
+                'readonly' => 'readonly'
+            ],
         ]);
 
         $builder->add('donationAmount', MoneyType::class, [
             'label' => 'Règle le don d\'un montant de',
+            'attr' => [
+                'readonly' => 'readonly'
+            ],
             'required' => false,
         ]);
 
         $builder->add('paymentAmount', MoneyType::class, [
             'label' => 'Soit un total de',
-            'attr' => [
-                'readonly' => 'readonly'
-            ],
-            'required' => false,
         ]);
 
         $builder->add('paymentDate_received', DateType::class, [

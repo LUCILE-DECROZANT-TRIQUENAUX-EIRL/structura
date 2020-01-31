@@ -3,7 +3,7 @@ var currentMembershipType = null;
 var selectedPeopleCount = 0;
 
 $(document).ready(function() {
-    $('#app_membership_create_donationAmount').keyup(function() {
+    $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
 
@@ -79,12 +79,12 @@ function updatePaymentAmount() {
     let membershipAmount = $('#app_membership_create_membershipAmount').val();
     membershipAmount = membershipAmount == '' ? 0 : parseInt(membershipAmount);
 
-    let donationAmount = $('#app_membership_create_donationAmount').val();
-    donationAmount = donationAmount == '' ? 0 : parseInt(donationAmount);
+    let paymentAmount = $('#app_membership_create_paymentAmount').val();
+    paymentAmount = paymentAmount == '' ? 0 : parseInt(paymentAmount);
 
-    let paymentAmount = membershipAmount + donationAmount;
+    let donationAmount = paymentAmount - membershipAmount;
 
-    $('#app_membership_create_paymentAmount').val(paymentAmount);
+    $('#app_membership_create_donationAmount').val(donationAmount);
 }
 
 /**
