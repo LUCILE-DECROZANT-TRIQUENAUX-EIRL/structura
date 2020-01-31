@@ -19,11 +19,18 @@
 {% endblock %}
 
 {% block body %}
-    <div id="people-selector-container" class="container mt-4">
-        <div class="border p-3">
+    {{ form_start(membership_creation_form, {'attr': {'id': 'member-creation-form'}} ) }}
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    {{ form_row(membership_creation_form.membershipType)}}
+                </div>
+            </div>
+        </div>
+        <div id="people-selector-container" class="container">
             <div class="row">
                 <div class="col-12">
-                    <label for="donation_donator">Ajouter une personne à la nouvelle adhésion</label>
+                    <label for="donation_donator">Choisir les personnes concernées</label>
                 </div>
                 <div class="col-12">
                     {{ form_widget(membership_creation_form.newMember) }}
@@ -31,66 +38,58 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div id="people-recaps" class="row">
+        <div class="container">
+            <div id="people-recaps" class="row">
+            </div>
         </div>
-    </div>
-    {{ form_start(membership_creation_form, {'attr': {'id': 'member-creation-form'}} ) }}
         <div class="d-none">
             {{ form_row(membership_creation_form.members)}}
         </div>
         <div class="container mt-3">
             <div class="row justify-content-between">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="border p-3 h-100">
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.membershipType)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.membershipDate_start)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.membershipDate_end)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.membershipComment)}}
-                        </div>
+                        {{ form_row(membership_creation_form.membershipDate_start)}}
+                        {{ form_row(membership_creation_form.membershipDate_end)}}
+                        {{ form_row(membership_creation_form.membershipFiscal_year)}}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="border p-3 h-100">
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.paymentType)}}
+                        <div id="payment-amount-group" class="form-group">
+                            {{ form_label(membership_creation_form.paymentAmount)}}
+                            {{ form_errors(membership_creation_form.paymentAmount)}}
+                            {{ form_widget(membership_creation_form.paymentAmount)}}
+                            {{ form_help(membership_creation_form.paymentAmount)}}
                         </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.membershipAmount)}}
-                        </div>
-                        <div class="form-group">
-                            <button
-                                id="add-donation-btn"
-                                class="btn btn-lg btn-block btn-secondary"
-                                type="button"
-                            >
-                                Ajouter un don
-                            </button>
-                        </div>
-                        <div id="donation-amount-group" class="form-group d-none">
-                            {{ form_row(membership_creation_form.donationAmount)}}
-                        </div>
-                        <div id="payment-amount-group" class="form-group d-none">
-                            {{ form_row(membership_creation_form.paymentAmount)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.payer)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.paymentDate_received)}}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(membership_creation_form.paymentDate_cashed)}}
-                        </div>
+                        {{ form_row(membership_creation_form.payer)}}
+                        {{ form_row(membership_creation_form.paymentType)}}
+                        {{ form_row(membership_creation_form.paymentDate_received)}}
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="border p-3 h-100">
+                        <div id="membership-amount-group" class="form-group">
+                            {{ form_label(membership_creation_form.membershipAmount)}}
+                            {{ form_errors(membership_creation_form.membershipAmount)}}
+                            {{ form_widget(membership_creation_form.membershipAmount)}}
+                            {{ form_help(membership_creation_form.membershipAmount)}}
+                        </div>
+                        <div id="donation-amount-group" class="form-group">
+                            {{ form_label(membership_creation_form.donationAmount)}}
+                            {{ form_errors(membership_creation_form.donationAmount)}}
+                            {{ form_widget(membership_creation_form.donationAmount)}}
+                            {{ form_help(membership_creation_form.donationAmount)}}
+                        </div>
+                        {{ form_row(membership_creation_form.paymentDate_cashed)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col">
+                    {{ form_row(membership_creation_form.membershipComment)}}
                 </div>
             </div>
         </div>
