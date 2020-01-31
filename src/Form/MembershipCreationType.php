@@ -30,12 +30,12 @@ class MembershipCreationType extends AbstractType
             'choice_label' => 'label',
             'multiple' => false,
             'expanded' => false,
-            'label' => 'Adhère via une adhésion',
+            'label' => 'Enregister une adhésion de type',
             'help' => '1 adhérent.e.s maximum pour ce type d\'adhésion'
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
-            'label' => 'Pour la période du',
+            'label' => 'L\'adhésion est valable du',
             'widget' => 'single_text',
         ]);
 
@@ -62,14 +62,14 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('membershipAmount', MoneyType::class, [
-            'label' => 'Règle l\'adhésion d\'un montant de',
+            'label' => 'Soit une adhésion d\'un montant de',
             'attr' => [
                 'readonly' => 'readonly'
             ],
         ]);
 
         $builder->add('donationAmount', MoneyType::class, [
-            'label' => 'Règle le don d\'un montant de',
+            'label' => 'Et un don d\'un montant de',
             'attr' => [
                 'readonly' => 'readonly'
             ],
@@ -77,23 +77,23 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('paymentAmount', MoneyType::class, [
-            'label' => 'Soit un total de',
+            'label' => 'Le règlement est de',
         ]);
 
         $builder->add('paymentDate_received', DateType::class, [
-            'label' => 'Paiement effectué le',
+            'label' => 'Le',
             'widget' => 'single_text',
             'required' => false,
         ]);
 
         $builder->add('paymentDate_cashed', DateType::class, [
-            'label' => 'Paiment encaissé le',
+            'label' => 'Encaissé le',
             'widget' => 'single_text',
             'required' => false,
         ]);
 
         $builder->add('payer', EntityType::class, [
-            'label' => 'Paiement réalisé par',
+            'label' => 'Effectué par',
             'class' => People::class,
             'attr' => [
                 'readonly' => true,
