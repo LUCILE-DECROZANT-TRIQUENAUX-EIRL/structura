@@ -106,6 +106,7 @@ class MembershipController extends AbstractController
             $membership->setAmount($createMembershipFDO->getMembershipAmount());
             $membership->setDateStart($createMembershipFDO->getMembershipDateStart());
             $membership->setDateEnd($createMembershipFDO->getMembershipDateEnd());
+            $membership->setFiscalYear($createMembershipFDO->getMembershipFiscalYear());
             $membership->setComment($createMembershipFDO->getMembershipComment());
 
             // Payment
@@ -119,11 +120,14 @@ class MembershipController extends AbstractController
             $payment->setPayer($createMembershipFDO->getPayer());
             $payment->setMembership($membership);
 
+            // Donation
+            $donationAmount = $createMembershipFDO->getDonationAmount();
+
             // If donation is also done with the membership
-            if ($createMembershipFDO->getIsMembershipAndDonation()) {
+            if (!empty($donationAmount)) {
                 $donation = new Donation();
 
-                $donation->setAmount($createMembershipFDO->getDonationAmount());
+                $donation->setAmount($donationAmount);
                 $donation->setDonator($createMembershipFDO->getPayer());
                 $donation->setDonationDate($payment->getDateReceived());
 

@@ -3,22 +3,6 @@ var currentMembershipType = null;
 var selectedPeopleCount = 0;
 
 $(document).ready(function() {
-    // -- Events callback -- //
-    $('#add-donation-btn').click(function() {
-        // Showing hidden fields
-        $('#payment-amount-group').removeClass('d-none');
-        $('#donation-amount-group').removeClass('d-none');
-
-        // Adding required attribute on the donation amount field
-        $('#app_membership_create_donationAmount').prop('required', true);
-
-        // Setting the isMembershipAndDonation to true
-        $('#app_membership_create_isMembershipAndDonation').val(true);
-
-        // Hiding the add donation button
-        $('#add-donation-btn').addClass('d-none');
-    });
-
     $('#app_membership_create_donationAmount').keyup(function() {
         updatePaymentAmount();
     });

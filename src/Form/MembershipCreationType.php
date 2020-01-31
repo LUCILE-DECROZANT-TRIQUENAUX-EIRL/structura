@@ -15,8 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MembershipCreationType extends AbstractType
@@ -106,8 +104,6 @@ class MembershipCreationType extends AbstractType
             'multiple' => false,
             'expanded' => false,
         ]);
-
-        $builder->add('isMembershipAndDonation', HiddenType::class);
 
         $builder->add('members', EntityType::class, [
             'class' => People::class,
