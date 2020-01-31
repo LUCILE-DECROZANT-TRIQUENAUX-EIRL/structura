@@ -35,6 +35,11 @@ class Membership
     private $date_end;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $fiscal_year;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comment;
@@ -98,6 +103,26 @@ class Membership
     public function setDateEnd(\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fiscal_year
+     */
+    public function getFiscalYear()
+    {
+        return $this->fiscal_year;
+    }
+
+    /**
+     * Set the value of fiscal_year
+     *
+     * @return  self
+     */
+    public function setFiscalYear($fiscal_year)
+    {
+        $this->fiscal_year = $fiscal_year;
 
         return $this;
     }

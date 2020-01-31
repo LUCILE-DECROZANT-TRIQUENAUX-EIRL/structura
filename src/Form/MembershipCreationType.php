@@ -12,6 +12,7 @@ use App\FormDataObject\CreateMembershipFDO;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -26,7 +27,6 @@ class MembershipCreationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder->add('membershipType', EntityType::class, [
             'class' => MembershipType::class,
             'choice_label' => 'label',
@@ -44,6 +44,10 @@ class MembershipCreationType extends AbstractType
         $builder->add('membershipDate_end', DateType::class, [
             'label' => 'Au',
             'widget' => 'single_text',
+        ]);
+
+        $builder->add('membershipFiscal_year', IntegerType::class, [
+            'label' => 'Pour l\'année fiscale',
         ]);
 
         $builder->add('membershipComment', TextareaType::class, [

@@ -21,6 +21,8 @@ class CreateMembershipFDO
 
     private $membershipDate_end;
 
+    private $membershipFiscal_year;
+
     private $membershipComment;
 
     private $donationAmount;
@@ -51,6 +53,7 @@ class CreateMembershipFDO
             $this->membershipAmount = $membership->getAmount();
             $this->membershipDate_start = $membership->getDateStart();
             $this->membershipDate_end = $membership->getDateEnd();
+            $this->membershipFiscal_year = $membership->getFiscalYear();
             $this->membershipComment = $membership->getComment();
 
             $payment = $membership->getPayment();
@@ -104,6 +107,26 @@ class CreateMembershipFDO
     public function setMembershipDateEnd(\DateTimeInterface $membershipDate_end): self
     {
         $this->membershipDate_end = $membershipDate_end;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of membershipFiscal_year
+     */
+    public function getMembershipFiscalYear()
+    {
+        return $this->membershipFiscal_year;
+    }
+
+    /**
+     * Set the value of membershipFiscal_year
+     *
+     * @return  self
+     */
+    public function setMembershipFiscalYear($membershipFiscal_year)
+    {
+        $this->membershipFiscal_year = $membershipFiscal_year;
 
         return $this;
     }
