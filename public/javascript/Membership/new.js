@@ -6,12 +6,6 @@ $(document).ready(function() {
     // Bootstrap select options
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
-    // Adding the span for easier value replacement
-    // When changing the membership type
-    let helpMessage = $('#app_membership_create_newMember_help').html();
-    helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
-    $('#app_membership_create_newMember_help').html(helpMessage);
-
     // Init the events
     $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
@@ -74,6 +68,13 @@ $(document).ready(function() {
     });
 
     // -- Init -- //
+
+    // Adding two spans in the selection list help message
+    // For easier value replacement when changing the membership type
+    let helpMessage = $('#app_membership_create_newMember_help').html();
+    helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
+    $('#app_membership_create_newMember_help').html(helpMessage);
+
     // Getting the membershipType id.
     let membershipTypeId = $('#app_membership_create_membershipType').val();
 
@@ -88,6 +89,9 @@ $(document).ready(function() {
     // And setting them
     $('#app_membership_create_membershipDate_start').val(now.toISOString().substr(0, 10));
     $('#app_membership_create_membershipDate_end').val(nextYear.toISOString().substr(0, 10));
+
+    // We're also doing that for the fiscal year
+    $('#app_membership_create_membershipFiscal_year').val(now.getFullYear());
 });
 
 /**
@@ -142,8 +146,9 @@ function getMembershipType(membershipTypeId)
         $('#newMember-help-number').html(membershipType.number_max_members);
         $('#newMember-help-type').html(membershipType.label);
 
-        // Setting the membership default amount
+        // Setting the membership and payment default amount
         $('#app_membership_create_membershipAmount').val(membershipType.default_amount);
+        $('#app_membership_create_paymentAmount').val(membershipType.default_amount);
 
         // Updating the payment amount
         updatePaymentAmount();

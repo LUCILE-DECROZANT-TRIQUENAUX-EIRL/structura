@@ -86,7 +86,7 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('paymentDate_cashed', DateType::class, [
-            'label' => 'Encaissé le',
+            'label' => 'Encaissés le',
             'widget' => 'single_text',
             'required' => false,
         ]);
