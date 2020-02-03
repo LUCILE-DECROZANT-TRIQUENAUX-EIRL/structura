@@ -62,6 +62,7 @@ $(document).ready(function() {
                 selectedPeopleCount++;
 
                 // If we have the maximum people selected, we disable the selection list.
+                // And update the title to help the user
                 if (selectedPeopleCount == currentMembershipType.number_max_members)
                 {
                     $('#app_membership_create_newMember').prop('disabled', true);
@@ -179,6 +180,7 @@ function handlePeopleDeletion(peopleId)
     selectedPeopleCount--;
 
     // If we have less than the maximum people selected, we enable the selection list.
+    // And update the title to help the user
     if (selectedPeopleCount < currentMembershipType.number_max_members)
     {
         $('#app_membership_create_newMember').prop('disabled', false);
