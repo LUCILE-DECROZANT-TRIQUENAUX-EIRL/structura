@@ -77,7 +77,7 @@ class MembershipController extends AbstractController
     /**
      * Create a new membership
      * @return views
-     * @Route("/new", name="member_create", methods={"GET", "POST"})
+     * @Route("/new", name="membership_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
     public function createAction(Request $request)
