@@ -41,11 +41,9 @@
         <div id="people-selector-container" class="container">
             <div class="row">
                 <div class="col">
-                    {# <div class="form-group"> #}
                         {{ form_label(membership_creation_form.newMember) }}
-                        {# <input id="member-search" class="form-control" type="search" placeholder="Rechercher..." aria-label="Rechercher" onKeyup="filterSelection()"> #}
                         {{ form_widget(membership_creation_form.newMember) }}
-                    {# </div> #}
+                        {{ form_help(membership_creation_form.newMember) }}
                 </div>
             </div>
         </div>

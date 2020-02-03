@@ -6,6 +6,12 @@ $(document).ready(function() {
     // Bootstrap select options
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
+    // Adding the span for easier value replacement
+    // When changing the membership type
+    let helpMessage = $('#app_membership_create_newMember_help').html();
+    helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
+    $('#app_membership_create_newMember_help').html(helpMessage);
+
     // Init the events
     $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
@@ -132,10 +138,8 @@ function getMembershipType(membershipTypeId)
         currentMembershipType = membershipType;
 
         // Updating the help message
-        let helpMessage = $('#app_membership_create_membershipType_help').html();
-        helpMessage = helpMessage.substring(1);
-        helpMessage = membershipType.number_max_members + helpMessage;
-        $('#app_membership_create_membershipType_help').html(helpMessage);
+        $('#newMember-help-number').html(membershipType.number_max_members);
+        $('#newMember-help-type').html(membershipType.label);
 
         // Setting the membership default amount
         $('#app_membership_create_membershipAmount').val(membershipType.default_amount);
@@ -240,29 +244,3 @@ function resetSelectedPeople()
     // We're disabling the payer field
     $('#app_membership_create_payer').attr('readonly', 'readonly');
 }
-
-// function filterSelection() {
-//     let content;
-//     let filters = $('#member-search').val().toUpperCase().split(' ');
-//     console.log(filters);
-
-//     let options = $('#app_membership_create_newMember').find("option");
-
-//     options.each(function(i, element) {
-//         content = $(this).text().toUpperCase();
-//         let contentMatchFilter = true;
-
-//         $.each(filters, (j, filter) => {
-//             contentMatchFilter = contentMatchFilter && content.includes(filter);
-//         });
-
-//         if (contentMatchFilter)
-//         {
-//             $(this).show();
-//         }
-//         else
-//         {
-//             $(this).hide();
-//         }
-//     });
-// }

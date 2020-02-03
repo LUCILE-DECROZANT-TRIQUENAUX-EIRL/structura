@@ -31,7 +31,6 @@ class MembershipCreationType extends AbstractType
             'multiple' => false,
             'expanded' => false,
             'label' => 'Enregister une adhésion de type',
-            'help' => '1 adhérent·e·s maximum pour ce type d\'adhésion'
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
@@ -136,6 +135,7 @@ class MembershipCreationType extends AbstractType
                 'title' => 'Sélectionez une personne pour l\'ajouter',
             ],
             'required' => false,
+            'help' => 'adhérent·e·s maximum pour une adhésion de type'
         ]);
     }
 
