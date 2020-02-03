@@ -31,7 +31,7 @@ class MembershipCreationType extends AbstractType
             'multiple' => false,
             'expanded' => false,
             'label' => 'Enregister une adhésion de type',
-            'help' => '1 adhérent.e.s maximum pour ce type d\'adhésion'
+            'help' => '1 adhérent·e·s maximum pour ce type d\'adhésion'
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
@@ -118,6 +118,7 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('newMember', EntityType::class, [
+            'label' => 'Choisir les personnes concernées',
             'class' => People::class,
             'choices' => $options['peopleWithNoActiveMembership'],
             'choice_label' => function (People $people) {
@@ -126,7 +127,14 @@ class MembershipCreationType extends AbstractType
             },
             'multiple' => false,
             'expanded' => false,
-            'placeholder' => '—',
+            'attr' => [
+                'class' => 'selectpicker',
+                'data-live-search' => 'true',
+                'data-live-search-normalize' => 'true',
+                'data-live-search-placeholder' => 'Rechercher...',
+                'data-size' => '6',
+                'title' => 'Sélectionez une personne pour l\'ajouter',
+            ],
             'required' => false,
         ]);
     }

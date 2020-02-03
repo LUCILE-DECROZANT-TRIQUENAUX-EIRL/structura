@@ -3,6 +3,10 @@ var currentMembershipType = null;
 var selectedPeopleCount = 0;
 
 $(document).ready(function() {
+    // Bootstrap select options
+    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+
+    // Init the events
     $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
@@ -17,40 +21,47 @@ $(document).ready(function() {
 
     $('#app_membership_create_newMember').change(function() {
         let selectedPeopleId = $(this).val();
-        let selectedPeopleName = $("#app_membership_create_newMember option:selected").html();
 
-        let selectedPeopleCheckbox = $('#app_membership_create_members_' + selectedPeopleId);
-
-        // We only add it if it's not already checked
-        if (selectedPeopleCheckbox.prop('checked') != true)
+        // Prevent to trigger the handling for the blank option
+        if (selectedPeopleId > 0)
         {
-            // Showing the recap to the user
-            getPeopleRecap(selectedPeopleId);
+            let selectedPeopleName = $("#app_membership_create_newMember option:selected").html();
 
-            // Ticking the hidden checkbox so we know that
-            // this People will be added to the membership
-            selectedPeopleCheckbox.prop('checked', true);
+            let selectedPeopleCheckbox = $('#app_membership_create_members_' + selectedPeopleId);
 
-            // Updating the selection list by removing the selected people
-            removePeopleFromSelectionList();
-
-            // If it's the first add
-            if (selectedPeopleCount == 0)
+            // We only add it if it's not already checked
+            if (selectedPeopleCheckbox.prop('checked') != true)
             {
-                // We're enabling the payer field
-                $('#app_membership_create_payer').removeAttr('readonly');
-            }
+                // Showing the recap to the user
+                getPeopleRecap(selectedPeopleId);
 
-            // We're adding the selected people to the payer list
-            $('#app_membership_create_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+                // Ticking the hidden checkbox so we know that
+                // this People will be added to the membership
+                selectedPeopleCheckbox.prop('checked', true);
 
-            // Increasing the counter.
-            selectedPeopleCount++;
+                // Updating the selection list by removing the selected people
+                removePeopleFromSelectionList();
 
-            // If we have the maximum people selected, we disable the selection list.
-            if (selectedPeopleCount == currentMembershipType.number_max_members)
-            {
-                $('#people-selector-container').addClass('d-none');
+                // If it's the first add
+                if (selectedPeopleCount == 0)
+                {
+                    // We're enabling the payer field
+                    $('#app_membership_create_payer').removeAttr('readonly');
+                }
+
+                // We're adding the selected people to the payer list
+                $('#app_membership_create_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+
+                // Increasing the counter.
+                selectedPeopleCount++;
+
+                // If we have the maximum people selected, we disable the selection list.
+                if (selectedPeopleCount == currentMembershipType.number_max_members)
+                {
+                    $('#app_membership_create_newMember').prop('disabled', true);
+                    $('#app_membership_create_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
+                    $('#app_membership_create_newMember').selectpicker('refresh');
+                }
             }
         }
     });
@@ -151,8 +162,7 @@ function removePeopleRecap(peopleId)
 function handlePeopleDeletion(peopleId)
 {
     // Adding back the people into the selection list
-    let peopleName = $('#people-recap-name-'+peopleId).html();
-    $('<option value="'+peopleId+'">' + peopleName + '</option>').insertAfter($('#app_membership_create_newMember option[value="'+(peopleId-1)+'"]'));
+    addPeopleFromSelectionList(peopleId);
 
     // Removing the recap div
     removePeopleRecap(peopleId);
@@ -164,10 +174,12 @@ function handlePeopleDeletion(peopleId)
     // Decreasing the counter.
     selectedPeopleCount--;
 
-    // If we have less than the maximum people selected, we show the selection list.
+    // If we have less than the maximum people selected, we enable the selection list.
     if (selectedPeopleCount < currentMembershipType.number_max_members)
     {
-        $('#people-selector-container').removeClass('d-none');
+        $('#app_membership_create_newMember').prop('disabled', false);
+        $('#app_membership_create_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
+        $('#app_membership_create_newMember').selectpicker('refresh');
     }
 
     // If there is no more selected people
@@ -181,9 +193,34 @@ function handlePeopleDeletion(peopleId)
     $('#app_membership_create_payer option[value="' + peopleId + '"]').remove();
 }
 
+function addPeopleFromSelectionList(peopleId)
+{
+    let peopleName = $('#people-recap-name-'+peopleId).html();
+
+    // Adding the people in the select list
+    $('#app_membership_create_newMember').append('<option value="'+peopleId+'">' + peopleName + '</option>');
+
+    let selectList = $('#app_membership_create_newMember option');
+
+    // Sorting by value (Aka, People's id)
+    selectList.sort(function(a, b) {
+        a = a.value;
+        b = b.value;
+
+        return a-b;
+    });
+
+    // Replacing the list by the sorted list
+    $('#app_membership_create_newMember').html(selectList);
+
+    // Selectiong the blank value
+    $('.selectpicker').selectpicker('val', '');
+}
+
 function removePeopleFromSelectionList()
 {
     $('#app_membership_create_newMember option:selected').remove();
+    $('.selectpicker').selectpicker('refresh');
 }
 
 function resetSelectedPeople()
@@ -203,3 +240,29 @@ function resetSelectedPeople()
     // We're disabling the payer field
     $('#app_membership_create_payer').attr('readonly', 'readonly');
 }
+
+// function filterSelection() {
+//     let content;
+//     let filters = $('#member-search').val().toUpperCase().split(' ');
+//     console.log(filters);
+
+//     let options = $('#app_membership_create_newMember').find("option");
+
+//     options.each(function(i, element) {
+//         content = $(this).text().toUpperCase();
+//         let contentMatchFilter = true;
+
+//         $.each(filters, (j, filter) => {
+//             contentMatchFilter = contentMatchFilter && content.includes(filter);
+//         });
+
+//         if (contentMatchFilter)
+//         {
+//             $(this).show();
+//         }
+//         else
+//         {
+//             $(this).hide();
+//         }
+//     });
+// }
