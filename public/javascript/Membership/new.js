@@ -238,11 +238,13 @@ function resetSelectedPeople()
 {
     let peopleRecaps = $('#people-recaps').children();
 
-    $.each(peopleRecaps, function(index, peopleRecap) {
-        let elementId = peopleRecap.attributes.id.nodeValue;
-        let peopleId = elementId.substring(elementId.length - 1);
+    peopleRecaps.each(function(index) {
+        let peopleId = $(this).data('people-id');
 
-        handlePeopleDeletion(peopleId);
+        if (peopleId != undefined)
+        {
+            handlePeopleDeletion(peopleId);
+        }
     });
 
     // Reset the payer selection list
