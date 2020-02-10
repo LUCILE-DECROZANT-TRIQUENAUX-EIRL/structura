@@ -132,6 +132,8 @@ class MembershipCreationType extends AbstractType
                 'data-live-search-normalize' => 'true',
                 'data-live-search-placeholder' => 'Rechercher...',
                 'data-size' => '6',
+                'data-style-base' => 'custom-form-dropdown',
+                'data-style' => 'btn',
                 'title' => 'Sélectionez une personne pour l\'ajouter',
             ],
             'required' => false,
