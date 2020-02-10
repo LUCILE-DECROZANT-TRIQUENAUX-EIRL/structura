@@ -31,12 +31,7 @@
         <div class="row">
 
             <div class="col-8 col-md-2">
-                <ul class="list-group">
-                    <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action">{% trans %}Profil{% endtrans %}</a>
-                    <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="active list-group-item list-group-item-action ">{% trans %}Adhésions{% endtrans %}</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">{% trans %}Dons{% endtrans %}</a>
-                    <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">{% trans %}Édition{% endtrans %}</a>
-                </ul>
+                {{ include('Member/_menu-member.html.twig', { show_memberships: 'active' }) }}
             </div>
 
             {{ include('Member/_user-s-memberships-list.html.twig') }}
