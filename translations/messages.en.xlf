@@ -1509,83 +1509,89 @@
       </trans-unit>
       <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
         <source>adhérent·e·s maximum pour une adhésion de type</source>
-        <target state="needs-translation">adhérent·e·s maximum pour une adhésion de type</target>
+        <target state="translated">Maximum members reached for a membership type</target>
       </trans-unit>
       <trans-unit id="8uMSzlt" resname="Recevoir la newsletter">
         <source>Recevoir la newsletter</source>
-        <target state="needs-translation">Recevoir la newsletter</target>
+        <target state="translated">Receive newsletter</target>
       </trans-unit>
       <trans-unit id="iyPXcgr" resname="Recevoir la newsletter par mail">
         <source>Recevoir la newsletter par mail</source>
-        <target state="needs-translation">Recevoir la newsletter par mail</target>
+        <target state="translated">Receive newsletter by email</target>
       </trans-unit>
       <trans-unit id="UTHJPFA" resname="Répétez le mot de passe">
         <source>Répétez le mot de passe</source>
-        <target state="needs-translation">Répétez le mot de passe</target>
+        <target state="translated">Confirm Password</target>
       </trans-unit>
       <trans-unit id="KNpCP0c" resname="Les mots de passe doivent être identiques">
         <source>Les mots de passe doivent être identiques</source>
-        <target state="needs-translation">Les mots de passe doivent être identiques</target>
+        <target state="translated">Passwords must be the same</target>
       </trans-unit>
       <trans-unit id="PH3pUAD" resname="Don supprimé.">
         <source>Don supprimé.</source>
-        <target state="needs-translation">Don supprimé.</target>
+        <target state="translated">Donation deleted.</target>
       </trans-unit>
       <trans-unit id="59hbFR9" resname="Une erreur est survenue.">
         <source>Une erreur est survenue.</source>
-        <target state="needs-translation">Une erreur est survenue.</target>
+        <target state="translated">An error occurred.</target>
       </trans-unit>
       <trans-unit id="pNuN7lP" resname="Nom d'utilisateur ou mot de passe invalide.">
         <source>Nom d'utilisateur ou mot de passe invalide.</source>
-        <target state="needs-translation">Nom d'utilisateur ou mot de passe invalide.</target>
+        <target state="translated">Invalid username or password.</target>
       </trans-unit>
       <trans-unit id="XqkCTUa" resname="Impossibilité de se connecter à la base de données.">
         <source>Impossibilité de se connecter à la base de données.</source>
-        <target state="needs-translation">Impossibilité de se connecter à la base de données.</target>
+        <target state="translated">Link to database cannot be established.</target>
       </trans-unit>
       <trans-unit id="M2vRS0W" resname="L'utilisateurice">
         <source>L'utilisateurice</source>
-        <target state="needs-translation">L'utilisateurice</target>
+        <target state="translated">The user</target>
       </trans-unit>
       <trans-unit id="fBFD5DH" resname="a été créé.e">
         <source>a été créé.e</source>
-        <target state="needs-translation">a été créé.e</target>
+        <target state="translated">has been created</target>
       </trans-unit>
       <trans-unit id="aMmxl4Y" resname="n'a pas pu être créé.e">
         <source>n'a pas pu être créé.e</source>
-        <target state="needs-translation">n'a pas pu être créé.e</target>
+        <target state="translated">could not be created</target>
       </trans-unit>
       <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
         <source>Les informations ont bien été modifiées</source>
-        <target state="needs-translation">Les informations ont bien été modifiées</target>
+        <target state="translated">The information have been changed successfully</target>
+        <alt-trans>
+          <target>Informations have been changed successfully </target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="7ByHGJ1" resname="Les informations de">
         <source>Les informations de</source>
-        <target state="needs-translation">Les informations de</target>
+        <target state="translated">The information of</target>
       </trans-unit>
       <trans-unit id="qRE1mxr" resname="ont bien été supprimées">
         <source>ont bien été supprimées</source>
-        <target state="needs-translation">ont bien été supprimées</target>
+        <target state="translated">have been successfully deleted</target>
       </trans-unit>
       <trans-unit id="PDt473I" resname="L'adhésion a bien été enregistrée.">
         <source>L'adhésion a bien été enregistrée.</source>
-        <target state="needs-translation">L'adhésion a bien été enregistrée.</target>
+        <target state="translated">The membership has been registered.</target>
       </trans-unit>
       <trans-unit id="5wC7UrX" resname="Le mot de passe a bien été modifié">
         <source>Le mot de passe a bien été modifié</source>
-        <target state="needs-translation">Le mot de passe a bien été modifié</target>
+        <target state="translated">The password has been changed</target>
       </trans-unit>
       <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
         <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
-        <target state="needs-translation">Une erreur est survenue, veuillez réessayer plus tard.</target>
+        <target state="translated">An error occurred, please try again later.</target>
+        <alt-trans>
+          <target>An error occured, please try again later.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
         <source>La page demandée n'existe pas</source>
-        <target state="needs-translation">La page demandée n'existe pas</target>
+        <target state="translated">The page you have requested does not exist</target>
       </trans-unit>
       <trans-unit id="O6HmCRn" resname="Don effectué via le même paiement">
         <source>Don effectué via le même paiement</source>
-        <target state="needs-translation">Don effectué via le même paiement</target>
+        <target state="translated">Donation made via the same payment</target>
       </trans-unit>
     </body>
   </file>
