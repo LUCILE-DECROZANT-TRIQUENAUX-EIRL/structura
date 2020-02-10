@@ -8,986 +8,554 @@
       <trans-unit id="UzFhc1Y" resname="Accueil">
         <source>Accueil</source>
         <target state="translated">Home</target>
-        <alt-trans>
-          <target>__Accueil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Urvf1aZ" resname="Erreur 502">
         <source>Erreur 502</source>
         <target state="translated">Error 502</target>
-        <alt-trans>
-          <target>__Erreur 502</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="KannIQv" resname="Erreur interne du serveur.">
         <source>Erreur interne du serveur.</source>
         <target state="translated">Internal Server Error.</target>
-        <alt-trans>
-          <target>An internal server error occurred.</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Erreur interne du serveur.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="kcp1pt2" resname="Si l'erreur persiste, attendez quelques minutes avant de réessayer.">
         <source>Si l'erreur persiste, attendez quelques minutes avant de réessayer.</source>
         <target state="translated">If the error persists, wait a few minutes before trying again.</target>
-        <alt-trans>
-          <target>__Si l'erreur persiste, attendez quelques minutes avant de réessayer.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="C3VjSrf" resname="Retourner à la page précedente">
         <source>Retourner à la page précedente</source>
         <target state="translated">Return to the previous page</target>
-        <alt-trans>
-          <target>__Retourner à la page précedente</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="48geUnj" resname="Erreur 500">
         <source>Erreur 500</source>
         <target state="translated">Error 500</target>
-        <alt-trans>
-          <target>__Erreur 500</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="U5GtZ9K" resname="Erreur 403">
         <source>Erreur 403</source>
         <target state="translated">Error 403</target>
-        <alt-trans>
-          <target>__Erreur 403</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="TdruZda" resname="Vous ne pouvez pas accéder à cette page.">
         <source>Vous ne pouvez pas accéder à cette page.</source>
         <target state="translated">You can not access this page.</target>
-        <alt-trans>
-          <target>__Vous ne pouvez pas accéder à cette page.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="YNJAuDL" resname="Vérifiez qu'il n'y ait pas d'erreur dans l'URL.">
         <source>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</source>
         <target state="translated">Check for errors in the URL.</target>
-        <alt-trans>
-          <target>Check that there is no error in the URL.</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="J1kUvxp" resname="Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.">
         <source>Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</source>
         <target state="translated">If the URL you entered is correct, then it means that your access rights do not allow you to view this page.</target>
-        <alt-trans>
-          <target>__Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="adufyLS" resname="Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>Go back to the front page or the previous page to continue your navigation.</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="cw8EcCt" resname="Erreur 404">
         <source>Erreur 404</source>
         <target state="translated">404 error</target>
-        <alt-trans>
-          <target>__Erreur 404</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="HwCVAH8" resname="La page demandée n'a pas été trouvée.">
         <source>La page demandée n'a pas été trouvée.</source>
         <target state="translated">Requested page could not be found.</target>
-        <alt-trans>
-          <target>__La page demandée n'a pas été trouvée.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="5KlnPQL" resname="Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>Go back to home or the previous page to continue your navigation.</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="RhSOJQ5" resname="Erreur">
         <source>Erreur</source>
         <target state="translated">Error</target>
-        <alt-trans>
-          <target>__Erreur</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="nI4n9Cr" resname="Il y a eu une erreur lors du chargement de la page.">
         <source>Il y a eu une erreur lors du chargement de la page.</source>
         <target state="translated">Error while trying to load the page.</target>
-        <alt-trans>
-          <target>__Il y a eu une erreur lors du chargement de la page.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="asCKZ6o" resname="Vérifiez qu'il n'y ai pas d'erreur dans l'URL.">
         <source>Vérifiez qu'il n'y ai pas d'erreur dans l'URL.</source>
         <target state="translated">Check for errors in the URL.</target>
-        <alt-trans>
-          <target>__Vérifiez qu'il n'y ai pas d'erreur dans l'URL.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="kRzGI43" resname="Erreur 504">
         <source>Erreur 504</source>
         <target state="translated">Error 504</target>
-        <alt-trans>
-          <target>__Erreur 504</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="tUKeHfd" resname="Temps d'attente écoulé.">
         <source>Temps d'attente écoulé.</source>
         <target state="translated">Time out.</target>
-        <alt-trans>
-          <target>__Temps d'attente écoulé.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="WCSHoCe" resname="Erreur 401">
         <source>Erreur 401</source>
         <target state="translated">Error 401</target>
-        <alt-trans>
-          <target>__Erreur 401</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="JKy1T87" resname="Authentification nécessaire.">
         <source>Authentification nécessaire.</source>
         <target state="translated">Authentication required.</target>
-        <alt-trans>
-          <target>__Authentification nécessaire.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="sg1VqHE" resname="S'authentifier">
         <source>S'authentifier</source>
         <target state="translated">Login</target>
-        <alt-trans>
-          <target>__S'authentifier</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="W77wNtS" resname="Base de données Huntington Avenir -">
         <source>Base de données Huntington Avenir -</source>
         <target state="translated">Huntington Avenir database -</target>
-        <alt-trans>
-          <target>__Base de données Huntington Avenir -</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="AcDVvVU" resname="(page courante)">
         <source>(page courante)</source>
         <target state="translated">(Current Page)</target>
-        <alt-trans>
-          <target>__(page courante)</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Q60lCM7" resname="Annuaires">
         <source>Annuaires</source>
         <target state="translated">Directories</target>
-        <alt-trans>
-          <target>__Annuaires</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="9Jb0lAV" resname="Adhérent·es">
         <source>Adhérent·es</source>
         <target state="translated">Members</target>
-        <alt-trans>
-          <target>__Adhérent·es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Ol66bep" resname="Sympatisant.es">
         <source>Sympatisant.es</source>
         <target state="translated">Supporters</target>
-        <alt-trans>
-          <target>__Sympatisant.es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="CHM_3XK" resname="Professionnels de santé">
         <source>Professionnels de santé</source>
         <target state="translated">Health Care Professionals</target>
-        <alt-trans>
-          <target>__Professionnels de santé</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="olizD4j" resname="Global">
         <source>Global</source>
         <target state="translated">Global</target>
-        <alt-trans>
-          <target>__Global</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="IMyiDkD" resname="Adhésions">
         <source>Adhésions</source>
         <target state="translated">Memberships</target>
-        <alt-trans>
-          <target>__Adhésions</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id=".2WRhHJ" resname="Liste des adhésions actives">
         <source>Liste des adhésions actives</source>
         <target state="translated">List of active memberships</target>
-        <alt-trans>
-          <target>__Liste des adhésions actives</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="zbLNhBw" resname="Enregistrer une nouvelle adhésion">
         <source>Enregistrer une nouvelle adhésion</source>
         <target state="translated">Register a new membership</target>
-        <alt-trans>
-          <target>__Enregistrer une nouvelle adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7RogeRe" resname="Dons">
         <source>Dons</source>
         <target state="translated">Donations</target>
-        <alt-trans>
-          <target>__Dons</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ib80.NU" resname="Liste des dons">
         <source>Liste des dons</source>
         <target state="translated">Donation list</target>
-        <alt-trans>
-          <target>__Liste des dons</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="yi2UlO3" resname="Enregistrer un nouveau don">
         <source>Enregistrer un nouveau don</source>
         <target state="translated">Register a new donation</target>
-        <alt-trans>
-          <target>__Enregistrer un nouveau don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="S0LGaQ6" resname="Administration">
         <source>Administration</source>
         <target state="translated">Administration</target>
-        <alt-trans>
-          <target>__Administration</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="q0Uca0i" resname="Mon profil">
         <source>Mon profil</source>
         <target state="translated">My profile</target>
-        <alt-trans>
-          <target>__Mon profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="GaodJDT" resname="Me déconnecter">
         <source>Me déconnecter</source>
         <target state="translated">Logout</target>
-        <alt-trans>
-          <target>__Me déconnecter</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fZ63rLE" resname="Close">
         <source>Close</source>
         <target state="translated">Close</target>
-        <alt-trans>
-          <target>__Close</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="2GfVi6O" resname="Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©">
         <source>Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</source>
         <target state="translated">Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</target>
-        <alt-trans>
-          <target>__Copyright 2018 LUCILE DECROZANT-TRIQUENAUX EIRL©</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="yzgkn6s" resname="Site réalisé sous licence AGPL v3">
         <source>Site réalisé sous licence AGPL v3</source>
         <target state="translated">Site made under AGPL v3 license</target>
-        <alt-trans>
-          <target>__Site réalisé sous licence AGPL v3</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="A_VJ8f3" resname="Voir le code source">
         <source>Voir le code source</source>
         <target state="translated">Show source code</target>
-        <alt-trans>
-          <target>__Voir le code source</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NfDiyO7" resname="Renseigner">
         <source>Renseigner</source>
         <target state="translated">Contact</target>
-        <alt-trans>
-          <target>__Renseigner</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="m1IYGUz" resname="l'annuaire">
         <source>l'annuaire</source>
         <target state="translated">Directory</target>
-        <alt-trans>
-          <target>__l'annuaire</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="cdx0hz4" resname="Enregistrer">
         <source>Enregistrer</source>
         <target state="translated">Sign in</target>
-        <alt-trans>
-          <target>__Enregistrer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="V6F550H" resname="une adhésion">
         <source>une adhésion</source>
         <target state="translated">membership</target>
-        <alt-trans>
-          <target>__une adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Bs5ZiaU" resname="un don">
         <source>un don</source>
         <target state="translated">a donation</target>
-        <alt-trans>
-          <target>__un don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="wFXS7Zr" resname="Ex-Adhérents à relancer">
         <source>Ex-Adhérents à relancer</source>
         <target state="translated">Ex-Members to recontact</target>
-        <alt-trans>
-          <target>__Ex-Adhérents à relancer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ssEkU20" resname="Nom">
         <source>Nom</source>
         <target state="translated">Last name</target>
-        <alt-trans>
-          <target>__Nom</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="4yW.j5A" resname="Prénom">
         <source>Prénom</source>
         <target state="translated">First name</target>
-        <alt-trans>
-          <target>__Prénom</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="YP5oZIU" resname="Téléphone fixe">
         <source>Téléphone fixe</source>
         <target state="translated">Home phone</target>
-        <alt-trans>
-          <target>__Téléphone fixe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="e..K3BS" resname="Téléphone portable">
         <source>Téléphone portable</source>
         <target state="translated">Mobile</target>
-        <alt-trans>
-          <target>__Téléphone portable</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7ZIdrL7" resname="&quot;Cliquer pour afficher plus de détails&quot;">
         <source>"Cliquer pour afficher plus de détails"</source>
         <target state="translated">"Click to show more details"</target>
-        <alt-trans>
-          <target>__"Cliquer pour afficher plus de détails"</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="eeXPIN4" resname="Adresse">
         <source>Adresse</source>
         <target state="translated">Address</target>
-        <alt-trans>
-          <target>__Adresse</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="SRVRJdG" resname="Enregistrer une relance courrier">
         <source>Enregistrer une relance courrier</source>
         <target state="translated">Register email reminder</target>
-        <alt-trans>
-          <target>__Enregistrer une relance courrier</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="vDVNXb1" resname="Numéros de téléphone">
         <source>Numéros de téléphone</source>
         <target state="translated">Phone numbers</target>
-        <alt-trans>
-          <target>__Numéros de téléphone</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="zeDVLgT" resname="Fixe">
         <source>Fixe</source>
         <target state="translated">Home phone</target>
-        <alt-trans>
-          <target>__Fixe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="22_.E_R" resname="Portable">
         <source>Portable</source>
         <target state="translated">Mobile</target>
-        <alt-trans>
-          <target>__Portable</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="G7k0ZFu" resname="Professionnel">
         <source>Professionnel</source>
         <target state="translated">Professional</target>
-        <alt-trans>
-          <target>__Professionnel</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="AeT9nGC" resname="Work in progress...">
         <source>Work in progress...</source>
         <target state="translated">Travail en cours...</target>
-        <alt-trans>
-          <target>__Work in progress...</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="usm_swc" resname="Enregistrer une relance téléphonique">
         <source>Enregistrer une relance téléphonique</source>
         <target state="translated">Register phone reminder</target>
-        <alt-trans>
-          <target>__Enregistrer une relance téléphonique</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ByAKOLJ" resname="Relancer par mail">
         <source>Relancer par mail</source>
         <target state="translated">Mail reminder</target>
-        <alt-trans>
-          <target>__Relancer par mail</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fYVNZe_" resname="Annuaire global">
         <source>Annuaire global</source>
         <target state="translated">Global Directory</target>
-        <alt-trans>
-          <target>__Annuaire global</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ZIztra7" resname="Profil de">
         <source>Profil de</source>
         <target state="translated">Profile of</target>
-        <alt-trans>
-          <target>__Profil de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="4mfTQ4I" resname="Profil">
         <source>Profil</source>
         <target state="translated">Profile</target>
-        <alt-trans>
-          <target>__Profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="AFEZ2hX" resname="Work in progress">
         <source>Work in progress</source>
         <target state="translated">Travail en cours</target>
-        <alt-trans>
-          <target>__Work in progress</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="pJRNBwc" resname="Édition">
         <source>Édition</source>
         <target state="translated">Edit</target>
-        <alt-trans>
-          <target>__Édition</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Tr2rmYP" resname="Cette personne n'a pas de nom">
         <source>Cette personne n'a pas de nom</source>
         <target state="translated">This user has no name</target>
-        <alt-trans>
-          <target>__Cette personne n'a pas de nom</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="J9Aqf9T" resname="Informations de contact">
         <source>Informations de contact</source>
         <target state="translated">Contact details</target>
-        <alt-trans>
-          <target>__Informations de contact</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="B_1sz2v" resname="Mail">
         <source>Mail</source>
         <target state="translated">Mail</target>
-        <alt-trans>
-          <target>__Mail</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="XMZF5yK" resname="Ce membre n'a pas d'adresse enregistrée.">
         <source>Ce membre n'a pas d'adresse enregistrée.</source>
         <target state="translated">This user does not have a registered address.</target>
-        <alt-trans>
-          <target>__Ce membre n'a pas d'adresse enregistrée.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
         <target state="translated">Business phone</target>
-        <alt-trans>
-          <target>__Téléphone professionnel</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ANhKtG5" resname="Fax">
         <source>Fax</source>
         <target state="translated">Fax</target>
-        <alt-trans>
-          <target>__Fax</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="o6NscQv" resname="Champs de saisie libre">
         <source>Champs de saisie libre</source>
         <target state="translated">Text field</target>
-        <alt-trans>
-          <target>__Champs de saisie libre</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="_HVYhpv" resname="Observations">
         <source>Observations</source>
         <target state="translated">Observations</target>
-        <alt-trans>
-          <target>__Observations</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NmQYtLt" resname="Détails médicaux">
         <source>Détails médicaux</source>
         <target state="translated">Medical details</target>
-        <alt-trans>
-          <target>__Détails médicaux</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="wGlGp1L" resname="Retourner à la liste des utilisateurices">
         <source>Retourner à la liste des utilisateurices</source>
         <target state="translated">Back to user list</target>
-        <alt-trans>
-          <target>__Retourner à la liste des utilisateurices</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Xl0CFs4" resname="Supprimer">
         <source>Supprimer</source>
         <target state="translated">Delete</target>
-        <alt-trans>
-          <target>__Supprimer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fTKob04" resname="Souhaitez-vous réellement supprimer ce profil ?">
         <source>Souhaitez-vous réellement supprimer ce profil ?</source>
         <target state="translated">Do you really want to delete this profile?</target>
-        <alt-trans>
-          <target>__Souhaitez-vous réellement supprimer ce profil ?</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ZnYeqZg" resname="Les données seront supprimées de manière définitive.">
         <source>Les données seront supprimées de manière définitive.</source>
         <target state="translated">The data will be permanently deleted.</target>
-        <alt-trans>
-          <target>__Les données seront supprimées de manière définitive.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Rq05Fva" resname="Annuler">
         <source>Annuler</source>
         <target state="translated">Cancel</target>
-        <alt-trans>
-          <target>__Annuler</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="a3V2R49" resname="Enregistrer une nouvelle personne dans l'annuaire">
         <source>Enregistrer une nouvelle personne dans l'annuaire</source>
         <target state="translated">Register a new person in the directory</target>
-        <alt-trans>
-          <target>__Enregistrer une nouvelle personne dans l'annuaire</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="4nbj_tA" resname="Les champs notés avec * sont requis.">
         <source>Les champs notés avec * sont requis.</source>
         <target state="translated">Fields marked with * are required.</target>
-        <alt-trans>
-          <target>__Les champs notés avec * sont requis.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="KI5Hthm" resname="Retourner à l'annuaire global">
         <source>Retourner à l'annuaire global</source>
         <target state="translated">Return to global directory</target>
-        <alt-trans>
-          <target>__Retourner à l'annuaire global</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="lpQY9NW" resname="Créer">
         <source>Créer</source>
         <target state="translated">Create</target>
-        <alt-trans>
-          <target>__Créer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="0TTDiM6" resname="Liste des adhésions de l'utilisateurice">
         <source>Liste des adhésions de l'utilisateurice</source>
         <target state="translated">User Memberships List</target>
-        <alt-trans>
-          <target>__Liste des adhésions de l'utilisateurice</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="3rleGWN" resname="Éditer le profil de">
         <source>Éditer le profil de</source>
         <target state="translated">Edit profile of</target>
-        <alt-trans>
-          <target>__Éditer le profil de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="K6FqGw9" resname="Édition de la personne dans l'annuaire">
         <source>Édition de la personne dans l'annuaire</source>
         <target state="translated">Edit person in directory</target>
-        <alt-trans>
-          <target>__Édition de la personne dans l'annuaire</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="RZUfasG" resname="Enregistrer les modifications">
         <source>Enregistrer les modifications</source>
         <target state="translated">Save Changes</target>
-        <alt-trans>
-          <target>__Enregistrer les modifications</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="uGO9Yh6" resname="Voir le profil">
         <source>Voir le profil</source>
         <target state="translated">Show profile</target>
-        <alt-trans>
-          <target>__Voir le profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Ep6pmFB" resname="Éditer le profil">
         <source>Éditer le profil</source>
         <target state="translated">Edit profile</target>
-        <alt-trans>
-          <target>__Éditer le profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="mdj5Puy" resname="Supprimer le profil">
         <source>Supprimer le profil</source>
         <target state="translated">Delete profile</target>
-        <alt-trans>
-          <target>__Supprimer le profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="WT655CB" resname="Souhaitez-vous réellement supprimer les données de">
         <source>Souhaitez-vous réellement supprimer les données de</source>
         <target state="translated">Are you sure you want to delete %user%'s data</target>
-        <alt-trans>
-          <target>__Souhaitez-vous réellement supprimer les données de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="x8cpEsG" resname="Liste des utilisateurices">
         <source>Liste des utilisateurices</source>
         <target state="translated">User list</target>
-        <alt-trans>
-          <target>__Liste des utilisateurices</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="hl3zMkr" resname="Historique">
         <source>Historique</source>
         <target state="translated">History</target>
-        <alt-trans>
-          <target>__Historique</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="P2sBzeD" resname="Identifiant :">
         <source>Identifiant :</source>
         <target state="translated">Login ID:</target>
-        <alt-trans>
-          <target>__Identifiant :</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="xMfIvh9" resname="Enregistrer un.e nouvel.le utilisateurice">
         <source>Enregistrer un.e nouvel.le utilisateurice</source>
         <target state="translated">Register a new user</target>
-        <alt-trans>
-          <target>__Enregistrer un.e nouvel.le utilisateurice</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="5KBqMRs" resname="Retourner au tableau de bord">
         <source>Retourner au tableau de bord</source>
         <target state="translated">Back to the dashboard</target>
-        <alt-trans>
-          <target>__Retourner au tableau de bord</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Qv3uyBk" resname="Éditer mon profil">
         <source>Éditer mon profil</source>
         <target state="translated">Edit profile</target>
-        <alt-trans>
-          <target>__Éditer mon profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="pGyjkXu" resname="Édition de">
         <source>Édition de</source>
         <target state="translated">Edit</target>
-        <alt-trans>
-          <target>__Édition de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id=".5yLjAZ" resname="Mot de passe">
         <source>Mot de passe</source>
         <target state="translated">Password</target>
-        <alt-trans>
-          <target>__Mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="wMrnSH8" resname="Enregistrer le mot de passe">
         <source>Enregistrer le mot de passe</source>
         <target state="translated">Register a new password</target>
-        <alt-trans>
-          <target>__Enregistrer le mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="_efUnkd" resname="Identifiant">
         <source>Identifiant</source>
         <target state="translated">Login</target>
-        <alt-trans>
-          <target>__Identifiant</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fNFLqaG" resname="Nom d'utilisateurice">
         <source>Nom d'utilisateurice</source>
         <target state="translated">Username</target>
-        <alt-trans>
-          <target>__Nom d'utilisateurice</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="f9UDoym" resname="Rôles">
         <source>Rôles</source>
         <target state="translated">Roles</target>
-        <alt-trans>
-          <target>__Rôles</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="l8olYqf" resname="Souhaitez-vous réellement supprimer le profil de">
         <source>Souhaitez-vous réellement supprimer le profil de</source>
         <target state="translated">Do you really want to delete %user%'s profile</target>
-        <alt-trans>
-          <target>__Souhaitez-vous réellement supprimer le profil de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="03PnLrT" resname="Gestion des utilisateurices">
         <source>Gestion des utilisateurices</source>
         <target state="translated">User Management</target>
-        <alt-trans>
-          <target>__Gestion des utilisateurices</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="cfvJ2qu" resname="Tout ce qui concerne les comptes pouvant se connecter à l'application.">
         <source>Tout ce qui concerne les comptes pouvant se connecter à l'application.</source>
         <target state="translated">Everything related to accounts that can log into the application.</target>
-        <alt-trans>
-          <target>__Tout ce qui concerne les comptes pouvant se connecter à l'application.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="E6fslTP" resname="Liste des comptes">
         <source>Liste des comptes</source>
         <target state="translated">List of accounts</target>
-        <alt-trans>
-          <target>__Liste des comptes</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="VtRLb38" resname="Enregistrer un nouveau compte">
         <source>Enregistrer un nouveau compte</source>
         <target state="translated">Register a new account</target>
-        <alt-trans>
-          <target>__Enregistrer un nouveau compte</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ixq8qLa" resname="Ce.tte personne n'a pas de nom">
         <source>Ce.tte personne n'a pas de nom</source>
         <target state="translated">This person has no name</target>
-        <alt-trans>
-          <target>__Ce.tte personne n'a pas de nom</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="SWvGzoP" resname="Vous n'avez pas d'addresse enregistrée.">
         <source>Vous n'avez pas d'addresse enregistrée.</source>
         <target state="translated">You don't have any registered address.</target>
-        <alt-trans>
-          <target>__Vous n'avez pas d'addresse enregistrée.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="S.n0DN3" resname="Informations du profil">
         <source>Informations du profil</source>
         <target state="translated">Profile info</target>
-        <alt-trans>
-          <target>__Informations du profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="mJMkdXe" resname="Informations personnelles">
         <source>Informations personnelles</source>
         <target state="translated">Account Information</target>
-        <alt-trans>
-          <target>__Informations personnelles</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="v_mOH3Y" resname="Abonnement aux newsletter">
         <source>Abonnement aux newsletter</source>
         <target state="translated">Newsletter subscription</target>
-        <alt-trans>
-          <target>__Abonnement aux newsletter</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="_Eyi53F" resname="Newsletter">
         <source>Newsletter</source>
         <target state="translated">Newsletter</target>
-        <alt-trans>
-          <target>__Newsletter</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NxG8b.B" resname="Identité">
         <source>Identité</source>
         <target state="translated">Identity</target>
-        <alt-trans>
-          <target>Title</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Identité</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NKo4s1_" resname="Emplacement pour l'avatar">
         <source>Emplacement pour l'avatar</source>
         <target state="translated">Avatar placeholder</target>
-        <alt-trans>
-          <target>__Emplacement pour l'avatar</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="kBziTMq" resname="Civilité">
         <source>Civilité</source>
         <target state="translated">Title</target>
-        <alt-trans>
-          <target>Gender</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Civilité</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="g_0B0Zd" resname="Nom de famille">
         <source>Nom de famille</source>
         <target state="translated">Last Name</target>
-        <alt-trans>
-          <target>__Nom de famille</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="vnBxYSs" resname="Code postal">
         <source>Code postal</source>
         <target state="translated">Postal Code</target>
-        <alt-trans>
-          <target>__Code postal</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Dr0lo0H" resname="Ville">
         <source>Ville</source>
         <target state="translated">City / Town</target>
-        <alt-trans>
-          <target>__Ville</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id=".nU._5u" resname="Pays">
         <source>Pays</source>
         <target state="translated">Country</target>
-        <alt-trans>
-          <target>__Pays</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="BbKygTx" resname="Téléphone et email">
         <source>Téléphone et email</source>
-        <target state="translated">Phone &amp; Email</target>
-        <alt-trans>
-          <target>__Téléphone et email</target>
-        </alt-trans>
+        <target state="translated"><![CDATA[Phone & Email]]></target>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
         <target state="translated">Email</target>
-        <alt-trans>
-          <target>__Email</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="9516ize" resname="Commentaires">
         <source>Commentaires</source>
         <target state="translated">Comments</target>
-        <alt-trans>
-          <target>__Commentaires</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="3xrlDfZ" resname="Enregistrer les changements">
         <source>Enregistrer les changements</source>
         <target state="translated">Save changes</target>
-        <alt-trans>
-          <target>__Enregistrer les changements</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="K.uNjpv" resname="Modifier le profil">
         <source>Modifier le profil</source>
         <target state="translated">Edit profile</target>
-        <alt-trans>
-          <target>__Modifier le profil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="jd6P4oT" resname="Pseudonyme">
         <source>Pseudonyme</source>
         <target state="translated">Username</target>
-        <alt-trans>
-          <target>__Pseudonyme</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="qO4reia" resname="Sauver">
         <source>Sauver</source>
         <target state="translated">Save</target>
-        <alt-trans>
-          <target>__Sauver</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="lW.Fwvv" resname="Modifier le mot de passe">
         <source>Modifier le mot de passe</source>
         <target state="translated">Change password</target>
-        <alt-trans>
-          <target>__Modifier le mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="XFVRV7B" resname="Ancien mot de passe">
         <source>Ancien mot de passe</source>
         <target state="translated">Old password</target>
-        <alt-trans>
-          <target>__Ancien mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="o9ZcpWl" resname="Nouveau mot de passe">
         <source>Nouveau mot de passe</source>
         <target state="translated">New password</target>
-        <alt-trans>
-          <target>__Nouveau mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="SQlNO6e" resname="Confirmer le mot de passe">
         <source>Confirmer le mot de passe</source>
         <target state="translated">Confirm password</target>
-        <alt-trans>
-          <target>__Confirmer le mot de passe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="YdaVBBA" resname="Connexion">
         <source>Connexion</source>
         <target state="translated">Log in</target>
-        <alt-trans>
-          <target>__Connexion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="_Mv8t5." resname="Bienvenue sur la base de données de l'association">
         <source>Bienvenue sur la base de données de l'association</source>
         <target state="translated">Welcome to the association database</target>
-        <alt-trans>
-          <target>__Bienvenue sur la base de données de l'association</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="I67gC1S" resname="Huntington Avenir">
         <source>Huntington Avenir</source>
         <target state="translated">Huntington Avenir</target>
-        <alt-trans>
-          <target>__Huntington Avenir</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="EieiYHe" resname="Pour accéder au logiciel, identifiez-vous">
         <source>Pour accéder au logiciel, identifiez-vous</source>
         <target state="translated">Log in to access the software</target>
-        <alt-trans>
-          <target>__Pour accéder au logiciel, identifiez-vous</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="acQE2iy" resname="Adhésion du">
         <source>Adhésion du</source>
@@ -996,113 +564,62 @@
       <trans-unit id="YyzS.qc" resname="au">
         <source>au</source>
         <target state="translated">to</target>
-        <alt-trans>
-          <target>__au</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="OjFB_Nc" resname="Cette adhésion n'est pas définie dans le temps">
         <source>Cette adhésion n'est pas définie dans le temps</source>
         <target state="translated">This membership is not set in time</target>
-        <alt-trans>
-          <target>__Cette adhésion n'est pas définie dans le temps</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="BI8DMr_" resname="Adhésion">
         <source>Adhésion</source>
         <target state="translated">Membership</target>
-        <alt-trans>
-          <target>__Adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="lHzAfis" resname="Montant">
         <source>Montant</source>
         <target state="translated">Cost</target>
-        <alt-trans>
-          <target>__Montant</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="swUmGEm" resname="Payée via">
         <source>Payée via</source>
         <target state="translated">Paid via</target>
-        <alt-trans>
-          <target>__Payée via</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="OLOVBTh" resname="Paiement pas encore reçu">
         <source>Paiement pas encore reçu</source>
         <target state="translated">Payment not received yet</target>
-        <alt-trans>
-          <target>__Paiement pas encore reçu</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="r_fysD." resname="Paiement reçu le">
         <source>Paiement reçu le</source>
         <target state="translated">Payment received on</target>
-        <alt-trans>
-          <target>__Paiement reçu le</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="d0a3oBH" resname="Paiement pas encore encaissé">
         <source>Paiement pas encore encaissé</source>
         <target state="translated">Payment not yet cashed out</target>
-        <alt-trans>
-          <target>Payment not redeemed yet</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Paiement pas encore encaissé</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="zPAFtsL" resname="Paiement encaissé le">
         <source>Paiement encaissé le</source>
         <target state="translated">Payment cashed on</target>
-        <alt-trans>
-          <target>__Paiement encaissé le</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fUwZx7T" resname="Commentaire :">
         <source>Commentaire :</source>
         <target state="translated">Comment:</target>
-        <alt-trans>
-          <target>__Commentaire :</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="WsNlXXR" resname="Adhérent.es">
         <source>Adhérent.es</source>
         <target state="translated">Members</target>
-        <alt-trans>
-          <target>__Adhérent.es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="PCHe7ug" resname="Retourner à la liste des adhésions actives">
         <source>Retourner à la liste des adhésions actives</source>
         <target state="translated">Back to active membership list</target>
-        <alt-trans>
-          <target>__Retourner à la liste des adhésions actives</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="LUBn3CR" resname="Pas d'adresse enregistrée.">
         <source>Pas d'adresse enregistrée.</source>
         <target state="translated">No address saved.</target>
-        <alt-trans>
-          <target>__Pas d'adresse enregistrée.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="2vSfWjR" resname="COIN">
         <source>COIN</source>
         <target state="translated">QUACK</target>
-        <alt-trans>
-          <target>__COIN</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="EE8C7tR" resname="Sélection des personnes à faire adhérer">
         <source>Sélection des personnes à faire adhérer</source>
         <target state="translated">Selection of people to become members</target>
-        <alt-trans>
-          <target>Selection of people to join</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Sélection des personnes à faire adhérer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="R6vEPGl" resname="Sélectionnez les personnes à faire adhérer">
         <source>Sélectionnez les personnes à faire adhérer</source>
@@ -1111,317 +628,346 @@
       <trans-unit id="vGKW_PH" resname="Enregistrer un·e nouvel·le personne dans l'annuaire">
         <source>Enregistrer un·e nouvel·le personne dans l'annuaire</source>
         <target state="translated">Register a new person in the directory</target>
-        <alt-trans>
-          <target>__Enregistrer un·e nouvel·le personne dans l'annuaire</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="lYL3Idb" resname="Dénomination">
         <source>Dénomination</source>
         <target state="translated">Title</target>
-        <alt-trans>
-          <target>__Dénomination</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="C3wK6Jq" resname="Adresse.s">
         <source>Adresse.s</source>
         <target state="translated">Address</target>
-        <alt-trans>
-          <target>__Adresse.s</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="DUekZvX" resname="Retourner à l'accueil">
         <source>Retourner à l'accueil</source>
         <target state="translated">Back to Home</target>
-        <alt-trans>
-          <target>__Retourner à l'accueil</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="9g8ZyHr" resname="Valider la sélection">
         <source>Valider la sélection</source>
         <target state="translated">Confirm selection</target>
-        <alt-trans>
-          <target>__Valider la sélection</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="dijiq_7" resname="Dates de la dernière adhésion">
         <source>Dates de la dernière adhésion</source>
         <target state="translated">Dates of last membership</target>
-        <alt-trans>
-          <target>__Dates de la dernière adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="FvED9D4" resname="Type d'adhésion">
         <source>Type d'adhésion</source>
         <target state="translated">Type of membership</target>
-        <alt-trans>
-          <target>__Type d'adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="XUQ5quC" resname="Payée via...">
         <source>Payée via...</source>
         <target state="translated">Paid via...</target>
-        <alt-trans>
-          <target>__Payée via...</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="zlf73kD" resname="Encaissée le...">
         <source>Encaissée le...</source>
         <target state="translated">Cashed out on:</target>
-        <alt-trans>
-          <target>__Encaissée le...</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="C2ciqK3" resname="Du">
         <source>Du</source>
         <target state="translated">From</target>
-        <alt-trans>
-          <target>__Du</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="yY0WQIt" resname="Pas encore encaissé">
         <source>Pas encore encaissé</source>
         <target state="translated">Not yet cashed out</target>
-        <alt-trans>
-          <target>__Pas encore encaissé</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Qj6NQoG" resname="Voir les détails de l'adhésion">
         <source>Voir les détails de l'adhésion</source>
         <target state="translated">View membership details</target>
-        <alt-trans>
-          <target>__Voir les détails de l'adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ttUAY5t" resname="Liste des adhérent·es">
         <source>Liste des adhérent·es</source>
         <target state="translated">List of members</target>
-        <alt-trans>
-          <target>__Liste des adhérent·es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="AtMrrT1" resname="Ce·tte membre n'a pas de nom">
         <source>Ce·tte membre n'a pas de nom</source>
         <target state="translated">This user has no name</target>
-        <alt-trans>
-          <target>__Ce·tte membre n'a pas de nom</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ucjFN5w" resname="Reçoit la newsletter">
         <source>Reçoit la newsletter</source>
         <target state="translated">Receive newsletter</target>
-        <alt-trans>
-          <target>__Reçoit la newsletter</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="0c9u8s6" resname="Newsletter envoyée sous format dématérialisé">
         <source>Newsletter envoyée sous format dématérialisé</source>
         <target state="translated">Newsletter sent in virtual format</target>
-        <alt-trans>
-          <target>__Newsletter envoyée sous format dématérialisé</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="SvkqbS6" resname="Liste des adhérent.es">
         <source>Liste des adhérent.es</source>
         <target state="translated">List of members</target>
-        <alt-trans>
-          <target>__Liste des adhérent.es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="h0ARGAm" resname="Retourner à la liste des adhérent⋅es">
         <source>Retourner à la liste des adhérent⋅es</source>
         <target state="translated">Back to the list of members</target>
-        <alt-trans>
-          <target>__Retourner à la liste des adhérent⋅es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="wYOjNUb" resname="Édition de l'adhérent.e">
         <source>Édition de l'adhérent.e</source>
         <target state="translated">Edit member</target>
-        <alt-trans>
-          <target>__Édition de l'adhérent.e</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="M7lHDZz" resname="Adhésion en cours">
         <source>Adhésion en cours</source>
         <target state="translated">Active membership</target>
-        <alt-trans>
-          <target>__Adhésion en cours</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="Hv0tUsf" resname="Montant du paiement">
         <source>Montant du paiement</source>
         <target state="translated">Payment amount</target>
-        <alt-trans>
-          <target>__Montant du paiement</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="pEtzO2k" resname="Autres adhérent.es concerné.es">
         <source>Autres adhérent.es concerné.es</source>
         <target state="translated">Other members involved</target>
-        <alt-trans>
-          <target>__Autres adhérent.es concerné.es</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="L5s48Y2" resname="Ancienne adhésion">
         <source>Ancienne adhésion</source>
         <target state="translated">Old membership</target>
-        <alt-trans>
-          <target>__Ancienne adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="wxSFGoP" resname="Don de">
         <source>Don de</source>
         <target state="translated">Donation of</target>
-        <alt-trans>
-          <target>__Don de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="kpGMrnC" resname="€ du">
         <source>€ du</source>
         <target state="translated">€ from</target>
-        <alt-trans>
-          <target>__€ du</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="JLa_8l5" resname="Don">
         <source>Don</source>
         <target state="translated">Donation</target>
-        <alt-trans>
-          <target>__Don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ahql_n5" resname="Informations du don">
         <source>Informations du don</source>
         <target state="translated">Donation details</target>
-        <alt-trans>
-          <target>__Informations du don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="P0VlfA4" resname="Date de règlement">
         <source>Date de règlement</source>
         <target state="translated">Payment date</target>
-        <alt-trans>
-          <target>__Date de règlement</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="CoHh3oP" resname="Donateurice">
         <source>Donateurice</source>
         <target state="translated">Donator</target>
-        <alt-trans>
-          <target>__Donateurice</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="3Uc.spg" resname="Informations du paiement">
         <source>Informations du paiement</source>
         <target state="translated">Payment details</target>
-        <alt-trans>
-          <target>__Informations du paiement</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="m79r6x2" resname="Date de réception">
         <source>Date de réception</source>
         <target state="translated">Date of receipt</target>
-        <alt-trans>
-          <target>__Date de réception</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="WyZPxeu" resname="Date d'encaissement">
         <source>Date d'encaissement</source>
         <target state="translated">Cash Out Date</target>
-        <alt-trans>
-          <target>__Date d'encaissement</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="siiyPEV" resname="Réglé via...">
         <source>Réglé via...</source>
         <target state="translated">Paid via...</target>
-        <alt-trans>
-          <target>__Réglé via...</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="SNPoFla" resname="Commentaire">
         <source>Commentaire</source>
         <target state="translated">Comment</target>
-        <alt-trans>
-          <target>__Commentaire</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="VVlzzMP" resname="Supprimer le don">
         <source>Supprimer le don</source>
         <target state="translated">Delete donation</target>
-        <alt-trans>
-          <target>__Supprimer le don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="WwOiuJK" resname="Souhaitez-vous réellement supprimer ce don de">
         <source>Souhaitez-vous réellement supprimer ce don de</source>
         <target state="translated">Do you really want to delete this donation of</target>
-        <alt-trans>
-          <target>__Souhaitez-vous réellement supprimer ce don de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="QuN2BLY" resname="Modifier">
         <source>Modifier</source>
         <target state="translated">Edit</target>
-        <alt-trans>
-          <target>__Modifier</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="FHD36uX" resname="Donateur">
         <source>Donateur</source>
         <target state="translated">Donator</target>
-        <alt-trans>
-          <target>__Donateur</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="jWLuSbm" resname="Fait un don de">
         <source>Fait un don de</source>
         <target state="translated">Donated</target>
-        <alt-trans>
-          <target>__Fait un don de</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ovvHVLn" resname="Le">
         <source>Le</source>
         <target state="translated">On</target>
-        <alt-trans>
-          <target>__Le</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="fga8BRn" resname="Règle via">
         <source>Règle via</source>
         <target state="translated">Paid via</target>
-        <alt-trans>
-          <target>__Règle via</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7B6wrUR" resname="Paiment encaissé le">
         <source>Paiment encaissé le</source>
         <target state="translated">Payment cashed out on</target>
-        <alt-trans>
-          <target>__Paiment encaissé le</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="QMEDDAI" resname="Retour à la liste des dons">
         <source>Retour à la liste des dons</source>
         <target state="translated">Back to the list of donations</target>
-        <alt-trans>
-          <target>__Retour à la liste des dons</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="P8v83Gw" resname="Voir le don">
         <source>Voir le don</source>
         <target state="translated">View donation</target>
-        <alt-trans>
-          <target>__Voir le don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
         <target state="translated">Edit donation</target>
-        <alt-trans>
-          <target>__Éditer le don</target>
-        </alt-trans>
+      </trans-unit>
+      <trans-unit id="KQEGyKV" resname="Aucune">
+        <source>Aucune</source>
+        <target>__Aucune</target>
+      </trans-unit>
+      <trans-unit id="sB0RYun" resname="Adresse mail">
+        <source>Adresse mail</source>
+        <target>__Adresse mail</target>
+      </trans-unit>
+      <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
+        <source>Reçoit la newsletter au format dématérialisé</source>
+        <target>__Reçoit la newsletter au format dématérialisé</target>
+      </trans-unit>
+      <trans-unit id="iaZhwDw" resname="Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="sF_SpY3" resname="Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="v6ffBEX" resname="Téléphone de travail">
+        <source>Téléphone de travail</source>
+        <target>__Téléphone de travail</target>
+      </trans-unit>
+      <trans-unit id="0_Zpb8G" resname="Les numéros doivent commencer par 0 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 0 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 0 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="kdKrWvQ" resname="Fax de travail">
+        <source>Fax de travail</source>
+        <target>__Fax de travail</target>
+      </trans-unit>
+      <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
+        <source>Enregister une adhésion de type</source>
+        <target>__Enregister une adhésion de type</target>
+      </trans-unit>
+      <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
+        <source>L'adhésion est valable du</source>
+        <target>__L'adhésion est valable du</target>
+      </trans-unit>
+      <trans-unit id="KicV9xh" resname="Pour l'année fiscale">
+        <source>Pour l'année fiscale</source>
+        <target>__Pour l'année fiscale</target>
+      </trans-unit>
+      <trans-unit id="Dt5G2k2" resname="Commentaire sur l'adhésion">
+        <source>Commentaire sur l'adhésion</source>
+        <target>__Commentaire sur l'adhésion</target>
+      </trans-unit>
+      <trans-unit id="Lti4BmJ" resname="Via">
+        <source>Via</source>
+        <target>__Via</target>
+      </trans-unit>
+      <trans-unit id="0AXZwv5" resname="Soit une adhésion d'un montant de">
+        <source>Soit une adhésion d'un montant de</source>
+        <target>__Soit une adhésion d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="BRe1zee" resname="Et un don d'un montant de">
+        <source>Et un don d'un montant de</source>
+        <target>__Et un don d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="21nAkoQ" resname="Le règlement est de">
+        <source>Le règlement est de</source>
+        <target>__Le règlement est de</target>
+      </trans-unit>
+      <trans-unit id="CmhED0Z" resname="Encaissés le">
+        <source>Encaissés le</source>
+        <target>__Encaissés le</target>
+      </trans-unit>
+      <trans-unit id="czcIBrU" resname="Effectué par">
+        <source>Effectué par</source>
+        <target>__Effectué par</target>
+      </trans-unit>
+      <trans-unit id="N.OzWcd" resname="Choisir les personnes concernées">
+        <source>Choisir les personnes concernées</source>
+        <target>__Choisir les personnes concernées</target>
+      </trans-unit>
+      <trans-unit id="iYQkfj9" resname="Rechercher...">
+        <source>Rechercher...</source>
+        <target>__Rechercher...</target>
+      </trans-unit>
+      <trans-unit id="o_9EKPx" resname="Sélectionnez une personne pour l'ajouter">
+        <source>Sélectionnez une personne pour l'ajouter</source>
+        <target>__Sélectionnez une personne pour l'ajouter</target>
+      </trans-unit>
+      <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
+        <source>adhérent·e·s maximum pour une adhésion de type</source>
+        <target>__adhérent·e·s maximum pour une adhésion de type</target>
+      </trans-unit>
+      <trans-unit id="8uMSzlt" resname="Recevoir la newsletter">
+        <source>Recevoir la newsletter</source>
+        <target>__Recevoir la newsletter</target>
+      </trans-unit>
+      <trans-unit id="iyPXcgr" resname="Recevoir la newsletter par mail">
+        <source>Recevoir la newsletter par mail</source>
+        <target>__Recevoir la newsletter par mail</target>
+      </trans-unit>
+      <trans-unit id="UTHJPFA" resname="Répétez le mot de passe">
+        <source>Répétez le mot de passe</source>
+        <target>__Répétez le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="KNpCP0c" resname="Les mots de passe doivent être identiques">
+        <source>Les mots de passe doivent être identiques</source>
+        <target>__Les mots de passe doivent être identiques</target>
+      </trans-unit>
+      <trans-unit id="PH3pUAD" resname="Don supprimé.">
+        <source>Don supprimé.</source>
+        <target>__Don supprimé.</target>
+      </trans-unit>
+      <trans-unit id="59hbFR9" resname="Une erreur est survenue.">
+        <source>Une erreur est survenue.</source>
+        <target>__Une erreur est survenue.</target>
+      </trans-unit>
+      <trans-unit id="pNuN7lP" resname="Nom d'utilisateur ou mot de passe invalide.">
+        <source>Nom d'utilisateur ou mot de passe invalide.</source>
+        <target>__Nom d'utilisateur ou mot de passe invalide.</target>
+      </trans-unit>
+      <trans-unit id="XqkCTUa" resname="Impossibilité de se connecter à la base de données.">
+        <source>Impossibilité de se connecter à la base de données.</source>
+        <target>__Impossibilité de se connecter à la base de données.</target>
+      </trans-unit>
+      <trans-unit id="M2vRS0W" resname="L'utilisateurice">
+        <source>L'utilisateurice</source>
+        <target>__L'utilisateurice</target>
+      </trans-unit>
+      <trans-unit id="fBFD5DH" resname="a été créé.e">
+        <source>a été créé.e</source>
+        <target>__a été créé.e</target>
+      </trans-unit>
+      <trans-unit id="aMmxl4Y" resname="n'a pas pu être créé.e">
+        <source>n'a pas pu être créé.e</source>
+        <target>__n'a pas pu être créé.e</target>
+      </trans-unit>
+      <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
+        <source>Les informations ont bien été modifiées</source>
+        <target>__Les informations ont bien été modifiées</target>
+      </trans-unit>
+      <trans-unit id="7ByHGJ1" resname="Les informations de">
+        <source>Les informations de</source>
+        <target>__Les informations de</target>
+      </trans-unit>
+      <trans-unit id="qRE1mxr" resname="ont bien été supprimées">
+        <source>ont bien été supprimées</source>
+        <target>__ont bien été supprimées</target>
+      </trans-unit>
+      <trans-unit id="PDt473I" resname="L'adhésion a bien été enregistrée.">
+        <source>L'adhésion a bien été enregistrée.</source>
+        <target>__L'adhésion a bien été enregistrée.</target>
+      </trans-unit>
+      <trans-unit id="5wC7UrX" resname="Le mot de passe a bien été modifié">
+        <source>Le mot de passe a bien été modifié</source>
+        <target>__Le mot de passe a bien été modifié</target>
+      </trans-unit>
+      <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
+        <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
+        <target>__Une erreur est survenue, veuillez réessayer plus tard.</target>
+      </trans-unit>
+      <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
+        <source>La page demandée n'existe pas</source>
+        <target>__La page demandée n'existe pas</target>
+      </trans-unit>
+      <trans-unit id="O6HmCRn" resname="Don effectué via le même paiement">
+        <source>Don effectué via le même paiement</source>
+        <target>__Don effectué via le même paiement</target>
       </trans-unit>
     </body>
   </file>
