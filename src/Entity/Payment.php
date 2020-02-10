@@ -161,9 +161,9 @@ class Payment
     /**
      * @return Donation
      */
-    public function getDonation(): Donation
+    public function getDonation(): ?Donation
     {
-        return $this->donations;
+        return $this->donation;
     }
 
     public function setDonation(Donation $donation): self

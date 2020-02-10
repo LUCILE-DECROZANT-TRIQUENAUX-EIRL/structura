@@ -68,11 +68,11 @@
                                 </h4>
                             </div>
                             <div class="container">
-                                <br>
+                                <br><br><hr><br>
                                 <div class="row">
                                     <div class="col-12">
                                         <h2 class="text-center">{% trans %}Adhérent.es{% endtrans %}</h2>
-                                        <br><hr><br>
+                                        <br>
                                     </div>
                                     {% for member in membership.members %}
                                         <div class="col-4">
@@ -85,6 +85,30 @@
                                     {% endfor %}
                                 </div>
                             </div>
+                            {% if (membership.payment.donation) %}
+                            <div class="container">
+                                <br><br><hr><br>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 class="text-center">{% trans %}Don effectué via le même paiement{% endtrans %}</h2>
+                                        <br>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <h5>{{ membership.payment.donation.amount }}&nbsp;€</h5>
+                                            </div>
+                                            <div class="card-footer">
+                                                <a class="btn btn-secondary btn-block"
+                                                   href="{{ path('donation_show', { 'id': membership.payment.donation.id }) }}">
+                                                    {% trans %}Voir le don{% endtrans %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
