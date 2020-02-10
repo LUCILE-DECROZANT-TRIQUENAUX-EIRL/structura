@@ -39,6 +39,18 @@
                 </ul>
             </div>
 
-            {{ include('Member/_user-s-memberships-list.html.twig') }}
+            <div class="col-12 col-md-10">
+                {{ include('Member/_user-s-memberships-list.html.twig') }}
+
+                <div class="row mt-3">
+                    {% if is_granted("ROLE_GESTION") %}
+                        <div class="col-md">
+                            <a href="{{ path('people_show', { 'id': people.id }) }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
     </div>
 {% endblock %}
