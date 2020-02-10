@@ -9,9 +9,9 @@
         <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
-    <li class="breadcrumb-item">
-        <a href="{{ path('member_list') }}">{% trans %}Liste des adhérent·es{% endtrans %}</a>
-    </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('member_list') }}">{% trans %}Liste des adhérent·es{% endtrans %}</a>
+        </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
         {% if member.user != NULL and app.user.username == member.user.username %}
@@ -29,141 +29,147 @@
 
             <div class="col-8 col-md-2">
                 <ul class="list-group">
-                    <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">{% trans %}Profil{% endtrans %}</a>
-                    <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action ">{% trans %}Adhésions{% endtrans %}</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">{% trans %}Dons{% endtrans %}</a>
-                    <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">{% trans %}Édition{% endtrans %}</a>
+                    <a href="{{ path('member_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action active">
+                        {% trans %}Profil{% endtrans %}
+                    </a>
+                    <a href="{{ path('member_memberships_show', { 'id': member.id }) }}" class="list-group-item list-group-item-action ">
+                        {% trans %}Adhésions{% endtrans %}
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">
+                        {% trans %}Dons{% endtrans %}
+                    </a>
+                    <a href="{{ path('member_edit', { 'id': member.id }) }}" class="list-group-item list-group-item-action">
+                        {% trans %}Édition{% endtrans %}
+                    </a>
                 </ul>
             </div>
 
-
-
-        <div class="col-12 col-md-10">
-            <div class="col">
-                <h1>
-                {% if member.denomination or member.firstname or member.lastname %}
-                {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
-                {% else %}
-                    {% trans %}Ce·tte membre n'a pas de nom{% endtrans %}
-                {% endif %}
-                </h1>
-            </div>
-            <br>
-            <div class="container styledtable">
-            <br>
-            <h3>{% trans %}Informations de contact{% endtrans %}</h3>
-                <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>{% trans %}Mail{% endtrans %}</th>
-                            <td>
-                            {{ member.emailAddress }}&nbsp;&nbsp;
-                            {% if member.isReceivingNewsletter %}
-                                <span data-toggle="tooltip" title="{%trans%}Reçoit la newsletter{%endtrans%}" >
-                                    <i class="icon ion-md-paper"></i>
-                                </span>
-                            {% endif %}
-                            {% if member.newsletterDematerialization %}
-                                <span data-toggle="tooltip" title="{% trans %}Newsletter envoyée sous format dématérialisé{% endtrans %}" >
-                                    <i class="icon ion-md-mail"></i>
-                                </span>
-                             {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Adresse{% endtrans %}</th>
-                            <td>
-                                {% if member.hasNoAddressDefined() %}
-                                    {% trans %}Ce membre n'a pas d'adresse enregistrée.{% endtrans %}
-                                {% else %}
-                                    {% for address in member.addresses %}
-                                        {{address.line}}
-                                        <br>
-                                        {{address.postalCode}}, {{address.city}}, {{address.country}}
-                                    {% endfor %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Téléphone fixe{% endtrans %}</th>
-                            <td><div class="phone">{{ member.homePhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Téléphone portable{% endtrans %}</th>
-                            <td><div class="phone">{{ member.cellPhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Téléphone professionnel{% endtrans %}</th>
-                            <td><div class="phone">{{ member.workPhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Fax{% endtrans %}</th>
-                            <td><div class="phone">{{ member.workFaxNumber }}</div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <h3>{% trans %}Informations personnelles{% endtrans %}</h3>
-                <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>{% trans %}Observations{% endtrans %}</th>
-                            <td>{{ member.observations}}</td>
-                        </tr>
-                        {% if is_granted("ROLE_GESTION_SENSIBLE") %}
-                        <tr>
-                            <th>{% trans %}Détails médicaux{% endtrans %}</th>
-                            <td>{{ member.sensitiveObservations }}</td>
-                        </tr>
+            <div class="col-12 col-md-10">
+                <div class="col">
+                    <h1>
+                        {% if member.denomination or member.firstname or member.lastname %}
+                            {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
+                        {% else %}
+                            {% trans %}Ce·tte membre n'a pas de nom{% endtrans %}
                         {% endif %}
-                    </tbody>
-                </table>
-            </div>
-            <br>
+                    </h1>
+                </div>
+                <br>
+                <div class="container styledtable">
+                    <br>
+                    <h3>{% trans %}Informations de contact{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Mail{% endtrans %}</th>
+                                <td>
+                                    {{ member.emailAddress }}&nbsp;&nbsp;
+                                    {% if member.isReceivingNewsletter %}
+                                        <span data-toggle="tooltip" title="{%trans%}Reçoit la newsletter{%endtrans%}" >
+                                            <i class="icon ion-md-paper"></i>
+                                        </span>
+                                    {% endif %}
+                                    {% if member.newsletterDematerialization %}
+                                        <span data-toggle="tooltip" title="{% trans %}Newsletter envoyée sous format dématérialisé{% endtrans %}" >
+                                            <i class="icon ion-md-mail"></i>
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Adresse{% endtrans %}</th>
+                                <td>
+                                    {% if member.hasNoAddressDefined() %}
+                                        {% trans %}Ce membre n'a pas d'adresse enregistrée.{% endtrans %}
+                                    {% else %}
+                                        {% for address in member.addresses %}
+                                            {{address.line}}
+                                            <br>
+                                            {{address.postalCode}}, {{address.city}}, {{address.country}}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Téléphone fixe{% endtrans %}</th>
+                                <td><div class="phone">{{ member.homePhoneNumber }}</div></td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Téléphone portable{% endtrans %}</th>
+                                <td><div class="phone">{{ member.cellPhoneNumber }}</div></td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Téléphone professionnel{% endtrans %}</th>
+                                <td><div class="phone">{{ member.workPhoneNumber }}</div></td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Fax{% endtrans %}</th>
+                                <td><div class="phone">{{ member.workFaxNumber }}</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h3>{% trans %}Informations personnelles{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Observations{% endtrans %}</th>
+                                <td>{{ member.observations}}</td>
+                            </tr>
+                            {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+                                <tr>
+                                    <th>{% trans %}Détails médicaux{% endtrans %}</th>
+                                    <td>{{ member.sensitiveObservations }}</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
 
-            <div class="container">
-                <div class="row">
-                    {% if is_granted("ROLE_GESTION") %}
-                    <div class="col">
-                        <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
-                    </div>
-                    {% endif %}
-                    <div class="col text-right">
-                        <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ member.firstName }} {{ member.lastName }}
-                        </button>
+                <div class="container">
+                    <div class="row">
+                        {% if is_granted("ROLE_GESTION") %}
+                            <div class="col">
+                                <a href="{{ path('member_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                            </div>
+                        {% endif %}
+                        <div class="col text-right">
+                            <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
+                                <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>{% trans %}Souhaitez-vous réellement supprimer ce profil ?{% endtrans %}</p>
-                    <div class="alert alert-warning" role="alert">
-                        <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+        <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>{% trans %}Souhaitez-vous réellement supprimer ce profil ?{% endtrans %}</p>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}
-                        </button>
-                    </div>
-                    <div class="col text-right">
-                        {{ form_start(delete_form) }}
-                        <button type="submit" class="btn btn-danger" id="delete_button">
-                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ member.firstName }} {{ member.lastName }}
-                        </button>
-                        {{ form_end(delete_form) }}
+                    <div class="modal-footer">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}
+                            </button>
+                        </div>
+                        <div class="col text-right">
+                            {{ form_start(delete_form) }}
+                            <button type="submit" class="btn btn-danger" id="delete_button">
+                                <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+                            </button>
+                            {{ form_end(delete_form) }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
