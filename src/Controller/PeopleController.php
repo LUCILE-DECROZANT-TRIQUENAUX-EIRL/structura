@@ -1,4 +1,5 @@
 <?php
+
 /**
  * People controller
  */
@@ -16,22 +17,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdatePeopleDataFDO;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * People controller.
  *
  * @Route(path="/{_locale}/people", requirements={"_locale"="en|fr"})
  */
-class PeopleController extends AbstractController
-{
+class PeopleController extends AbstractController {
+
     /**
      * Lists all people entities.
      * @return views
      * @Route(path="/", name="people_list", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function listAction()
-    {
+    public function listAction() {
         $em = $this->getDoctrine()->getManager();
 
         $peoples = $em->getRepository(People::class)->findAll();
@@ -45,8 +46,8 @@ class PeopleController extends AbstractController
 
 
         return $this->render('People/list.html.twig', array(
-            'peoples' => $peoples,
-            'people_deletion_forms' => $deleteForms,
+                'peoples' => $peoples,
+                'people_deletion_forms' => $deleteForms,
         ));
     }
 
@@ -58,8 +59,7 @@ class PeopleController extends AbstractController
      * @Route("/new", name="people_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator) {
         $updatePeopleDataFDO = new UpdatePeopleDataFDO();
 
         $em = $this->getDoctrine()->getManager();
@@ -75,59 +75,47 @@ class PeopleController extends AbstractController
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            if ($updatePeopleDataFDO->getAddresses()['__name__'] === null)
-            {
+            if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
                 $address = new Address();
                 $people->setAddresses([$address]);
-            }
-            else
-            {
+            } else {
                 $address = $updatePeopleDataFDO->getAddresses()['__name__'];
                 $people->setAddresses([$address]);
             }
 
-            if ($updatePeopleDataFDO->getCellPhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getCellPhoneNumber() !== null) {
                 $people->setCellPhoneNumber($updatePeopleDataFDO->getCellPhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getHomePhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getHomePhoneNumber() !== null) {
                 $people->setHomePhoneNumber($updatePeopleDataFDO->getHomePhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getWorkPhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getWorkPhoneNumber() !== null) {
                 $people->setWorkPhoneNumber($updatePeopleDataFDO->getWorkPhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getWorkFaxNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getWorkFaxNumber() !== null) {
                 $people->setWorkFaxNumber($updatePeopleDataFDO->getWorkFaxNumber());
             }
 
-            if ($updatePeopleDataFDO->getObservations() !== null)
-            {
+            if ($updatePeopleDataFDO->getObservations() !== null) {
                 $people->setObservations($updatePeopleDataFDO->getObservations());
             }
 
-            if ($updatePeopleDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
+            if ($updatePeopleDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE')) {
                 $people->setSensitiveObservations($updatePeopleDataFDO->getSensitiveObservations());
             }
 
-            if ($updatePeopleDataFDO->getEmailAddress() !== null)
-            {
+            if ($updatePeopleDataFDO->getEmailAddress() !== null) {
                 $people->setEmailAddress($updatePeopleDataFDO->getEmailAddress());
             }
 
-            if ($updatePeopleDataFDO->getIsReceivingNewsletter() !== null)
-            {
+            if ($updatePeopleDataFDO->getIsReceivingNewsletter() !== null) {
                 $people->setIsReceivingNewsletter($updatePeopleDataFDO->getIsReceivingNewsletter());
             }
 
-            if ($updatePeopleDataFDO->getNewsletterDematerialization() !== null)
-            {
+            if ($updatePeopleDataFDO->getNewsletterDematerialization() !== null) {
                 $people->setNewsletterDematerialization($updatePeopleDataFDO->getNewsletterDematerialization());
             }
 
@@ -135,24 +123,37 @@ class PeopleController extends AbstractController
             $em->persist($people);
             $em->flush();
 
-            $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $updatePeopleDataFDO->getFirstName(), $updatePeopleDataFDO->getLastName())
-            );
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenCreatedTranslation = $translator->trans('a été créé.e');
 
-            //var_dump($updatePeopleDataFDO);
+            $this->addFlash(
+                'success', sprintf('%s <strong>%s %s</strong> %s',
+                    $userTranslation,
+                    $updatePeopleDataFDO->getFirstName(),
+                    $updatePeopleDataFDO->getLastName(),
+                    $hasBeenCreatedTranslation
+                )
+            );
 
             return $this->redirectToRoute('people_show', array('id' => $people->getId()));
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
+
             $this->addFlash(
-                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $updatePeopleDataFDO->getFirstName(), $updatePeopleDataFDO->getLastName())
+                'danger', sprintf('%s <strong>%s</strong> %s',
+                    $userTranslation,
+                    $updatePeopleDataFDO->getFirstName(),
+                    $couldntBeCreatedTranslation
+                )
             );
         }
 
         return $this->render('People/new.html.twig', array(
-            'people' => $updatePeopleDataFDO,
-            'form' => $form->createView(),
+                'people' => $updatePeopleDataFDO,
+                'form' => $form->createView(),
         ));
     }
 
@@ -163,13 +164,12 @@ class PeopleController extends AbstractController
      * @Route("/{id}", name="people_show", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showAction(People $people)
-    {
+    public function showAction(People $people) {
         $deleteForm = $this->createDeleteForm($people);
 
         return $this->render('People/show.html.twig', array(
-            'people' => $people,
-            'delete_form' => $deleteForm->createView(),
+                'people' => $people,
+                'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -181,11 +181,10 @@ class PeopleController extends AbstractController
      * @Route("/{id}/memberships", name="people_memberships_show", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showMembershipsAction(People $individual)
-    {
+    public function showMembershipsAction(People $individual) {
         return $this->render('People/show-memberships.html.twig', [
-            'people' => $individual,
-            'member' => $individual,
+                'people' => $individual,
+                'member' => $individual,
         ]);
     }
 
@@ -198,8 +197,7 @@ class PeopleController extends AbstractController
      * @Route("/{id}/edit", name="people_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, People $people, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function editAction(Request $request, People $people, UserPasswordEncoderInterface $passwordEncoder,TranslatorInterface $translator) {
         $updatePeopleDataFDO = UpdatePeopleDataFDO::fromPeople($people);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -208,8 +206,7 @@ class PeopleController extends AbstractController
         $editForm->handleRequest($request);
 
         // Submit change of general infos
-        if ($editForm->isSubmitted() && $editForm->isValid())
-        {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Get the existing people to keep the sensible data it has if necessary
             $people = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $people->getId(),
@@ -219,88 +216,75 @@ class PeopleController extends AbstractController
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            if ($updatePeopleDataFDO->getAddresses() === null)
-            {
+            if ($updatePeopleDataFDO->getAddresses() === null) {
                 $address = new Address();
                 $people->setAddresses([$address]);
-
-            }
-            else
-            {
+            } else {
                 $address = $updatePeopleDataFDO->getAddresses();
                 $people->setAddresses([$address]);
             }
 
-            if ($updatePeopleDataFDO->getCellPhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getCellPhoneNumber() !== null) {
                 $people->setCellPhoneNumber($updatePeopleDataFDO->getCellPhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getHomePhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getHomePhoneNumber() !== null) {
                 $people->setHomePhoneNumber($updatePeopleDataFDO->getHomePhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getWorkPhoneNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getWorkPhoneNumber() !== null) {
                 $people->setWorkPhoneNumber($updatePeopleDataFDO->getWorkPhoneNumber());
             }
 
-            if ($updatePeopleDataFDO->getWorkFaxNumber() !== null)
-            {
+            if ($updatePeopleDataFDO->getWorkFaxNumber() !== null) {
                 $people->setWorkFaxNumber($updatePeopleDataFDO->getWorkFaxNumber());
             }
 
-            if ($updatePeopleDataFDO->getObservations() !== null)
-            {
+            if ($updatePeopleDataFDO->getObservations() !== null) {
                 $people->setObservations($updatePeopleDataFDO->getObservations());
             }
 
-            if ($updatePeopleDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
+            if ($updatePeopleDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE')) {
                 $people->setSensitiveObservations($updatePeopleDataFDO->getSensitiveObservations());
             }
 
-            if ($updatePeopleDataFDO->getEmailAddress() !== null)
-            {
+            if ($updatePeopleDataFDO->getEmailAddress() !== null) {
                 $people->setEmailAddress($updatePeopleDataFDO->getEmailAddress());
             }
 
-            if ($updatePeopleDataFDO->getIsReceivingNewsletter() !== null)
-            {
+            if ($updatePeopleDataFDO->getIsReceivingNewsletter() !== null) {
                 $people->setIsReceivingNewsletter($updatePeopleDataFDO->getIsReceivingNewsletter());
             }
 
-            if ($updatePeopleDataFDO->getNewsletterDematerialization() !== null)
-            {
+            if ($updatePeopleDataFDO->getNewsletterDematerialization() !== null) {
                 $people->setNewsletterDematerialization($updatePeopleDataFDO->getNewsletterDematerialization());
             }
 
 
             // if the connected user does not have the access to the sensible
             // inputs, we need to keep the old data instead of emptying it
-            /*if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
-                $people->setSensitiveObservations(
-                    $updatePeopleDataFDO->getSensitiveObservations()
-                );
-            }*/
+            /* if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
+              {
+              $people->setSensitiveObservations(
+              $updatePeopleDataFDO->getSensitiveObservations()
+              );
+              } */
 
             $entityManager->persist($address);
             $entityManager->persist($people);
             $entityManager->flush();
 
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('people_edit', ['id' => $people->getId()]);
         }
 
         return $this->render('People/edit.html.twig', array(
-            'people' => $people,
-            'people_edit' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                'people' => $people,
+                'people_edit' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -312,8 +296,7 @@ class PeopleController extends AbstractController
      * @Route("/{id}", name="people_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, People $people)
-    {
+    public function deleteAction(Request $request, People $people, TranslatorInterface $translator) {
         $form = $this->createDeleteForm($people);
         $form->handleRequest($request);
 
@@ -324,13 +307,19 @@ class PeopleController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($people);
             $em->flush();
+            
+            $dataOfTranslation = $translator->trans('Les informations de');
+            $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');
+
             $confirmationMessage = sprintf(
-                    'Les informations de <strong>%s %s</strong> ont bien été supprimées.',
-                    $firstname,
-                    $lastname
+                '%s <strong>%s %s</strong> %s.',
+                $dataOfTranslation,
+                $firstname,
+                $lastname,
+                $hasBeenDeletedTranslation
             );
             $this->addFlash(
-                    'success', $confirmationMessage
+                'success', $confirmationMessage
             );
         }
 
@@ -342,11 +331,10 @@ class PeopleController extends AbstractController
      * @param People $people The user to display.
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(People $people)
-    {
+    private function createDeleteForm(People $people) {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('people_delete', array('id' => $people->getId())))
-        ->setMethod('DELETE')
-        ->getForm();
+                ->setAction($this->generateUrl('people_delete', array('id' => $people->getId())))
+                ->setMethod('DELETE')
+                ->getForm();
     }
 }

@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * User controller.
@@ -61,7 +62,7 @@ class UserController extends AbstractController
      * @Route("/new/{from}", name="user_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function createFromListAction(Request $request, UserService $userService, string $from)
+    public function createFromListAction(Request $request, UserService $userService, string $from, TranslatorInterface $translator)
     {
         // Generate the form with a prefilled user in it
         $createdUser = new User();
@@ -77,31 +78,52 @@ class UserController extends AbstractController
             }
             catch (FormIsNotSubmitted $ex)
             {
+                $userTranslation = $translator->trans('L\'utilisateurice');
+                $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
+
                 $this->addFlash(
-                        'danger',
-                        sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
+                    'danger', sprintf('%s <strong>%s</strong> %s',
+                        $userTranslation,
+                        $createdUser->getUsername(),
+                        $couldntBeCreatedTranslation
+                    )
                 );
+                
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (FormIsInvalid $ex)
             {
+                $userTranslation = $translator->trans('L\'utilisateurice');
+                $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
+
                 $this->addFlash(
-                        'danger',
-                        sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $createdUser->getUsername())
+                    'danger', sprintf('%s <strong>%s</strong> %s',
+                        $userTranslation,
+                        $createdUser->getUsername(),
+                        $couldntBeCreatedTranslation
+                    )
                 );
+                
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (\Exception $e)
             {
                 $this->addFlash(
                         'danger',
-                        sprintf('Une erreur est survenue, veuillez réessayer plus tard.')
+                        $translator->trans('Une erreur est survenue, veuillez réessayer plus tard.')
                 );
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
+            
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenCreatedTranslation = $translator->trans('a été créé.e');
 
             $this->addFlash(
-                'success', sprintf('L\'utilisateurice <strong>%s</strong> a été créé.e', $createdUser->getUsername())
+                'success', sprintf('%s <strong>%s</strong> %s',
+                    $userTranslation,
+                    $createdUser->getUsername(),
+                    $hasBeenCreatedTranslation
+                )
             );
 
             // User creation being successfull, generate an empty form
@@ -155,7 +177,7 @@ class UserController extends AbstractController
      * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
+    public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
     {
         $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
 
@@ -228,7 +250,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                    'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('user_edit', ['id' => $currentUser->getId()]);
@@ -250,7 +272,7 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->addFlash(
-                        'success', sprintf('Le mot de passe a bien été modifié')
+                        'success', $translator->trans('Le mot de passe a bien été modifié')
                 );
             }
 
@@ -278,7 +300,7 @@ class UserController extends AbstractController
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_ADMIN') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, User $currentUser)
+    public function deleteAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
         $form = $this->createDeleteForm($currentUser);
         $form->handleRequest($request);
@@ -296,8 +318,18 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($currentUser);
             $em->flush();
+            
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');
+
+            $confirmationMessage = sprintf(
+                '%s <strong>%s %s</strong> %s.',
+                $userTranslation,
+                $currentUsername,
+                $hasBeenDeletedTranslation
+            );
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s</strong> a bien été supprimé.e.', $currentUsername)
+                'success', $confirmationMessage
             );
         }
 
@@ -328,7 +360,7 @@ class UserController extends AbstractController
      * @return render
      * @throws NotFoundHttpException If $from does not make part of the managed list
      */
-    private function renderNewUserView($from, $form, $createdUser = null)
+    private function renderNewUserView($from, $form, $createdUser = null, TranslatorInterface $translator)
     {
         if (!empty($createdUser))
         {
@@ -354,7 +386,7 @@ class UserController extends AbstractController
                 break;
 
             default:
-                throw new NotFoundHttpException('La page demandée n\'existe pas');
+                throw new NotFoundHttpException($translator->trans('La page demandée n\'existe pas'));
                 break;
         }
     }

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * MembershipController controller.
@@ -80,7 +81,7 @@ class MembershipController extends AbstractController
      * @Route("/new", name="membership_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, TranslatorInterface $translator)
     {
         // Form setup
         $em = $this->getDoctrine()->getManager();
@@ -142,7 +143,7 @@ class MembershipController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'success', 'L\'adhésion a bien été enregistrée.'
+                'success', $translator->trans('L\'adhésion a bien été enregistrée.')
             );
 
             return $this->redirectToRoute('membership_show', array('id' => $membership->getId()));

@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdateUserGeneralDataFDO;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * People controller.
@@ -60,7 +61,7 @@ class ProfileController extends AbstractController
      * @Route("/{id}/editpersonal", name="profile_edit_personal_data", methods={"GET", "POST"})
      * @Security("(user.getId() == id)")
      */
-    public function editPersonalAction(Request $request, User $currentUser)
+    public function editPersonalAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
         if($currentUser->getPeople() != NULL)
         {
@@ -78,7 +79,7 @@ class ProfileController extends AbstractController
         {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                    'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('profile_edit_personal_data', ['id' => $currentUser->getId()]);
@@ -101,7 +102,7 @@ class ProfileController extends AbstractController
      * @Route("/{id}/editsensible", name="profile_edit_profile", methods={"GET", "POST"})
      * @Security("user.getId() == id")
      */
-    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder)
+    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
     {
 
         $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
@@ -136,7 +137,7 @@ class ProfileController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                    'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('profile_edit_profile', ['id' => $currentUser->getId()]);
@@ -164,7 +165,7 @@ class ProfileController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash(
-                        'success', sprintf('Le mot de passe a bien été modifié')
+                        'success', $translator->trans('Le mot de passe a bien été modifié')
                 );
             }
 
@@ -192,7 +193,7 @@ class ProfileController extends AbstractController
      * @Route("/{id}/editnewsletter", name="profile_edit_newsletter", methods={"GET", "POST"})
      * @Security("user.getId() == id")
      */
-    public function editNewsletterSubscriptionAction(Request $request, User $currentUser)
+    public function editNewsletterSubscriptionAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
         if ($currentUser->getPeople() != null)
         {
@@ -211,7 +212,7 @@ class ProfileController extends AbstractController
         {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                    'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('profile_edit_newsletter', ['id' => $currentUser->getId()]);

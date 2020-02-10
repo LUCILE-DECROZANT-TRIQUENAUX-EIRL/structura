@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route(path="/{_locale}/donation", requirements={"_locale"="en|fr"})
@@ -105,18 +106,18 @@ class DonationController extends AbstractController
     /**
      * @Route("/{id}", name="donation_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Donation $donation): Response
+    public function delete(Request $request, Donation $donation, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$donation->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($donation);
             $entityManager->flush();
             $this->addFlash(
-                    'success', 'Don supprimé.'
+                    'success', $translator->trans('Don supprimé.')
             );
         } else {
             $this->addFlash(
-                    'danger', 'Une erreur est survenue.'
+                    'danger', $translator->trans('Une erreur est survenue.')
             );
         }
 

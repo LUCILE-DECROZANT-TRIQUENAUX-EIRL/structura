@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Login controller
@@ -25,7 +26,7 @@ class LoginController extends AbstractController
      * @param UserInterface $currentUser The user.
      * @return views
      */
-    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, UserInterface $currentUser = null)
+    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils, UserInterface $currentUser = null, TranslatorInterface $translator)
     {
         $lastError = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -38,7 +39,7 @@ class LoginController extends AbstractController
                 if (is_a($lastError, 'Symfony\Component\Security\Core\Exception\BadCredentialsException'))
                 {
                     $this->addFlash(
-                            'danger', 'Nom d\'utilisateur ou mot de passe invalide.'
+                            'danger', $translator->trans('Nom d\'utilisateur ou mot de passe invalide.')
                     );
                 }
                 else
@@ -46,7 +47,7 @@ class LoginController extends AbstractController
                     if($lastError->getMessage() == "An exception occurred in driver: SQLSTATE[HY000] [2002] Connection refused")
                     {
                         $this->addFlash(
-                                'danger', 'Impossibilité de se connecter à la base de données.'
+                                'danger', $translator->trans('Impossibilité de se connecter à la base de données.')
                         );
                     }
                     else

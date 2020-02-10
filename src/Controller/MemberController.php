@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Member controller
  */
@@ -16,22 +17,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdateMemberDataFDO;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 /**
  * Member controller.
  *
  * @Route(path="/{_locale}/member", requirements={"_locale"="en|fr"})
  */
-class MemberController extends AbstractController
-{
+class MemberController extends AbstractController {
+
     /**
      * Lists all user entities.
      * @return views
      * @Route(path="/", name="member_list", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function listAction()
-    {
+    public function listAction() {
         $em = $this->getDoctrine()->getManager();
 
         $people = $em->getRepository(People::class)->findWithActiveMembership();
@@ -43,8 +45,8 @@ class MemberController extends AbstractController
         }
 
         return $this->render('Member/list.html.twig', array(
-            'members' => $people,
-            'member_deletion_forms' => $deleteForms,
+                'members' => $people,
+                'member_deletion_forms' => $deleteForms,
         ));
     }
 
@@ -56,8 +58,7 @@ class MemberController extends AbstractController
      * @Route("/new", name="member_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator) {
         $updateMemberDataFDO = new UpdateMemberDataFDO();
 
         $em = $this->getDoctrine()->getManager();
@@ -73,59 +74,47 @@ class MemberController extends AbstractController
             $member->setFirstName($updateMemberDataFDO->getFirstName());
             $member->setLastName($updateMemberDataFDO->getLastName());
 
-            if ($updateMemberDataFDO->getAddresses()['__name__'] === null)
-            {
+            if ($updateMemberDataFDO->getAddresses()['__name__'] === null) {
                 $address = new Address();
                 $member->setAddresses([$address]);
-            }
-            else
-            {
+            } else {
                 $address = $updateMemberDataFDO->getAddresses()['__name__'];
                 $member->setAddresses([$address]);
             }
 
-            if ($updateMemberDataFDO->getCellPhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getCellPhoneNumber() !== null) {
                 $member->setCellPhoneNumber($updateMemberDataFDO->getCellPhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getHomePhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getHomePhoneNumber() !== null) {
                 $member->setHomePhoneNumber($updateMemberDataFDO->getHomePhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null) {
                 $member->setWorkPhoneNumber($updateMemberDataFDO->getWorkPhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getWorkFaxNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getWorkFaxNumber() !== null) {
                 $member->setWorkFaxNumber($updateMemberDataFDO->getWorkFaxNumber());
             }
 
-            if ($updateMemberDataFDO->getObservations() !== null)
-            {
+            if ($updateMemberDataFDO->getObservations() !== null) {
                 $member->setObservations($updateMemberDataFDO->getObservations());
             }
 
-            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
+            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE')) {
                 $member->setSensitiveObservations($updateMemberDataFDO->getSensitiveObservations());
             }
 
-            if ($updateMemberDataFDO->getEmailAddress() !== null)
-            {
+            if ($updateMemberDataFDO->getEmailAddress() !== null) {
                 $member->setEmailAddress($updateMemberDataFDO->getEmailAddress());
             }
 
-            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null)
-            {
+            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null) {
                 $member->setIsReceivingNewsletter($updateMemberDataFDO->getIsReceivingNewsletter());
             }
 
-            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null)
-            {
+            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null) {
                 $member->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
             }
 
@@ -133,8 +122,16 @@ class MemberController extends AbstractController
             $em->persist($member);
             $em->flush();
 
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenCreatedTranslation = $translator->trans('a été créé.e');
+
             $this->addFlash(
-                    'success', sprintf('L\'utilisateurice <strong>%s%s</strong> a été créé.e', $updateMemberDataFDO->getFirstName(), $updateMemberDataFDO->getLastName())
+                'success', sprintf('%s <strong>%s %s</strong> %s',
+                    $userTranslation,
+                    $updateMemberDataFDO->getFirstName(),
+                    $updateMemberDataFDO->getLastName(),
+                    $hasBeenCreatedTranslation
+                )
             );
 
             //var_dump($updateMemberDataFDO);
@@ -143,14 +140,21 @@ class MemberController extends AbstractController
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
+
             $this->addFlash(
-                    'danger', sprintf('L\'utilisateurice <strong>%s</strong> n\'a pas pu être créé.e', $updateMemberDataFDO->getFirstName(), $updateMemberDataFDO->getLastName())
+                'danger', sprintf('%s <strong>%s</strong> %s',
+                    $userTranslation,
+                    $updateMemberDataFDO->getFirstName(),
+                    $couldntBeCreatedTranslation
+                )
             );
         }
 
         return $this->render('Member/new.html.twig', array(
-            'member' => $updateMemberDataFDO,
-            'form' => $form->createView(),
+                'member' => $updateMemberDataFDO,
+                'form' => $form->createView(),
         ));
     }
 
@@ -161,13 +165,12 @@ class MemberController extends AbstractController
      * @Route("/{id}", name="member_show", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showAction(People $individual)
-    {
+    public function showAction(People $individual) {
         $deleteForm = $this->createDeleteForm($individual);
 
         return $this->render('Member/show.html.twig', array(
-            'member' => $individual,
-            'delete_form' => $deleteForm->createView(),
+                'member' => $individual,
+                'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -179,10 +182,9 @@ class MemberController extends AbstractController
      * @Route("/{id}/memberships", name="member_memberships_show", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showMembershipsAction(People $individual)
-    {
+    public function showMembershipsAction(People $individual) {
         return $this->render('Member/show-memberships.html.twig', [
-            'member' => $individual,
+                'member' => $individual,
         ]);
     }
 
@@ -195,7 +197,12 @@ class MemberController extends AbstractController
      * @Route("/{id}/edit", name="member_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, People $individual, UserPasswordEncoderInterface $passwordEncoder)
+    public function editAction(
+        Request $request, 
+        People $individual, 
+        UserPasswordEncoderInterface $passwordEncoder, 
+        TranslatorInterface $translator
+    ) 
     {
         $updateMemberDataFDO = UpdateMemberDataFDO::fromMember($individual);
 
@@ -205,8 +212,7 @@ class MemberController extends AbstractController
         $editForm->handleRequest($request);
 
         // Submit change of general infos
-        if ($editForm->isSubmitted() && $editForm->isValid())
-        {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Get the existing people to keep the sensible data it has if necessary
             $individual = $entityManager->getRepository(People::class)->findOneBy([
                 'id' => $individual->getId(),
@@ -216,88 +222,75 @@ class MemberController extends AbstractController
             $individual->setFirstName($updateMemberDataFDO->getFirstName());
             $individual->setLastName($updateMemberDataFDO->getLastName());
 
-            if ($updateMemberDataFDO->getAddresses() === null)
-            {
+            if ($updateMemberDataFDO->getAddresses() === null) {
                 $address = new Address();
                 $individual->setAddresses([$address]);
-
-            }
-            else
-            {
+            } else {
                 $address = $updateMemberDataFDO->getAddresses();
                 $individual->setAddresses([$address]);
             }
 
-            if ($updateMemberDataFDO->getCellPhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getCellPhoneNumber() !== null) {
                 $individual->setCellPhoneNumber($updateMemberDataFDO->getCellPhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getHomePhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getHomePhoneNumber() !== null) {
                 $individual->setHomePhoneNumber($updateMemberDataFDO->getHomePhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getWorkPhoneNumber() !== null) {
                 $individual->setWorkPhoneNumber($updateMemberDataFDO->getWorkPhoneNumber());
             }
 
-            if ($updateMemberDataFDO->getWorkFaxNumber() !== null)
-            {
+            if ($updateMemberDataFDO->getWorkFaxNumber() !== null) {
                 $individual->setWorkFaxNumber($updateMemberDataFDO->getWorkFaxNumber());
             }
 
-            if ($updateMemberDataFDO->getObservations() !== null)
-            {
+            if ($updateMemberDataFDO->getObservations() !== null) {
                 $individual->setObservations($updateMemberDataFDO->getObservations());
             }
 
-            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
+            if ($updateMemberDataFDO->getSensitiveObservations() !== null && $this->isGranted('ROLE_GESTION_SENSIBLE')) {
                 $individual->setSensitiveObservations($updateMemberDataFDO->getSensitiveObservations());
             }
 
-            if ($updateMemberDataFDO->getEmailAddress() !== null)
-            {
+            if ($updateMemberDataFDO->getEmailAddress() !== null) {
                 $individual->setEmailAddress($updateMemberDataFDO->getEmailAddress());
             }
 
-            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null)
-            {
+            if ($updateMemberDataFDO->getIsReceivingNewsletter() !== null) {
                 $individual->setIsReceivingNewsletter($updateMemberDataFDO->getIsReceivingNewsletter());
             }
 
-            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null)
-            {
+            if ($updateMemberDataFDO->getNewsletterDematerialization() !== null) {
                 $individual->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
             }
 
 
             // if the connected user does not have the access to the sensible
             // inputs, we need to keep the old data instead of emptying it
-            /*if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
-            {
-                $individual->setSensitiveObservations(
-                    $updateMemberDataFDO->getSensitiveObservations()
-                );
-            }*/
+            /* if (!$this->isGranted('ROLE_GESTION_SENSIBLE'))
+              {
+              $individual->setSensitiveObservations(
+              $updateMemberDataFDO->getSensitiveObservations()
+              );
+              } */
 
             $entityManager->persist($address);
             $entityManager->persist($individual);
             $entityManager->flush();
 
             $this->addFlash(
-                    'success', sprintf('Les informations ont bien été modifiées')
+                'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('member_edit', ['id' => $individual->getId()]);
         }
 
         return $this->render('Member/edit.html.twig', array(
-            'member' => $individual,
-            'member_edit' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                'member' => $individual,
+                'member_edit' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -309,8 +302,7 @@ class MemberController extends AbstractController
      * @Route("/{id}", name="member_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, People $individual)
-    {
+    public function deleteAction(Request $request, People $individual, TranslatorInterface $translator) {
         $form = $this->createDeleteForm($individual);
         $form->handleRequest($request);
 
@@ -321,13 +313,19 @@ class MemberController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($individual);
             $em->flush();
+
+            $dataOfTranslation = $translator->trans('Les informations de');
+            $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');
+
             $confirmationMessage = sprintf(
-                    'Les informations de <strong>%s %s</strong> ont bien été supprimées.',
-                    $firstname,
-                    $lastname
+                '%s <strong>%s %s</strong> %s.',
+                $dataOfTranslation,
+                $firstname,
+                $lastname,
+                $hasBeenDeletedTranslation
             );
             $this->addFlash(
-                    'success', $confirmationMessage
+                'success', $confirmationMessage
             );
         }
 
@@ -339,12 +337,12 @@ class MemberController extends AbstractController
      * @param People $individual The user to display.
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(People $individual)
-    {
+    private function createDeleteForm(People $individual) {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('member_delete', array('id' => $individual->getId())))
-        ->setMethod('DELETE')
-        ->getForm()
+                ->setAction($this->generateUrl('member_delete', array('id' => $individual->getId())))
+                ->setMethod('DELETE')
+                ->getForm()
         ;
     }
+
 }
