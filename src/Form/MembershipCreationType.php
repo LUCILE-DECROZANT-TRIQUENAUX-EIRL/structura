@@ -16,10 +16,17 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MembershipCreationType extends AbstractType
 {
+    
+    public $translator;
 
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -30,11 +37,11 @@ class MembershipCreationType extends AbstractType
             'choice_label' => 'label',
             'multiple' => false,
             'expanded' => false,
-            'label' => 'Enregister une adhésion de type',
+            'label' => $this->translator->trans('Enregister une adhésion de type'),
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
-            'label' => 'L\'adhésion est valable du',
+            'label' => $this->translator->trans('L\'adhésion est valable du'),
             'widget' => 'single_text',
         ]);
 
@@ -44,16 +51,16 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('membershipFiscal_year', IntegerType::class, [
-            'label' => 'Pour l\'année fiscale',
+            'label' => $this->translator->trans('Pour l\'année fiscale'),
         ]);
 
         $builder->add('membershipComment', TextareaType::class, [
-            'label' => 'Commentaire sur l\'adhésion',
+            'label' => $this->translator->trans('Commentaire sur l\'adhésion'),
             'required' => false,
         ]);
 
         $builder->add('paymentType', EntityType::class, [
-            'label' => 'Via',
+            'label' => $this->translator->trans('Via'),
             'choice_label' => 'label',
             'class' => PaymentType::class,
             'multiple' => false,
@@ -61,14 +68,14 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('membershipAmount', MoneyType::class, [
-            'label' => 'Soit une adhésion d\'un montant de',
+            'label' => $this->translator->trans('Soit une adhésion d\'un montant de'),
             'attr' => [
                 'readonly' => 'readonly'
             ],
         ]);
 
         $builder->add('donationAmount', MoneyType::class, [
-            'label' => 'Et un don d\'un montant de',
+            'label' => $this->translator->trans('Et un don d\'un montant de'),
             'attr' => [
                 'readonly' => 'readonly'
             ],
@@ -76,23 +83,23 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('paymentAmount', MoneyType::class, [
-            'label' => 'Le règlement est de',
+            'label' => $this->translator->trans('Le règlement est de'),
         ]);
 
         $builder->add('paymentDate_received', DateType::class, [
-            'label' => 'Le',
+            'label' => $this->translator->trans('Le'),
             'widget' => 'single_text',
             'required' => false,
         ]);
 
         $builder->add('paymentDate_cashed', DateType::class, [
-            'label' => 'Encaissés le',
+            'label' => $this->translator->trans('Encaissés le'),
             'widget' => 'single_text',
             'required' => false,
         ]);
 
         $builder->add('payer', EntityType::class, [
-            'label' => 'Effectué par',
+            'label' => $this->translator->trans('Effectué par'),
             'class' => People::class,
             'attr' => [
                 'readonly' => true,
@@ -117,7 +124,7 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('newMember', EntityType::class, [
-            'label' => 'Choisir les personnes concernées',
+            'label' => $this->translator->trans('Choisir les personnes concernées'),
             'class' => People::class,
             'choices' => $options['peopleWithNoActiveMembership'],
             'choice_label' => function (People $people) {
@@ -130,12 +137,12 @@ class MembershipCreationType extends AbstractType
                 'class' => 'selectpicker',
                 'data-live-search' => 'true',
                 'data-live-search-normalize' => 'true',
-                'data-live-search-placeholder' => 'Rechercher...',
+                'data-live-search-placeholder' => $this->translator->trans('Rechercher...'),
                 'data-size' => '6',
-                'title' => 'Sélectionez une personne pour l\'ajouter',
+                'title' => $this->translator->trans('Sélectionnez une personne pour l\'ajouter'),
             ],
             'required' => false,
-            'help' => 'adhérent·e·s maximum pour une adhésion de type'
+            'help' => $this->translator->trans('adhérent·e·s maximum pour une adhésion de type')
         ]);
     }
 

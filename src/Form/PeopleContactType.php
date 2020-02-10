@@ -13,12 +13,18 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form to edit a person contact infos
  */
 class PeopleContactType extends AbstractType
 {
+    public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
 
     /**
      * {@inheritdoc}
@@ -27,16 +33,16 @@ class PeopleContactType extends AbstractType
     {
         $builder
                 ->add('emailAddress', EmailType::class, [
-                    'label' => 'Adresse mail',
+                    'label' => $this->translator->trans('Adresse mail'),
                     'required' => false
                 ])
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Reçoit la newsletter'
+                    'label' => $this->translator->trans('Reçoit la newsletter')
                 ])
                 ->add('newsletterDematerialization', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Reçoit la newsletter au format dématérialisé'
+                    'label' => $this->translator->trans('Reçoit la newsletter au format dématérialisé')
                 ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
@@ -45,23 +51,23 @@ class PeopleContactType extends AbstractType
                     'required' => false
                 ])
                 ->add('homePhoneNumber', TelType::class, [
-                    'label' => 'Téléphone fixe',
-                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Téléphone fixe'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone portable',
-                    'help' => 'Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Téléphone portable'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone de travail',
-                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Téléphone de travail'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 0 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
-                    'label' => 'Fax de travail',
-                    'help' => 'Les numéros doivent commencer par 0 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Fax de travail'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 0 et ne comporter que des chiffres'),
                     'required' => false
                 ]);
     }

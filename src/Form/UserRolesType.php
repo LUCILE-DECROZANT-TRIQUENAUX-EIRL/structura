@@ -9,12 +9,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form for user's infos other than their password
  */
 class UserRolesType extends AbstractType
 {
+    public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
+    
 
     /**
      * {@inheritdoc}
@@ -27,7 +34,7 @@ class UserRolesType extends AbstractType
                     'class' => Responsibility::class,
                     // uses the Responsibility.label property as the visible option string
                     'choice_label' => 'label',
-                    'label' => 'Rôles',
+                    'label' => $this->translator->trans('Rôles'),
                     'multiple' => true,
                     'expanded' => true,
                     'choice_attr' => function($responsibility)

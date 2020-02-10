@@ -15,12 +15,18 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form to edit a user personal infos
  */
 class PeopleNewsletterType extends AbstractType
 {
+    public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
 
     /**
      * {@inheritdoc}
@@ -30,12 +36,12 @@ class PeopleNewsletterType extends AbstractType
         $builder
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Recevoir la newsletter',
+                    'label' => $this->translator->trans('Recevoir la newsletter'),
                     'label_attr' => ['class' => 'checkbox-custom'],
                 ])
                 ->add('newsletterDematerialization', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Recevoir la newsletter par mail',
+                    'label' => $this->translator->trans('Recevoir la newsletter par mail'),
                     'label_attr' => ['class' => 'checkbox-custom'],
                 ]);
     }
