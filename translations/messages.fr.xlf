@@ -805,6 +805,166 @@
         <source>Éditer le don</source>
         <target state="translated">Éditer le don</target>
       </trans-unit>
+      <trans-unit id="KQEGyKV" resname="Aucune">
+        <source>Aucune</source>
+        <target>__Aucune</target>
+      </trans-unit>
+      <trans-unit id="sB0RYun" resname="Adresse mail">
+        <source>Adresse mail</source>
+        <target>__Adresse mail</target>
+      </trans-unit>
+      <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
+        <source>Reçoit la newsletter au format dématérialisé</source>
+        <target>__Reçoit la newsletter au format dématérialisé</target>
+      </trans-unit>
+      <trans-unit id="iaZhwDw" resname="Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="sF_SpY3" resname="Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="v6ffBEX" resname="Téléphone de travail">
+        <source>Téléphone de travail</source>
+        <target>__Téléphone de travail</target>
+      </trans-unit>
+      <trans-unit id="0_Zpb8G" resname="Les numéros doivent commencer par 0 et ne comporter que des chiffres">
+        <source>Les numéros doivent commencer par 0 et ne comporter que des chiffres</source>
+        <target>__Les numéros doivent commencer par 0 et ne comporter que des chiffres</target>
+      </trans-unit>
+      <trans-unit id="kdKrWvQ" resname="Fax de travail">
+        <source>Fax de travail</source>
+        <target>__Fax de travail</target>
+      </trans-unit>
+      <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
+        <source>Enregister une adhésion de type</source>
+        <target>__Enregister une adhésion de type</target>
+      </trans-unit>
+      <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
+        <source>L'adhésion est valable du</source>
+        <target>__L'adhésion est valable du</target>
+      </trans-unit>
+      <trans-unit id="KicV9xh" resname="Pour l'année fiscale">
+        <source>Pour l'année fiscale</source>
+        <target>__Pour l'année fiscale</target>
+      </trans-unit>
+      <trans-unit id="Dt5G2k2" resname="Commentaire sur l'adhésion">
+        <source>Commentaire sur l'adhésion</source>
+        <target>__Commentaire sur l'adhésion</target>
+      </trans-unit>
+      <trans-unit id="Lti4BmJ" resname="Via">
+        <source>Via</source>
+        <target>__Via</target>
+      </trans-unit>
+      <trans-unit id="0AXZwv5" resname="Soit une adhésion d'un montant de">
+        <source>Soit une adhésion d'un montant de</source>
+        <target>__Soit une adhésion d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="BRe1zee" resname="Et un don d'un montant de">
+        <source>Et un don d'un montant de</source>
+        <target>__Et un don d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="21nAkoQ" resname="Le règlement est de">
+        <source>Le règlement est de</source>
+        <target>__Le règlement est de</target>
+      </trans-unit>
+      <trans-unit id="CmhED0Z" resname="Encaissés le">
+        <source>Encaissés le</source>
+        <target>__Encaissés le</target>
+      </trans-unit>
+      <trans-unit id="czcIBrU" resname="Effectué par">
+        <source>Effectué par</source>
+        <target>__Effectué par</target>
+      </trans-unit>
+      <trans-unit id="N.OzWcd" resname="Choisir les personnes concernées">
+        <source>Choisir les personnes concernées</source>
+        <target>__Choisir les personnes concernées</target>
+      </trans-unit>
+      <trans-unit id="iYQkfj9" resname="Rechercher...">
+        <source>Rechercher...</source>
+        <target>__Rechercher...</target>
+      </trans-unit>
+      <trans-unit id="o_9EKPx" resname="Sélectionnez une personne pour l'ajouter">
+        <source>Sélectionnez une personne pour l'ajouter</source>
+        <target>__Sélectionnez une personne pour l'ajouter</target>
+      </trans-unit>
+      <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
+        <source>adhérent·e·s maximum pour une adhésion de type</source>
+        <target>__adhérent·e·s maximum pour une adhésion de type</target>
+      </trans-unit>
+      <trans-unit id="8uMSzlt" resname="Recevoir la newsletter">
+        <source>Recevoir la newsletter</source>
+        <target>__Recevoir la newsletter</target>
+      </trans-unit>
+      <trans-unit id="iyPXcgr" resname="Recevoir la newsletter par mail">
+        <source>Recevoir la newsletter par mail</source>
+        <target>__Recevoir la newsletter par mail</target>
+      </trans-unit>
+      <trans-unit id="UTHJPFA" resname="Répétez le mot de passe">
+        <source>Répétez le mot de passe</source>
+        <target>__Répétez le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="KNpCP0c" resname="Les mots de passe doivent être identiques">
+        <source>Les mots de passe doivent être identiques</source>
+        <target>__Les mots de passe doivent être identiques</target>
+      </trans-unit>
+      <trans-unit id="PH3pUAD" resname="Don supprimé.">
+        <source>Don supprimé.</source>
+        <target>__Don supprimé.</target>
+      </trans-unit>
+      <trans-unit id="59hbFR9" resname="Une erreur est survenue.">
+        <source>Une erreur est survenue.</source>
+        <target>__Une erreur est survenue.</target>
+      </trans-unit>
+      <trans-unit id="pNuN7lP" resname="Nom d'utilisateur ou mot de passe invalide.">
+        <source>Nom d'utilisateur ou mot de passe invalide.</source>
+        <target>__Nom d'utilisateur ou mot de passe invalide.</target>
+      </trans-unit>
+      <trans-unit id="XqkCTUa" resname="Impossibilité de se connecter à la base de données.">
+        <source>Impossibilité de se connecter à la base de données.</source>
+        <target>__Impossibilité de se connecter à la base de données.</target>
+      </trans-unit>
+      <trans-unit id="M2vRS0W" resname="L'utilisateurice">
+        <source>L'utilisateurice</source>
+        <target>__L'utilisateurice</target>
+      </trans-unit>
+      <trans-unit id="fBFD5DH" resname="a été créé.e">
+        <source>a été créé.e</source>
+        <target>__a été créé.e</target>
+      </trans-unit>
+      <trans-unit id="aMmxl4Y" resname="n'a pas pu être créé.e">
+        <source>n'a pas pu être créé.e</source>
+        <target>__n'a pas pu être créé.e</target>
+      </trans-unit>
+      <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
+        <source>Les informations ont bien été modifiées</source>
+        <target>__Les informations ont bien été modifiées</target>
+      </trans-unit>
+      <trans-unit id="7ByHGJ1" resname="Les informations de">
+        <source>Les informations de</source>
+        <target>__Les informations de</target>
+      </trans-unit>
+      <trans-unit id="qRE1mxr" resname="ont bien été supprimées">
+        <source>ont bien été supprimées</source>
+        <target>__ont bien été supprimées</target>
+      </trans-unit>
+      <trans-unit id="PDt473I" resname="L'adhésion a bien été enregistrée.">
+        <source>L'adhésion a bien été enregistrée.</source>
+        <target>__L'adhésion a bien été enregistrée.</target>
+      </trans-unit>
+      <trans-unit id="5wC7UrX" resname="Le mot de passe a bien été modifié">
+        <source>Le mot de passe a bien été modifié</source>
+        <target>__Le mot de passe a bien été modifié</target>
+      </trans-unit>
+      <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
+        <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
+        <target>__Une erreur est survenue, veuillez réessayer plus tard.</target>
+      </trans-unit>
+      <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
+        <source>La page demandée n'existe pas</source>
+        <target>__La page demandée n'existe pas</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
