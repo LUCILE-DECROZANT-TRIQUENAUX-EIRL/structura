@@ -1,192 +1,190 @@
-<div class="col-12 col-md-10">
-        <div class="row">
-            <div class="col-12">
-                <h1>
-                    {% trans %}Liste des adhésions de l'utilisateurice{% endtrans %}
-                </h1>
-            </div>
-        </div>
-    <br>
-    <div class="row">
-        <div class="col-12">
-            {% if member.activeMembership is not null %}
-                <div class="card">
-                    <div class="card-header text-white bg-primary">
-                        {% trans %}Adhésion en cours{% endtrans %}
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ member.activeMembership.type.label }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
-                        <h6 class="card-subtitle mb-2 text-muted text-center">{{ member.activeMembership.type.description }}</h6>
-                        <p class="card-text text-center">
-                            {% trans %}Adhésion du{% endtrans %} {{ member.activeMembership.getDateStart | date('d M. Y') }}
-                            {% trans %}au{% endtrans %} {{ member.activeMembership.getDateEnd | date('d M. Y') }}
-                        </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6">
-                                    {% trans %}Montant du paiement{% endtrans %}&nbsp;: {{ member.activeMembership.payment.amount }}&nbsp;€
-                                    <br>
-                                    {% trans %}Payée via{% endtrans %}&nbsp;: {{ member.activeMembership.payment.type.label }}
-                                </div>
+<div class="row">
+    <div class="col-12">
+        <h1>
+            {% trans %}Liste des adhésions de l'utilisateurice{% endtrans %}
+        </h1>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-12">
+        {% if member.activeMembership is not null %}
+            <div class="card">
+                <div class="card-header text-white bg-primary">
+                    {% trans %}Adhésion en cours{% endtrans %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ member.activeMembership.type.label }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted text-center">{{ member.activeMembership.type.description }}</h6>
+                    <p class="card-text text-center">
+                        {% trans %}Adhésion du{% endtrans %} {{ member.activeMembership.getDateStart | date('d M. Y') }}
+                        {% trans %}au{% endtrans %} {{ member.activeMembership.getDateEnd | date('d M. Y') }}
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                {% trans %}Montant du paiement{% endtrans %}&nbsp;: {{ member.activeMembership.payment.amount }}&nbsp;€
                                 <br>
-                                <div class="col-6">
-                                    {% if member.activeMembership.payment.dateReceived is null %}
-                                        <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
-                                    {% else %}
-                                        {% trans %}Paiement reçu le{% endtrans %} {{ member.activeMembership.payment.dateReceived | date('d M. Y') }}
-                                    {% endif %}
-                                    <br>
-                                    {% if member.activeMembership.payment.dateCashed is null %}
-                                        <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
-                                    {% else %}
-                                        {% trans %}Paiement encaissé le{% endtrans %} {{ member.activeMembership.payment.dateCashed | date('d M. Y') }}
-                                    {% endif %}
-                                    <br>
-                                </div>
+                                {% trans %}Payée via{% endtrans %}&nbsp;: {{ member.activeMembership.payment.type.label }}
+                            </div>
+                            <br>
+                            <div class="col-6">
+                                {% if member.activeMembership.payment.dateReceived is null %}
+                                    <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
+                                {% else %}
+                                    {% trans %}Paiement reçu le{% endtrans %} {{ member.activeMembership.payment.dateReceived | date('d M. Y') }}
+                                {% endif %}
+                                <br>
+                                {% if member.activeMembership.payment.dateCashed is null %}
+                                    <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
+                                {% else %}
+                                    {% trans %}Paiement encaissé le{% endtrans %} {{ member.activeMembership.payment.dateCashed | date('d M. Y') }}
+                                {% endif %}
+                                <br>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="card-text">
+                                    {% trans %}Commentaire :{% endtrans %}
+                                    {{ member.activeMembership.comment is null ? '-' : membership.comment }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if member.activeMembership.members | length > 1 %}
                     <div class="card-body">
+                        <h5 class="card-title text-center">{% trans %}Autres adhérent.es concerné.es{% endtrans %}</h5>
+                        <div class="container">
+                            <div class="row">
+                                {% for otherMember in member.activeMembership.members %}
+                                    {% if member.id != otherMember.id %}
+                                        <div class="col-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if (member.activeMembership.payment.donation) %}
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{% trans %}Don effectué via le même paiement{% endtrans %}</h5>
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
-                                    <p class="card-text">
-                                        {% trans %}Commentaire :{% endtrans %}
-                                        {{ member.activeMembership.comment is null ? '-' : membership.comment }}
-                                    </p>
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            {{ member.activeMembership.payment.donation.amount }}&nbsp;€
+                                        </div>
+                                        <div class="card-footer">
+                                            <a class="btn btn-secondary btn-block"
+                                               href="{{ path('donation_show', { 'id': member.activeMembership.payment.donation.id }) }}">
+                                                {% trans %}Voir le don{% endtrans %}
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% if member.activeMembership.members | length > 1 %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if member.memberships | length > 0 %}
+    {% for membership in member.memberships %}
+        {% if member.activeMembership is null or membership.id != member.activeMembership.id %}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            {% trans %}Ancienne adhésion{% endtrans %}
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center">{% trans %}Autres adhérent.es concerné.es{% endtrans %}</h5>
+                            <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-center">{{ membership.type.description }}</h6>
+                            <p class="card-text text-center">
+                                {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+                                {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+                            </p>
+                        </div>
+                        <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    {% for otherMember in member.activeMembership.members %}
-                                        {% if member.id != otherMember.id %}
-                                            <div class="col-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="col-6">
+                                        {% trans %}Montant du paiement{% endtrans %} &nbsp;: {{ membership.payment.amount }}&nbsp;€
+                                        <br>
+                                        {% trans %}Payée via{% endtrans %}&nbsp;: {{ membership.payment.type.label }}
+                                    </div>
+                                    <br>
+                                    <div class="col-6">
+                                        {% if membership.payment.dateReceived is null %}
+                                            <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
+                                        {% else %}
+                                            {% trans %}Paiement reçu le{% endtrans %} {{ membership.payment.dateReceived | date('d M. Y') }}
                                         {% endif %}
-                                    {% endfor %}
+                                        <br>
+                                        {% if membership.payment.dateCashed is null %}
+                                            <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
+                                        {% else %}
+                                            {% trans %}Paiement encaissé le{% endtrans %} {{ membership.payment.dateCashed | date('d M. Y') }}
+                                        {% endif %}
+                                        <br>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                    {% if (member.activeMembership.payment.donation) %}
                         <div class="card-body">
-                            <h5 class="card-title text-center">{% trans %}Don effectué via le même paiement{% endtrans %}</h5>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                {{ member.activeMembership.payment.donation.amount }}&nbsp;€
-                                            </div>
-                                            <div class="card-footer">
-                                                <a class="btn btn-secondary btn-block"
-                                                   href="{{ path('donation_show', { 'id': member.activeMembership.payment.donation.id }) }}">
-                                                    {% trans %}Voir le don{% endtrans %}
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <p class="card-text">
+                                            {% trans %}Commentaire :{% endtrans %}
+                                            {{ membership.comment is null ? '-' : membership.comment }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
-    {% if member.memberships | length > 0 %}
-        {% for membership in member.memberships %}
-            {% if member.activeMembership is null or membership.id != member.activeMembership.id %}
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header bg-light">
-                                {% trans %}Ancienne adhésion{% endtrans %}
-                            </div>
+                        {% if membership.members | length > 1 %}
                             <div class="card-body">
-                                <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h5>
-                                <h6 class="card-subtitle mb-2 text-muted text-center">{{ membership.type.description }}</h6>
-                                <p class="card-text text-center">
-                                    {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
-                                    {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
-                                </p>
-                            </div>
-                            <div class="card-body">
+                                <h5 class="card-title text-center">{% trans %}Autres adhérent.es concerné.es{% endtrans %}</h5>
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-6">
-                                            {% trans %}Montant du paiement{% endtrans %} &nbsp;: {{ membership.payment.amount }}&nbsp;€
-                                            <br>
-                                            {% trans %}Payée via{% endtrans %}&nbsp;: {{ membership.payment.type.label }}
-                                        </div>
-                                        <br>
-                                        <div class="col-6">
-                                            {% if membership.payment.dateReceived is null %}
-                                                <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
-                                            {% else %}
-                                                {% trans %}Paiement reçu le{% endtrans %} {{ membership.payment.dateReceived | date('d M. Y') }}
-                                            {% endif %}
-                                            <br>
-                                            {% if membership.payment.dateCashed is null %}
-                                                <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
-                                            {% else %}
-                                                {% trans %}Paiement encaissé le{% endtrans %} {{ membership.payment.dateCashed | date('d M. Y') }}
-                                            {% endif %}
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="card-text">
-                                                {% trans %}Commentaire :{% endtrans %}
-                                                {{ membership.comment is null ? '-' : membership.comment }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% if membership.members | length > 1 %}
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">{% trans %}Autres adhérent.es concerné.es{% endtrans %}</h5>
-                                    <div class="container">
-                                        <div class="row">
-                                            {% for otherMember in membership.members %}
-                                                {% if member.id != otherMember.id %}
-                                                    <div class="col-4">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
-                                                            </div>
+                                        {% for otherMember in membership.members %}
+                                            {% if member.id != otherMember.id %}
+                                                <div class="col-4">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
                                                         </div>
                                                     </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
-                            {% endif %}
-                        </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <br>
-</div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<br>

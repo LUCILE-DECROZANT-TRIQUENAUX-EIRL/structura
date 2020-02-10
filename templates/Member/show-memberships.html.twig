@@ -29,11 +29,23 @@
     <br>
     <div class="container">
         <div class="row">
-
             <div class="col-8 col-md-2">
                 {{ include('Member/_menu-member.html.twig', { show_memberships: 'active' }) }}
             </div>
 
-            {{ include('Member/_user-s-memberships-list.html.twig') }}
+            <div class="col-12 col-md-10">
+                {{ include('Member/_user-s-memberships-list.html.twig') }}
+
+                <div class="row mt-3">
+                    {% if is_granted("ROLE_GESTION") %}
+                        <div class="col-md">
+                            <a href="{{ path('member_show', { 'id': member.id }) }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil de l'adhérent.e{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
