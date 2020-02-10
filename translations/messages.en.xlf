@@ -1425,87 +1425,87 @@
       </trans-unit>
       <trans-unit id="KQEGyKV" resname="Aucune">
         <source>Aucune</source>
-        <target state="needs-translation">Aucune</target>
+        <target state="translated">None</target>
       </trans-unit>
       <trans-unit id="sB0RYun" resname="Adresse mail">
         <source>Adresse mail</source>
-        <target state="needs-translation">Adresse mail</target>
+        <target state="translated">Email adress</target>
       </trans-unit>
       <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
         <source>Reçoit la newsletter au format dématérialisé</source>
-        <target state="needs-translation">Reçoit la newsletter au format dématérialisé</target>
+        <target state="translated">Receives the newsletter in dematerialized format</target>
       </trans-unit>
       <trans-unit id="iaZhwDw" resname="Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</source>
-        <target state="needs-translation">Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</target>
+        <target state="translated">Numbers must start with 01, 02, 03, 04, 05, 08 or 09 and only contain numbers</target>
       </trans-unit>
       <trans-unit id="sF_SpY3" resname="Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</source>
-        <target state="needs-translation">Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres</target>
+        <target state="translated">Numbers must start with 06 or 07 and only contain numbers</target>
       </trans-unit>
       <trans-unit id="v6ffBEX" resname="Téléphone de travail">
         <source>Téléphone de travail</source>
-        <target state="needs-translation">Téléphone de travail</target>
+        <target state="translated">Work phone</target>
       </trans-unit>
       <trans-unit id="0_Zpb8G" resname="Les numéros doivent commencer par 0 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 0 et ne comporter que des chiffres</source>
-        <target state="needs-translation">Les numéros doivent commencer par 0 et ne comporter que des chiffres</target>
+        <target state="translated">Numbers must start with 0 and only contain numbers</target>
       </trans-unit>
       <trans-unit id="kdKrWvQ" resname="Fax de travail">
         <source>Fax de travail</source>
-        <target state="needs-translation">Fax de travail</target>
+        <target state="translated">Work Fax</target>
       </trans-unit>
       <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
         <source>Enregister une adhésion de type</source>
-        <target state="needs-translation">Enregister une adhésion de type</target>
+        <target state="translated">Sign in a type of membership</target>
       </trans-unit>
       <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
         <source>L'adhésion est valable du</source>
-        <target state="needs-translation">L'adhésion est valable du</target>
+        <target state="translated">Membership is valid from</target>
       </trans-unit>
       <trans-unit id="KicV9xh" resname="Pour l'année fiscale">
         <source>Pour l'année fiscale</source>
-        <target state="needs-translation">Pour l'année fiscale</target>
+        <target state="translated">For fiscal year</target>
       </trans-unit>
       <trans-unit id="Dt5G2k2" resname="Commentaire sur l'adhésion">
         <source>Commentaire sur l'adhésion</source>
-        <target state="needs-translation">Commentaire sur l'adhésion</target>
+        <target state="translated">Membership comment</target>
       </trans-unit>
       <trans-unit id="Lti4BmJ" resname="Via">
         <source>Via</source>
-        <target state="needs-translation">Via</target>
+        <target state="translated">Via</target>
       </trans-unit>
       <trans-unit id="0AXZwv5" resname="Soit une adhésion d'un montant de">
         <source>Soit une adhésion d'un montant de</source>
-        <target state="needs-translation">Soit une adhésion d'un montant de</target>
+        <target state="translated">A membership of an amount of</target>
       </trans-unit>
       <trans-unit id="BRe1zee" resname="Et un don d'un montant de">
         <source>Et un don d'un montant de</source>
-        <target state="needs-translation">Et un don d'un montant de</target>
+        <target state="translated">And a donation amount of</target>
       </trans-unit>
       <trans-unit id="21nAkoQ" resname="Le règlement est de">
         <source>Le règlement est de</source>
-        <target state="needs-translation">Le règlement est de</target>
+        <target state="translated">The amount due is</target>
       </trans-unit>
       <trans-unit id="CmhED0Z" resname="Encaissés le">
         <source>Encaissés le</source>
-        <target state="needs-translation">Encaissés le</target>
+        <target state="translated">Cashed in on</target>
       </trans-unit>
       <trans-unit id="czcIBrU" resname="Effectué par">
         <source>Effectué par</source>
-        <target state="needs-translation">Effectué par</target>
+        <target state="translated">Made by</target>
       </trans-unit>
       <trans-unit id="N.OzWcd" resname="Choisir les personnes concernées">
         <source>Choisir les personnes concernées</source>
-        <target state="needs-translation">Choisir les personnes concernées</target>
+        <target state="translated">Select the persons involved</target>
       </trans-unit>
       <trans-unit id="iYQkfj9" resname="Rechercher...">
         <source>Rechercher...</source>
-        <target state="needs-translation">Rechercher...</target>
+        <target state="translated">Search...</target>
       </trans-unit>
       <trans-unit id="o_9EKPx" resname="Sélectionnez une personne pour l'ajouter">
         <source>Sélectionnez une personne pour l'ajouter</source>
-        <target state="needs-translation">Sélectionnez une personne pour l'ajouter</target>
+        <target state="translated">Select a person to add</target>
       </trans-unit>
       <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
         <source>adhérent·e·s maximum pour une adhésion de type</source>
