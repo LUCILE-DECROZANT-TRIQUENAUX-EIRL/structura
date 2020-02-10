@@ -39,135 +39,103 @@
             </div>
 
             <div class="col-12 col-md-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-left">
-                            <h1>{% trans %}Édition de l'adhérent.e{% endtrans %}</h1>
-                        </div>
-                    </div>
-                            <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+                <h1>{% trans %}Édition de l'adhérent.e{% endtrans %}</h1>
+                <p>{% trans %}Les champs notés avec * sont requis.{% endtrans %}</p>
 
-                    {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
-                    <div class="form-group">
-                        {{ form_label(member_edit.denomination)}} *
-                        {{ form_widget(member_edit.denomination)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.firstname)}} *
-                        {{ form_widget(member_edit.firstname)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.lastname)}} *
-                        {{ form_widget(member_edit.lastname)}}
-                    </div>
-
-                    <div class="form-group">
-                        {% for address in member_edit.addresses %}
-                            {{ form_widget(address) }}
-                            {{ form_label(address) }}
-                        {% endfor %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.emailAddress)}}
-                        {{ form_widget(member_edit.emailAddress)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.isReceivingNewsletter)}}
-                        {{ form_widget(member_edit.isReceivingNewsletter)}}
-                        {{ form_label(member_edit.newsletterDematerialization)}}
-                        {{ form_widget(member_edit.newsletterDematerialization)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.homePhoneNumber)}}
-                        {{ form_widget(member_edit.homePhoneNumber)}}
-                        {{ form_help(member_edit.homePhoneNumber)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.cellPhoneNumber)}}
-                        {{ form_widget(member_edit.cellPhoneNumber)}}
-                        {{ form_help(member_edit.cellPhoneNumber)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.workPhoneNumber)}}
-                        {{ form_widget(member_edit.workPhoneNumber)}}
-                        {{ form_help(member_edit.workPhoneNumber)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.workFaxNumber)}}
-                        {{ form_widget(member_edit.workFaxNumber)}}
-                        {{ form_help(member_edit.workFaxNumber)}}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(member_edit.observations)}}
-                        {{ form_widget(member_edit.observations)}}
-                        {{ form_help(member_edit.observations)}}
-                    </div>
-
-                    {% if is_granted('ROLE_GESTION_SENSIBLE') %}
-                        <div class="form-group">
-                            {{ form_label(member_edit.sensitiveObservations)}}
-                            {{ form_widget(member_edit.sensitiveObservations)}}
-                            {{ form_help(member_edit.sensitiveObservations)}}
-                        </div>
-                    {% endif %}
-
-                    {% do member_edit.sensitiveObservations.setRendered %}
-
-                    {{ form_end(member_edit) }}
-
+                {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
+                <div class="form-group">
+                    {{ form_label(member_edit.denomination)}} *
+                    {{ form_widget(member_edit.denomination)}}
                 </div>
-            </div>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <a href="{{ path('member_list') }}" class="btn btn-secondary">
-                        <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhérent⋅es{% endtrans %}
-                    </a>
+                <div class="form-group">
+                    {{ form_label(member_edit.firstname)}} *
+                    {{ form_widget(member_edit.firstname)}}
                 </div>
-                <div class="col text-right">
-                    <button
-                        id="edit-member-submit-button"
-                        type="submit"
-                        form="form-edit-member"
-                        class="btn btn-primary">
-                        {% trans %}Enregistrer les modifications{% endtrans %}
-                    </button>
-                </div>
-            </div>
-        </div>
 
-        <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <p>{% trans %}Souhaitez-vous réellement supprimer ce profil ?{% endtrans %}</p>
-                        <div class="alert alert-warning" role="alert">
-                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
-                        </div>
+                <div class="form-group">
+                    {{ form_label(member_edit.lastname)}} *
+                    {{ form_widget(member_edit.lastname)}}
+                </div>
+
+                <div class="form-group">
+                    {% for address in member_edit.addresses %}
+                        {{ form_widget(address) }}
+                        {{ form_label(address) }}
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.emailAddress)}}
+                    {{ form_widget(member_edit.emailAddress)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.isReceivingNewsletter)}}
+                    {{ form_widget(member_edit.isReceivingNewsletter)}}
+                    {{ form_label(member_edit.newsletterDematerialization)}}
+                    {{ form_widget(member_edit.newsletterDematerialization)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.homePhoneNumber)}}
+                    {{ form_widget(member_edit.homePhoneNumber)}}
+                    {{ form_help(member_edit.homePhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.cellPhoneNumber)}}
+                    {{ form_widget(member_edit.cellPhoneNumber)}}
+                    {{ form_help(member_edit.cellPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.workPhoneNumber)}}
+                    {{ form_widget(member_edit.workPhoneNumber)}}
+                    {{ form_help(member_edit.workPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.workFaxNumber)}}
+                    {{ form_widget(member_edit.workFaxNumber)}}
+                    {{ form_help(member_edit.workFaxNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(member_edit.observations)}}
+                    {{ form_widget(member_edit.observations)}}
+                    {{ form_help(member_edit.observations)}}
+                </div>
+
+                {% if is_granted('ROLE_GESTION_SENSIBLE') %}
+                    <div class="form-group">
+                        {{ form_label(member_edit.sensitiveObservations)}}
+                        {{ form_widget(member_edit.sensitiveObservations)}}
+                        {{ form_help(member_edit.sensitiveObservations)}}
                     </div>
-                    <div class="modal-footer">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
-                        </div>
-                        <div class="col text-right">
-                            {{ form_start(delete_form) }}
-                            <button id="delete_button" type="submit" class="btn btn-danger"><i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ member.firstName }}</button>
-                            {{ form_end(delete_form) }}
-                        </div>
+                {% endif %}
+
+                {% do member_edit.sensitiveObservations.setRendered %}
+
+                {{ form_end(member_edit) }}
+
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('member_show', { 'id': member.id }) }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil de l'adhérent⋅e{% endtrans %}
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="edit-member-submit-button"
+                            type="submit"
+                            form="form-edit-member"
+                            class="btn btn-primary">
+                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Enregistrer les modifications{% endtrans %}
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-
-    {% endblock %}
+    </div>
+{% endblock %}
