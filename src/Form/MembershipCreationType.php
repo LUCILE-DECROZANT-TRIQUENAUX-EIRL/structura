@@ -140,6 +140,8 @@ class MembershipCreationType extends AbstractType
                 'data-live-search-placeholder' => $this->translator->trans('Rechercher...'),
                 'data-size' => '6',
                 'title' => $this->translator->trans('Sélectionnez une personne pour l\'ajouter'),
+                'data-style-base' => 'custom-form-dropdown',
+                'data-style' => 'btn',
             ],
             'required' => false,
             'help' => $this->translator->trans('adhérent·e·s maximum pour une adhésion de type')
