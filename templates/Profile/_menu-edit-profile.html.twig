@@ -9,23 +9,23 @@
             {% trans %}Profil{% endtrans %}
         </a>
     </ul>
-            <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
     <ul class="list-group">
         <a
             href="{{ path('profile_edit_profile', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ profile }}"
             >
-            {% trans %}Informations du profil{% endtrans %}
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Informations du profil{% endtrans %}
         </a>
         <a
             href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ personal }}">
-            {% trans %}Informations personnelles{% endtrans %}
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Informations personnelles{% endtrans %}
         </a>
         <a
             href="{{ path('profile_edit_newsletter', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ newsletter }}">
-            {% trans %}Abonnement aux newsletter{% endtrans %}
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Abonnement aux newsletter{% endtrans %}
         </a>
     </ul>
 {% endblock %}
