@@ -37,13 +37,13 @@
             <br>
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h2 class="text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }}</h2>
+                    <h2 class="text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h2>
                     <h2 class="lead text-center">{{ membership.type.description }}</h2>
                     <br><br><hr><br>
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <h4>{% trans %}Montant{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
+                                <h4>{% trans %}Montant du paiement{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
                                 <br>
                                 <h4>{% trans %}Payée via{% endtrans %}&nbsp;: <small>{{ membership.payment.type.label }}</small></h4>
                             </div>
