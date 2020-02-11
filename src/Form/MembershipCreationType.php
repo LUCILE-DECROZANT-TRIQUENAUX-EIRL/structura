@@ -46,7 +46,7 @@ class MembershipCreationType extends AbstractType
         ]);
 
         $builder->add('membershipDate_end', DateType::class, [
-            'label' => 'Au',
+            'label' => $this->translator->trans('Au'),
             'widget' => 'single_text',
         ]);
 
