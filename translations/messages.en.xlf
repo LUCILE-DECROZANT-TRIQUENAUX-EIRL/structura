@@ -327,7 +327,10 @@
       </trans-unit>
       <trans-unit id="cdx0hz4" resname="Enregistrer">
         <source>Enregistrer</source>
-        <target state="translated">Sign in</target>
+        <target state="translated">Register</target>
+        <alt-trans>
+          <target>Sign in</target>
+        </alt-trans>
         <alt-trans>
           <target>__Enregistrer</target>
         </alt-trans>
