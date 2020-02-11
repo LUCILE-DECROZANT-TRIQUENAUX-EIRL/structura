@@ -1287,7 +1287,10 @@
       </trans-unit>
       <trans-unit id="kpGMrnC" resname="€ du">
         <source>€ du</source>
-        <target state="translated">€ from</target>
+        <target state="translated">€ on</target>
+        <alt-trans>
+          <target>€ from</target>
+        </alt-trans>
         <alt-trans>
           <target>__€ du</target>
         </alt-trans>
