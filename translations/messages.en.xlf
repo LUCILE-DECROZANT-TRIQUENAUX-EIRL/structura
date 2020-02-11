@@ -1487,7 +1487,10 @@
       </trans-unit>
       <trans-unit id="Dt5G2k2" resname="Commentaire sur l'adhésion">
         <source>Commentaire sur l'adhésion</source>
-        <target state="translated">Membership comment</target>
+        <target state="translated">Comment on membership</target>
+        <alt-trans>
+          <target>Membership comment</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="Lti4BmJ" resname="Via">
         <source>Via</source>
