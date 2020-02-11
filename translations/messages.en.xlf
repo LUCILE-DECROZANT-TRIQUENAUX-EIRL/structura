@@ -1444,7 +1444,10 @@
       </trans-unit>
       <trans-unit id="sB0RYun" resname="Adresse mail">
         <source>Adresse mail</source>
-        <target state="translated">Email adress</target>
+        <target state="translated">Email address</target>
+        <alt-trans>
+          <target>Email adress</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
         <source>Reçoit la newsletter au format dématérialisé</source>
