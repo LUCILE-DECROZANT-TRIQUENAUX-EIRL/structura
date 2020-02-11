@@ -9,12 +9,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use App\Entity\Address;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 /**
  * Form for editing an address
  */
 class AddressType extends AbstractType
 {
+     public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
 
     /**
      * {@inheritdoc}
@@ -23,16 +30,16 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('line', TextType::class, [
-                'label' => 'Adresse'
+                'label' => $this->translator->trans('Adresse')
             ])
             ->add('postalCode', NumberType::class, [
-                'label' => 'Code Postal'
+                'label' => $this->translator->trans('Code Postal')
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville'
+                'label' => $this->translator->trans('Ville')
             ])
             ->add('country', TextType::class, [
-                'label' => 'Pays'
+                'label' => $this->translator->trans('Pays')
             ]);
     }
 
