@@ -29,18 +29,33 @@ class PeopleAjaxController extends FOSRestController
         return $this->handleView($this->view($people));
     }
 
-     /**
+    /**
      * Finds and displays the recap of a people.
      * @return views
      * @param People $people The user we want the recap
      * @Route("/{id}/recap", name="recap", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function showPeopleRecap(People $people)
+    public function getPeopleRecapAction(People $people)
     {
         $response = $this->render('Membership/people-recap.html.twig', array(
             'people' => $people,
         ));
+
+        $response->headers->set('Content-Type', 'text/html');
+
+        return $response;
+    }
+
+    /**
+     * Finds and displays the placeholder for a people.
+     * @return views
+     * @Route("/placeholder", name="placeholder", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getPeoplePlaceholderAction()
+    {
+        $response = $this->render('Membership/people-placeholder.html.twig');
 
         $response->headers->set('Content-Type', 'text/html');
 

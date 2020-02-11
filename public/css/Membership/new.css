@@ -3,3 +3,7 @@
     border: solid 1px#ced4da;
     color: #495057 !important;
 }
+
+.border-dashed {
+    border-style: dashed !important;
+}
