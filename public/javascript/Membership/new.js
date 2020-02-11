@@ -125,15 +125,73 @@ function getPeopleRecap(peopleId)
         dataType: "html"
     }).done(function(recapHtml) {
         // Adding the recap to the recap list
-        $('#people-recaps').append(recapHtml);
+        // Before the placeholders
+        $('.people-placeholder').first().before(recapHtml);
+
+        // Removing the placeholder
+        removePeoplePlaceholder();
     }).fail(function() {
         // TODO: Handle error
     });
 }
 
-function getMembershipType(membershipTypeId)
+/**
+ * Set the demanded amount of placeholders div representing a people to add.
+ * If there is too much it removes some.
+ * If there is too few it adds some.
+ *
+ * @param {number} placeholderQuantityWanted
+ * @return A Promise that resolves or reject the treatment
+ */
+function setPeoplePlaceholders(placeholderQuantityWanted)
 {
-    // Making an ajax call to get the MembershipType json
+    return new Promise(function (resolve, reject)
+    {
+        if (placeholderQuantityWanted > 0)
+        {
+            // Making an ajax call to get the placeholder's HTML
+            $.ajax({
+                type: "GET",
+                url: '/ajax/people/placeholder',
+                cache: true,
+                dataType: "html"
+            }).done(function(placeholderHtml) {
+                let placeholdersCount = $('.people-placeholder').length;
+                let placeholdersNeeded = placeholderQuantityWanted - placeholdersCount;
+
+                if (placeholdersNeeded > 0)
+                {
+                    for(let i = 0; i < placeholdersNeeded; i++)
+                    {
+                        // Adding the placeholder to the recap list
+                        $('#people-recaps').append(placeholderHtml);
+                    }
+                }
+                else if (placeholdersNeeded < 0)
+                {
+                    for(let i = placeholdersNeeded; i < 0; i++)
+                    {
+                        removePeoplePlaceholder();
+                    }
+                }
+
+                // Instruction to signify that the function treatment is done
+                resolve();
+            }).fail(function() {
+                // TODO: Handle error
+                reject();
+            });
+        }
+        else {
+            // Unvalid quantity, we reject for the promise and do nothing
+            reject();
+        }
+    });
+}
+
+    function getMembershipType(membershipTypeId)
+    {
+        // Making an ajax call to get the MembershipType json
     $.ajax({
         type: "GET",
         url: '/ajax/membership-type/' + membershipTypeId,
@@ -153,7 +211,12 @@ function getMembershipType(membershipTypeId)
         // Updating the payment amount
         updatePaymentAmount();
 
-        resetSelectedPeople();
+        // Setting placeholders
+        setPeoplePlaceholders(membershipType.number_max_members).then(function (result) {
+            // Then reset the selected people
+            resetSelectedPeople();
+        });
+
     }).fail(function() {
         // TODO: Handle error
     });
@@ -169,10 +232,37 @@ function removePeopleRecap(peopleId)
     $('#people-recap-' + peopleId).remove();
 }
 
+/**
+ * Removes one people placeholder from the recap list
+ */
+function removePeoplePlaceholder()
+{
+    $('.people-placeholder').first().remove();
+}
+
+/**
+ *
+ * @param {*} peopleId
+ */
 function handlePeopleDeletion(peopleId)
 {
+    let placeholderQuantityWanted = currentMembershipType.number_max_members - selectedPeopleCount + 1;
+
+    // We wait until the placeholders are added
+    setPeoplePlaceholders(placeholderQuantityWanted).then(function(result) {
+        // Then we deselect people
+        deselectPeople(peopleId);
+    });
+}
+
+/**
+ *
+ * @param {*} peopleId
+ */
+function deselectPeople(peopleId)
+{
     // Adding back the people into the selection list
-    addPeopleFromSelectionList(peopleId);
+    addPeopleToSelectionList(peopleId);
 
     // Removing the recap div
     removePeopleRecap(peopleId);
@@ -181,7 +271,7 @@ function handlePeopleDeletion(peopleId)
     // this People will not be added to the membership
     $('#app_membership_create_members_' + peopleId).prop('checked', false);
 
-    // Decreasing the counter.
+    // Decreasing the counter of selected people
     selectedPeopleCount--;
 
     // If we have less than the maximum people selected, we enable the selection list.
@@ -204,7 +294,11 @@ function handlePeopleDeletion(peopleId)
     $('#app_membership_create_payer option[value="' + peopleId + '"]').remove();
 }
 
-function addPeopleFromSelectionList(peopleId)
+/**
+ *
+ * @param {*} peopleId
+ */
+function addPeopleToSelectionList(peopleId)
 {
     let peopleName = $('#people-recap-name-'+peopleId).html();
 
@@ -228,12 +322,18 @@ function addPeopleFromSelectionList(peopleId)
     $('.selectpicker').selectpicker('val', '');
 }
 
+/**
+ *
+ */
 function removePeopleFromSelectionList()
 {
     $('#app_membership_create_newMember option:selected').remove();
     $('.selectpicker').selectpicker('refresh');
 }
 
+/**
+ *
+ */
 function resetSelectedPeople()
 {
     let peopleRecaps = $('#people-recaps').children();
@@ -241,9 +341,10 @@ function resetSelectedPeople()
     peopleRecaps.each(function(index) {
         let peopleId = $(this).data('people-id');
 
+        // If it's a recap
         if (peopleId != undefined)
         {
-            handlePeopleDeletion(peopleId);
+            deselectPeople(peopleId);
         }
     });
 

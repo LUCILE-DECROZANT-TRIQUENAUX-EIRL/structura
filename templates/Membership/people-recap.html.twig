@@ -40,11 +40,10 @@
             </div>
             <div class="col-1 text-center p-0">
                 <button
-                    id="edit-donator-button-{{people.id}}"
                     type="button"
                     class="btn btn-secondary"
                     onclick="handlePeopleDeletion({{people.id}})"
-                    title="Retirer la personne de la nouvelle adhésion"
+                    title="{% trans %}Retirer la personne de la nouvelle adhésion{% endtrans %}"
                 >
                     <i class="icon ion-md-trash"></i>
                 </button>
