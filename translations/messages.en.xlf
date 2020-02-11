@@ -774,7 +774,10 @@
       </trans-unit>
       <trans-unit id="cfvJ2qu" resname="Tout ce qui concerne les comptes pouvant se connecter à l'application.">
         <source>Tout ce qui concerne les comptes pouvant se connecter à l'application.</source>
-        <target state="translated">Everything related to accounts that can log into the application.</target>
+        <target state="translated">Everything related to accounts able to log into the application.</target>
+        <alt-trans>
+          <target>Everything related to accounts that can log into the application.</target>
+        </alt-trans>
         <alt-trans>
           <target>__Tout ce qui concerne les comptes pouvant se connecter à l'application.</target>
         </alt-trans>
