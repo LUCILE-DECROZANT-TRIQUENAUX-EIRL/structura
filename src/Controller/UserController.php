@@ -30,12 +30,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class UserController extends AbstractController
 {
-     public $translator;
-
-    public function __construct(TranslatorInterface $translator) {
-        $this->translator = $translator;
-    }
-
     /**
      * Lists all user entities.
      * @return views
@@ -68,7 +62,7 @@ class UserController extends AbstractController
      * @Route("/new/{from}", name="user_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function createFromListAction(Request $request, UserService $userService, string $from)
+    public function createFromListAction(Request $request, UserService $userService, string $from, TranslatorInterface $translator)
     {
         // Generate the form with a prefilled user in it
         $createdUser = new User();
@@ -84,8 +78,8 @@ class UserController extends AbstractController
             }
             catch (FormIsNotSubmitted $ex)
             {
-                $userTranslation = $this->translator->trans('L\'utilisateurice');
-                $couldntBeCreatedTranslation = $this->translator->trans('n\'a pas pu être créé.e');
+                $userTranslation = $translator->trans('L\'utilisateurice');
+                $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
 
                 $this->addFlash(
                     'danger', sprintf('%s <strong>%s</strong> %s',
@@ -99,8 +93,8 @@ class UserController extends AbstractController
             }
             catch (FormIsInvalid $ex)
             {
-                $userTranslation = $this->translator->trans('L\'utilisateurice');
-                $couldntBeCreatedTranslation = $this->translator->trans('n\'a pas pu être créé.e');
+                $userTranslation = $translator->trans('L\'utilisateurice');
+                $couldntBeCreatedTranslation = $translator->trans('n\'a pas pu être créé.e');
 
                 $this->addFlash(
                     'danger', sprintf('%s <strong>%s</strong> %s',
@@ -116,13 +110,13 @@ class UserController extends AbstractController
             {
                 $this->addFlash(
                         'danger',
-                        $this->translator->trans('Une erreur est survenue, veuillez réessayer plus tard.')
+                        $translator->trans('Une erreur est survenue, veuillez réessayer plus tard.')
                 );
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
             
-            $userTranslation = $this->translator->trans('L\'utilisateurice');
-            $hasBeenCreatedTranslation = $this->translator->trans('a été créé.e');
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenCreatedTranslation = $translator->trans('a été créé.e');
 
             $this->addFlash(
                 'success', sprintf('%s <strong>%s</strong> %s',
@@ -183,7 +177,7 @@ class UserController extends AbstractController
      * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $this->translator)
+    public function editAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
     {
         $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
 
@@ -256,7 +250,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                    'success', $this->translator->trans('Les informations ont bien été modifiées')
+                    'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
             return $this->redirectToRoute('user_edit', ['id' => $currentUser->getId()]);
@@ -278,7 +272,7 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->addFlash(
-                        'success', $this->translator->trans('Le mot de passe a bien été modifié')
+                        'success', $translator->trans('Le mot de passe a bien été modifié')
                 );
             }
 
@@ -306,7 +300,7 @@ class UserController extends AbstractController
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_ADMIN') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, User $currentUser, TranslatorInterface $this->translator)
+    public function deleteAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
         $form = $this->createDeleteForm($currentUser);
         $form->handleRequest($request);
@@ -325,8 +319,8 @@ class UserController extends AbstractController
             $em->remove($currentUser);
             $em->flush();
             
-            $userTranslation = $this->translator->trans('L\'utilisateurice');
-            $hasBeenDeletedTranslation = $this->translator->trans('ont bien été supprimées');
+            $userTranslation = $translator->trans('L\'utilisateurice');
+            $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');
 
             $confirmationMessage = sprintf(
                 '%s <strong>%s %s</strong> %s.',
@@ -366,7 +360,7 @@ class UserController extends AbstractController
      * @return render
      * @throws NotFoundHttpException If $from does not make part of the managed list
      */
-    private function renderNewUserView($from, $form, $createdUser = null)
+    private function renderNewUserView($from, $form, $createdUser = null, TranslatorInterface $translator)
     {
         if (!empty($createdUser))
         {
@@ -392,7 +386,7 @@ class UserController extends AbstractController
                 break;
 
             default:
-                throw new NotFoundHttpException($this->translator->trans('La page demandée n\'existe pas'));
+                throw new NotFoundHttpException($translator->trans('La page demandée n\'existe pas'));
                 break;
         }
     }
