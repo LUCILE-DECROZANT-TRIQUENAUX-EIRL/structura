@@ -1016,7 +1016,10 @@
       </trans-unit>
       <trans-unit id="lHzAfis" resname="Montant">
         <source>Montant</source>
-        <target state="translated">Cost</target>
+        <target state="translated">Amount</target>
+        <alt-trans>
+          <target>Cost</target>
+        </alt-trans>
         <alt-trans>
           <target>__Montant</target>
         </alt-trans>
