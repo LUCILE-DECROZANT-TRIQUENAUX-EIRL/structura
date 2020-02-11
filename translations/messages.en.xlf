@@ -505,7 +505,10 @@
       </trans-unit>
       <trans-unit id="B_1sz2v" resname="Mail">
         <source>Mail</source>
-        <target state="translated">Mail</target>
+        <target state="translated">Email</target>
+        <alt-trans>
+          <target>Mail</target>
+        </alt-trans>
         <alt-trans>
           <target>__Mail</target>
         </alt-trans>
