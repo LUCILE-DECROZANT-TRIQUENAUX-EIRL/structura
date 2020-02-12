@@ -198,11 +198,11 @@ class MemberController extends AbstractController {
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function editAction(
-        Request $request, 
-        People $individual, 
-        UserPasswordEncoderInterface $passwordEncoder, 
+        Request $request,
+        People $individual,
+        UserPasswordEncoderInterface $passwordEncoder,
         TranslatorInterface $translator
-    ) 
+    )
     {
         $updateMemberDataFDO = UpdateMemberDataFDO::fromMember($individual);
 
@@ -222,12 +222,22 @@ class MemberController extends AbstractController {
             $individual->setFirstName($updateMemberDataFDO->getFirstName());
             $individual->setLastName($updateMemberDataFDO->getLastName());
 
-            if ($updateMemberDataFDO->getAddresses() === null) {
+            if ($updateMemberDataFDO->getAddresses() === null)
+            {
                 $address = new Address();
                 $individual->setAddresses([$address]);
-            } else {
-                $address = $updateMemberDataFDO->getAddresses();
-                $individual->setAddresses([$address]);
+            }
+            else
+            {
+                $addresses = [];
+
+                foreach ($updateMemberDataFDO->getAddresses() as $address)
+                {
+                    $entityManager->persist($address);
+                    $addresses[] = $address;
+                }
+
+                $individual->setAddresses($addresses);
             }
 
             if ($updateMemberDataFDO->getCellPhoneNumber() !== null) {
@@ -276,7 +286,6 @@ class MemberController extends AbstractController {
               );
               } */
 
-            $entityManager->persist($address);
             $entityManager->persist($individual);
             $entityManager->flush();
 
