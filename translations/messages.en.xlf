@@ -1434,6 +1434,9 @@
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
         <target state="translated">Edit donation</target>
+        <alt-trans>
+          <target>__Éditer le don</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="KQEGyKV" resname="Aucune">
         <source>Aucune</source>
@@ -1576,6 +1579,9 @@
       <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
         <source>Les informations ont bien été modifiées</source>
         <target state="translated">The information have been changed successfully</target>
+        <alt-trans>
+          <target>Informations have been changed successfully </target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="7ByHGJ1" resname="Les informations de">
         <source>Les informations de</source>
@@ -1596,6 +1602,9 @@
       <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
         <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
         <target state="translated">An error occurred, please try again later.</target>
+        <alt-trans>
+          <target>An error occured, please try again later.</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
         <source>La page demandée n'existe pas</source>
