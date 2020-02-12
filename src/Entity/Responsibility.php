@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Responsibility
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="responsibility")
  * @ORM\Entity(repositoryClass="App\Repository\ResponsibilityRepository")
  */
-class Responsibility
+class Responsibility implements Translatable
 {
     const ADMINISTRATEURICE_LABEL = 'Administrateurice de la base de données';
     const ADMINISTRATEURICE_SENSIBLE_LABEL = 'Administrateurice des données sensibles';
@@ -46,6 +48,7 @@ class Responsibility
      *
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="label", type="string", length=255, unique=true)
      */
     private $label;
@@ -55,6 +58,7 @@ class Responsibility
      *
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="string", length=1000, nullable=true)
      */
     private $description;
@@ -68,6 +72,13 @@ class Responsibility
      * @ORM\Column(name="automatic", type="boolean")
      */
     private $automatic;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      *
@@ -182,5 +193,13 @@ class Responsibility
     function setAutomatic(bool $automatic)
     {
         $this->automatic = $automatic;
+    }
+
+    /**
+     * Set the locale for translation
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
