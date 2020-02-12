@@ -940,9 +940,6 @@
       <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
         <source>Les informations ont bien été modifiées</source>
         <target state="translated">The information have been changed successfully</target>
-        <alt-trans>
-          <target>Informations have been changed successfully </target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7ByHGJ1" resname="Les informations de">
         <source>Les informations de</source>
@@ -963,9 +960,6 @@
       <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
         <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
         <target state="translated">An error occurred, please try again later.</target>
-        <alt-trans>
-          <target>An error occured, please try again later.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
         <source>La page demandée n'existe pas</source>
@@ -974,6 +968,42 @@
       <trans-unit id="O6HmCRn" resname="Don effectué via le même paiement">
         <source>Don effectué via le même paiement</source>
         <target state="translated">Donation made via the same payment</target>
+      </trans-unit>
+      <trans-unit id="_VnCzsF" resname="Code Postal">
+        <source>Code Postal</source>
+        <target>__Code Postal</target>
+      </trans-unit>
+      <trans-unit id="MyXCtW8" resname="Au">
+        <source>Au</source>
+        <target>__Au</target>
+      </trans-unit>
+      <trans-unit id="bcaekXa" resname="Structura -">
+        <source>Structura -</source>
+        <target>__Structura -</target>
+      </trans-unit>
+      <trans-unit id="sjsFRfo" resname="Retourner au profil">
+        <source>Retourner au profil</source>
+        <target>__Retourner au profil</target>
+      </trans-unit>
+      <trans-unit id="ohom_cm" resname="Nouvelle adhésion">
+        <source>Nouvelle adhésion</source>
+        <target>__Nouvelle adhésion</target>
+      </trans-unit>
+      <trans-unit id="Zl7dQ2Y" resname="Choisissez un autre membre">
+        <source>Choisissez un autre membre</source>
+        <target>__Choisissez un autre membre</target>
+      </trans-unit>
+      <trans-unit id="ZSlH5_o" resname="Retirer la personne de la nouvelle adhésion">
+        <source>Retirer la personne de la nouvelle adhésion</source>
+        <target>__Retirer la personne de la nouvelle adhésion</target>
+      </trans-unit>
+      <trans-unit id="drGj14D" resname="Retourner au profil de l'adhérent.e">
+        <source>Retourner au profil de l'adhérent.e</source>
+        <target>__Retourner au profil de l'adhérent.e</target>
+      </trans-unit>
+      <trans-unit id="UeGJD7e" resname="Retourner au profil de l'adhérent⋅e">
+        <source>Retourner au profil de l'adhérent⋅e</source>
+        <target>__Retourner au profil de l'adhérent⋅e</target>
       </trans-unit>
     </body>
   </file>
