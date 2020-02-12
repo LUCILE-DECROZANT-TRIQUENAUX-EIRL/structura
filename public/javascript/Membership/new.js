@@ -6,6 +6,9 @@ $(document).ready(function() {
     // Bootstrap select options
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
+    // Prevent autocomplete on checkboxes
+    $('input[type=checkbox]').prop('checked', false);
+
     // Init the events
     $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
@@ -48,9 +51,7 @@ $(document).ready(function() {
     let membershipTypeId = $('#app_membership_create_membershipType').val();
 
     // Getting the membershipType info
-    getMembershipType(membershipTypeId).then(function(result) {
-        initSelectedPeople();
-    });
+    getMembershipType(membershipTypeId);
 
 
     // Calculating default membership dates
@@ -367,18 +368,4 @@ function resetSelectedPeople()
 
     // We're disabling the payer field
     $('#app_membership_create_payer').attr('readonly', 'readonly');
-}
-
-function initSelectedPeople()
-{
-    let selectedPeople = $('#app_membership_create_members').find('input:checked');
-
-    selectedPeople.each(function(index) {
-        let selectedPeopleId = $(this).val();
-
-        let selectedPeopleOption = $('#app_membership_create_newMember option[value="' + selectedPeopleId + '"]');
-        let selectedPeopleName = selectedPeopleOption.html();
-
-        selectPeople(selectedPeopleId, selectedPeopleName);
-    });
 }
