@@ -327,23 +327,30 @@ $(document).ready(function ($) {
     // Remove the masks on submit
 
     $("#form-create-member").submit(function (event) {
-        $('[name="app_user[cellPhoneNumber]"]').unmask();
-        $('[name="app_user[homePhoneNumber]"]').unmask();
-        $('[name="app_user[workPhoneNumber]"]').unmask();
-        $('[name="app_user[workFaxNumber]"]').unmask();
+        removeMasks();
     });
 
     $("#form-edit-member").submit(function (event) {
-        $('[name="app_user[cellPhoneNumber]"]').unmask();
-        $('[name="app_user[homePhoneNumber]"]').unmask();
-        $('[name="app_user[workPhoneNumber]"]').unmask();
-        $('[name="app_user[workFaxNumber]"]').unmask();
+        removeMasks();
+    });
+
+    $("#form-create-people").submit(function (event) {
+        removeMasks();
+    });
+
+    $("#form-edit-people").submit(function (event) {
+        removeMasks();
     });
 
     $("#form-editcontact-profile").submit(function (event) {
-        $('[name="app_user[cellPhoneNumber]"]').unmask();
-        $('[name="app_user[homePhoneNumber]"]').unmask();
-        $('[name="app_user[workPhoneNumber]"]').unmask();
-        $('[name="app_user[workFaxNumber]"]').unmask();
+        removeMasks();
     });
 });
+
+function removeMasks()
+{
+    $('[name="app_user[cellPhoneNumber]"]').unmask();
+    $('[name="app_user[homePhoneNumber]"]').unmask();
+    $('[name="app_user[workPhoneNumber]"]').unmask();
+    $('[name="app_user[workFaxNumber]"]').unmask();
+}

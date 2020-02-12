@@ -216,12 +216,22 @@ class PeopleController extends AbstractController {
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            if ($updatePeopleDataFDO->getAddresses() === null) {
+            if ($updatePeopleDataFDO->getAddresses() === null)
+            {
                 $address = new Address();
                 $people->setAddresses([$address]);
-            } else {
-                $address = $updatePeopleDataFDO->getAddresses();
-                $people->setAddresses([$address]);
+            }
+            else
+            {
+                $addresses = [];
+
+                foreach ($updatePeopleDataFDO->getAddresses() as $address)
+                {
+                    $entityManager->persist($address);
+                    $addresses[] = $address;
+                }
+
+                $people->setAddresses($addresses);
             }
 
             if ($updatePeopleDataFDO->getCellPhoneNumber() !== null) {
@@ -270,7 +280,6 @@ class PeopleController extends AbstractController {
               );
               } */
 
-            $entityManager->persist($address);
             $entityManager->persist($people);
             $entityManager->flush();
 
@@ -307,7 +316,7 @@ class PeopleController extends AbstractController {
             $em = $this->getDoctrine()->getManager();
             $em->remove($people);
             $em->flush();
-            
+
             $dataOfTranslation = $translator->trans('Les informations de');
             $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');
 
