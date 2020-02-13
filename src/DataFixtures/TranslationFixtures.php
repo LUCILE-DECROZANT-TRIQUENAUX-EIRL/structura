@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Responsibility;
 use App\Repository\ResponsibilityRepository;
@@ -11,7 +12,7 @@ use Gedmo\Translatable\Translatable;
 use Gedmo\Translatable\Entity\Translation;
 
 
-class TranslationFixtures extends Fixture implements FixtureGroupInterface
+class TranslationFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
     public function __construct()
     {
@@ -52,5 +53,14 @@ class TranslationFixtures extends Fixture implements FixtureGroupInterface
 
         // Final flush
         $manager->flush();
+    }
+    
+    public function getDependencies()
+    {
+        return array(
+            UserFixtures::class,
+            MembershipFixtures::class,
+            DonationFixtures::class,
+        );
     }
 }

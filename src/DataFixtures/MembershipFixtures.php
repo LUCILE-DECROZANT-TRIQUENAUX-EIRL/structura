@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\People;
@@ -16,7 +17,7 @@ use App\Entity\PaymentType;
 // use App\Repository\PeopleRepository;
 
 
-class MembershipFixtures extends Fixture implements FixtureGroupInterface
+class MembershipFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
     public function __construct()
     {
@@ -247,5 +248,12 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface
 
         // Final flush
         $manager->flush();
+    }
+    
+    public function getDependencies()
+    {
+        return array(
+            UserFixtures::class,
+        );
     }
 }
