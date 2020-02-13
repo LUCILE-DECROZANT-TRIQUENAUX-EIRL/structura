@@ -29,7 +29,7 @@
                             class="form-control"
                             id="username"
                             name="_username"
-                            placeholder="Nom d'utilisateurice"
+                            placeholder={% trans %}"Nom d'utilisateurice"{% endtrans %}
                             value="{% if username is defined %}{{ username }}{% endif %}"
                         >
                     </div>
@@ -38,7 +38,7 @@
                             class="form-control"
                             id="password"
                             name="_password"
-                            placeholder="Mot de passe"
+                            placeholder={% trans %}"Mot de passe"{% endtrans %}
                         >
                     </div>
                     <button
