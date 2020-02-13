@@ -90,7 +90,6 @@ a {
 .phone
 {
     width: 6em;
-    display: inline-block;
     word-wrap: break-word;
     columns: 5;
     column-gap: 0.2em;
