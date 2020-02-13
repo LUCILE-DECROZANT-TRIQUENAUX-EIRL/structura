@@ -15,14 +15,14 @@
         <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_ADMIN") %}
-    <li class="breadcrumb-item">
-        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
-    </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
     {% endif %}
     {% if is_granted("ROLE_GESTION") %}
-    <li class="breadcrumb-item">
-        <a href="{{ path('user_list') }}">{% trans %}Liste des utilisateurices{% endtrans %}</a>
-    </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('user_list') }}">{% trans %}Liste des utilisateurices{% endtrans %}</a>
+        </li>
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('user_show', { 'id': user.id }) }}">
@@ -49,78 +49,74 @@
             <div class="col-8 col-md-2">
                 {{ include('User/_menu-user.html.twig', { edit_profile: 'active' }) }}
             </div>
+            <br>
+            <div class="col-12 col-md-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-left">
+                            <h1>{% trans %}Édition de{% endtrans %} {{ profileLabel }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
+                <div class="container">
+                    <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+                    <div >
+                        {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
+                        <div class="form-group">
+                            {{ form_label(edit_form.username) }} *
+                            {{ form_widget(edit_form.username) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.responsibilities) }}
+                            {% for responsibility in edit_form.responsibilities %}
+                                {% if not responsibility.vars.attr['data-responsibility-automatically-managed'] %}
+                                    <div class="form-group">
+                                        {{ form_widget(responsibility) }}
+                                        {{ form_label(responsibility) }}
+                                        <span class="text-muted responsibility-description">
+                                            {{ responsibility.vars.attr['data-responsibility-description'] }}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {{ form_widget(edit_form._token) }}
+                        {{ form_end(edit_form, {'render_rest': false}) }}
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="edit-user-submit-button"
+                            type="submit"
+                            form="form-edit-user"
+                            class="btn btn-primary"
+                            >
+                            {% trans %}Enregistrer les modifications{% endtrans %}
+                        </button>
+                    </div>
 
-        <br>
-        <div class="col-12 col-md-10">
-            <div class="container">
-                <div class="row">
-                    <div class="col text-left">
-                        <h1>{% trans %}Édition de{% endtrans %} {{ profileLabel }}</h1>
+                    <div style="margin-top:48px;">
+                        <h1>{% trans %}Mot de passe{% endtrans %}</h1>
+                        {{ form_start(password_form, {'attr': {'id': 'form-edit-password'}})}}
+                        {{ form_errors(password_form) }}
+                        <div class="form-group">
+                            {{ form_widget(password_form) }}
+                        </div>
+                        {{ form_end(password_form) }}
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="edit-password-submit-button"
+                            type="submit"
+                            form="form-edit-password"
+                            class="btn btn-primary"
+                            >
+                            {% trans %}Enregistrer le mot de passe{% endtrans %}
+                        </button>
                     </div>
                 </div>
             </div>
-        <br>
-
-    <div class="container">
-        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
-
-        <div >
-        {{ form_start(edit_form, {'attr': {'id': 'form-edit-user'}}) }}
-            <div class="form-group">
-                {{ form_label(edit_form.username) }} *
-                {{ form_widget(edit_form.username) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(edit_form.responsibilities) }}
-                {% for responsibility in edit_form.responsibilities %}
-                    {% if not responsibility.vars.attr['data-responsibility-automatically-managed'] %}
-                        <div class="form-group">
-                            {{ form_widget(responsibility) }}
-                            {{ form_label(responsibility) }}
-                            <span class="text-muted responsibility-description">
-                                {{ responsibility.vars.attr['data-responsibility-description'] }}
-                            </span>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            {{ form_widget(edit_form._token) }}
-        {{ form_end(edit_form, {'render_rest': false}) }}
         </div>
-        <div class="col text-right">
-            <button
-                id="edit-user-submit-button"
-                type="submit"
-                form="form-edit-user"
-                class="btn btn-primary"
-                >
-                {% trans %}Enregistrer les modifications{% endtrans %}
-            </button>
-        </div>
-
-        <div style="margin-top:48px;">
-            <h1>{% trans %}Mot de passe{% endtrans %}</h1>
-        {{ form_start(password_form, {'attr': {'id': 'form-edit-password'}})}}
-        {{ form_errors(password_form) }}
-        <div class="form-group">
-            {{ form_widget(password_form) }}
-        </div>
-        {{ form_end(password_form) }}
-        </div>
-        <div class="col text-right">
-            <button
-                id="edit-password-submit-button"
-                type="submit"
-                form="form-edit-password"
-                class="btn btn-primary"
-                >
-                {% trans %}Enregistrer le mot de passe{% endtrans %}
-            </button>
-        </div>
-
     </div>
-    </div>
-    </div>
-
 {% endblock %}
