@@ -120,7 +120,7 @@ class MembershipCreationType extends AbstractType
             'attr' => [
                 'autocomplete' => 'off',
             ],
-            'choices' => [$options['peopleWithNoActiveMembership']],
+            'choices' => $options['peopleWithNoActiveMembership'],
             'choice_label' => function (People $people) {
                 $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
                 return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
