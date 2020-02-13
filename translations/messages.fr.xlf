@@ -1005,6 +1005,22 @@
         <source>Retourner au profil de l'adhérent⋅e</source>
         <target>Retourner au profil de l'adhérent⋅e</target>
       </trans-unit>
+      <trans-unit id="1Jh1jhy" resname="&quot;Reçoit la newsletter&quot;">
+        <source>"Reçoit la newsletter"</source>
+        <target>__"Reçoit la newsletter"</target>
+      </trans-unit>
+      <trans-unit id="AVTeb07" resname="&quot;Newsletter envoyée sous format dématérialisé&quot;">
+        <source>"Newsletter envoyée sous format dématérialisé"</source>
+        <target>__"Newsletter envoyée sous format dématérialisé"</target>
+      </trans-unit>
+      <trans-unit id="dTITH6J" resname="&quot;Nom d'utilisateurice&quot;">
+        <source>"Nom d'utilisateurice"</source>
+        <target>__"Nom d'utilisateurice"</target>
+      </trans-unit>
+      <trans-unit id="h.mSYX6" resname="&quot;Mot de passe&quot;">
+        <source>"Mot de passe"</source>
+        <target>__"Mot de passe"</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
