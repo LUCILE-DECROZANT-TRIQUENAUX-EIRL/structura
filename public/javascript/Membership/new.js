@@ -1,15 +1,20 @@
-// Global vars init
+//////////////////////////////////////
+// -- Global vars initialisation -- //
+//////////////////////////////////////
 var currentMembershipType = null;
 var selectedPeopleCount = 0;
 
+///////////////////////////////////
+// -- Document ready listener -- //
+///////////////////////////////////
 $(document).ready(function() {
-    // Bootstrap select options
+    // -- Precising the Bootstrap version for the bootstrap-select plugin -- //
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
-    // Prevent autocomplete on checkboxes
+    // -- Manually reseting the checkboxes to prevent autocomplete -- //
     $('input[type=checkbox]').prop('checked', false);
 
-    // Init the events
+    // -- Declaration of the event listeners -- //
     $('#app_membership_create_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
@@ -18,8 +23,20 @@ $(document).ready(function() {
         updatePaymentAmount();
     });
 
-    $('#app_membership_create_membershipType').change(function() {
-        getMembershipType($(this).val());
+    $('#app_membership_create_membershipType').change(function(event) {
+        // If it's not the placeholder that have been selected
+        if ($(this).val() > 0)
+        {
+            getMembershipType($(this).val());
+            removeDisplayNone('member-selection-part');
+            addDisplayNone('payment-part');
+        }
+        else
+        {
+            addDisplayNone('member-selection-part');
+            addDisplayNone('payment-part');
+        }
+
     });
 
     $('#app_membership_create_newMember').change(function() {
@@ -39,7 +56,7 @@ $(document).ready(function() {
         }
     });
 
-    // -- Init -- //
+    // -- Initialisation at page loading -- //
 
     // Adding two spans in the selection list help message
     // For easier value replacement when changing the membership type
@@ -53,7 +70,6 @@ $(document).ready(function() {
     // Getting the membershipType info
     getMembershipType(membershipTypeId);
 
-
     // Calculating default membership dates
     let now = new Date();
     let nextYear = new Date();
@@ -63,9 +79,13 @@ $(document).ready(function() {
     $('#app_membership_create_membershipDate_start').val(now.toISOString().substr(0, 10));
     $('#app_membership_create_membershipDate_end').val(nextYear.toISOString().substr(0, 10));
 
-    // We're also doing that for the fiscal year
+    // We're also setting the fiscal year to the current year
     $('#app_membership_create_membershipFiscal_year').val(now.getFullYear());
 });
+
+//////////////////////////////////
+// -- Functions declarations -- //
+//////////////////////////////////
 
 /**
  * Updates the payment amount based on the membership and the donation amount.
@@ -84,9 +104,9 @@ function updatePaymentAmount() {
 
 /**
  * Get the HTML of the information recap corresponding the to given People id.
- * And adding it to the recap list
+ * And adding it to the recap list.
  *
- * @param {number} peopleId
+ * @param {number} peopleId The id of the person which you want the recap.
  */
 function getPeopleRecap(peopleId)
 {
@@ -109,12 +129,12 @@ function getPeopleRecap(peopleId)
 }
 
 /**
- * Set the demanded amount of placeholders div representing a people to add.
+ * Set the demanded amount of placeholders div representing a person to add.
  * If there is too much it removes some.
  * If there is too few it adds some.
  *
  * @param {number} placeholderQuantityWanted
- * @return A Promise that resolves or reject the treatment
+ * @returns {Promise} A promise that resolves if the call worked as intended or rejects elsewhere.
  */
 function setPeoplePlaceholders(placeholderQuantityWanted)
 {
@@ -162,6 +182,14 @@ function setPeoplePlaceholders(placeholderQuantityWanted)
     });
 }
 
+/**
+ * Get a membership type informations via an ajax call.
+ * The retreived informations are then saved in global vars for reusability.
+ * Also updates the form's fields that depends on theses informations.
+ *
+ * @param {number} membershipTypeId The id of the membership which you want the data.
+ * @returns {Promise} A promise that resolves if the call worked as intended or rejects elsewhere.
+ */
 function getMembershipType(membershipTypeId)
 {
     return new Promise(function (resolve, reject)
@@ -219,8 +247,9 @@ function removePeoplePlaceholder()
 }
 
 /**
+ * Handler for the manual removal of a person form the membership.
  *
- * @param {*} peopleId
+ * @param {number} peopleId The id of the person you want to remove from the membership.
  */
 function handlePeopleDeletion(peopleId)
 {
@@ -233,6 +262,12 @@ function handlePeopleDeletion(peopleId)
     });
 }
 
+/**
+ * Select a person and adds it to the future membership.
+ *
+ * @param {number} selectedPeopleId The id of the person you want to select.
+ * @param {string} selectedPeopleName The fullname of the person you want to select.
+ */
 function selectPeople(selectedPeopleId, selectedPeopleName)
 {
     let selectedPeopleCheckbox = $('#app_membership_create_members_' + selectedPeopleId);
@@ -247,13 +282,6 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // Updating the selection list by removing the selected people
     removePeopleFromSelectionList(selectedPeopleId);
 
-    // If it's the first add
-    if (selectedPeopleCount == 0)
-    {
-        // We're enabling the payer field
-        $('#app_membership_create_payer').removeAttr('readonly');
-    }
-
     // We're adding the selected people to the payer list
     $('#app_membership_create_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
 
@@ -267,12 +295,16 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
         $('#app_membership_create_newMember').prop('disabled', true);
         $('#app_membership_create_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
         $('#app_membership_create_newMember').selectpicker('refresh');
+
+        removeDisplayNone('payment-part');
+        removeDisplayNone('member-creation-submit-button');
     }
 }
 
 /**
+ * Deselect a person and removes it from the future membership.
  *
- * @param {*} peopleId
+ * @param {number} peopleId The id of the person you want to deselect.
  */
 function deselectPeople(peopleId)
 {
@@ -296,13 +328,9 @@ function deselectPeople(peopleId)
         $('#app_membership_create_newMember').prop('disabled', false);
         $('#app_membership_create_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
         $('#app_membership_create_newMember').selectpicker('refresh');
-    }
 
-    // If there is no more selected people
-    if (selectedPeopleCount == 0)
-    {
-        // We're disabling the payer field
-        $('#app_membership_create_payer').attr('readonly', 'readonly');
+        addDisplayNone('payment-part');
+        addDisplayNone('member-creation-submit-button');
     }
 
     // We're removing the selected people from the payer list
@@ -310,8 +338,9 @@ function deselectPeople(peopleId)
 }
 
 /**
+ * Add a person to the member selection list.
  *
- * @param {*} peopleId
+ * @param {number} peopleId The id of the person you want to add.
  */
 function addPeopleToSelectionList(peopleId)
 {
@@ -338,7 +367,9 @@ function addPeopleToSelectionList(peopleId)
 }
 
 /**
+ * Remove a person from the member selection list.
  *
+ * @param {number} peopleId The id of the person you want to remove.
  */
 function removePeopleFromSelectionList(peopleId)
 {
@@ -347,7 +378,7 @@ function removePeopleFromSelectionList(peopleId)
 }
 
 /**
- *
+ * Deselect all the people and remove their recap.
  */
 function resetSelectedPeople()
 {
@@ -362,10 +393,54 @@ function resetSelectedPeople()
             deselectPeople(peopleId);
         }
     });
+}
 
-    // Reset the payer selection list
-    $('#app_membership_create_payer').empty();
+/**
+ * Add or remove the d-none class to an element
+ * Depending on if it has it or not
+ *
+ * @param {string} elementId The DOM element's id property
+ */
+function toggleDisplayNone(elementId)
+{
+    let element = $('#' + elementId);
 
-    // We're disabling the payer field
-    $('#app_membership_create_payer').attr('readonly', 'readonly');
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+    else
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Add the d-none class to an element if it doesn't have it already.
+ *
+ * @param {string} elementId The DOM element's id property
+ */
+function addDisplayNone(elementId)
+{
+    let element = $('#' + elementId);
+
+    if (!element.hasClass('d-none'))
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Remove the d-none class to an element if it already has it.
+ *
+ * @param {string} elementId The DOM element's id property
+ */
+function removeDisplayNone(elementId)
+{
+    let element = $('#' + elementId);
+
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
 }

@@ -40,7 +40,8 @@ class MembershipCreationType extends AbstractType
             'label' => $this->translator->trans('Enregister une adhésion de type'),
             'attr' => [
                 'autocomplete' => 'off',
-            ]
+            ],
+            'placeholder' => $this->translator->trans('Sélectionnez un type d\'adhésion'),
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
@@ -117,7 +118,6 @@ class MembershipCreationType extends AbstractType
             'label' => $this->translator->trans('Effectué par'),
             'class' => People::class,
             'attr' => [
-                'readonly' => true,
                 'autocomplete' => 'off',
             ],
             'choices' => [$options['peopleWithNoActiveMembership']],
