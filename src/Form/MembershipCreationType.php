@@ -20,13 +20,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MembershipCreationType extends AbstractType
 {
-    
+
     public $translator;
 
     public function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -38,6 +38,9 @@ class MembershipCreationType extends AbstractType
             'multiple' => false,
             'expanded' => false,
             'label' => $this->translator->trans('Enregister une adhésion de type'),
+            'attr' => [
+                'autocomplete' => 'off',
+            ]
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
@@ -57,6 +60,9 @@ class MembershipCreationType extends AbstractType
         $builder->add('membershipComment', TextareaType::class, [
             'label' => $this->translator->trans('Commentaire sur l\'adhésion'),
             'required' => false,
+            'attr' => [
+                'autocomplete' => 'off',
+            ]
         ]);
 
         $builder->add('paymentType', EntityType::class, [
@@ -65,12 +71,15 @@ class MembershipCreationType extends AbstractType
             'class' => PaymentType::class,
             'multiple' => false,
             'expanded' => false,
+            'attr' => [
+                'autocomplete' => 'off',
+            ]
         ]);
 
         $builder->add('membershipAmount', MoneyType::class, [
             'label' => $this->translator->trans('Soit une adhésion d\'un montant de'),
             'attr' => [
-                'readonly' => 'readonly'
+                'readonly' => 'readonly',
             ],
         ]);
 
@@ -90,12 +99,18 @@ class MembershipCreationType extends AbstractType
             'label' => $this->translator->trans('Le'),
             'widget' => 'single_text',
             'required' => false,
+            'attr' => [
+                'autocomplete' => 'off',
+            ]
         ]);
 
         $builder->add('paymentDate_cashed', DateType::class, [
             'label' => $this->translator->trans('Encaissés le'),
             'widget' => 'single_text',
             'required' => false,
+            'attr' => [
+                'autocomplete' => 'off',
+            ]
         ]);
 
         $builder->add('payer', EntityType::class, [
@@ -103,6 +118,7 @@ class MembershipCreationType extends AbstractType
             'class' => People::class,
             'attr' => [
                 'readonly' => true,
+                'autocomplete' => 'off',
             ],
             'choices' => [$options['peopleWithNoActiveMembership']],
             'choice_label' => function (People $people) {

@@ -967,43 +967,43 @@
       </trans-unit>
       <trans-unit id="_VnCzsF" resname="Code Postal">
         <source>Code Postal</source>
-        <target>__Code Postal</target>
+        <target>Code Postal</target>
       </trans-unit>
       <trans-unit id="MyXCtW8" resname="Au">
         <source>Au</source>
-        <target>__Au</target>
+        <target>Au</target>
       </trans-unit>
       <trans-unit id="bcaekXa" resname="Structura -">
         <source>Structura -</source>
-        <target>__Structura -</target>
+        <target>Structura -</target>
       </trans-unit>
       <trans-unit id="sjsFRfo" resname="Retourner au profil">
         <source>Retourner au profil</source>
-        <target>__Retourner au profil</target>
+        <target>Retourner au profil</target>
       </trans-unit>
       <trans-unit id="O6HmCRn" resname="Don effectué via le même paiement">
         <source>Don effectué via le même paiement</source>
-        <target>__Don effectué via le même paiement</target>
+        <target>Don effectué via le même paiement</target>
       </trans-unit>
       <trans-unit id="ohom_cm" resname="Nouvelle adhésion">
         <source>Nouvelle adhésion</source>
-        <target>__Nouvelle adhésion</target>
+        <target>Nouvelle adhésion</target>
       </trans-unit>
       <trans-unit id="Zl7dQ2Y" resname="Choisissez un autre membre">
         <source>Choisissez un autre membre</source>
-        <target>__Choisissez un autre membre</target>
+        <target>Choisissez un autre membre</target>
       </trans-unit>
       <trans-unit id="ZSlH5_o" resname="Retirer la personne de la nouvelle adhésion">
         <source>Retirer la personne de la nouvelle adhésion</source>
-        <target>__Retirer la personne de la nouvelle adhésion</target>
+        <target>Retirer la personne de la nouvelle adhésion</target>
       </trans-unit>
       <trans-unit id="drGj14D" resname="Retourner au profil de l'adhérent.e">
         <source>Retourner au profil de l'adhérent.e</source>
-        <target>__Retourner au profil de l'adhérent.e</target>
+        <target>Retourner au profil de l'adhérent.e</target>
       </trans-unit>
       <trans-unit id="UeGJD7e" resname="Retourner au profil de l'adhérent⋅e">
         <source>Retourner au profil de l'adhérent⋅e</source>
-        <target>__Retourner au profil de l'adhérent⋅e</target>
+        <target>Retourner au profil de l'adhérent⋅e</target>
       </trans-unit>
     </body>
   </file>
