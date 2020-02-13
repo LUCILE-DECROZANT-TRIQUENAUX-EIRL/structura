@@ -37,61 +37,62 @@
                 {{ include('User/_menu-user.html.twig', { show_profile: 'active' }) }}
             </div>
             <div class="col-12 col-md-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h1>{{ user.username }}</h1>
-                            <p>{% trans %}Identifiant :{% endtrans %} {{ user.id }}</p>
+                <div class="row">
+                    <div class="col">
+                        <h1>{{ user.username }}</h1>
+                        <p>{% trans %}Identifiant :{% endtrans %} {{ user.id }}</p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="container">
+                        <div class="col styledtable">
+                            <br>
+                            <h3>Rôles</h3>
+                            <br>
+                            {% if (user.roles) %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                        {% for responsibility in user.responsibilities %}
+                                            <tr>
+                                                <th>
+                                                    {{ responsibility is not empty ? responsibility.label : '-' }}
+                                                </th>
+                                                <td>
+                                                    {{ responsibility is not empty ? responsibility.description : "-" }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                -
+                                            </th>
+                                            <td>
+                                                Ce compte n'a pas de rôle.
+                                            </td>
+                                        </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <br>
 
-                <div class="container styledtable">
-                    <br>
-                    <h3>Rôles</h3>
-                    <br>
-                    {% if (user.roles) %}
-                        <table class="table table-hover">
-                            <tbody>
-                                {% for responsibility in user.responsibilities %}
-                                    <tr>
-                                        <th>
-                                            {{ responsibility is not empty ? responsibility.label : '-' }}
-                                        </th>
-                                        <td>
-                                            {{ responsibility is not empty ? responsibility.description : "-" }}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        -
-                                    </th>
-                                    <td>
-                                        Ce compte n'a pas de rôle.
-                                    </td>
-                                </tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% endif %}
-                </div>
-                <br>
-            </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('user_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
