@@ -43,15 +43,11 @@
 {% endblock %}
 
 {% block body %}
-
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-8 col-md-2">
-                <ul class="list-group">
-                    <a href="{{ path('user_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action ">{% trans %}Profil{% endtrans %}</a>
-                    <a href="{{ path('user_history', { 'id': user.id }) }}" class="list-group-item list-group-item-action ">{% trans %}Historique{% endtrans %}</a>
-                    <a href="{{ path('user_edit', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">{% trans %}Édition{% endtrans %}</a>
-                </ul>
+                {{ include('User/_menu-user.html.twig', { edit_profile: 'active' }) }}
             </div>
 
 
