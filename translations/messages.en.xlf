@@ -16,9 +16,6 @@
       <trans-unit id="KannIQv" resname="Erreur interne du serveur.">
         <source>Erreur interne du serveur.</source>
         <target state="translated">Internal Server Error.</target>
-        <alt-trans>
-          <target>__Erreur interne du serveur.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="kcp1pt2" resname="Si l'erreur persiste, attendez quelques minutes avant de réessayer.">
         <source>Si l'erreur persiste, attendez quelques minutes avant de réessayer.</source>
@@ -27,9 +24,6 @@
       <trans-unit id="C3VjSrf" resname="Retourner à la page précedente">
         <source>Retourner à la page précedente</source>
         <target state="translated">Back to previous page</target>
-        <alt-trans>
-          <target>__Retourner à la page précedente</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="48geUnj" resname="Erreur 500">
         <source>Erreur 500</source>
@@ -46,9 +40,6 @@
       <trans-unit id="YNJAuDL" resname="Vérifiez qu'il n'y ait pas d'erreur dans l'URL.">
         <source>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</source>
         <target state="translated">Check for errors in the URL.</target>
-        <alt-trans>
-          <target>__Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="J1kUvxp" resname="Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.">
         <source>Si l'URL rentrée est correcte, alors cela signifie que vos droits d'accès ne vous permettent pas de voir cette page.</source>
@@ -57,9 +48,6 @@
       <trans-unit id="adufyLS" resname="Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>__Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="cw8EcCt" resname="Erreur 404">
         <source>Erreur 404</source>
@@ -72,9 +60,6 @@
       <trans-unit id="5KlnPQL" resname="Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>__Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="RhSOJQ5" resname="Erreur">
         <source>Erreur</source>
@@ -199,9 +184,6 @@
       <trans-unit id="cdx0hz4" resname="Enregistrer">
         <source>Enregistrer</source>
         <target state="translated">Register</target>
-        <alt-trans>
-          <target>__Enregistrer</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="V6F550H" resname="une adhésion">
         <source>une adhésion</source>
@@ -226,19 +208,10 @@
       <trans-unit id="YP5oZIU" resname="Téléphone fixe">
         <source>Téléphone fixe</source>
         <target state="translated">Home phone number</target>
-        <alt-trans>
-          <target>__Téléphone fixe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="e..K3BS" resname="Téléphone portable">
         <source>Téléphone portable</source>
         <target state="translated">Mobile number</target>
-        <alt-trans>
-          <target>Mobile</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Téléphone portable</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7ZIdrL7" resname="&quot;Cliquer pour afficher plus de détails&quot;">
         <source>"Cliquer pour afficher plus de détails"</source>
@@ -259,12 +232,6 @@
       <trans-unit id="zeDVLgT" resname="Fixe">
         <source>Fixe</source>
         <target state="translated">Home phone number</target>
-        <alt-trans>
-          <target>Home phone</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Fixe</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="22_.E_R" resname="Portable">
         <source>Portable</source>
@@ -325,9 +292,6 @@
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
         <target state="translated">Work phone number</target>
-        <alt-trans>
-          <target>__Téléphone professionnel</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="ANhKtG5" resname="Fax">
         <source>Fax</source>
@@ -584,12 +548,6 @@
       <trans-unit id="_Mv8t5." resname="Bienvenue sur la base de données de l'association">
         <source>Bienvenue sur la base de données de l'association</source>
         <target state="translated">Welcome to the database of the association</target>
-        <alt-trans>
-          <target>Welcome to the association database</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Bienvenue sur la base de données de l'association</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="I67gC1S" resname="Huntington Avenir">
         <source>Huntington Avenir</source>
@@ -690,12 +648,6 @@
       <trans-unit id="dijiq_7" resname="Dates de la dernière adhésion">
         <source>Dates de la dernière adhésion</source>
         <target state="translated">Last membership</target>
-        <alt-trans>
-          <target>Dates of last membership</target>
-        </alt-trans>
-        <alt-trans>
-          <target>__Dates de la dernière adhésion</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="FvED9D4" resname="Type d'adhésion">
         <source>Type d'adhésion</source>
@@ -852,9 +804,6 @@
       <trans-unit id="OcWzmAu" resname="Éditer le don">
         <source>Éditer le don</source>
         <target state="translated">Edit donation</target>
-        <alt-trans>
-          <target>__Éditer le don</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="KQEGyKV" resname="Aucune">
         <source>Aucune</source>
@@ -867,9 +816,6 @@
       <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
         <source>Reçoit la newsletter au format dématérialisé</source>
         <target state="translated">Receive the newsletter in dematerialized format</target>
-        <alt-trans>
-          <target>Receives the newsletter in dematerialized format</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="iaZhwDw" resname="Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</source>
@@ -882,9 +828,6 @@
       <trans-unit id="v6ffBEX" resname="Téléphone de travail">
         <source>Téléphone de travail</source>
         <target state="translated">Work phone number</target>
-        <alt-trans>
-          <target>Work phone</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="0_Zpb8G" resname="Les numéros doivent commencer par 0 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 0 et ne comporter que des chiffres</source>
@@ -897,9 +840,6 @@
       <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
         <source>Enregister une adhésion de type</source>
         <target state="translated">Select type of membership</target>
-        <alt-trans>
-          <target>Sign in a type of membership</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
         <source>L'adhésion est valable du</source>
@@ -1000,9 +940,6 @@
       <trans-unit id="42UuM5Y" resname="Les informations ont bien été modifiées">
         <source>Les informations ont bien été modifiées</source>
         <target state="translated">The information have been changed successfully</target>
-        <alt-trans>
-          <target>Informations have been changed successfully </target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="7ByHGJ1" resname="Les informations de">
         <source>Les informations de</source>
@@ -1023,9 +960,6 @@
       <trans-unit id="TJmpQc6" resname="Une erreur est survenue, veuillez réessayer plus tard.">
         <source>Une erreur est survenue, veuillez réessayer plus tard.</source>
         <target state="translated">An error occurred, please try again later.</target>
-        <alt-trans>
-          <target>An error occured, please try again later.</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="NGrcr_V" resname="La page demandée n'existe pas">
         <source>La page demandée n'existe pas</source>
@@ -1078,9 +1012,6 @@
       <trans-unit id="AVTeb07" resname="&quot;Newsletter envoyée sous format dématérialisé&quot;">
         <source>"Newsletter envoyée sous format dématérialisé"</source>
         <target state="translated">Newsletter sent in virtual format</target>
-        <alt-trans>
-          <target>"Newsletter sent in virtual format"</target>
-        </alt-trans>
       </trans-unit>
       <trans-unit id="dTITH6J" resname="&quot;Nom d'utilisateurice&quot;">
         <source>"Nom d'utilisateurice"</source>
@@ -1089,6 +1020,46 @@
       <trans-unit id="h.mSYX6" resname="&quot;Mot de passe&quot;">
         <source>"Mot de passe"</source>
         <target state="translated">"Password"</target>
+      </trans-unit>
+      <trans-unit id="clWqFLd" resname="Sélectionnez un type d'adhésion">
+        <source>Sélectionnez un type d'adhésion</source>
+        <target>__Sélectionnez un type d'adhésion</target>
+      </trans-unit>
+      <trans-unit id="7OpcVRe" resname="Création d'une adhésion">
+        <source>Création d'une adhésion</source>
+        <target>__Création d'une adhésion</target>
+      </trans-unit>
+      <trans-unit id="KAVM6ir" resname="Retourner à la liste des adhésions">
+        <source>Retourner à la liste des adhésions</source>
+        <target>__Retourner à la liste des adhésions</target>
+      </trans-unit>
+      <trans-unit id="A9HmEM8" resname="Enregistrer l'adhésion">
+        <source>Enregistrer l'adhésion</source>
+        <target>__Enregistrer l'adhésion</target>
+      </trans-unit>
+      <trans-unit id="X6b.lRq" resname="Confirmez l'enregistrement">
+        <source>Confirmez l'enregistrement</source>
+        <target>__Confirmez l'enregistrement</target>
+      </trans-unit>
+      <trans-unit id="SkxgHUO" resname="de l'adhésion de">
+        <source>de l'adhésion de</source>
+        <target>__de l'adhésion de</target>
+      </trans-unit>
+      <trans-unit id="0hyTy0y" resname="de type">
+        <source>de type</source>
+        <target>__de type</target>
+      </trans-unit>
+      <trans-unit id="o.WtiY_" resname="et d'un don d'un montant de">
+        <source>et d'un don d'un montant de</source>
+        <target>__et d'un don d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="pOnZCOU" resname="réglé par">
+        <source>réglé par</source>
+        <target>__réglé par</target>
+      </trans-unit>
+      <trans-unit id="MKi3hGl" resname="Confirmer">
+        <source>Confirmer</source>
+        <target>__Confirmer</target>
       </trans-unit>
     </body>
   </file>
