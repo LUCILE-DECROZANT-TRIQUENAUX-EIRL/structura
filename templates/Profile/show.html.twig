@@ -44,12 +44,12 @@
                                     <td>
                                         {{ people.emailAddress }}&nbsp;&nbsp;
                                         {% if (people.isReceivingNewsletter) %}
-                                            <span data-toggle="tooltip" title={% trans %}"Reçoit la newsletter"{% endtrans %} >
+                                            <span data-toggle="tooltip" title="{% trans %}Reçoit la newsletter{% endtrans %}" >
                                                 <i class="icon ion-md-paper"></i>
                                             </span>
                                         {% endif %}
                                         {% if (people.newsletterDematerialization) %}
-                                            <span data-toggle="tooltip" title={% trans %}"Newsletter envoyée sous format dématérialisé"{% endtrans %} >
+                                            <span data-toggle="tooltip" title="{% trans %}Newsletter envoyée sous format dématérialisé{% endtrans %}" >
                                                 <i class="icon ion-md-mail"></i>
                                             </span>
                                         {% endif %}
