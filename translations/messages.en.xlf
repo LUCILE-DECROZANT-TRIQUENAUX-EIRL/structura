@@ -23,9 +23,6 @@
         <source>Erreur interne du serveur.</source>
         <target state="translated">Internal Server Error.</target>
         <alt-trans>
-          <target>An internal server error occurred.</target>
-        </alt-trans>
-        <alt-trans>
           <target>__Erreur interne du serveur.</target>
         </alt-trans>
       </trans-unit>
@@ -38,7 +35,7 @@
       </trans-unit>
       <trans-unit id="C3VjSrf" resname="Retourner à la page précedente">
         <source>Retourner à la page précedente</source>
-        <target state="translated">Return to the previous page</target>
+        <target state="translated">Back to previous page</target>
         <alt-trans>
           <target>__Retourner à la page précedente</target>
         </alt-trans>
@@ -68,9 +65,6 @@
         <source>Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</source>
         <target state="translated">Check for errors in the URL.</target>
         <alt-trans>
-          <target>Check that there is no error in the URL.</target>
-        </alt-trans>
-        <alt-trans>
           <target>__Vérifiez qu'il n'y ait pas d'erreur dans l'URL.</target>
         </alt-trans>
       </trans-unit>
@@ -84,9 +78,6 @@
       <trans-unit id="adufyLS" resname="Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>Go back to the front page or the previous page to continue your navigation.</target>
-        </alt-trans>
         <alt-trans>
           <target>__Vous pouvez retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
         </alt-trans>
@@ -108,9 +99,6 @@
       <trans-unit id="5KlnPQL" resname="Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.">
         <source>Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</source>
         <target state="translated">Go back to the home page or the previous page to continue your navigation.</target>
-        <alt-trans>
-          <target>Go back to home or the previous page to continue your navigation.</target>
-        </alt-trans>
         <alt-trans>
           <target>__Vous pouvez aussi retourner à l'accueil ou à la page précédente pour poursuivre votre navigation.</target>
         </alt-trans>
@@ -329,9 +317,6 @@
         <source>Enregistrer</source>
         <target state="translated">Register</target>
         <alt-trans>
-          <target>Sign in</target>
-        </alt-trans>
-        <alt-trans>
           <target>__Enregistrer</target>
         </alt-trans>
       </trans-unit>
@@ -373,9 +358,6 @@
       <trans-unit id="YP5oZIU" resname="Téléphone fixe">
         <source>Téléphone fixe</source>
         <target state="translated">Home phone number</target>
-        <alt-trans>
-          <target>Home phone</target>
-        </alt-trans>
         <alt-trans>
           <target>__Téléphone fixe</target>
         </alt-trans>
