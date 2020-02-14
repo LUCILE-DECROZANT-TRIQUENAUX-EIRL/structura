@@ -301,7 +301,7 @@
       </trans-unit>
       <trans-unit id="NfDiyO7" resname="Renseigner">
         <source>Renseigner</source>
-        <target state="translated">Contact</target>
+        <target state="translated">Fill in the</target>
         <alt-trans>
           <target>__Renseigner</target>
         </alt-trans>
