@@ -170,6 +170,11 @@ $(document).ready(function () {
                 buttons: buttons,
                 dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
                 pageLength: countRowsDisplayed,
+                initComplete: function (settings, json) {
+                    // We show the table that was hidden while datatable was initializing
+                    // This prevents the table's raw HTML to be visible before the datatable is fully loaded
+                    $table.removeClass('d-none');
+                }
             });
         });
     });

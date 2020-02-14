@@ -23,7 +23,7 @@
     <div class="container">
         {{ form_start(member_selection_form, {'attr': {'id': 'member-selection-form'}}) }}
             <table
-                class="table table-striped"
+                class="table table-striped d-none"
                 data-toggle="datatable"
                 data-create-label="{% trans %}Enregistrer un·e nouvel·le personne dans l'annuaire{% endtrans %}"
                 data-create-path="{{ path('people_create') }}"
