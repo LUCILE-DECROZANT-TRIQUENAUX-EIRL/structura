@@ -135,16 +135,14 @@
                                     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
                                             <a
                                                 class="dropdown-item"
-                                                href="{{ path('donation_index') }}"
+                                                href="{{ path('donation_list') }}"
                                             >
                                                 {% trans %}Liste des dons{% endtrans %}
                                             </a>
                                             <div class="dropdown-divider"></div>
                                             <a
-                                                class="dropdown-item disabled"
-                                                href=""
-                                                data-toggle="tooltip"
-                                                title="Work in progress..."
+                                                class="dropdown-item"
+                                                href="{{ path('donation_new') }}"
                                             >
                                                 {% trans %}Enregistrer un nouveau don{% endtrans %}
                                             </a>

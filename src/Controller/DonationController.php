@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Donation;
+use App\Entity\Payment;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
 use App\Repository\DonationRepository;
@@ -18,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DonationController extends AbstractController
 {
     /**
-     * @Route("/", name="donation_index", methods={"GET"})
+     * @Route("/", name="donation_list", methods={"GET"})
      */
     public function listAction(DonationRepository $donationRepository): Response
     {
@@ -35,15 +36,36 @@ class DonationController extends AbstractController
     public function new(Request $request): Response
     {
         $donation = new Donation();
-        $form = $this->createForm(DonationType::class, $donation);
+        $updatePeopleDataFDO = new UpdateDonationFDO();
+
+        $form = $this->createForm(DonationType::class, $updatePeopleDataFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($donation);
-            $entityManager->flush();
+            $em = $this->getDoctrine()->getManager();
 
-            return $this->redirectToRoute('donation_index');
+            $donator = $updatePeopleDataFDO->getDonator();
+
+            $donation->setAmount($updatePeopleDataFDO->getAmount());
+            $donation->setDonator($donator);
+            $donation->setDonationDate($updatePeopleDataFDO->getDonationDate());
+
+            $payment = new Payment();
+
+            $payment->setPayer($donator);
+            $payment->setType($updatePeopleDataFDO->getPaymentType());
+            $payment->setAmount($updatePeopleDataFDO->getAmount());
+            $payment->setDateReceived($updatePeopleDataFDO->getDonationDate());
+            $payment->setDateCashed($updatePeopleDataFDO->getCashedDate());
+
+            $em->persist($payment);
+
+            $donation->setPayment($payment);
+            $em->persist($donation);
+
+            $em->flush();
+
+            return $this->redirectToRoute('donation_show', ['id' => $donation->getId()]);
         }
 
         return $this->render('Donation/new.html.twig', [
@@ -121,6 +143,6 @@ class DonationController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('donation_index');
+        return $this->redirectToRoute('donation_list');
     }
 }

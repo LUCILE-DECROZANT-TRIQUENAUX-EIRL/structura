@@ -24,7 +24,6 @@ class UpdateDonationFDO
         if ($donation !== null)
         {
             $payment = $donation->getPayment();
-            dump($payment);
 
             $this->donator = $donation->getDonator();
             $this->amount = $donation->getAmount();

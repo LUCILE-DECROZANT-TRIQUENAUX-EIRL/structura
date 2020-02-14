@@ -6,7 +6,7 @@
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('donation_index') }}">{% trans %}Liste des dons{% endtrans %}</a>
+        <a href="{{ path('donation_list') }}">{% trans %}Liste des dons{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
@@ -73,7 +73,7 @@
     <div class="container mt-3">
         <div class="row justify-content-between">
             <div class="col-md-6">
-                <a href="{{ path('donation_index') }}" class="btn btn-secondary">{% trans %}Retour à la liste des dons{% endtrans %}</a>
+                <a href="{{ path('donation_list') }}" class="btn btn-secondary">{% trans %}Retour à la liste des dons{% endtrans %}</a>
             </div>
             <div class="col-md-6">
                 <button
