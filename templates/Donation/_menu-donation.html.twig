@@ -1,0 +1,20 @@
+{% block body %}
+    {% set show_donation = show_donation is defined ? show_donation : null %}
+    {% set edit_donation = edit_donation is defined ? edit_donation : null %}
+
+    <ul class="list-group">
+        <a href="{{ path('donation_show', { 'id': donation.id }) }}"
+           class="list-group-item list-group-item-action {{ show_donation }}"
+           >
+            {% trans %}Don{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <ul class="list-group">
+        <a href="{{ path('donation_edit', { 'id': donation.id }) }}"
+           class="list-group-item list-group-item-action {{ edit_donation }}"
+           >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Don{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}
