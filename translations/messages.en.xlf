@@ -1666,6 +1666,46 @@
         <source>"Mot de passe"</source>
         <target state="translated">Password</target>
       </trans-unit>
+      <trans-unit id="clWqFLd" resname="Sélectionnez un type d'adhésion">
+        <source>Sélectionnez un type d'adhésion</source>
+        <target state="needs-translation">Sélectionnez un type d'adhésion</target>
+      </trans-unit>
+      <trans-unit id="7OpcVRe" resname="Création d'une adhésion">
+        <source>Création d'une adhésion</source>
+        <target state="needs-translation">Création d'une adhésion</target>
+      </trans-unit>
+      <trans-unit id="KAVM6ir" resname="Retourner à la liste des adhésions">
+        <source>Retourner à la liste des adhésions</source>
+        <target state="needs-translation">Retourner à la liste des adhésions</target>
+      </trans-unit>
+      <trans-unit id="A9HmEM8" resname="Enregistrer l'adhésion">
+        <source>Enregistrer l'adhésion</source>
+        <target state="needs-translation">Enregistrer l'adhésion</target>
+      </trans-unit>
+      <trans-unit id="X6b.lRq" resname="Confirmez l'enregistrement">
+        <source>Confirmez l'enregistrement</source>
+        <target state="needs-translation">Confirmez l'enregistrement</target>
+      </trans-unit>
+      <trans-unit id="SkxgHUO" resname="de l'adhésion de">
+        <source>de l'adhésion de</source>
+        <target state="needs-translation">de l'adhésion de</target>
+      </trans-unit>
+      <trans-unit id="0hyTy0y" resname="de type">
+        <source>de type</source>
+        <target state="needs-translation">de type</target>
+      </trans-unit>
+      <trans-unit id="o.WtiY_" resname="et d'un don d'un montant de">
+        <source>et d'un don d'un montant de</source>
+        <target state="needs-translation">et d'un don d'un montant de</target>
+      </trans-unit>
+      <trans-unit id="pOnZCOU" resname="réglé par">
+        <source>réglé par</source>
+        <target state="needs-translation">réglé par</target>
+      </trans-unit>
+      <trans-unit id="MKi3hGl" resname="Confirmer">
+        <source>Confirmer</source>
+        <target state="needs-translation">Confirmer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
