@@ -979,7 +979,10 @@
       </trans-unit>
       <trans-unit id="_Mv8t5." resname="Bienvenue sur la base de données de l'association">
         <source>Bienvenue sur la base de données de l'association</source>
-        <target state="translated">Welcome to the association database</target>
+        <target state="translated">Welcome to the database of the association</target>
+        <alt-trans>
+          <target>Welcome to the association database</target>
+        </alt-trans>
         <alt-trans>
           <target>__Bienvenue sur la base de données de l'association</target>
         </alt-trans>
