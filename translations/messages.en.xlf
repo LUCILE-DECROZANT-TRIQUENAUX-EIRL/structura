@@ -372,14 +372,20 @@
       </trans-unit>
       <trans-unit id="YP5oZIU" resname="Téléphone fixe">
         <source>Téléphone fixe</source>
-        <target state="translated">Home phone</target>
+        <target state="translated">Home phone number</target>
+        <alt-trans>
+          <target>Home phone</target>
+        </alt-trans>
         <alt-trans>
           <target>__Téléphone fixe</target>
         </alt-trans>
       </trans-unit>
       <trans-unit id="e..K3BS" resname="Téléphone portable">
         <source>Téléphone portable</source>
-        <target state="translated">Mobile</target>
+        <target state="translated">Mobile number</target>
+        <alt-trans>
+          <target>Mobile</target>
+        </alt-trans>
         <alt-trans>
           <target>__Téléphone portable</target>
         </alt-trans>
@@ -414,7 +420,10 @@
       </trans-unit>
       <trans-unit id="zeDVLgT" resname="Fixe">
         <source>Fixe</source>
-        <target state="translated">Home phone</target>
+        <target state="translated">Home phone number</target>
+        <alt-trans>
+          <target>Home phone</target>
+        </alt-trans>
         <alt-trans>
           <target>__Fixe</target>
         </alt-trans>
@@ -522,7 +531,10 @@
       </trans-unit>
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
-        <target state="translated">Business phone</target>
+        <target state="translated">Business phone number</target>
+        <alt-trans>
+          <target>Business phone</target>
+        </alt-trans>
         <alt-trans>
           <target>__Téléphone professionnel</target>
         </alt-trans>
@@ -1454,7 +1466,10 @@
       </trans-unit>
       <trans-unit id="dYtQUMI" resname="Reçoit la newsletter au format dématérialisé">
         <source>Reçoit la newsletter au format dématérialisé</source>
-        <target state="translated">Receives the newsletter in dematerialized format</target>
+        <target state="translated">Receive the newsletter in dematerialized format</target>
+        <alt-trans>
+          <target>Receives the newsletter in dematerialized format</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="iaZhwDw" resname="Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres</source>
@@ -1466,7 +1481,10 @@
       </trans-unit>
       <trans-unit id="v6ffBEX" resname="Téléphone de travail">
         <source>Téléphone de travail</source>
-        <target state="translated">Work phone</target>
+        <target state="translated">Work phone number</target>
+        <alt-trans>
+          <target>Work phone</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="0_Zpb8G" resname="Les numéros doivent commencer par 0 et ne comporter que des chiffres">
         <source>Les numéros doivent commencer par 0 et ne comporter que des chiffres</source>
@@ -1478,7 +1496,10 @@
       </trans-unit>
       <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
         <source>Enregister une adhésion de type</source>
-        <target state="translated">Sign in a type of membership</target>
+        <target state="translated">Select type of membership</target>
+        <alt-trans>
+          <target>Sign in a type of membership</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
         <source>L'adhésion est valable du</source>
@@ -1659,7 +1680,10 @@
       </trans-unit>
       <trans-unit id="AVTeb07" resname="&quot;Newsletter envoyée sous format dématérialisé&quot;">
         <source>"Newsletter envoyée sous format dématérialisé"</source>
-        <target state="translated">"Newsletter sent in virtual format"</target>
+        <target state="translated">Newsletter sent in virtual format</target>
+        <alt-trans>
+          <target>"Newsletter sent in virtual format"</target>
+        </alt-trans>
       </trans-unit>
       <trans-unit id="dTITH6J" resname="&quot;Nom d'utilisateurice&quot;">
         <source>"Nom d'utilisateurice"</source>
