@@ -513,10 +513,7 @@
       </trans-unit>
       <trans-unit id="Enr7Py6" resname="Téléphone professionnel">
         <source>Téléphone professionnel</source>
-        <target state="translated">Business phone number</target>
-        <alt-trans>
-          <target>Business phone</target>
-        </alt-trans>
+        <target state="translated">Work phone number</target>
         <alt-trans>
           <target>__Téléphone professionnel</target>
         </alt-trans>
