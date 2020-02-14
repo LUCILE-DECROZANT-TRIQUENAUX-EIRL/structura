@@ -1172,7 +1172,10 @@
       </trans-unit>
       <trans-unit id="dijiq_7" resname="Dates de la dernière adhésion">
         <source>Dates de la dernière adhésion</source>
-        <target state="translated">Dates of last membership</target>
+        <target state="translated">Last membership</target>
+        <alt-trans>
+          <target>Dates of last membership</target>
+        </alt-trans>
         <alt-trans>
           <target>__Dates de la dernière adhésion</target>
         </alt-trans>
