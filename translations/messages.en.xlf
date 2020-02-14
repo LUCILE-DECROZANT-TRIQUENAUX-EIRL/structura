@@ -517,7 +517,10 @@
       </trans-unit>
       <trans-unit id="ANhKtG5" resname="Fax">
         <source>Fax</source>
-        <target state="translated">Fax</target>
+        <target state="translated">Fax number</target>
+        <alt-trans>
+          <target>Fax</target>
+        </alt-trans>
         <alt-trans>
           <target>__Fax</target>
         </alt-trans>
