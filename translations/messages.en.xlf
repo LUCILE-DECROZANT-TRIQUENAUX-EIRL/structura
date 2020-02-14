@@ -1668,35 +1668,35 @@
       </trans-unit>
       <trans-unit id="clWqFLd" resname="Sélectionnez un type d'adhésion">
         <source>Sélectionnez un type d'adhésion</source>
-        <target state="needs-translation">Sélectionnez un type d'adhésion</target>
+        <target state="translated">Select type of membership</target>
       </trans-unit>
       <trans-unit id="7OpcVRe" resname="Création d'une adhésion">
         <source>Création d'une adhésion</source>
-        <target state="needs-translation">Création d'une adhésion</target>
+        <target state="translated">Creation of a membership</target>
       </trans-unit>
       <trans-unit id="KAVM6ir" resname="Retourner à la liste des adhésions">
         <source>Retourner à la liste des adhésions</source>
-        <target state="needs-translation">Retourner à la liste des adhésions</target>
+        <target state="translated">Back to membership list</target>
       </trans-unit>
       <trans-unit id="A9HmEM8" resname="Enregistrer l'adhésion">
         <source>Enregistrer l'adhésion</source>
-        <target state="needs-translation">Enregistrer l'adhésion</target>
+        <target state="translated">Register membership</target>
       </trans-unit>
       <trans-unit id="X6b.lRq" resname="Confirmez l'enregistrement">
         <source>Confirmez l'enregistrement</source>
-        <target state="needs-translation">Confirmez l'enregistrement</target>
+        <target state="translated">Confirm the registration</target>
       </trans-unit>
       <trans-unit id="SkxgHUO" resname="de l'adhésion de">
         <source>de l'adhésion de</source>
-        <target state="needs-translation">de l'adhésion de</target>
+        <target state="translated">of the membership of</target>
       </trans-unit>
       <trans-unit id="0hyTy0y" resname="de type">
         <source>de type</source>
-        <target state="needs-translation">de type</target>
+        <target state="translated">Type of membership</target>
       </trans-unit>
       <trans-unit id="o.WtiY_" resname="et d'un don d'un montant de">
         <source>et d'un don d'un montant de</source>
-        <target state="needs-translation">et d'un don d'un montant de</target>
+        <target state="translated">Donation amount of</target>
       </trans-unit>
       <trans-unit id="pOnZCOU" resname="réglé par">
         <source>réglé par</source>
