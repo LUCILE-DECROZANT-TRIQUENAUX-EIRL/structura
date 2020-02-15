@@ -9,7 +9,7 @@ use App\Entity\Membership;
 use App\Entity\MembershipType;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class CreateMembershipFDO
+class UpdateMembershipFDO
 {
     private $isMembershipAndDonation;
 

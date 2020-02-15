@@ -8,7 +8,7 @@ use App\Entity\MembershipType;
 use App\Repository\PeopleRepository;
 
 use Symfony\Component\Form\AbstractType;
-use App\FormDataObject\CreateMembershipFDO;
+use App\FormDataObject\UpdateMembershipFDO;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MembershipCreationType extends AbstractType
+class MembershipFormType extends AbstractType
 {
 
     public $translator;
@@ -170,7 +170,7 @@ class MembershipCreationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CreateMembershipFDO::class,
+            'data_class' => UpdateMembershipFDO::class,
             'peopleWithNoActiveMembership' => null
         ]);
     }
@@ -180,6 +180,6 @@ class MembershipCreationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_membership_create';
+        return 'app_membership';
     }
 }

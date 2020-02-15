@@ -8,10 +8,10 @@ use App\Entity\Donation;
 use App\Entity\Membership;
 
 use App\Form\MemberSelectionType;
-use App\Form\MembershipCreationType;
+use App\Form\MembershipFormType;
 
 use App\FormDataObject\MemberSelectionFDO;
-use App\FormDataObject\CreateMembershipFDO;
+use App\FormDataObject\UpdateMembershipFDO;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -88,9 +88,9 @@ class MembershipController extends AbstractController
 
         $peopleWithNoActiveMembership = $em->getRepository(People::class)->findWithNoActiveMembership();
 
-        $createMembershipFDO = new CreateMembershipFDO();
+        $updateMembershipFDO = new UpdateMembershipFDO();
 
-        $membershipCreationForm = $this->createForm(MembershipCreationType::class, $createMembershipFDO, [
+        $membershipCreationForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
             'peopleWithNoActiveMembership' => $peopleWithNoActiveMembership
         ]);
 
@@ -102,34 +102,34 @@ class MembershipController extends AbstractController
             // Membership
             $membership = new Membership();
 
-            $membership->setMembers($createMembershipFDO->getMembers());
-            $membership->setType($createMembershipFDO->getMembershipType());
-            $membership->setAmount($createMembershipFDO->getMembershipAmount());
-            $membership->setDateStart($createMembershipFDO->getMembershipDateStart());
-            $membership->setDateEnd($createMembershipFDO->getMembershipDateEnd());
-            $membership->setFiscalYear($createMembershipFDO->getMembershipFiscalYear());
-            $membership->setComment($createMembershipFDO->getMembershipComment());
+            $membership->setMembers($updateMembershipFDO->getMembers());
+            $membership->setType($updateMembershipFDO->getMembershipType());
+            $membership->setAmount($updateMembershipFDO->getMembershipAmount());
+            $membership->setDateStart($updateMembershipFDO->getMembershipDateStart());
+            $membership->setDateEnd($updateMembershipFDO->getMembershipDateEnd());
+            $membership->setFiscalYear($updateMembershipFDO->getMembershipFiscalYear());
+            $membership->setComment($updateMembershipFDO->getMembershipComment());
 
             // Payment
             $payment = new Payment();
 
-            $payment->setType($createMembershipFDO->getPaymentType());
-            $payment->setAmount($createMembershipFDO->getPaymentAmount());
-            $payment->setDateReceived($createMembershipFDO->getPaymentDateReceived());
-            $payment->setDateCashed($createMembershipFDO->getPaymentDateCashed());
+            $payment->setType($updateMembershipFDO->getPaymentType());
+            $payment->setAmount($updateMembershipFDO->getPaymentAmount());
+            $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
+            $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
 
-            $payment->setPayer($createMembershipFDO->getPayer());
+            $payment->setPayer($updateMembershipFDO->getPayer());
             $payment->setMembership($membership);
 
             // Donation
-            $donationAmount = $createMembershipFDO->getDonationAmount();
+            $donationAmount = $updateMembershipFDO->getDonationAmount();
 
             // If donation is also done with the membership
             if (!empty($donationAmount)) {
                 $donation = new Donation();
 
                 $donation->setAmount($donationAmount);
-                $donation->setDonator($createMembershipFDO->getPayer());
+                $donation->setDonator($updateMembershipFDO->getPayer());
                 $donation->setDonationDate($payment->getDateReceived());
 
                 $payment->setDonation($donation);

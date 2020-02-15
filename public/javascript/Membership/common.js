@@ -12,15 +12,15 @@ $(document).ready(function() {
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
     // -- Declaration of the event listeners -- //
-    $('#app_membership_create_paymentAmount').keyup(function() {
+    $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
 
-    $('#app_membership_create_membershipAmount').keyup(function() {
+    $('#app_membership_membershipAmount').keyup(function() {
         updatePaymentAmount();
     });
 
-    $('#app_membership_create_membershipType').change(function(event) {
+    $('#app_membership_membershipType').change(function(event) {
         // If it's not the placeholder that have been selected
         if ($(this).val() > 0)
         {
@@ -35,14 +35,14 @@ $(document).ready(function() {
         }
     });
 
-    $('#app_membership_create_newMember').change(function() {
+    $('#app_membership_newMember').change(function() {
         let selectedPeopleId = $(this).val();
 
         // Prevent to trigger the handling for the blank option
         if (selectedPeopleId > 0)
         {
-            let selectedPeopleName = $("#app_membership_create_newMember option:selected").html();
-            let selectedPeopleCheckbox = $('#app_membership_create_members_' + selectedPeopleId);
+            let selectedPeopleName = $("#app_membership_newMember option:selected").html();
+            let selectedPeopleCheckbox = $('#app_membership_members_' + selectedPeopleId);
 
             // We only add it if it's not already checked
             if (selectedPeopleCheckbox.prop('checked') != true)
@@ -52,8 +52,8 @@ $(document).ready(function() {
         }
     });
 
-    $('#app_membership_create_payer').change(function() {
-        let selectedPayerName = $("#app_membership_create_payer option:selected").html();
+    $('#app_membership_payer').change(function() {
+        let selectedPayerName = $("#app_membership_payer option:selected").html();
 
         // Update the payer recap
         $('#confirmation-membership-payer').html(selectedPayerName);
@@ -63,9 +63,9 @@ $(document).ready(function() {
 
     // Adding two spans in the selection list help message
     // For easier value replacement when changing the membership type
-    let helpMessage = $('#app_membership_create_newMember_help').html();
+    let helpMessage = $('#app_membership_newMember_help').html();
     helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
-    $('#app_membership_create_newMember_help').html(helpMessage);
+    $('#app_membership_newMember_help').html(helpMessage);
 });
 
 //////////////////////////////////
@@ -76,16 +76,16 @@ $(document).ready(function() {
  * Updates the payment amount based on the membership and the donation amount.
  */
 function updatePaymentAmount() {
-    let membershipAmount = $('#app_membership_create_membershipAmount').val();
+    let membershipAmount = $('#app_membership_membershipAmount').val();
     membershipAmount = membershipAmount == '' ? 0 : parseInt(membershipAmount);
 
-    let paymentAmount = $('#app_membership_create_paymentAmount').val();
+    let paymentAmount = $('#app_membership_paymentAmount').val();
     paymentAmount = paymentAmount == '' ? 0 : parseInt(paymentAmount);
 
     let donationAmount = paymentAmount - membershipAmount;
 
     // Update the donation amount
-    $('#app_membership_create_donationAmount').val(donationAmount);
+    $('#app_membership_donationAmount').val(donationAmount);
 
     // Update the confirmation membership amount
     $('#confirmation-membership-amount').html(membershipAmount);
@@ -214,8 +214,8 @@ function getMembershipType(membershipTypeId)
             $('#confirmation-membership-type').html(membershipType.label);
 
             // Setting the membership and payment default amount
-            $('#app_membership_create_membershipAmount').val(membershipType.default_amount);
-            $('#app_membership_create_paymentAmount').val(membershipType.default_amount);
+            $('#app_membership_membershipAmount').val(membershipType.default_amount);
+            $('#app_membership_paymentAmount').val(membershipType.default_amount);
 
             // Updating the payment amount
             updatePaymentAmount();
@@ -276,7 +276,7 @@ function handlePeopleDeletion(peopleId)
  */
 function selectPeople(selectedPeopleId, selectedPeopleName)
 {
-    let selectedPeopleCheckbox = $('#app_membership_create_members_' + selectedPeopleId);
+    let selectedPeopleCheckbox = $('#app_membership_members_' + selectedPeopleId);
 
     // Showing the recap to the user
     getPeopleRecap(selectedPeopleId);
@@ -289,8 +289,8 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     removePeopleFromSelectionList(selectedPeopleId);
 
     // We're adding the selected people to the payer list
-    $('#app_membership_create_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
-    $('#app_membership_create_payer').trigger('change');
+    $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+    $('#app_membership_payer').trigger('change');
 
     // Updating the confirmation modal
     addMemberToConfirmationModal(selectedPeopleId, selectedPeopleName);
@@ -302,9 +302,9 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // And update the title to help the user
     if (selectedPeopleCount == currentMembershipType.number_max_members)
     {
-        $('#app_membership_create_newMember').prop('disabled', true);
-        $('#app_membership_create_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
-        $('#app_membership_create_newMember').selectpicker('refresh');
+        $('#app_membership_newMember').prop('disabled', true);
+        $('#app_membership_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
+        $('#app_membership_newMember').selectpicker('refresh');
 
         removeDisplayNone('payment-part');
         removeDisplayNone('member-creation-submit-button');
@@ -326,7 +326,7 @@ function deselectPeople(peopleId)
 
     // Unticking the hidden checkbox so we know that
     // this People will not be added to the membership
-    $('#app_membership_create_members_' + peopleId).prop('checked', false);
+    $('#app_membership_members_' + peopleId).prop('checked', false);
 
     // Decreasing the counter of selected people
     selectedPeopleCount--;
@@ -335,17 +335,17 @@ function deselectPeople(peopleId)
     // And update the title to help the user
     if (selectedPeopleCount < currentMembershipType.number_max_members)
     {
-        $('#app_membership_create_newMember').prop('disabled', false);
-        $('#app_membership_create_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
-        $('#app_membership_create_newMember').selectpicker('refresh');
+        $('#app_membership_newMember').prop('disabled', false);
+        $('#app_membership_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
+        $('#app_membership_newMember').selectpicker('refresh');
 
         addDisplayNone('payment-part');
         addDisplayNone('member-creation-submit-button');
     }
 
     // We're removing the selected people from the payer list
-    $('#app_membership_create_payer option[value="' + peopleId + '"]').remove();
-    $('#app_membership_create_payer').trigger('change');
+    $('#app_membership_payer option[value="' + peopleId + '"]').remove();
+    $('#app_membership_payer').trigger('change');
 
     // Update the confirmation modal
     removeMemberFromConfirmationModal(peopleId);
@@ -361,9 +361,9 @@ function addPeopleToSelectionList(peopleId)
     let peopleName = $('#people-recap-name-'+peopleId).html();
 
     // Adding the people in the select list
-    $('#app_membership_create_newMember').append('<option value="'+peopleId+'">' + peopleName + '</option>');
+    $('#app_membership_newMember').append('<option value="'+peopleId+'">' + peopleName + '</option>');
 
-    let selectList = $('#app_membership_create_newMember option');
+    let selectList = $('#app_membership_newMember option');
 
     // Sorting by value (Aka, People's id)
     selectList.sort(function(a, b) {
@@ -374,7 +374,7 @@ function addPeopleToSelectionList(peopleId)
     });
 
     // Replacing the list by the sorted list
-    $('#app_membership_create_newMember').html(selectList);
+    $('#app_membership_newMember').html(selectList);
 
     // Selectiong the blank value
     $('.selectpicker').selectpicker('val', '');
@@ -387,7 +387,7 @@ function addPeopleToSelectionList(peopleId)
  */
 function removePeopleFromSelectionList(peopleId)
 {
-    $('#app_membership_create_newMember option[value="' + peopleId + '"]').remove();
+    $('#app_membership_newMember option[value="' + peopleId + '"]').remove();
     $('.selectpicker').selectpicker('refresh');
 }
 
