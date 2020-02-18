@@ -11,8 +11,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class UpdateMembershipFDO
 {
-    private $isMembershipAndDonation;
-
     private $membershipType;
 
     private $membershipAmount;
@@ -41,10 +39,8 @@ class UpdateMembershipFDO
 
     private $newMember;
 
-    public function __construct(Membership $membership = null, Donation $donation = null)
+    public function __construct(Membership $membership = null)
     {
-        $this->isMembershipAndDonation = false;
-
         if ($membership !== null)
         {
             $this->members = $membership->getMembers();
@@ -62,11 +58,13 @@ class UpdateMembershipFDO
             $this->paymentAmount = $payment->getAmount();
             $this->paymentDate_received = $payment->getDateReceived();
             $this->paymentDate_cashed = $payment->getDateCashed();
+            $this->payer = $payment->getPayer();
+
+            $donation = $payment->getDonation();
 
             if ($donation !== null)
             {
                 $this->donationAmount = $donation->getAmount();
-                $this->isMembershipAndDonation = true;
             }
         }
         else
@@ -277,26 +275,6 @@ class UpdateMembershipFDO
     public function setPaymentAmount($paymentAmount)
     {
         $this->paymentAmount = $paymentAmount;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of isMembershipAndDonation
-     */
-    public function getIsMembershipAndDonation()
-    {
-        return $this->isMembershipAndDonation;
-    }
-
-    /**
-     * Set the value of isMembershipAndDonation
-     *
-     * @return  self
-     */
-    public function setIsMembershipAndDonation($isMembershipAndDonation)
-    {
-        $this->isMembershipAndDonation = $isMembershipAndDonation;
 
         return $this;
     }

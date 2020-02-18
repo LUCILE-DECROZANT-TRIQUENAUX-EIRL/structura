@@ -170,15 +170,6 @@ class Membership
 
     public function setMembers($members): self
     {
-        foreach($this->members as $oldMember)
-        {
-            // unset the owning side of the relation
-            if ($oldMember->getMemberships()->contains($this))
-            {
-                $oldMember->removeMembership($this);
-            }
-        }
-
         $this->members = new ArrayCollection();
 
         foreach($members as $newMember)
@@ -198,7 +189,7 @@ class Membership
     {
         $this->members[] = $people;
 
-        // set the owning side of the relation if necessary
+        // set the owning side of the relation since it's necessary
         if (!$people->getMemberships()->contains($this))
         {
             $people->addMembership($this);
@@ -212,14 +203,14 @@ class Membership
      */
     public function removeMember(People $people)
     {
-        $index = $this->members->indexOf($people);
-
-        unset($members[$index]);
-
-        // unset the owning side of the relation if necessary
-        if ($people->getMemberships()->contains($this))
+        if (!$this->members->contains($people))
         {
-            $people->removeMembership($this);
+            return false;
         }
+
+        $this->members->removeElement($people);
+
+        // unset the owning side of the relation since it's necessary
+        $people->removeMembership($this);
     }
 }

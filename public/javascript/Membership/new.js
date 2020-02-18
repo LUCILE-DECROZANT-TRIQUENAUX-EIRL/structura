@@ -7,9 +7,6 @@ $(document).ready(function() {
     // Manually reseting the checkboxes to prevent autocomplete
     $('input[type=checkbox]').prop('checked', false);
 
-    // Empty the payer selection list
-    $('#app_membership_payer').empty();
-
     // Calculating default membership dates
     let now = new Date();
     let nextYear = new Date();

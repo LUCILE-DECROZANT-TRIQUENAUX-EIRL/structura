@@ -670,13 +670,25 @@ class People
     /**
      * Remove a membership from the person
      *
-     * @param Membership $membership The membership to remove.
+     * @param Membership $membershipToRemove The membership to remove.
      */
-    public function removeMembership($membership)
+    public function removeMembership($membershipToRemove)
     {
-        $index = array_search($membership, $this->memberships);
+        $membershipToRemoveIndex = null;
 
-        unset($memberships[$index]);
+        foreach($this->memberships as $index => $membership)
+        {
+            if($membership->getId() == $membershipToRemove->getId())
+            {
+                $membershipToRemoveIndex = $index;
+                break;
+            }
+        }
+
+        if($membershipToRemoveIndex !== null)
+        {
+            $this->memberships->remove($membershipToRemoveIndex);
+        }
     }
 
     /**

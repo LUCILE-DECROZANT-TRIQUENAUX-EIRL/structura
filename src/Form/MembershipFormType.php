@@ -120,7 +120,7 @@ class MembershipFormType extends AbstractType
             'attr' => [
                 'autocomplete' => 'off',
             ],
-            'choices' => $options['peopleWithNoActiveMembership'],
+            'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
                 $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
                 return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
@@ -131,7 +131,7 @@ class MembershipFormType extends AbstractType
 
         $builder->add('members', EntityType::class, [
             'class' => People::class,
-            'choices' => $options['peopleWithNoActiveMembership'],
+            'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
                 return $people->getFirstName() . ' ' . $people->getLastName();
             },
@@ -142,7 +142,7 @@ class MembershipFormType extends AbstractType
         $builder->add('newMember', EntityType::class, [
             'label' => $this->translator->trans('Choisir les personnes concernées'),
             'class' => People::class,
-            'choices' => $options['peopleWithNoActiveMembership'],
+            'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
                 $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
                 return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
@@ -171,7 +171,7 @@ class MembershipFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UpdateMembershipFDO::class,
-            'peopleWithNoActiveMembership' => null
+            'selectablePeople' => null
         ]);
     }
 

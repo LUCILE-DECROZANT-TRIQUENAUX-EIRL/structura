@@ -91,7 +91,7 @@ class MembershipController extends AbstractController
         $updateMembershipFDO = new UpdateMembershipFDO();
 
         $membershipCreationForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
-            'peopleWithNoActiveMembership' => $peopleWithNoActiveMembership
+            'selectablePeople' => $peopleWithNoActiveMembership
         ]);
 
         $membershipCreationForm->handleRequest($request);
@@ -166,5 +166,109 @@ class MembershipController extends AbstractController
         return $this->render('Membership/show.html.twig', array(
             'membership' => $membership,
         ));
+    }
+
+    /**
+     * Create a new membership
+     * @return views
+     * @Route("/{id}/edit", name="membership_edit", methods={"GET", "POST"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function editAction(Membership $membership, Request $request, TranslatorInterface $translator)
+    {
+        // Form setup
+        $em = $this->getDoctrine()->getManager();
+
+        $peopleWithNoActiveMembership = $em->getRepository(People::class)->findWithNoActiveMembership();
+        $oldMembers = $membership->getMembers()->toArray();
+        $selectablePeople = array_merge($peopleWithNoActiveMembership, $oldMembers);
+
+        $updateMembershipFDO = new UpdateMembershipFDO($membership);
+
+        $membershipEditForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
+            'selectablePeople' => $selectablePeople
+        ]);
+
+        $membershipEditForm->handleRequest($request);
+
+        // Submit change
+        if ($membershipEditForm->isSubmitted() && $membershipEditForm->isValid())
+        {
+            $removedMembers = [];
+
+            foreach($oldMembers as $member)
+            {
+                $memberToRemove = $em->getReference(People::Class, $member->getId());
+                $memberToRemove->removeMembership($membership);
+                $removedMembers[] = $memberToRemove;
+
+                $em->persist($memberToRemove);
+            }
+
+            $membership->setMembers($updateMembershipFDO->getMembers());
+            $membership->setType($updateMembershipFDO->getMembershipType());
+            $membership->setAmount($updateMembershipFDO->getMembershipAmount());
+            $membership->setDateStart($updateMembershipFDO->getMembershipDateStart());
+            $membership->setDateEnd($updateMembershipFDO->getMembershipDateEnd());
+            $membership->setFiscalYear($updateMembershipFDO->getMembershipFiscalYear());
+            $membership->setComment($updateMembershipFDO->getMembershipComment());
+
+            // Payment
+            $payment = $membership->getPayment();
+
+            $payment->setType($updateMembershipFDO->getPaymentType());
+            $payment->setAmount($updateMembershipFDO->getPaymentAmount());
+            $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
+            $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
+
+            $payment->setPayer($updateMembershipFDO->getPayer());
+
+            // Donation
+            $donationAmount = $updateMembershipFDO->getDonationAmount();
+            $donation = $payment->getDonation();
+
+            // If a donation was existing and has been modified
+            if ($donation != null && !empty($donationAmount))
+            {
+                $donation->setAmount($donationAmount);
+                $donation->setDonator($updateMembershipFDO->getPayer());
+                $donation->setDonationDate($payment->getDateReceived());
+
+                $em->persist($donation);
+            }
+            // If a donation was existing and has been removed
+            else if ($donation != null && empty($donationAmount))
+            {
+                $em->remove($donation);
+            }
+            // If there was no donation and it has been added
+            else if ($donation == null && !empty($donationAmount))
+            {
+                $donation = new Donation();
+
+                $donation->setAmount($donationAmount);
+                $donation->setDonator($updateMembershipFDO->getPayer());
+                $donation->setDonationDate($payment->getDateReceived());
+
+                $payment->setDonation($donation);
+
+                $em->persist($donation);
+            }
+
+            $em->persist($membership);
+            $em->persist($payment);
+
+            $em->flush();
+
+            $this->addFlash(
+                'success', $translator->trans('Les informations de l\'adhésion ont bien été modifiées.')
+            );
+
+            return $this->redirectToRoute('membership_show', array('id' => $membership->getId()));
+        }
+
+        return $this->render('Membership/edit.html.twig', [
+            'membership_edit_form' => $membershipEditForm->createView()
+        ]);
     }
 }

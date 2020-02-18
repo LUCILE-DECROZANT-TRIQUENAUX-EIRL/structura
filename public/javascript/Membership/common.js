@@ -66,6 +66,9 @@ $(document).ready(function() {
     let helpMessage = $('#app_membership_newMember_help').html();
     helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
     $('#app_membership_newMember_help').html(helpMessage);
+
+    // Empty the payer selection list
+    $('#app_membership_payer').empty();
 });
 
 //////////////////////////////////
@@ -73,7 +76,7 @@ $(document).ready(function() {
 //////////////////////////////////
 
 /**
- * Updates the payment amount based on the membership and the donation amount.
+ * Updates the donation and payment amount based on the membership amount.
  */
 function updatePaymentAmount() {
     let membershipAmount = $('#app_membership_membershipAmount').val();
@@ -204,6 +207,20 @@ function getMembershipType(membershipTypeId)
             cache: false,
             dataType: "json"
         }).done(function(membershipType) {
+            // Saving the donation amount
+            let oldMembershipAmount, donationAmount;
+            let paymentAmount = $('#app_membership_paymentAmount').val();
+
+            if (currentMembershipType != null)
+            {
+                oldMembershipAmount = currentMembershipType.default_amount;
+                donationAmount = paymentAmount - oldMembershipAmount;
+            }
+            else
+            {
+                donationAmount = paymentAmount - membershipType.default_amount;
+            }
+
             currentMembershipType = membershipType;
 
             // Updating the help message
@@ -215,7 +232,7 @@ function getMembershipType(membershipTypeId)
 
             // Setting the membership and payment default amount
             $('#app_membership_membershipAmount').val(membershipType.default_amount);
-            $('#app_membership_paymentAmount').val(membershipType.default_amount);
+            $('#app_membership_paymentAmount').val(membershipType.default_amount + donationAmount);
 
             // Updating the payment amount
             updatePaymentAmount();

@@ -22,7 +22,7 @@
 
     <div class="container">
         <table
-            class="table table-striped d-none"
+            class="table table-striped"
             data-toggle="datatable"
             data-copy-button="toggle"
             data-csv-button="toggle"
@@ -37,6 +37,7 @@
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Montant{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Payée via...{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Encaissée le...{% endtrans %}</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -74,6 +75,16 @@
                                 title="{% trans %}Voir les détails de l'adhésion{% endtrans %}"
                                 >
                                 <i class="icon ion-md-eye"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('membership_edit', { 'id': member.getActiveMembership.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Éditer l'adhésion{% endtrans %}"
+                                >
+                                <i class="icon ion-md-create"></i>
                             </a>
                         </td>
                     </tr>
