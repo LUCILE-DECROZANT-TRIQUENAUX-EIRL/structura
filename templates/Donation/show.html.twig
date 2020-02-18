@@ -24,10 +24,7 @@
         <div class="row">
 
             <div class="col-8 col-md-2">
-                <ul class="list-group">
-                    <a href="{{ path('donation_show', { 'id': donation.id }) }}" class="list-group-item list-group-item-action active">{% trans %}Don{% endtrans %}</a>
-                    <a href="" class="list-group-item list-group-item-action disabled" data-toggle="tooltip" title="Work in progress">{% trans %}Édition{% endtrans %}</a>
-                </ul>
+                {{ include('Donation/_menu-donation.html.twig', { show_donation: 'active' }) }}
             </div>
 
         <div class="col-12 col-md-10">
