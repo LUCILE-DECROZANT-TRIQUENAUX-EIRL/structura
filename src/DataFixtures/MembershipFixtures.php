@@ -82,38 +82,23 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $manager->persist($paymentAdhesionCash20);
 
         // Fourth payment (card)
+        // Not persisting this one, it will be used later as template tho
         $paymentAdhesionCard20 = new Payment();
         $paymentAdhesionCard20->setAmount(20);
         $paymentAdhesionCard20->setType($paymentTypeCard);
         $paymentAdhesionCard20->setDateReceived(new \DateTime());
         $paymentAdhesionCard20->setDateCashed(new \DateTime());
 
-        $manager->persist($paymentAdhesionCard20);
+
 
         // Fifth payment (transfer)
         $paymentAdhesionTransfer20 = new Payment();
         $paymentAdhesionTransfer20->setAmount(20);
-        $paymentAdhesionTransfer20->setType($paymentTypeCard);
+        $paymentAdhesionTransfer20->setType($paymentTypeTransfer);
         $paymentAdhesionTransfer20->setDateReceived(new \DateTime());
         $paymentAdhesionTransfer20->setDateCashed(new \DateTime());
 
         $manager->persist($paymentAdhesionTransfer20);
-
-        // Generate several other payments
-        $otherPayments = [];
-        $i = 1;
-        do
-        {
-            $paymentAdhesionCheque20 = new Payment();
-            $paymentAdhesionCheque20->setAmount(20);
-            $paymentAdhesionCheque20->setType($paymentTypeCheck);
-
-            $manager->persist($paymentAdhesionCheque20);
-            $otherPayments[] = $paymentAdhesionCheque20;
-
-            $i++;
-        }
-        while ($i === 15);
 
         // Date managment
         $plusOneYear = new \DateInterval('P1Y');
@@ -121,12 +106,14 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $removeOneYear->invert = 1;
 
         $now = new \DateTime();
+        $thisYear = date('Y', $now->getTimestamp());
 
         $inOneYear = clone $now;
         $inOneYear->add($plusOneYear);
 
-        $lastYear = clone $now;
-        $lastYear->add($removeOneYear);
+        $oneYearAgo = clone $now;
+        $oneYearAgo->add($removeOneYear);
+        $lastYear = date('Y', $oneYearAgo->getTimestamp());
 
         // Retreiving adherent.e.s from DB
         $peopleRepository = $manager->getRepository(People::class);
@@ -140,17 +127,19 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
             }
         }
 
+        $nbMembers = count($members);
+
         // -- Memberships -- //
         // First regular
         $membershipNormal1 = new Membership();
 
         $membershipNormal1
             ->setAmount(20)
-            ->setDateStart($lastYear)
+            ->setDateStart($oneYearAgo)
             ->setDateEnd($now)
             ->setPayment($paymentAdhesionCheque50)
             ->setType($MembershipTypeRegular)
-            ->setFiscalYear(2020);
+            ->setFiscalYear($lastYear);
 
         $manager->persist($membershipNormal1);
 
@@ -159,13 +148,26 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
         $membershipNormal2
             ->setAmount(20)
-            ->setDateStart($lastYear)
-            ->setDateEnd($now)
+            ->setDateStart($now)
+            ->setDateEnd($inOneYear)
             ->setPayment($paymentAdhesionCash20)
             ->setType($MembershipTypeRegular)
-            ->setFiscalYear(2020);
+            ->setFiscalYear($thisYear);
 
         $manager->persist($membershipNormal2);
+
+        // Second regular
+        $membershipNormal3 = new Membership();
+
+        $membershipNormal3
+            ->setAmount(20)
+            ->setDateStart($oneYearAgo)
+            ->setDateEnd($now)
+            ->setPayment($paymentAdhesionTransfer20)
+            ->setType($MembershipTypeRegular)
+            ->setFiscalYear($lastYear);
+
+        $manager->persist($membershipNormal3);
 
         // Family
         $membershipFamily = new Membership();
@@ -175,21 +177,42 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $membershipFamily->setDateEnd($inOneYear);
         $membershipFamily->setPayment($paymentAdhesionHelloAsso30);
         $membershipFamily->setType($MembershipTypeFamily);
-        $membershipFamily->setFiscalYear(2020);
+        $membershipFamily->setFiscalYear($thisYear);
 
         $manager->persist($membershipFamily);
 
-        // Adding memberships to all the members
-        foreach ($members as $index => $member)
+        // Adding payers to the firsts payments
+        $membershipFamily->getPayment()->setPayer($members[2]['member']);
+        $membershipNormal1->getPayment()->setPayer($members[2]['member']);
+        $membershipNormal2->getPayment()->setPayer($members[0]['member']);
+        $membershipNormal3->getPayment()->setPayer($members[1]['member']);
+
+        // Save the payments
+        $manager->persist($membershipFamily->getPayment());
+        $manager->persist($membershipNormal1->getPayment());
+        $manager->persist($membershipNormal2->getPayment());
+        $manager->persist($membershipNormal3->getPayment());
+
+        // Adding memberships to the first members
+        $members[2]['member']->addMembership($membershipFamily);
+        $members[1]['member']->addMembership($membershipFamily);
+        $members[2]['member']->addMembership($membershipNormal1);
+        $members[0]['member']->addMembership($membershipNormal2);
+        $members[1]['member']->addMembership($membershipNormal3);
+
+        // Save the memberships of the members
+        $manager->persist($members[0]['member']);
+        $manager->persist($members[1]['member']);
+        $manager->persist($members[2]['member']);
+
+        // Adding memberships to all the members except the one we already added memberships
+        for ($index = 3; $index < $nbMembers; $index++)
         {
             // regular membership
             $membershipRegular = new Membership();
+
             // Card payment generated for this membership
-            $paymentAdhesionCard20 = new Payment();
-            $paymentAdhesionCard20->setAmount(20);
-            $paymentAdhesionCard20->setType($paymentTypeCard);
-            $paymentAdhesionCard20->setDateReceived(new \DateTime());
-            $paymentAdhesionCard20->setDateCashed(new \DateTime());
+            $payment = clone $paymentAdhesionCard20;
 
             // Create and associate active and inactive memberships evenly on members
             if ($index % 2 == 0)
@@ -199,52 +222,33 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
                     ->setAmount(20)
                     ->setDateStart($now)
                     ->setDateEnd($inOneYear)
-                    ->setPayment($paymentAdhesionCard20)
+                    ->setPayment($payment)
                     ->setType($MembershipTypeRegular)
-                    ->setFiscalYear(2020);
+                    ->setFiscalYear($thisYear);
             }
             else
             {
                 // Inactive membership
                 $membershipRegular
                     ->setAmount(20)
-                    ->setDateStart($lastYear)
+                    ->setDateStart($oneYearAgo)
                     ->setDateEnd($now)
-                    ->setPayment($paymentAdhesionCard20)
+                    ->setPayment($payment)
                     ->setType($MembershipTypeRegular)
-                    ->setFiscalYear(2020);
+                    ->setFiscalYear($lastYear);
             }
             $manager->persist($membershipRegular);
+            $manager->persist($payment);
             $members[$index]['membership'] = $membershipRegular;
         }
 
-        // Adding payers to the firsts payments
-        $membershipNormal2->getPayment()->setPayer($members[0]['member']);
-        $membershipFamily->getPayment()->setPayer($members[1]['member']);
-        $membershipNormal1->getPayment()->setPayer($members[2]['member']);
-        $membershipFamily->getPayment()->setPayer($members[2]['member']);
-        // Save the payments
-        $manager->persist($membershipNormal2->getPayment());
-        $manager->persist($membershipFamily->getPayment());
-        $manager->persist($membershipNormal1->getPayment());
-        $manager->persist($membershipFamily->getPayment());
-        // Adding other memberships to the people
-        $members[0]['member']->addMembership($membershipNormal2);
-        $members[1]['member']->addMembership($membershipFamily);
-        $members[2]['member']->addMembership($membershipNormal1);
-        $members[2]['member']->addMembership($membershipFamily);
-        // Save the memberships of the members
-        $manager->persist($members[0]['member']);
-        $manager->persist($members[1]['member']);
-        $manager->persist($members[2]['member']);
-
         // Add a little more memberships to the people
         // using previously created memberships
-        foreach ($members as $index => $memberAndMembership)
+        for ($index = 3; $index < $nbMembers; $index++)
         {
-            $member = $memberAndMembership['member'];
-            $membership = $memberAndMembership['membership'];
-            $payment = $membershipNormal2->getPayment();
+            $member = $members[$index]['member'];
+            $membership = $members[$index]['membership'];
+            $payment = $membership->getPayment();
             $member->addMembership($membership);
             $payment->setPayer($member);
             $manager->persist($payment);
@@ -254,7 +258,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         // Final flush
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return array(
