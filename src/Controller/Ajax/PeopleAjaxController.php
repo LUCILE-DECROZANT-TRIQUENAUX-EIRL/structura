@@ -38,7 +38,7 @@ class PeopleAjaxController extends FOSRestController
      */
     public function getPeopleRecapAction(People $people)
     {
-        $response = $this->render('Membership/people-recap.html.twig', array(
+        $response = $this->render('Membership/_people-recap.html.twig', array(
             'people' => $people,
         ));
 
@@ -55,7 +55,7 @@ class PeopleAjaxController extends FOSRestController
      */
     public function getPeoplePlaceholderAction()
     {
-        $response = $this->render('Membership/people-placeholder.html.twig');
+        $response = $this->render('Membership/_people-placeholder.html.twig');
 
         $response->headers->set('Content-Type', 'text/html');
 
