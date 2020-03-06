@@ -36,7 +36,7 @@
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Type d'adhésion{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Montant{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Payée via...{% endtrans %}</th>
-                    <th data-exportable="true" class="text-center">{% trans %}Encaissée le...{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Encaissée le...{% endtrans %}</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -60,7 +60,7 @@
                         <td class="align-middle text-center">
                             {{ member.getActiveMembership.payment.type.label }}
                         </td>
-                        <td class="align-middle text-center">
+                        <td class="align-middle text-center" data-sort="{{ member.getActiveMembership.payment.dateCashed | date('Ymd') }}">
                             {% if member.getActiveMembership.payment.dateCashed is null %}
                                 <span class=""><i class="icon ion-md-warning"></i> {% trans %}Pas encore encaissé{% endtrans %}</span>
                             {% else %}
