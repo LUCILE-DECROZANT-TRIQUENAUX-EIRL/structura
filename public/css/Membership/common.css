@@ -7,3 +7,8 @@
 .border-dashed {
     border-style: dashed !important;
 }
+
+.payer-card {
+    width: max-content;
+    display: inline-block;
+ }

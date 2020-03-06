@@ -44,6 +44,15 @@
                                 {% endif %}
                                 <br>
                             </div>
+                            <div class="col">
+                                <label>{% trans %}Par{% endtrans %}&nbsp;:</label>
+                                {% set payer = member.activeMembership.payment.payer %}
+                                <div class="card payer-card">
+                                    <div class="card-body p-2">
+                                        <p class="card-title mb-0">{{ payer.denomination.label }} {{ payer.firstName }} {{ payer.lastName }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
