@@ -22,76 +22,76 @@
     <br>
     <div class="container">
         <div class="row">
-
             <div class="col-8 col-md-2">
                 {{ include('Donation/_menu-donation.html.twig', { show_donation: 'active' }) }}
             </div>
 
-        <div class="col-12 col-md-10">
-            <h1>
-                {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
-            </h1>
-            <br>
-            <div class="container styledtable">
-            <br>
-            <h3>{% trans %}Informations du don{% endtrans %}</h3>
+            <div class="col-12 col-md-10">
+                <h1>
+                    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+                </h1>
                 <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>{% trans %}Montant{% endtrans %}</th>
-                            <td>{{ donation.amount }}&nbsp;€</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Date de règlement{% endtrans %}</th>
-                            <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Donateurice{% endtrans %}</th>
-                            <td>{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="container styledtable">
                 <br>
-                <h3>{% trans %}Informations du paiement{% endtrans %}</h3>
-                <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>{% trans %}Montant{% endtrans %}</th>
-                            <td>{{ donation.payment.amount }}&nbsp;€</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Date de réception{% endtrans %}</th>
-                            <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Date d'encaissement{% endtrans %}</th>
-                            <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Réglé via...{% endtrans %}</th>
-                            <td>{{ donation.payment.type.label }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans %}Commentaire{% endtrans %}</th>
-                            <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <br>
-
-            <div class="row">
-                {% if is_granted("ROLE_GESTION") %}
-                <div class="col">
-                    <a href="{{ path('donation_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                <h3>{% trans %}Informations du don{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Montant{% endtrans %}</th>
+                                <td>{{ donation.amount }}&nbsp;€</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date de règlement{% endtrans %}</th>
+                                <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Donateurice{% endtrans %}</th>
+                                <td>{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h3>{% trans %}Informations du paiement{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Montant{% endtrans %}</th>
+                                <td>{{ donation.payment.amount }}&nbsp;€</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date de réception{% endtrans %}</th>
+                                <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date d'encaissement{% endtrans %}</th>
+                                <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Réglé via...{% endtrans %}</th>
+                                <td>{{ donation.payment.type.label }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Commentaire{% endtrans %}</th>
+                                <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                {% endif %}
-                <div class="col text-right">
-                    <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
-                        <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
-                    </button>
+                <br>
+
+                <div class="row">
+                    {% if is_granted("ROLE_GESTION") %}
+                    <div class="col">
+                        <a href="{{ path('donation_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                    </div>
+                    {% endif %}
+                    <div class="col text-right">
+                        <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
+                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
