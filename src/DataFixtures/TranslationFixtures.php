@@ -126,6 +126,87 @@ class TranslationFixtures extends Fixture implements FixtureGroupInterface, Depe
             ->translate($roleInscritE, 'label', 'en', 'Registered')
             ->translate($roleInscritE, 'description', 'en', 'Allows to view,edit, archive your account information, and request access to the Health Care Professionals directory.');
         
+         //membershiptype
+         
+        //Retreiving MembershipType from DB
+        $membershipTypeRepository = $manager->getRepository(MembershipType::class);
+        $membershipTypeFamily = $membershiptyperepository->findOneBy(['label'=>'Famille']);
+        $MembershipTypeRegular = $membershiprepository->findByOne(['label'=>'Normal']);
+        
+        //Family
+        $translationRepository
+            ->translate($membershiptypefamily, 'label', 'fr', 'Famille')
+            ->translate($membershiptypefamily, 'label', 'en', 'Family');
+            
+        //Regular
+        $translationRepository
+            ->translate($membershiptyperegular, 'label', 'fr', 'Normal')
+            ->translate($membershiptyperegular, 'label', 'en', 'Regular');
+       
+        //paymentype
+        
+        // Retreiving PaymentType from DB
+        $paymentTypeRepository = $manager->getRepository(PaymentType::class);
+        $paymentTypeCash = $paymentTypeRepository->findOneBy(['label' => 'Espèces']);
+        $paymentTypeCard = $paymentTypeRepository->findOneBy(['label' => 'Carte Bleue']);
+        $paymentTypeTransfer = $paymentTypeRepository->findOneBy(['label' => 'Virement']);
+        $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
+        $paymentTypeHelloAsso = $paymentTypeRepository->findOneBy(['label' => 'HelloAsso']);
+        
+        //Cash
+        $translationRepository
+            ->translate($paymentTypeCash, 'label', 'fr', 'Espèces')
+            ->translate($paymentTypeCash, 'label', 'en', 'Cash');
+        
+        //Card
+        $translationRepository
+            ->translate($paymentTypeCard, 'label', 'fr', 'Carte Bleue')
+            ->translate($paymentTypeCard, 'label', 'en', 'Card');
+        
+        //Transfer
+        $translationRepository
+            ->translate($paymentTypeTransfer, 'label', 'fr', 'Virement')
+            ->translate($paymentTypeTransfer, 'label', 'en', 'Transfer');
+        
+        //Check
+        $translationRepository
+            ->translate($paymentTypeCheck, 'label', 'fr', 'Chèque')
+            ->translate($paymentTypeCheck, 'label', 'en', 'Check');
+        
+        //HelloAsso
+        $translationRepository
+            ->translate($paymentTypeHelloAsso, 'label', 'fr', 'HelloAsso')
+            ->translate($paymentTypeHelloAsso, 'label', 'en', 'HelloAsso');
+        
+        //denominationtype
+        
+        //Retreiving DenominationType from DB
+        $denominationtyperepository = $manager->getRepository(DenominationType::class);
+        $denominationtypemonsieur = $denominationtyperepository->findByOne(['label'=>'Monsieur']);
+        $denominationtypemadame = $denominationtyperepository->findByOne(['label'=>'Madame']);
+        $denominationtypeDocteure = $denominationtyperepository->findByOne(['label'=>'Docteure']);
+        $denominationtypedocteur = $denominationtyperepository->findByOne(['label'=>'Docteur']);
+        
+        //Monsieur
+        $translationRepository
+            ->translate($denominationtypemonsieur, 'label', 'fr', 'Monsieur')
+            ->translate($denominationtypemonsieur, 'label', 'en', 'Mister');
+        
+        //Madame
+        $translationRepository
+            ->translate($denominationtypemadame, 'label', 'fr', 'Madame')
+            ->translate($denominationtypemadame, 'label', 'en', 'Miss');
+        
+        //Docteure
+        $translationRepository
+            ->translate($denominationtypeDocteure, 'label', 'fr', 'Doctor')
+            ->translate($denominationtypeDocteure, 'label', 'en', 'Doctor');
+        
+        //Docteur
+        $translationRepository
+            ->translate($denominationtypeDocteur, 'label', 'fr', 'Doctor')
+            ->translate($denominationtypeDocteur, 'label', 'en', 'Doctor');
+
         // Final flush
         $manager->flush();
     }

@@ -47,7 +47,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
         $manager->persist($MembershipTypeFamily);
         $manager->persist($MembershipTypeRegular);
-
+        
         // Retreiving PaymentType from DB
         $paymentTypeRepository = $manager->getRepository(PaymentType::class);
         $paymentTypeCash = $paymentTypeRepository->findOneBy(['label' => 'Espèces']);
