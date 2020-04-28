@@ -4,7 +4,7 @@
             <div class="col-3">
                 <img class="img-thumbnail" src="{{ asset('images/placeholder-personne.jpg') }}" alt="Profile photo placeholder">
             </div>
-            <div class="col-8 p-1">
+            <div class="col-7">
                 <div class="row"> <!--row name -->
                     <div id="people-recap-name-{{people.id}}" class="col">
                         {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname | upper }}
@@ -38,7 +38,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="col-1 text-center p-0">
+            <div class="col-2 text-right">
                 <button
                     type="button"
                     class="btn btn-secondary"
