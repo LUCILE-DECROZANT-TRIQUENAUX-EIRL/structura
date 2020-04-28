@@ -91,9 +91,13 @@
                                         {% for member in membership.members %}
                                             <div class="col-4">
                                                 <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}</h5>
-                                                    </div>
+                                                    <a  class="card-body text-white"
+                                                        href="{{ path('people_show', { 'id': member.id }) }}"
+                                                        data-toggle="tooltip"
+                                                        title="{% trans %}Voir le profil de {% endtrans %} {{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}"
+                                                        >
+                                                        <h5 class="card-title text-dark">{{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}</h5>
+                                                    </a>
                                                 </div>
                                             </div>
                                         {% endfor %}
