@@ -839,7 +839,7 @@
       </trans-unit>
       <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
         <source>Enregister une adhésion de type</source>
-        <target state="translated">Select type of membership</target>
+        <target state="translated">Select membership type</target>
       </trans-unit>
       <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
         <source>L'adhésion est valable du</source>
@@ -855,11 +855,11 @@
       </trans-unit>
       <trans-unit id="Lti4BmJ" resname="Via">
         <source>Via</source>
-        <target state="translated">Via</target>
+        <target state="translated">Using</target>
       </trans-unit>
       <trans-unit id="0AXZwv5" resname="Soit une adhésion d'un montant de">
         <source>Soit une adhésion d'un montant de</source>
-        <target state="translated">A membership of an amount of</target>
+        <target state="translated">Thereby a membership amount of</target>
       </trans-unit>
       <trans-unit id="BRe1zee" resname="Et un don d'un montant de">
         <source>Et un don d'un montant de</source>
@@ -867,7 +867,7 @@
       </trans-unit>
       <trans-unit id="21nAkoQ" resname="Le règlement est de">
         <source>Le règlement est de</source>
-        <target state="translated">The amount due is</target>
+        <target state="translated">The payment amount is</target>
       </trans-unit>
       <trans-unit id="CmhED0Z" resname="Encaissés le">
         <source>Encaissés le</source>
@@ -875,11 +875,11 @@
       </trans-unit>
       <trans-unit id="czcIBrU" resname="Effectué par">
         <source>Effectué par</source>
-        <target state="translated">Made by</target>
+        <target state="translated">Paid by</target>
       </trans-unit>
       <trans-unit id="N.OzWcd" resname="Choisir les personnes concernées">
         <source>Choisir les personnes concernées</source>
-        <target state="translated">Select the persons involved</target>
+        <target state="translated">Select involved people</target>
       </trans-unit>
       <trans-unit id="iYQkfj9" resname="Rechercher...">
         <source>Rechercher...</source>
@@ -891,7 +891,7 @@
       </trans-unit>
       <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
         <source>adhérent·e·s maximum pour une adhésion de type</source>
-        <target state="translated">Maximum members reached for a membership type</target>
+        <target state="translated">members maximum for a membership</target>
       </trans-unit>
       <trans-unit id="8uMSzlt" resname="Recevoir la newsletter">
         <source>Recevoir la newsletter</source>
@@ -1023,43 +1023,43 @@
       </trans-unit>
       <trans-unit id="clWqFLd" resname="Sélectionnez un type d'adhésion">
         <source>Sélectionnez un type d'adhésion</source>
-        <target>__Sélectionnez un type d'adhésion</target>
+        <target>Select membership type</target>
       </trans-unit>
       <trans-unit id="7OpcVRe" resname="Création d'une adhésion">
         <source>Création d'une adhésion</source>
-        <target>__Création d'une adhésion</target>
+        <target>Creation of a new membership</target>
       </trans-unit>
       <trans-unit id="KAVM6ir" resname="Retourner à la liste des adhésions">
         <source>Retourner à la liste des adhésions</source>
-        <target>__Retourner à la liste des adhésions</target>
+        <target>Return to memberships list</target>
       </trans-unit>
       <trans-unit id="A9HmEM8" resname="Enregistrer l'adhésion">
         <source>Enregistrer l'adhésion</source>
-        <target>__Enregistrer l'adhésion</target>
+        <target>Save membership</target>
       </trans-unit>
       <trans-unit id="X6b.lRq" resname="Confirmez l'enregistrement">
         <source>Confirmez l'enregistrement</source>
-        <target>__Confirmez l'enregistrement</target>
+        <target>Confirm registration</target>
       </trans-unit>
       <trans-unit id="SkxgHUO" resname="de l'adhésion de">
         <source>de l'adhésion de</source>
-        <target>__de l'adhésion de</target>
+        <target>of the membership of</target>
       </trans-unit>
       <trans-unit id="0hyTy0y" resname="de type">
         <source>de type</source>
-        <target>__de type</target>
+        <target>of type</target>
       </trans-unit>
       <trans-unit id="o.WtiY_" resname="et d'un don d'un montant de">
         <source>et d'un don d'un montant de</source>
-        <target>__et d'un don d'un montant de</target>
+        <target>and of the donation of an amount of</target>
       </trans-unit>
       <trans-unit id="pOnZCOU" resname="réglé par">
         <source>réglé par</source>
-        <target>__réglé par</target>
+        <target>paid by</target>
       </trans-unit>
       <trans-unit id="MKi3hGl" resname="Confirmer">
         <source>Confirmer</source>
-        <target>__Confirmer</target>
+        <target>Confirm</target>
       </trans-unit>
     </body>
   </file>
