@@ -77,9 +77,13 @@
                                     {% if member.id != otherMember.id %}
                                         <div class="col-4">
                                             <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
-                                                </div>
+                                                <a  class="card-body text-white"
+                                                    href="{{ path('people_show', { 'id': otherMember.id }) }}"
+                                                    data-toggle="tooltip"
+                                                    title="{% trans %}Voir le profil de {% endtrans %} {{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}"
+                                                    >
+                                                    <h5 class="card-title text-dark">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
+                                                </a>
                                             </div>
                                         </div>
                                     {% endif %}
