@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DonationRepository")
@@ -50,6 +51,11 @@ class Donation
 
     public function setAmount(float $amount): self
     {
+        if ($amount <= 0)
+        {
+            throw new \InvalidArgumentException('The donation amount should be greater than 0');
+        }
+
         $this->amount = $amount;
 
         return $this;

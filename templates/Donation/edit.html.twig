@@ -54,12 +54,18 @@
                             </div>
                             <div class="col-12">
                                 {{ form_widget(form.amount) }}
+                                <div class="field-error-spot">
+                                    {{ form_errors(form.amount) }}
+                                </div>
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="donation_donation_date">{% trans %}Le{% endtrans %}</label>
                             </div>
                             <div class="col-12">
                                 {{ form_widget(form.donation_date) }}
+                                <div class="field-error-spot">
+                                    {{ form_errors(form.donation_date) }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,12 +76,18 @@
                             </div>
                             <div class="col-12">
                                 {{ form_widget(form.payment_type) }}
+                                <div class="field-error-spot">
+                                    {{ form_errors(form.payment_type) }}
+                                </div>
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="donation_cashed_date">{% trans %}Paiment encaissé le{% endtrans %}</label>
                             </div>
                             <div class="col-12">
                                 {{ form_widget(form.cashed_date) }}
+                                <div class="field-error-spot">
+                                    {{ form_errors(form.cashed_date) }}
+                                </div>
                             </div>
                         </div>
                     </div>

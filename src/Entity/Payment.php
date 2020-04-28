@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PaymentRepository")
@@ -95,9 +96,18 @@ class Payment
 
     /**
      * Set the payment amount
+     *
+     * @param float $amount Must be greater than 0
+     * @return \self
+     * @throws \InvalidArgumentException
      */
     public function setAmount(float $amount): self
     {
+        if ($amount <= 0)
+        {
+            throw new \InvalidArgumentException('The donation amount should be greater than 0');
+        }
+
         $this->amount = $amount;
 
         return $this;

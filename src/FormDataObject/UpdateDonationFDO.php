@@ -10,6 +10,9 @@ class UpdateDonationFDO
 {
     private $donator;
 
+    /**
+     * @Assert\GreaterThan(0)
+     */
     private $amount;
 
     private $donationDate;

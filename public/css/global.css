@@ -211,3 +211,8 @@ a {
         height: 32px;
     }
 }
+
+/* set default size for form error message */
+.field-error-spot {
+    min-height: 24px;
+}
