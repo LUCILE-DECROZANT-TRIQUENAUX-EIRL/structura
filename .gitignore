@@ -22,6 +22,7 @@ path_mapping.ods
 .env.local_for_test
 server_start_dev.sh
 server_start_test.sh
+app/config/parameters.yml
 ###< local files ###
 
 ###> squizlabs/php_codesniffer ###
