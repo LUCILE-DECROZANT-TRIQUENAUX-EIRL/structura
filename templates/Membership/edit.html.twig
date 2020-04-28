@@ -1,43 +1,43 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-	{% trans %}Édition d'une adhésion{% endtrans %}
+    {% trans %}Édition d'une adhésion{% endtrans %}
 {% endblock %}
 
 {% block javascript %}
-	<!-- Custom JS for this page -->
-	<script src="{{ asset('javascript/Membership/common.js') }}"></script>
-	<script src="{{ asset('javascript/Membership/edit.js') }}"></script>
-	<!-- Bootstrap Select - Latest compiled and minified JavaScript -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-	<!-- (Optional) Bootstrap Select - Latest compiled and minified JavaScript translation files -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-fr_FR.min.js"></script>
+    <!-- Custom JS for this page -->
+    <script src="{{ asset('javascript/Membership/common.js') }}"></script>
+    <script src="{{ asset('javascript/Membership/edit.js') }}"></script>
+    <!-- Bootstrap Select - Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <!-- (Optional) Bootstrap Select - Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-fr_FR.min.js"></script>
 {% endblock %}
 
 {% block stylesheets %}
-	<!-- Bootstrap Select - Latest compiled and minified CSS -->
-	<link
-	rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-	<!-- Custom CSS for this page -->
-	<link rel="stylesheet" href="{{ asset('css/Membership/common.css') }}">
+    <!-- Bootstrap Select - Latest compiled and minified CSS -->
+    <link
+        rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <!-- Custom CSS for this page -->
+    <link rel="stylesheet" href="{{ asset('css/Membership/common.css') }}">
 {% endblock %}
 
 
 {% block breadcrumb %}
-	<li class="breadcrumb-item">
-		<a href="/">{% trans %}Accueil{% endtrans %}</a>
-	</li>
-	<li class="breadcrumb-item">
-		<a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
-	</li>
-	<li class="breadcrumb-item active" aria-current="page">
-		{% trans %}Édition de l'adhésion{% endtrans %}
-	</li>
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Édition de l'adhésion{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}
-	<br>
-	<div class="container">
+    <br>
+    <div class="container">
         <div class="row">
             <div class="col-8 col-md-2">
                 {{ include('Membership/_menu_membership.html.twig', { edit_membership: 'active' }) }}
@@ -50,133 +50,133 @@
                     {% else %}
                         {% trans %}Cette adhésion n'est pas définie dans le temps{% endtrans %}
                     {% endif %}
-				</h1>
-				{{ form_start(membership_edit_form, {'attr': {'id': 'membership-edit-form'}}) }}
-				<div class="container mt-4">
-					<div class="row">
-						<div class="col">
-							{{ form_row(membership_edit_form.membershipType)}}
-						</div>
-					</div>
-				</div>
-				<div id="member-selection-part">
-					<div id="people-selector-container" class="container">
-						<div class="row">
-							<div class="col">
-								{{ form_label(membership_edit_form.newMember) }}
-								{{ form_widget(membership_edit_form.newMember) }}
-								{{ form_help(membership_edit_form.newMember) }}
-							</div>
-						</div>
-					</div>
-					<div class="container">
-						<div id="people-recaps" class="row">
-							{{ include('Membership/_people-placeholder.html.twig') }}
-						</div>
-					</div>
-				</div>
-				<div class="d-none">
-					{{ form_row(membership_edit_form.members)}}
-				</div>
-				<div id="payment-part">
-					<div class="container mt-3">
-						<div class="row justify-content-between">
-							<div class="col-md-4">
-								<div class="border p-3 h-100">
-									{{ form_row(membership_edit_form.membershipDate_start)}}
-									{{ form_row(membership_edit_form.membershipDate_end)}}
-									{{ form_row(membership_edit_form.membershipFiscal_year)}}
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="border p-3 h-100">
-									<div id="payment-amount-group" class="form-group">
-										{{ form_label(membership_edit_form.paymentAmount)}}
-										{{ form_errors(membership_edit_form.paymentAmount)}}
-										{{ form_widget(membership_edit_form.paymentAmount)}}
-										{{ form_help(membership_edit_form.paymentAmount)}}
-									</div>
-									{{ form_row(membership_edit_form.payer)}}
-									{{ form_row(membership_edit_form.paymentType)}}
-									{{ form_row(membership_edit_form.paymentDate_received)}}
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="border p-3 h-100">
-									<div id="membership-amount-group" class="form-group">
-										{{ form_label(membership_edit_form.membershipAmount)}}
-										{{ form_errors(membership_edit_form.membershipAmount)}}
-										{{ form_widget(membership_edit_form.membershipAmount)}}
-										{{ form_help(membership_edit_form.membershipAmount)}}
-									</div>
-									<div id="donation-amount-group" class="form-group">
-										{{ form_label(membership_edit_form.donationAmount)}}
-										{{ form_errors(membership_edit_form.donationAmount)}}
-										{{ form_widget(membership_edit_form.donationAmount)}}
-										{{ form_help(membership_edit_form.donationAmount)}}
-									</div>
-									{{ form_row(membership_edit_form.paymentDate_cashed)}}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="container mt-3">
-						<div class="row">
-							<div class="col">
-								{{ form_row(membership_edit_form.membershipComment)}}
-							</div>
-						</div>
-					</div>
-				</div>
-				{{ form_end(membership_edit_form) }}
+                </h1>
+                {{ form_start(membership_edit_form, {'attr': {'id': 'membership-edit-form'}}) }}
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(membership_edit_form.membershipType)}}
+                        </div>
+                    </div>
+                </div>
+                <div id="member-selection-part">
+                    <div id="people-selector-container" class="container">
+                        <div class="row">
+                            <div class="col">
+                                {{ form_label(membership_edit_form.newMember) }}
+                                {{ form_widget(membership_edit_form.newMember) }}
+                                {{ form_help(membership_edit_form.newMember) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div id="people-recaps" class="row">
+                            {{ include('Membership/_people-placeholder.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none">
+                    {{ form_row(membership_edit_form.members)}}
+                </div>
+                <div id="payment-part">
+                    <div class="container mt-3">
+                        <div class="row justify-content-between">
+                            <div class="col-md-4">
+                                <div class="border p-3 h-100">
+                                    {{ form_row(membership_edit_form.membershipDate_start)}}
+                                    {{ form_row(membership_edit_form.membershipDate_end)}}
+                                    {{ form_row(membership_edit_form.membershipFiscal_year)}}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="border p-3 h-100">
+                                    <div id="payment-amount-group" class="form-group">
+                                        {{ form_label(membership_edit_form.paymentAmount)}}
+                                        {{ form_errors(membership_edit_form.paymentAmount)}}
+                                        {{ form_widget(membership_edit_form.paymentAmount)}}
+                                        {{ form_help(membership_edit_form.paymentAmount)}}
+                                    </div>
+                                    {{ form_row(membership_edit_form.payer)}}
+                                    {{ form_row(membership_edit_form.paymentType)}}
+                                    {{ form_row(membership_edit_form.paymentDate_received)}}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="border p-3 h-100">
+                                    <div id="membership-amount-group" class="form-group">
+                                        {{ form_label(membership_edit_form.membershipAmount)}}
+                                        {{ form_errors(membership_edit_form.membershipAmount)}}
+                                        {{ form_widget(membership_edit_form.membershipAmount)}}
+                                        {{ form_help(membership_edit_form.membershipAmount)}}
+                                    </div>
+                                    <div id="donation-amount-group" class="form-group">
+                                        {{ form_label(membership_edit_form.donationAmount)}}
+                                        {{ form_errors(membership_edit_form.donationAmount)}}
+                                        {{ form_widget(membership_edit_form.donationAmount)}}
+                                        {{ form_help(membership_edit_form.donationAmount)}}
+                                    </div>
+                                    {{ form_row(membership_edit_form.paymentDate_cashed)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col">
+                                {{ form_row(membership_edit_form.membershipComment)}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(membership_edit_form) }}
 
-				<div class="container mt-3">
-					<div class="row">
-						<div class="col">
-							<a href="{{ path('membership_list') }}" class="btn btn-secondary">
-								<i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions{% endtrans %}
-							</a>
-						</div>
-						<div class="col text-right">
-							<button id="member-creation-submit-button" class="btn btn-primary d-none" type="button" data-toggle="modal" data-target="#confirmation-modal">
-								{% trans %}Enregistrer les modifications{% endtrans %}
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ path('membership_list') }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions{% endtrans %}
+                            </a>
+                        </div>
+                        <div class="col text-right">
+                            <button id="member-creation-submit-button" class="btn btn-primary d-none" type="button" data-toggle="modal" data-target="#confirmation-modal">
+                                {% trans %}Enregistrer les modifications{% endtrans %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<p>{% trans %}Confirmez la sauvegarde{% endtrans %}</p>
-					<div class="container mt-3">
-						<div class="row justify-content-between">
-							<div class="col pl-0">
-								<div class="border p-3 h-100">
-									<label>{% trans %}de l'adhésion de{% endtrans %}</label>
-									<div id="confirmation-membership-members" class="card mb-3 d-none">
-										<div class="card-body">
-											<h5 class="card-title mb-0 confirmation-membership-member"></h5>
-										</div>
-									</div>
-									<label>{% trans %}de type{% endtrans %}</label>
+    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>{% trans %}Confirmez la sauvegarde{% endtrans %}</p>
+                    <div class="container mt-3">
+                        <div class="row justify-content-between">
+                            <div class="col pl-0">
+                                <div class="border p-3 h-100">
+                                    <label>{% trans %}de l'adhésion de{% endtrans %}</label>
+                                    <div id="confirmation-membership-members" class="card mb-3 d-none">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-0 confirmation-membership-member"></h5>
+                                        </div>
+                                    </div>
+                                    <label>{% trans %}de type{% endtrans %}</label>
                                     <div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-0">
                                                 <span id="confirmation-membership-type"></span> (<span id="confirmation-membership-amount"></span> €)
                                             </h5>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col pr-0">
-								<div class="border p-3 h-100">
-									<div id="confirmation-membership-part-donation" class="d-none mb-3">
-										<label>{% trans %}et d'un don d'un montant de{% endtrans %}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col pr-0">
+                                <div class="border p-3 h-100">
+                                    <div id="confirmation-membership-part-donation" class="d-none mb-3">
+                                        <label>{% trans %}et d'un don d'un montant de{% endtrans %}</label>
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title mb-0">
@@ -184,18 +184,18 @@
                                                 </h5>
                                             </div>
                                         </div>
-									</div>
+                                    </div>
                                     <label>{% trans %}réglé par{% endtrans %}</label>
-									<div class="card">
-										<div class="card-body">
-											<h5 id="confirmation-membership-payer" class="card-title mb-0"></h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 id="confirmation-membership-payer" class="card-title mb-0"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <div class="col">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -207,7 +207,7 @@
                         </button>
                     </div>
                 </div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
