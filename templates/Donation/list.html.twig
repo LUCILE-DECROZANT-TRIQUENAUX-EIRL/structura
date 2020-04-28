@@ -22,7 +22,7 @@
 
     <div class="container">
         <table
-            class="table table-striped d-none"
+            class="table table-striped"
             data-toggle="datatable"
             data-copy-button="toggle"
             data-csv-button="toggle"
@@ -40,7 +40,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="d-none">
                 {% for donation in donations %}
                     <tr>
                         <td class="align-middle text-center">{{ donation.amount }}&nbsp;€</td>

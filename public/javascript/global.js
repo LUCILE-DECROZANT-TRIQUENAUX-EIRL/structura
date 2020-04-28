@@ -173,7 +173,7 @@ $(document).ready(function () {
                 initComplete: function (settings, json) {
                     // We show the table that was hidden while datatable was initializing
                     // This prevents the table's raw HTML to be visible before the datatable is fully loaded
-                    $table.removeClass('d-none');
+                    $table.children('tbody').removeClass('d-none');
                 }
             });
         });
