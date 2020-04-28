@@ -27,7 +27,7 @@
 
     <div class="container">
         <table
-            class="table table-striped d-none"
+            class="table table-striped"
             data-toggle="datatable"
             data-create-label="Enregistrer un.e nouvel.le utilisateurice"
             data-create-path="{{ path('user_create', {from: 'list'}) }}"
@@ -43,7 +43,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="d-none">
             {% set delete_user_form = "" %}
                 {% for user in users %}
                     <tr>

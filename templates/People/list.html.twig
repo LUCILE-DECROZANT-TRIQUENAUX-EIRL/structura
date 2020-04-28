@@ -26,14 +26,14 @@
 
     <div class="container">
         <table
-            class="table table-striped d-none"
+            class="table table-striped"
             data-toggle="datatable"
             data-create-label="Enregistrer un·e nouvel·le personne dans l'annuaire"
             data-create-path="{{ path('people_create') }}"
             data-fixed-columns-right="3"
             data-copy-button="toggle"
             data-csv-button="toggle"
-            data-pdf-button="togle"
+            data-pdf-button="toggle"
             >
             <thead>
                 <tr>
@@ -47,7 +47,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="d-none">
                 {% for people in peoples %}
                     <tr>
                         <td class="align-middle">{{ people.lastname }}</td>
