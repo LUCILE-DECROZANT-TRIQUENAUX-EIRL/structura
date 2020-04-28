@@ -60,6 +60,12 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 mt-3">
+                <label for="donation_comment">{% trans %}Commentaire{% endtrans %}</label>
+            </div>
+            <div class="col-12">
+                {{ form_widget(form.comment) }}
+            </div>
         </div>
     </div>
     {{ form_end(form) }}

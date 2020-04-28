@@ -36,27 +36,28 @@ class DonationController extends AbstractController
     public function new(Request $request): Response
     {
         $donation = new Donation();
-        $updatePeopleDataFDO = new UpdateDonationFDO();
+        $updateDonationFDO = new UpdateDonationFDO();
 
-        $form = $this->createForm(DonationType::class, $updatePeopleDataFDO);
+        $form = $this->createForm(DonationType::class, $updateDonationFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $donator = $updatePeopleDataFDO->getDonator();
+            $donator = $updateDonationFDO->getDonator();
 
-            $donation->setAmount($updatePeopleDataFDO->getAmount());
+            $donation->setAmount($updateDonationFDO->getAmount());
             $donation->setDonator($donator);
-            $donation->setDonationDate($updatePeopleDataFDO->getDonationDate());
+            $donation->setDonationDate($updateDonationFDO->getDonationDate());
 
             $payment = new Payment();
 
             $payment->setPayer($donator);
-            $payment->setType($updatePeopleDataFDO->getPaymentType());
-            $payment->setAmount($updatePeopleDataFDO->getAmount());
-            $payment->setDateReceived($updatePeopleDataFDO->getDonationDate());
-            $payment->setDateCashed($updatePeopleDataFDO->getCashedDate());
+            $payment->setType($updateDonationFDO->getPaymentType());
+            $payment->setAmount($updateDonationFDO->getAmount());
+            $payment->setDateReceived($updateDonationFDO->getDonationDate());
+            $payment->setDateCashed($updateDonationFDO->getCashedDate());
+            $payment->setComment($updateDonationFDO->getComment());
 
             $em->persist($payment);
 

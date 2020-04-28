@@ -8,7 +8,6 @@ use \App\Entity\Payment;
 
 class UpdateDonationFDO
 {
-
     private $donator;
 
     private $amount;
@@ -18,6 +17,8 @@ class UpdateDonationFDO
     private $paymentType;
 
     private $cashedDate;
+
+    private $comment;
 
     public function __construct(Donation $donation = null)
     {
@@ -30,6 +31,7 @@ class UpdateDonationFDO
             $this->donationDate = $donation->getDonationDate();
             $this->paymentType = $payment->getType();
             $this->cashedDate = $payment->getDateCashed();
+            $this->comment = $payment->getComment();
         }
     }
 
@@ -88,4 +90,14 @@ class UpdateDonationFDO
         return $this;
     }
 
+    function getComment()
+    {
+        return $this->comment;
+    }
+
+    function setComment($comment): self
+    {
+        $this->comment = $comment;
+        return $this;
+    }
 }
