@@ -1,5 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}
+    {% if app.user.username == user.username %}
+        {% trans %}Éditer mon profil{% endtrans %}
+    {% else %}
+        {% trans %}Éditer le profil de{% endtrans %} {{ user.username }}
+    {% endif %}
+{% endblock %}
+
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
 {% endblock %}
