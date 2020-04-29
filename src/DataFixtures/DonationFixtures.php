@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Entity\People;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
@@ -27,7 +28,11 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
 
     public function load(ObjectManager $manager)
     {
+        // Create logger used to display information messages
+        $output = new ConsoleOutput();
+
         // Get the payments bigger than the membership type they were paying for
+        $output->writeln('      <comment>></comment> <info>Donations linked to membership payments creation...</info>');
         $paymentTypeRepository = $manager->getRepository(PaymentType::class);
 
         $paymentsTooBig = $paymentTypeRepository->findByAmountTooBigForMembership();
@@ -38,11 +43,15 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
             $donationAmount = $payment->getAmount();
 
             $donation = new Donation();
-            $donation->setAmount((float) $membershipTypeAmount - $donationAmount);
+            $donation->setAmount((float) $payment->getAmount() - $membershipTypeAmount);
             $donation->setDonator($payment->getPayer());
+            $donation->setPayment($payment);
+            $donation->setDonationDate($payment->getDateCashed());
+            $manager->persist($donation);
         }
 
         // Generate several other donations
+        $output->writeln('      <comment>></comment> <info>Other donations creation...</info>');
         $peopleRepository = $manager->getRepository(People::class);
         $people = $peopleRepository->findAll();
         $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
@@ -68,8 +77,9 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
             }
         }
         $manager->flush();
+        $output->writeln('      <comment>></comment> <info>Donations creation complete</info>');
     }
-    
+
     public function getDependencies()
     {
         return array(
