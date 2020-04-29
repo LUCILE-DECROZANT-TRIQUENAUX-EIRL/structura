@@ -21,7 +21,7 @@
         {% endif %}
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Liste des adhésions de l'utilisateurice{% endtrans %}
+        {% trans %}Liste des adhésions de {% endtrans %} {{ people.firstName }} {{ people.lastName }}
     </li>
 {% endblock %}
 
