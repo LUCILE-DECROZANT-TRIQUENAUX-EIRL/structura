@@ -1,5 +1,9 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}
+    {% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}
+{% endblock %}
+
 {% block javascript %}
     <script src="{{ asset('javascript/User/new.js') }}"></script>
     <script src="{{ asset('javascript/People/phone.js') }}"></script>
