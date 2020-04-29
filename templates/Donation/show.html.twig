@@ -14,7 +14,7 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
     </li>
 {% endblock %}
 
@@ -28,7 +28,7 @@
 
             <div class="col-12 col-md-10">
                 <h1>
-                    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+                    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
                 </h1>
                 <br>
                 <div class="container styledtable">
