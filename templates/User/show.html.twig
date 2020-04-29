@@ -1,5 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}
+    {% if app.user.username == user.username %}
+        {% trans %}Mon profil{% endtrans %}
+    {% else %}
+        {% trans %}Profil de{% endtrans %} {{ user.username }}
+    {% endif %}
+{% endblock %}
+
 {% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
 
 {% block stylesheets %}
