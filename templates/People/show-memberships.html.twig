@@ -1,5 +1,7 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Liste des adhésions de {% endtrans %} {{ people.firstName }} {{ people.lastName }}{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
 {% endblock %}
