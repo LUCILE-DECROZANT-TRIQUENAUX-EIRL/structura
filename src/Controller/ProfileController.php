@@ -94,20 +94,18 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * Displays a form to edit sensible infos of the connected user.
+     * Displays a form to edit pseudonym of the connected user.
      * @return views
      * @param Request $request The request.
      * @param User $currentUser The user to edit.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
-     * @Route("/{id}/editsensible", name="profile_edit_profile", methods={"GET", "POST"})
+     * @Route("/{id}/editpseudonym", name="profile_edit_pseudonym", methods={"GET", "POST"})
      * @Security("user.getId() == id")
      */
-    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
+    public function editPseudonymAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
-
         $updateUserGeneralDataFDO = UpdateUserGeneralDataFDO::fromUser($currentUser);
 
-        if($currentUser->getPeople() != NULL)
+        if ($currentUser->getPeople() != null)
         {
             $people = $currentUser->getPeople();
         }
@@ -118,8 +116,6 @@ class ProfileController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $editForm = $this->createForm(UserGeneralDataType::class, $updateUserGeneralDataFDO);
         $editForm->handleRequest($request);
-        $passwordForm = $this->createForm(UserPasswordType::class, []);
-        $passwordForm->handleRequest($request);
 
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid())
@@ -140,8 +136,39 @@ class ProfileController extends AbstractController
                     'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('profile_edit_profile', ['id' => $currentUser->getId()]);
+            return $this->redirectToRoute('profile_edit_pseudonym', ['id' => $currentUser->getId()]);
         }
+
+        return $this->render('Profile/edit-pseudonym.html.twig', array(
+            // Returns people and user to be able to access both infos in view
+            'people' => $people,
+            'user' => $currentUser,
+            'edit_form' => $editForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit password of the connected user.
+     * @return views
+     * @param Request $request The request.
+     * @param User $currentUser The user to edit.
+     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @Route("/{id}/editpassword", name="profile_edit_password", methods={"GET", "POST"})
+     * @Security("user.getId() == id")
+     */
+    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
+    {
+        if ($currentUser->getPeople() != null)
+        {
+            $people = $currentUser->getPeople();
+        }
+        else {
+            $people = new People();
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $passwordForm = $this->createForm(UserPasswordType::class, []);
+        $passwordForm->handleRequest($request);
 
         // Submit change of password
         if ($passwordForm->isSubmitted())
@@ -176,11 +203,10 @@ class ProfileController extends AbstractController
             }
         }
 
-        return $this->render('Profile/editsensible.html.twig', array(
+        return $this->render('Profile/edit-password.html.twig', array(
             // Returns people and user to be able to access both infos in view
             'people' => $people,
             'user' => $currentUser,
-            'editsensible_form' => $editForm->createView(),
             'password_form' => $passwordForm->createView(),
         ));
     }
