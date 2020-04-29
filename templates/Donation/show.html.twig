@@ -48,12 +48,11 @@
                             <tr>
                                 <th>{% trans %}Donateurice{% endtrans %}</th>
                                 <td>
-                                    <a  class="text-white"
-                                        href="{{ path('people_show', { 'id': donation.donator.id }) }}"
+                                    <a  href="{{ path('people_show', { 'id': donation.donator.id }) }}"
                                         data-toggle="tooltip"
                                         title="{% trans %}Voir le profil de {% endtrans %} {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}"
                                         >
-                                        <span class="card-title text-dark">{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}</span>
+                                        {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
                                     </a>
                                 </td>
                             </tr>
