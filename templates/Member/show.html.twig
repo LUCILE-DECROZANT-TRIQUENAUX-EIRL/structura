@@ -1,5 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}
+    {% if member.user != NULL and app.user.username == member.user.username %}
+        {% trans %}Mon profil{% endtrans %}
+    {% else %}
+        {% trans %}Profil de{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+    {% endif %}
+{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
 {% endblock %}
