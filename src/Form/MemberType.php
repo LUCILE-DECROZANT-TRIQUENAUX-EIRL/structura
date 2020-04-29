@@ -75,7 +75,7 @@ class MemberType extends AbstractType
                 ])
                 ->add('newsletterDematerialization', CheckboxType::class, [
                     'required' => false,
-                    'label' => $this->translator->trans('Reçoit la newsletter au format dématérialisé')
+                    'label' => $this->translator->trans('Reçoit la newsletter au format dématérialisé (e-mail)')
                 ])
                 ->add('homePhoneNumber', TelType::class, [
                     'label' => $this->translator->trans('Téléphone fixe'),
