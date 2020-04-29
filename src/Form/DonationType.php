@@ -19,7 +19,9 @@ class DonationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('amount', MoneyType::class)
+                ->add('amount', MoneyType::class, [
+                    'attr' => ['placeholder' => '15,50'],
+                ])
                 ->add('payment_type', EntityType::class, [
                     // looks for choices from this entity
                     'class' => PaymentType::class,
