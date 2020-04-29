@@ -25,7 +25,8 @@
         {# ------------- Top menu ------------- #}
         {# ------------------------------------ #}
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+            <nav id="top-navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <a class="navbar-brand" href="{{ path('home') }}">{% trans %}Accueil{% endtrans %} <span class="sr-only">{% trans %}(page courante){% endtrans %}</span></a>
                 <button
                     class="navbar-toggler"
@@ -181,6 +182,7 @@
 
                 </div>
             </nav>
+            </div>
         </header>
 
         <div id="container-alert-messages" class="container">

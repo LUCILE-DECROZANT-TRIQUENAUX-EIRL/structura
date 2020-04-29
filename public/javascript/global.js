@@ -1,3 +1,12 @@
+// Add shadow under top navbar if scrolled down
+$(window).scroll(function () {
+    if ($(window).scrollTop() > 10) {
+        $('#top-navbar').addClass('navbar-shadowed');
+    } else {
+        $('#top-navbar').removeClass('navbar-shadowed');
+    }
+});
+
 $(document).ready(function () {
     // Togle all datatables of the project
     $(function () {

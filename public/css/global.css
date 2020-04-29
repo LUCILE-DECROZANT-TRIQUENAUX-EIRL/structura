@@ -1,5 +1,14 @@
 @import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
 
+/* add shadow on navbar if scrolled down */
+#top-navbar {
+  transition: 0.2s;
+}
+
+.navbar-shadowed {
+  box-shadow: 0px -2px 10px #999;
+}
+
 body
 {
     /* Avoid to hide content with footer */
