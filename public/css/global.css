@@ -1,8 +1,28 @@
 @import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
 
+/* avoid content being hidden behind the top navbar */
+header {
+    height: 56px;
+}
+
 /* add shadow on navbar if scrolled down */
 #top-navbar {
   transition: 0.2s;
+}
+
+/* make footer going to the bottom of the page even if there is not much content */
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+#main-content {
+  flex: 1 0 auto;
+}
+footer {
+  flex-shrink: 0;
 }
 
 .navbar-shadowed {
