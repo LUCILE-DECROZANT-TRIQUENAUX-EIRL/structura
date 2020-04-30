@@ -34,7 +34,7 @@
             </div>
             <div class="col-12 col-md-10">
                 <h1>
-                    {% trans %}Édition du don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+                    {% trans %}Édition du don{% endtrans %}
                 </h1>
                 {{ form_start(form, {'attr': {'id': 'form-edit-donation'}}) }}
                 {% set hasDonator = donation.donator is defined %}
