@@ -1,6 +1,12 @@
 {% extends 'Home/base.html.twig' %}
 
-{% block title %}{% trans %}Historique{% endtrans %}{% endblock %}
+{% block title %}
+    {% if app.user.username == user.username %}
+        {% trans %}Historique de mon compte{% endtrans %}
+    {% else %}
+        {% trans %}Historique du compte de{% endtrans %} {{ user.username }}
+    {% endif %}
+{% endblock %}
 
 {% set profileLabel = app.user.username == user.username ? "mon profil" : "l'utilisateurice" %}
 
@@ -18,11 +24,20 @@
         <a href="{{ path('user_list') }}">{% trans %}Liste des utilisateurices{% endtrans %}</a>
     </li>
     {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_show', { 'id': user.id }) }}">
+            {% if app.user.username == user.username %}
+                {% trans %}Mon profil{% endtrans %}
+            {% else %}
+                {% trans %}Profil de{% endtrans %} {{ user.username }}
+            {% endif %}
+        </a>
+    </li>
     <li class="breadcrumb-item active" aria-current="page">
         {% if app.user.username == user.username %}
-            {% trans %}Mon profil{% endtrans %}
+            {% trans %}Historique de mon compte{% endtrans %}
         {% else %}
-            {% trans %}Profil de{% endtrans %} {{ user.username }}
+            {% trans %}Historique du compte de{% endtrans %} {{ user.username }}
         {% endif %}
     </li>
 {% endblock %}
