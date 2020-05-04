@@ -1,0 +1,26 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Reçus fiscaux{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">
+        <a href="{{ path('home') }}">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Reçus fiscaux{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/Dashboard/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                Work in progress...
+            </div>
+        </div>
+    </div>
+{% endblock %}
