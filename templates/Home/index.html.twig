@@ -91,15 +91,21 @@
                             <th data-exportable="true">{% trans %}Téléphone fixe{% endtrans %}</th>
                             <th data-exportable="true">{% trans %}Téléphone portable{% endtrans %}</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="d-none">
                         {% for individual in people %}
-                            <tr data-toggle="tooltip" title={% trans %}"Cliquer pour afficher plus de détails"{% endtrans %}>
+                            <tr data-toggle="tooltip"
+                                title="{% trans %}Cliquer pour afficher plus de détails{% endtrans %}"
+                                data-title-openened="{% trans %}Cliquer pour cacher les détails{% endtrans %}"
+                                data-title-closed="{% trans %}Cliquer pour afficher plus de détails{% endtrans %}"
+                                >
                                 <td class="align-middle">{{ individual.lastname }}</td>
                                 <td class="align-middle">{{ individual.firstname }}</td>
                                 <td class="align-middle text-center"><div class="phone">{{ individual.homePhoneNumber }}</div></td>
                                 <td class="align-middle text-center"><div class="phone">{{ individual.cellPhoneNumber }}</div></td>
+                                <td class="align-middle text-center expand-icon"><i class="icon ion-ios-arrow-down"></i></td>
                                 <td class="">
                                     <div class="container-fluid">
                                         <div class="row">
