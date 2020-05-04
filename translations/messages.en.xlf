@@ -253,9 +253,9 @@
         <source>Relancer par mail</source>
         <target state="translated">Mail reminder</target>
       </trans-unit>
-      <trans-unit id="fYVNZe_" resname="Annuaire global">
-        <source>Annuaire global</source>
-        <target state="translated">Global Directory</target>
+      <trans-unit id="fYVNZe_" resname="Annuaire généraliste">
+        <source>Annuaire généraliste</source>
+        <target state="needs-translation">Annuaire généraliste</target>
       </trans-unit>
       <trans-unit id="ZIztra7" resname="Profil de">
         <source>Profil de</source>
@@ -337,9 +337,9 @@
         <source>Les champs notés avec * sont requis.</source>
         <target state="translated">Fields marked with * are required.</target>
       </trans-unit>
-      <trans-unit id="KI5Hthm" resname="Retourner à l'annuaire global">
-        <source>Retourner à l'annuaire global</source>
-        <target state="translated">Return to global directory</target>
+      <trans-unit id="KI5Hthm" resname="Retourner à l'annuaire généraliste">
+        <source>Retourner à l'annuaire généraliste</source>
+        <target state="needs-translation">Retourner à l'annuaire généraliste</target>
       </trans-unit>
       <trans-unit id="lpQY9NW" resname="Créer">
         <source>Créer</source>
