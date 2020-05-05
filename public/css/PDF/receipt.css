@@ -1,0 +1,61 @@
+/* Setup default settings */
+@page {
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    font-family: sans-serif;
+    font-size: 12.5px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+table {
+    width: 100%;
+}
+
+/* Add utility classes */
+.text-underlined {
+    text-decoration: underline;
+}
+
+/* Display the payer address a bit bigger than the rest */
+td.payer-address,
+td.payer-address > p,
+td.payer-address > p > span {
+    font-size: 16px;
+}
+
+/* Nicely space the association information in the cutable part */
+#detachable-association-information > #label-recipient {
+    width: 16%;
+}
+
+#detachable-association-information > #association-data {
+    width: 84%;
+}
+
+#detachable-association-information > #association-data > p:first-of-type {
+    font-size: 11px;
+}
+
+#detachable-association-information > #association-data > p:last-of-type {
+    font-size: 9px;
+}
+
+/* Nicely space the association purposes list */
+#association-purpose > #label-purpose {
+    width: 6%;
+}
+#association-purpose > #purposes-list {
+    width: 94%;
+}
