@@ -61,7 +61,7 @@ class Receipt
 
     public function getOrderCode(): string
     {
-        return $this->fiscalYear . '-' . $this->orderNumber();
+        return $this->fiscalYear . '-' . $this->orderNumber;
     }
 
     public function getOrderNumber(): ?int
