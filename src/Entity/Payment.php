@@ -60,6 +60,11 @@ class Payment
      */
     private $payer;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Receipt", mappedBy="payment", cascade={"persist", "remove"})
+     */
+    private $receipt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,6 +189,23 @@ class Payment
         $newPayment = $donation === null ? null : $this;
         if ($newPayment !== $donation->getPayment()) {
             $donation->setPayment($newPayment);
+        }
+
+        return $this;
+    }
+
+    public function getReceipt(): ?Receipt
+    {
+        return $this->receipt;
+    }
+
+    public function setReceipt(Receipt $receipt): self
+    {
+        $this->receipt = $receipt;
+
+        // set the owning side of the relation if necessary
+        if ($receipt->getPayment() !== $this) {
+            $receipt->setPayment($this);
         }
 
         return $this;
