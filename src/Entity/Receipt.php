@@ -19,22 +19,32 @@ class Receipt
     private $id;
 
     /**
+     * The receipt's order number.
+     * This value is incremented at each receipt creation for a same fiscal year.
+     * Once set, this value can't be edited.
+     *
      * @ORM\Column(type="integer")
      */
-    private $orderNum;
+    private $orderNumber;
 
     /**
+     * The receipt's fiscal year.
+     *
      * @ORM\Column(type="integer")
      */
     private $fiscalYear;
 
     /**
+     * The payment corresponding to this receipt.
+     *
      * @ORM\OneToOne(targetEntity="App\Entity\Payment", inversedBy="receipt", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $payment;
 
     /**
+     * A list of all receipts generations where this receipt has been used.
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\ReceiptsGeneration", mappedBy="receipts")
      */
     private $receiptsGenerations;
@@ -51,17 +61,20 @@ class Receipt
 
     public function getOrderCode(): string
     {
-        return $this->fiscalYear . '-' . $this->orderNum();
+        return $this->fiscalYear . '-' . $this->orderNumber();
     }
 
-    public function getOrderNum(): ?int
+    public function getOrderNumber(): ?int
     {
-        return $this->orderNum;
+        return $this->orderNumber;
     }
 
-    public function setOrderNum(int $orderNum): self
+    public function setOrderNumber(int $orderNumber): self
     {
-        $this->orderNum = $orderNum;
+        if ($this->orderNumber === null)
+        {
+            $this->orderNumber = $orderNumber;
+        }
 
         return $this;
     }
