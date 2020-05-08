@@ -59,3 +59,7 @@ td.payer-address > p > span {
 #association-purpose > #purposes-list {
     width: 94%;
 }
+
+div.new-page + div.new-page {
+    page-break-before: always;
+}
