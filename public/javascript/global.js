@@ -97,6 +97,20 @@ $(document).ready(function () {
                 console.warn('You must define the attribute `data-create-label` in your table.')
             }
 
+            let tableDomDescription = '';
+
+            // Check if there is a filter bar wanted to add it if needed
+            if ($table.data('filter-bar')) {
+                tableDomDescription = '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>';
+            } else {
+                // If no buttons wanted, remove the empty header
+                if (buttons.length > 0) {
+                    tableDomDescription = '<"datatable-header"<"datatable-buttons"B>>t<"datatable-footer"p>';
+                } else {
+                    tableDomDescription = 't<"datatable-footer"p>';
+                }
+            }
+
             // Check the number of rows wanted (default: 10)
             let countRowsDisplayed = 10; // Set default to 10 rows
             let customCountRowsDisplayed = $table.data('number-rows-display'); // Get the custom settings
@@ -177,7 +191,7 @@ $(document).ready(function () {
                     url: '/json/datatable/fr_FR.json',
                 },
                 buttons: buttons,
-                dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
+                dom: tableDomDescription,
                 pageLength: countRowsDisplayed,
                 initComplete: function (settings, json) {
                     // We show the table that was hidden while datatable was initializing
