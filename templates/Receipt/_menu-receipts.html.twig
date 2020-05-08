@@ -1,0 +1,30 @@
+{% block body %}
+    {% set show_list = show_list is defined ? show_list : null %}
+    {% set generate_annual = generate_annual is defined ? generate_annual : null %}
+
+    <ul class="list-group">
+        <a href="{{ path('receipt_list') }}"
+           class="list-group-item list-group-item-action {{ show_list }}"
+           >
+            {% trans %}Reçus générés{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Génération{% endtrans %}</h4>
+    <ul class="list-group">
+        <a href="{#{{ path('') }}#}"
+           class="list-group-item list-group-item-action {{ generate_annual }}"
+           >
+            {% trans %}Année fiscale{% endtrans %}
+        </a>
+        <a href="{#{{ path('') }}#}"
+           class="list-group-item list-group-item-action {{ generate_annual }}"
+           >
+            {% trans %}Entre deux dates{% endtrans %}
+        </a>
+        <a href="{#{{ path('') }}#}"
+           class="list-group-item list-group-item-action {{ generate_annual }}"
+           >
+            {% trans %}Dernières modifications{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}

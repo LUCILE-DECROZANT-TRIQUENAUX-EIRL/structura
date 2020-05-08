@@ -21,12 +21,16 @@ class ReceiptController extends AbstractController
     /**
      * @return views
      * @param Request $request The request.
-     * @Route("/", name="receipt_dashboard", requirements={"_locale"="en|fr"})
+     * @Route("/", name="receipt_list", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function dashboardAction(Request $request)
+    public function listAction(Request $request)
     {
-        return $this->render('Receipt/dashboard.html.twig', []);
+        return $this->render('Receipt/list.html.twig', [
+            'generatedAnnualReceipts' => null,
+            'generatedBetweenTwoDatesReceipts' => null,
+            'generatedParticularReceipts' => null,
+        ]);
     }
 
     /**

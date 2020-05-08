@@ -1,0 +1,143 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Reçus fiscaux{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('home') }}">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item">
+        {% trans %}Reçus fiscaux{% endtrans %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Reçus générés{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/Dashboard/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                {{ include('Receipt/_menu-receipts.html.twig', { show_list: 'active' }) }}
+            </div>
+            <div class="col-10">
+                <h1>{% trans %}Reçus générés{% endtrans %}</h1>
+
+                <div class="border col p-3">
+                    <h3>Années fiscales</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Année{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedAnnualReceipt in generatedAnnualReceipts %}
+                                <tr>
+                                    <td class="align-middle">{{ generatedAnnualReceipt.year }}</td>
+                                    <td class="align-middle">{{ generatedAnnualReceipt.generationDate }}</td>
+                                    <td class="align-middle column-action">
+                                        <a
+                                            href="{#{{ path('', { 'id': generatedAnnualReceipt.id }) }}#}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                            >
+                                            <i class="icon ion-md-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border col p-3 mt-4">
+                    <h3>Entre deux dates</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Du...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Au...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedBetweenTwoDatesReceipt in generatedBetweenTwoDatesReceipts %}
+                                <tr>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.startDate }}</td>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.endDate }}</td>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.generationDate }}</td>
+                                    <td class="align-middle column-action">
+                                        <a
+                                            href="{#{{ path('', { 'id': generatedBetweenTwoDatesReceipt.id }) }}#}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                            >
+                                            <i class="icon ion-md-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border col p-3 mt-4">
+                    <h3>Spéciaux</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedParticularReceipt in generatedParticularReceipts %}
+                                <tr>
+                                    <td class="align-middle">{{ generatedParticularReceipt.generationDate }}</td>
+                                    <td class="align-middle">{{ generatedParticularReceipt.generator }}</td>
+                                    <td class="align-middle column-action">
+                                        <a
+                                            href="{#{{ path('', { 'id': generatedParticularReceipt.id }) }}#}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                            >
+                                            <i class="icon ion-md-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+{% endblock %}
