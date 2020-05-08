@@ -61,6 +61,7 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
             if ($index % 3 == 0)
             {
                 $amountDonation = (float) rand (20, 1000);
+                $dateDonation = rand (2017, 2019) . '-02-15 ' . rand (10, 23) . ':00:00';
 
                 $paymentDonationCheque = new Payment();
                 $paymentDonationCheque->setAmount($amountDonation);
@@ -70,7 +71,7 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
 
                 $donation = new Donation();
                 $donation->setAmount($amountDonation);
-                $donation->setDonationDate(new \DateTime());
+                $donation->setDonationDate(new \DateTime($dateDonation));
                 $donation->setDonator($individual);
                 $donation->setPayment($paymentDonationCheque);
                 $manager->persist($donation);
