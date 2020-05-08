@@ -6,16 +6,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\People;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
-// use App\Repository\PaymentTypeRepository;
-// use App\Repository\MembershipTypeRepository;
-// use App\Repository\PeopleRepository;
-
 
 class MembershipFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
@@ -30,7 +27,11 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
     public function load(ObjectManager $manager)
     {
+        // Create logger used to display information messages
+        $output = new ConsoleOutput();
+
         // Creating MembershipType
+        $output->writeln('      <comment>></comment> <info>Membership types creation...</info>');
         $MembershipTypeFamily = new MembershipType();
         $MembershipTypeFamily->setDefaultAmount(30.0);
         $MembershipTypeFamily->setLabel('Famille');
@@ -56,12 +57,13 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
         $paymentTypeHelloAsso = $paymentTypeRepository->findOneBy(['label' => 'HelloAsso']);
 
+        $output->writeln('      <comment>></comment> <info>Payments creation...</info>');
         // First payment (check)
         $paymentAdhesionCheque50 = new Payment();
         $paymentAdhesionCheque50->setAmount(50);
         $paymentAdhesionCheque50->setType($paymentTypeCheck);
-        $paymentAdhesionCheque50->setDateReceived(new \DateTime());
-        $paymentAdhesionCheque50->setDateCashed(new \DateTime());
+        $paymentAdhesionCheque50->setDateReceived(new \DateTime('2017-02-17 16:01:57'));
+        $paymentAdhesionCheque50->setDateCashed(new \DateTime('2017-02-17 16:01:57'));
 
         $manager->persist($paymentAdhesionCheque50);
 
@@ -69,8 +71,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionHelloAsso30 = new Payment();
         $paymentAdhesionHelloAsso30->setAmount(30);
         $paymentAdhesionHelloAsso30->setType($paymentTypeHelloAsso);
-        $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime());
-        $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime());
+        $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime('2017-01-18 14:36:03'));
+        $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime('2017-01-18 14:36:03'));
 
         $manager->persist($paymentAdhesionHelloAsso30);
 
@@ -78,8 +80,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCash20 = new Payment();
         $paymentAdhesionCash20->setAmount(20);
         $paymentAdhesionCash20->setType($paymentTypeCash);
-        $paymentAdhesionCash20->setDateReceived(new \DateTime());
-        $paymentAdhesionCash20->setDateCashed(new \DateTime());
+        $paymentAdhesionCash20->setDateReceived(new \DateTime('2019-10-27 12:21:09'));
+        $paymentAdhesionCash20->setDateCashed(new \DateTime('2019-10-27 12:21:09'));
 
         $manager->persist($paymentAdhesionCash20);
 
@@ -88,8 +90,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCard20 = new Payment();
         $paymentAdhesionCard20->setAmount(20);
         $paymentAdhesionCard20->setType($paymentTypeCard);
-        $paymentAdhesionCard20->setDateReceived(new \DateTime());
-        $paymentAdhesionCard20->setDateCashed(new \DateTime());
+        $paymentAdhesionCard20->setDateReceived(new \DateTime('2018-05-11 08:28:09'));
+        $paymentAdhesionCard20->setDateCashed(new \DateTime('2018-05-11 08:28:09'));
 
 
 
@@ -97,8 +99,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionTransfer20 = new Payment();
         $paymentAdhesionTransfer20->setAmount(20);
         $paymentAdhesionTransfer20->setType($paymentTypeTransfer);
-        $paymentAdhesionTransfer20->setDateReceived(new \DateTime());
-        $paymentAdhesionTransfer20->setDateCashed(new \DateTime());
+        $paymentAdhesionTransfer20->setDateReceived(new \DateTime('2018-04-25 10:59:02'));
+        $paymentAdhesionTransfer20->setDateCashed(new \DateTime('2018-04-25 10:59:02'));
 
         $manager->persist($paymentAdhesionTransfer20);
 
@@ -132,6 +134,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $nbMembers = count($members);
 
         // -- Memberships -- //
+        $output->writeln('      <comment>></comment> <info>Memberships creation...</info>');
         // First regular
         $membershipNormal1 = new Membership();
 
@@ -259,6 +262,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
         // Final flush
         $manager->flush();
+        $output->writeln('      <comment>></comment> <info>Memberships creation complete</info>');
     }
 
     public function getDependencies()
