@@ -1,6 +1,9 @@
 {% block body %}
     {% set show_list = show_list is defined ? show_list : null %}
-    {% set generate_annual = generate_annual is defined ? generate_annual : null %}
+    {% set generate_from_fiscal_year = generate_from_fiscal_year is defined ? generate_from_fiscal_year : null %}
+    {% set generate_from_two_dates = generate_from_two_dates is defined ? generate_from_two_dates : null %}
+    {% set generate_last_modifications = generate_last_modifications is defined ? generate_last_modifications : null %}
+
 
     <ul class="list-group">
         <a href="{{ path('receipt_list') }}"
@@ -11,18 +14,18 @@
     </ul>
     <h4 class="mt-4">{% trans %}Génération{% endtrans %}</h4>
     <ul class="list-group">
-        <a href="{#{{ path('') }}#}"
-           class="list-group-item list-group-item-action {{ generate_annual }}"
+        <a href="{{ path('receipt_generate_from_fiscal_year') }}"
+           class="list-group-item list-group-item-action {{ generate_from_fiscal_year }}"
            >
             {% trans %}Année fiscale{% endtrans %}
         </a>
         <a href="{#{{ path('') }}#}"
-           class="list-group-item list-group-item-action {{ generate_annual }}"
+           class="list-group-item list-group-item-action {{ generate_from_two_dates }}"
            >
             {% trans %}Entre deux dates{% endtrans %}
         </a>
         <a href="{#{{ path('') }}#}"
-           class="list-group-item list-group-item-action {{ generate_annual }}"
+           class="list-group-item list-group-item-action {{ generate_last_modifications }}"
            >
             {% trans %}Dernières modifications{% endtrans %}
         </a>

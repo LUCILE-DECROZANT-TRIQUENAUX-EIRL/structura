@@ -11,6 +11,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\Payment;
+use App\Entity\Receipt;
+use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\Form\GenerateTaxReceiptFromFiscalYearType;
 
 /**
  * @Route(path="/{_locale}/receipt", requirements={"_locale"="en|fr"})
@@ -30,6 +33,46 @@ class ReceiptController extends AbstractController
             'generatedAnnualReceipts' => null,
             'generatedBetweenTwoDatesReceipts' => null,
             'generatedParticularReceipts' => null,
+        ]);
+    }
+
+    /**
+     * @return views
+     * @param Request $request The request.
+     * @Route("/generate/from-fiscal-year", name="receipt_generate_from_fiscal_year", requirements={"_locale"="en|fr"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function generateFromFiscalYearAction(Request $request)
+    {
+        // Entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYears();
+
+        // Creating an empty FDO
+        $generateTaxReceiptFromFiscalYearFDO = new GenerateTaxReceiptFromFiscalYearFDO();
+
+        // From creation
+        $generateFromFiscalYearForm = $this->createForm(
+            GenerateTaxReceiptFromFiscalYearType::class,
+            $generateTaxReceiptFromFiscalYearFDO,
+            [
+                'availableFiscalYears' => $availableFiscalYears
+            ]
+        );
+
+        $generateFromFiscalYearForm->handleRequest($request);
+
+        // Submit change
+        if ($generateFromFiscalYearForm->isSubmitted() && $generateFromFiscalYearForm->isValid())
+        {
+            // File generation here
+
+            $this->redirectToRoute('receipt_list');
+        }
+
+        return $this->render('Receipt/generate-from-fiscal-year.html.twig', [
+            'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
         ]);
     }
 

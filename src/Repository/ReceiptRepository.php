@@ -19,32 +19,26 @@ class ReceiptRepository extends ServiceEntityRepository
         parent::__construct($registry, Receipt::class);
     }
 
-    // /**
-    //  * @return Receipt[] Returns an array of Receipt objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @return int[] Returns an array of all the fiscal years
+     * to which one or more receipt as been associated.
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Receipt
+    public function findAvailableFiscalYears()
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+        $results = $this->createQueryBuilder('r')
+            ->select('r.fiscalYear')
+            ->distinct()
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
+
+        $formatedResults = [];
+
+        foreach($results as $result)
+        {
+            $formatedResults[$result['fiscalYear']] = $result['fiscalYear'];
+        }
+
+        return $formatedResults;
     }
-    */
 }
