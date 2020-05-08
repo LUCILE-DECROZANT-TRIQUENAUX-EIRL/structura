@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Reçu fiscal</title>
+        <link rel="stylesheet" href="public/css/library/bootstrap.min.css">
+        <link rel="stylesheet" href="public/css/library/theme.min.css">
+        <link rel="stylesheet" href="public/css/global.css">
+        <link rel="stylesheet" href="public/css/PDF/receipt.css">
+    </head>
+    <body>
+        {% for index, payment in payments %}
+            {% include 'PDF/Receipt/_tax_receipt.html.twig' with {
+                'payment': payment,
+                'orderCode' : '2020-' ~ index,
+                'receiptGenerationDate' : receiptGenerationDate
+            } %}
+        {% endfor %}
+    </body>
+</html>
