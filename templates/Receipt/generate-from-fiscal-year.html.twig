@@ -28,8 +28,11 @@
             <div class="col-10">
                 <h1>{% trans %}Générer selon l'année fiscale{% endtrans %}</h1>
 
-                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from_fiscal_year_form'}}) }}
+                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from-fiscal-year-form'}}) }}
                 {{ form_end(from_fiscal_year_form) }}
+                <button id="from-fiscal-year-submit-button" type="submit" form="from-fiscal-year-form" class="btn btn-primary">
+                    {% trans %}Générer{% endtrans %}
+                </button>
             </div>
         </div>
     </div>

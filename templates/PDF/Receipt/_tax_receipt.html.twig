@@ -52,15 +52,15 @@
             </td>
             <td class="payer-address">
                 <p class="font-weight-bold">
-                    <span class="text-uppercase">{{ payment.payer.lastName }}</span>
-                    {{ payment.payer.firstName }}
+                    <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
+                    {{ receipt.payment.payer.firstName }}
                 </p>
                 <p>
-                    {{ payment.payer.addresses[0].line }}
+                    {{ receipt.payment.payer.addresses[0].line }}
                 </p>
                 <p>
-                    {{ payment.payer.addresses[0].postalCode }}
-                    <span class="text-uppercase">{{ payment.payer.addresses[0].city }}</span>
+                    {{ receipt.payment.payer.addresses[0].postalCode }}
+                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                 </p>
             </td>
         </tr>
@@ -108,15 +108,15 @@
         <tr>
             <td class="w-75">
                 Cotisation ou don de :
-                <span class="font-weight-bold">{{ payment.amount }} €</span>
+                <span class="font-weight-bold">{{ receipt.payment.amount }} €</span>
                 du
-                <span class="font-weight-bold">{{ payment.dateReceived | localizeddate('short', 'none')}}</span>
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('short', 'none')}}</span>
                 par
-                <span class="font-weight-bold">{{ payment.type.label }}</span>
+                <span class="font-weight-bold">{{ receipt.payment.type.label }}</span>
             </td>
             <td class="w-25 text-right">
                 N° d'ordre&nbsp;:
-                <span class="font-weight-bold">{{ orderCode }}</span>
+                <span class="font-weight-bold">{{ receipt.orderCode }}</span>
             </td>
         </tr>
         <tr>
@@ -132,9 +132,9 @@
         <tr>
             <td>
                 Déduction fiscale : vos cotisations et dons enregistrés pour
-                <span class="font-weight-bold">{{ payment.dateReceived | date('Y') }}</span>
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | date('Y') }}</span>
                 seront déductibles de vos impôts déclarés en
-                <span class="font-weight-bold">{{ payment.dateReceived | date('Y') + 1 }}</span>
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | date('Y') + 1 }}</span>
             </td>
         </tr>
         <tr>
@@ -152,16 +152,16 @@
             <td class="small">
                 <span class="font-weight-bold small">REÇU FISCAL</span>
                 à joindre à votre déclaration de revenus
-                <span class="font-weight-bold small">{{ payment.dateReceived | date('Y') }}</span>
+                <span class="font-weight-bold small">{{ receipt.payment.dateReceived | date('Y') }}</span>
                 en
-                <span class="font-weight-bold small">{{ payment.dateReceived | date('Y') + 1 }}</span>.
+                <span class="font-weight-bold small">{{ receipt.payment.dateReceived | date('Y') + 1 }}</span>.
             </td>
             <td class="small">
                 Article 200-5 du code des impôts.
             </td>
             <td class="text-right">
                 N° d'ordre&nbsp;:
-                <span class="font-weight-bold">{{ orderCode }}</span>
+                <span class="font-weight-bold">{{ receipt.orderCode }}</span>
             </td>
         </tr>
     </table>
@@ -231,11 +231,11 @@
                     Donateurice&nbsp;:
                 </td>
                 <td class="text-center font-weight-bold">
-                    <span class="text-uppercase">{{ payment.payer.lastName }}</span>
-                    {{ payment.payer.firstName }},
-                    {{ payment.payer.addresses[0].line }}
-                    {{ payment.payer.addresses[0].postalCode }}
-                    <span class="text-uppercase">{{ payment.payer.addresses[0].city }}</span>
+                    <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
+                    {{ receipt.payment.payer.firstName }},
+                    {{ receipt.payment.payer.addresses[0].line }}
+                    {{ receipt.payment.payer.addresses[0].postalCode }}
+                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                 </td>
             </tr>
         </table>
@@ -245,19 +245,19 @@
     <div class="border-left border-right pt-2 pb-2 pr-3 pl-3">
         <div>
             Læ bénéficiaire reconnaît avoir reçu à titre de don manuel la somme de :
-            <span class="font-weight-bold">{{ payment.amount }}&nbsp;€</span>
+            <span class="font-weight-bold">{{ receipt.payment.amount }}&nbsp;€</span>
         </div>
         <div>
             Somme en toutes lettres :
-            <span class="font-weight-bold">***&nbsp;{{ payment.amount | localizednumber('spellout') | upper }}&nbsp;EUROS&nbsp;***</span>
+            <span class="font-weight-bold">***&nbsp;{{ receipt.payment.amount | localizednumber('spellout') | upper }}&nbsp;EUROS&nbsp;***</span>
         </div>
         <div>
             Date du paiement :
-            <span class="font-weight-bold">{{ payment.dateReceived | localizeddate('long', 'none') }}</span>
+            <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('long', 'none') }}</span>
         </div>
         <div>
             Mode de versement :
-            <span class="font-weight-bold">{{ payment.type.label }}</span>
+            <span class="font-weight-bold">{{ receipt.payment.type.label }}</span>
         </div>
     </div>
 

@@ -7,9 +7,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Process\Process;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Service\ReceiptService;
 use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
@@ -20,7 +25,6 @@ use App\Form\GenerateTaxReceiptFromFiscalYearType;
  */
 class ReceiptController extends AbstractController
 {
-
     /**
      * @return views
      * @param Request $request The request.
@@ -42,7 +46,11 @@ class ReceiptController extends AbstractController
      * @Route("/generate/from-fiscal-year", name="receipt_generate_from_fiscal_year", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function generateFromFiscalYearAction(Request $request)
+    public function generateFromFiscalYearAction(
+        Request $request,
+        EventDispatcherInterface $eventDispatcher,
+        ReceiptService $receiptService
+    )
     {
         // Entity manager
         $em = $this->getDoctrine()->getManager();
@@ -63,12 +71,17 @@ class ReceiptController extends AbstractController
 
         $generateFromFiscalYearForm->handleRequest($request);
 
-        // Submit change
+        // Submit
         if ($generateFromFiscalYearForm->isSubmitted() && $generateFromFiscalYearForm->isValid())
         {
-            // File generation here
+            $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
 
-            $this->redirectToRoute('receipt_list');
+            // Call an event, to generate the pdf file in a background process.
+            $eventDispatcher->addListener(KernelEvents::TERMINATE, function (Event $event) use ($fiscalYear, $receiptService) {
+                $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear);
+            });
+
+            return $this->redirectToRoute('receipt_list');
         }
 
         return $this->render('Receipt/generate-from-fiscal-year.html.twig', [
