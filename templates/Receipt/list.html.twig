@@ -39,6 +39,7 @@
                             <tr>
                                 <th data-sortable="true">{% trans %}Année{% endtrans %}</th>
                                 <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -47,6 +48,7 @@
                                 <tr>
                                     <td class="align-middle">{{ generatedAnnualReceipt.year }}</td>
                                     <td class="align-middle">{{ generatedAnnualReceipt.generationDate }}</td>
+                                    <td class="align-middle">{{ generatedAnnualReceipt.generator }}</td>
                                     <td class="align-middle column-action">
                                         <a
                                             href="{#{{ path('', { 'id': generatedAnnualReceipt.id }) }}#}"
@@ -75,6 +77,7 @@
                                 <th data-sortable="true">{% trans %}Du...{% endtrans %}</th>
                                 <th data-sortable="true">{% trans %}Au...{% endtrans %}</th>
                                 <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -84,6 +87,7 @@
                                     <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.startDate }}</td>
                                     <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.endDate }}</td>
                                     <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.generationDate }}</td>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.generator }}</td>
                                     <td class="align-middle column-action">
                                         <a
                                             href="{#{{ path('', { 'id': generatedBetweenTwoDatesReceipt.id }) }}#}"
