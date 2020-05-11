@@ -98,6 +98,13 @@ class ReceiptsGroupingFile
         return $this->receipts;
     }
 
+    public function setReceipts($receipts): self
+    {
+        $this->receipts = $receipts;
+
+        return $this;
+    }
+
     public function addReceipt(Receipt $receipt): self
     {
         if (!$this->receipts->contains($receipt)) {

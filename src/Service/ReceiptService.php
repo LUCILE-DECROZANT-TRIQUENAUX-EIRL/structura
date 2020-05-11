@@ -4,8 +4,11 @@ namespace App\Service;
 
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 use App\Entity\Payment;
 use App\Entity\Receipt;
+use App\Entity\ReceiptsGroupingFile;
+use App\Entity\ReceiptsFromFiscalYearGroupingFile;
 use App\Service\Utils\FileService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -55,13 +58,20 @@ class ReceiptService
      * @param \Datetime $receiptGenerationDate The datetime when the generation started.
      */
     public function generateTaxReceiptPdf(
+        User $user,
         array $receipts,
         string $filename = 'tax_receipts',
         \DateTime $receiptGenerationDate
     )
     {
-        // File fullname, which includes the directory and the file's extension
-        $fileFullName = '../pdf/'. $receiptGenerationDate->format('Y-m-d:H-i-s') . '_' . $filename . '.pdf';
+        $receiptsGroupingFile = new ReceiptsGroupingFile();
+        $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
+        $receiptsGroupingFile->setGenerator($user);
+        $receiptsGroupingFile->setReceipts($receipts);
+
+        // File fullname, which includes the file's extension
+        $fullFilename = $receiptGenerationDate->format('Y-m-d:H-i-s') . '_' . $filename . '.pdf';
+        $receiptsGroupingFile->setFilename($fullFilename);
 
         // We render the twig template of a tax receipt into pure html
         $htmlNeedingConversion = $this->twig->render('PDF/Receipt/_tax_receipt_base.html.twig', [
@@ -85,19 +95,33 @@ class ReceiptService
         $output = $dompdf->output();
 
         // Saving the generated file on the server
-        $this->fileService->file_force_contents($fileFullName, $output);
+        $fileLocation = '../pdf/' . $fullFilename;
+        $this->fileService->file_force_contents($fileLocation, $output);
+
+        $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());
+        $this->em->persist($receiptsGroupingFile);
+        $this->em->flush();
+
+        return $receiptsGroupingFile;
     }
 
-    public function generateTaxReceiptPdfFromFiscalYear($fiscalYear)
+    public function generateTaxReceiptPdfFromFiscalYear($fiscalYear, $user)
     {
         $receiptGenerationDate = new \DateTime();
+        $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
+        $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
 
         $receipts = $this->em->getRepository(Receipt::class)->findByFiscalYear($fiscalYear);
 
-        $this->generateTaxReceiptPdf(
+        $receiptsGroupingFile = $this->generateTaxReceiptPdf(
+            $user,
             $receipts,
             'recus-fiscaux_'.$fiscalYear,
             $receiptGenerationDate
         );
+
+        $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+        $this->em->persist($receiptsFromFiscalYearGroupingFile);
+        $this->em->flush();
     }
 }
