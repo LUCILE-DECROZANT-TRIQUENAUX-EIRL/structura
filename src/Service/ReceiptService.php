@@ -95,7 +95,7 @@ class ReceiptService
         $output = $dompdf->output();
 
         // Saving the generated file on the server
-        $fileLocation = '../pdf/' . $fullFilename;
+        $fileLocation = 'pdf/' . $fullFilename;
         $this->fileService->file_force_contents($fileLocation, $output);
 
         $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());

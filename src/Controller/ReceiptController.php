@@ -7,16 +7,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Process\Process;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
+
+// use Symfony\Component\EventDispatcher\Event;
+// use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+// use Symfony\Component\HttpKernel\KernelEvents;
+
+use Symfony\Component\Messenger\MessageBusInterface;
+use App\Message\GenerateReceiptFromFiscalYearMessage;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
 use App\Service\ReceiptService;
 use App\Entity\Payment;
 use App\Entity\Receipt;
+
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
 use App\Form\GenerateTaxReceiptFromFiscalYearType;
 
@@ -48,7 +54,8 @@ class ReceiptController extends AbstractController
      */
     public function generateFromFiscalYearAction(
         Request $request,
-        EventDispatcherInterface $eventDispatcher,
+        // EventDispatcherInterface $eventDispatcher,
+        MessageBusInterface $messageBus,
         ReceiptService $receiptService
     )
     {
@@ -76,10 +83,12 @@ class ReceiptController extends AbstractController
         {
             $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
 
-            // Call an event, to generate the pdf file in a background process.
-            $eventDispatcher->addListener(KernelEvents::TERMINATE, function (Event $event) use ($fiscalYear, $receiptService) {
-                $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear);
-            });
+            // // Call an event, to generate the pdf file in a background process.
+            // $eventDispatcher->addListener(KernelEvents::TERMINATE, function (Event $event) use ($fiscalYear, $receiptService) {
+            //     $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear);
+            // });
+
+            $messageBus->dispatch(new GenerateReceiptFromFiscalYearMessage($fiscalYear));
 
             return $this->redirectToRoute('receipt_list');
         }
