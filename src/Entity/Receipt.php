@@ -45,7 +45,7 @@ class Receipt
     /**
      * A list of all receipts generations where this receipt has been used.
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\ReceiptsGeneration", mappedBy="receipts")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ReceiptsGroupingFile", mappedBy="receipts")
      */
     private $receiptsGenerations;
 
@@ -104,14 +104,14 @@ class Receipt
     }
 
     /**
-     * @return Collection|ReceiptsGeneration[]
+     * @return Collection|ReceiptsGroupingFile[]
      */
     public function getReceiptsGenerations(): Collection
     {
         return $this->receiptsGenerations;
     }
 
-    public function addReceiptsGeneration(ReceiptsGeneration $receiptsGeneration): self
+    public function addReceiptsGeneration(ReceiptsGroupingFile $receiptsGeneration): self
     {
         if (!$this->receiptsGenerations->contains($receiptsGeneration)) {
             $this->receiptsGenerations[] = $receiptsGeneration;
@@ -121,7 +121,7 @@ class Receipt
         return $this;
     }
 
-    public function removeReceiptsGeneration(ReceiptsGeneration $receiptsGeneration): self
+    public function removeReceiptsGeneration(ReceiptsGroupingFile $receiptsGeneration): self
     {
         if ($this->receiptsGenerations->contains($receiptsGeneration)) {
             $this->receiptsGenerations->removeElement($receiptsGeneration);

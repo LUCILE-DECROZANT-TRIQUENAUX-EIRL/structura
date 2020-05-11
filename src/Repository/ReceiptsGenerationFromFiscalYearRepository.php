@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\ReceiptsGenerationFromFiscalYear;
+use App\Entity\ReceiptsFromFiscalYearGroupingFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method ReceiptsGenerationFromFiscalYear|null find($id, $lockMode = null, $lockVersion = null)
- * @method ReceiptsGenerationFromFiscalYear|null findOneBy(array $criteria, array $orderBy = null)
- * @method ReceiptsGenerationFromFiscalYear[]    findAll()
- * @method ReceiptsGenerationFromFiscalYear[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ReceiptsFromFiscalYearGroupingFile|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ReceiptsFromFiscalYearGroupingFile|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ReceiptsFromFiscalYearGroupingFile[]    findAll()
+ * @method ReceiptsFromFiscalYearGroupingFile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ReceiptsGenerationFromFiscalYearRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ReceiptsGenerationFromFiscalYear::class);
+        parent::__construct($registry, ReceiptsFromFiscalYearGroupingFile::class);
     }
 
     // /**

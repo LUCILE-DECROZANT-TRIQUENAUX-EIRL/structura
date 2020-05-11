@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\ReceiptsGeneration;
+use App\Entity\ReceiptsGroupingFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method ReceiptsGeneration|null find($id, $lockMode = null, $lockVersion = null)
- * @method ReceiptsGeneration|null findOneBy(array $criteria, array $orderBy = null)
- * @method ReceiptsGeneration[]    findAll()
- * @method ReceiptsGeneration[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ReceiptsGroupingFile|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ReceiptsGroupingFile|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ReceiptsGroupingFile[]    findAll()
+ * @method ReceiptsGroupingFile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ReceiptsGenerationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ReceiptsGeneration::class);
+        parent::__construct($registry, ReceiptsGroupingFile::class);
     }
 
     // /**
