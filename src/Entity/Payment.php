@@ -20,7 +20,7 @@ class Payment
     private $id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $date_received;
 

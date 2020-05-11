@@ -66,6 +66,7 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
                 $paymentDonationCheque = new Payment();
                 $paymentDonationCheque->setAmount($amountDonation);
                 $paymentDonationCheque->setType($paymentTypeCheck);
+                $paymentDonationCheque->setDateReceived(new \DateTime($dateDonation));
                 $paymentDonationCheque->setPayer($individual);
                 $manager->persist($paymentDonationCheque);
 
