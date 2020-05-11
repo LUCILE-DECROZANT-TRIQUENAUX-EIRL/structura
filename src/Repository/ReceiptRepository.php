@@ -23,7 +23,6 @@ class ReceiptRepository extends ServiceEntityRepository
      * @return int[] Returns an array of all the fiscal years
      * to which one or more receipt as been associated.
      */
-
     public function findAvailableFiscalYears()
     {
         $results = $this->createQueryBuilder('r')
