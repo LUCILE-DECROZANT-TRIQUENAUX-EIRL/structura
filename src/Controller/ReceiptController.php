@@ -5,18 +5,17 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Process\Process;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
 use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Service\ReceiptService;
 use App\Entity\Payment;
 use App\Entity\Receipt;
+use App\Entity\ReceiptsGroupingFile;
+use App\Entity\ReceiptsFromFiscalYearGroupingFile;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
 use App\Form\GenerateTaxReceiptFromFiscalYearType;
 
@@ -33,8 +32,12 @@ class ReceiptController extends AbstractController
      */
     public function listAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $annualReceiptsFiles = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
+                ->findAll();
+
         return $this->render('Receipt/list.html.twig', [
-            'generatedAnnualReceipts' => null,
+            'generatedAnnualReceipts' => $annualReceiptsFiles,
             'generatedBetweenTwoDatesReceipts' => null,
             'generatedParticularReceipts' => null,
         ]);
@@ -78,7 +81,7 @@ class ReceiptController extends AbstractController
 
             // Call an event, to generate the pdf file in a background process.
             $eventDispatcher->addListener(KernelEvents::TERMINATE, function (Event $event) use ($fiscalYear, $receiptService) {
-                $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear);
+                $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear, $this->getUser());
             });
 
             return $this->redirectToRoute('receipt_list');
@@ -126,4 +129,29 @@ class ReceiptController extends AbstractController
         return true;
     }
 
+    /**
+     * @return BinaryFileResponse
+     * @param Request $request The request.
+     * @Route("/download-grouped-pdf/{id}", name="download_grouped_receipts_pdf", requirements={"_locale"="en|fr"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function downloadGroupedPdfAction(ReceiptsGroupingFile $file)
+    {
+        $pdfFolderPath = $this->getParameter('kernel.project_dir') . '/pdf/';
+        $filename = $file->getFilename();
+
+        $response = new BinaryFileResponse($pdfFolderPath . $filename);
+
+        // Set mime type of the file to pdf
+        $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
+        $response->headers->set('Content-Type', 'application/pdf');
+
+        // Will make the browser directly download and not try to open the pdf
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
+    }
 }

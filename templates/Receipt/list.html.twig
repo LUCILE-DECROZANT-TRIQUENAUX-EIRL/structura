@@ -46,12 +46,21 @@
                         <tbody class="d-none">
                             {% for generatedAnnualReceipt in generatedAnnualReceipts %}
                                 <tr>
-                                    <td class="align-middle">{{ generatedAnnualReceipt.year }}</td>
-                                    <td class="align-middle">{{ generatedAnnualReceipt.generationDate }}</td>
-                                    <td class="align-middle">{{ generatedAnnualReceipt.generator }}</td>
+                                    <td class="align-middle">
+                                        {{ generatedAnnualReceipt.fiscalYear }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('long', 'none') }}
+                                        à {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('none', 'short') }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generator.username }}
+                                        (<span class="text-uppercase">{{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
+                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                    </td>
                                     <td class="align-middle column-action">
                                         <a
-                                            href="{#{{ path('', { 'id': generatedAnnualReceipt.id }) }}#}"
+                                            href="{{ path('download_grouped_receipts_pdf', { 'id': generatedAnnualReceipt.receiptsGenerationBase.id }) }}"
                                             class="btn btn-secondary"
                                             data-toggle="tooltip"
                                             title="{% trans %}Télécharger le PDF{% endtrans %}"

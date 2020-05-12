@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
@@ -34,6 +35,11 @@ class ReceiptService
     private $em;
 
     /**
+     * @var ParameterBagInterface $params
+     */
+    private $projectDir;
+
+    /**
      * Class constructor with its dependecies injections
      *
      * @param Environment $twig The templating engine used to process twig. This parameter is a dependency injection.
@@ -42,12 +48,14 @@ class ReceiptService
     public function __construct(
         Environment $twig,
         FileService $fileService,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        string $projectDir
     )
     {
         $this->twig = $twig;
         $this->fileService = $fileService;
         $this->em = $em;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -95,7 +103,7 @@ class ReceiptService
         $output = $dompdf->output();
 
         // Saving the generated file on the server
-        $fileLocation = '../pdf/' . $fullFilename;
+        $fileLocation = $this->projectDir . '/pdf/' . $fullFilename;
         $this->fileService->file_force_contents($fileLocation, $output);
 
         $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());

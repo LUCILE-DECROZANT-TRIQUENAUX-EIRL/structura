@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ReceiptsGenerationFromFiscalYearRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ReceiptsFromFiscalYearGroupingFileRepository")
  */
 class ReceiptsFromFiscalYearGroupingFile
 {
@@ -22,7 +22,7 @@ class ReceiptsFromFiscalYearGroupingFile
     private $fiscalYear;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ReceiptsGroupingFile", inversedBy="receiptsGenerationFromFiscalYear", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\ReceiptsGroupingFile", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $receiptsGenerationBase;
