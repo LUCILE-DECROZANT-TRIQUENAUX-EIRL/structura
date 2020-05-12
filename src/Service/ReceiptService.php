@@ -64,26 +64,16 @@ class ReceiptService
      * @param array $receipts An array containing all the receipts that need to be generated.
      * @param string $filename The name of the newly generated file (without the path or the extension).
      * @param \Datetime $receiptGenerationDate The datetime when the generation started.
+     * @return string
      */
     public function generateTaxReceiptPdf(
-        int $userId,
         array $receipts,
         string $filename = 'tax_receipts',
         \DateTime $receiptGenerationDate
     )
     {
-        // Get the user asking for the generation
-        $user = $this->em->getRepository(User::class)->find($userId);
-
-        // Creating the database log
-        $receiptsGroupingFile = new ReceiptsGroupingFile();
-        $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
-        $receiptsGroupingFile->setGenerator($user);
-        $receiptsGroupingFile->setReceipts($receipts);
-
         // File fullname, which includes the file's extension
         $fullFilename = $receiptGenerationDate->format('Y-m-d:H-i-s') . '_' . $filename . '.pdf';
-        $receiptsGroupingFile->setFilename($fullFilename);
 
         // We render the twig template of a tax receipt into pure html
         $htmlNeedingConversion = $this->twig->render('PDF/Receipt/_tax_receipt_base.html.twig', [
@@ -110,29 +100,43 @@ class ReceiptService
         $fileLocation = $this->projectDir . '/pdf/' . $fullFilename;
         $this->fileService->file_force_contents($fileLocation, $output);
 
-        $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());
-        $this->em->persist($receiptsGroupingFile);
-        $this->em->flush();
-
-        return $receiptsGroupingFile;
+        return $fullFilename;
     }
 
     public function generateTaxReceiptPdfFromFiscalYear($fiscalYear, $userId)
     {
         $receiptGenerationDate = new \DateTime();
-        $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
-        $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
+        // Get the user asking for the generation
+        $user = $this->em->getRepository(User::class)->find($userId);
 
+        // Get the receipts needed in the file
         $receipts = $this->em->getRepository(Receipt::class)->findByFiscalYear($fiscalYear);
 
-        $receiptsGroupingFile = $this->generateTaxReceiptPdf(
-            $userId,
+        // Creating the database log
+        $receiptsGroupingFile = new ReceiptsGroupingFile();
+        $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
+        $receiptsGroupingFile->setGenerator($user);
+        $receiptsGroupingFile->setReceipts($receipts);
+        $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
+        $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
+        $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+
+        // Save that the file is being generated
+        $this->em->persist($receiptsGroupingFile);
+        $this->em->persist($receiptsFromFiscalYearGroupingFile);
+        $this->em->flush();
+
+        $fullFilename = $this->generateTaxReceiptPdf(
             $receipts,
-            'recus-fiscaux_'.$fiscalYear,
+            'recus-fiscaux_' . $fiscalYear,
             $receiptGenerationDate
         );
 
-        $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+
+        $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());
+        $receiptsGroupingFile->setFilename($fullFilename);
+
+        $this->em->persist($receiptsGroupingFile);
         $this->em->persist($receiptsFromFiscalYearGroupingFile);
         $this->em->flush();
     }
