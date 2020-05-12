@@ -103,36 +103,28 @@ class ReceiptService
         return $fullFilename;
     }
 
-    public function generateTaxReceiptPdfFromFiscalYear($fiscalYear, $userId)
+    public function generateTaxReceiptPdfFromFiscalYear($receiptsGroupingFileId, $userId)
     {
-        $receiptGenerationDate = new \DateTime();
         // Get the user asking for the generation
         $user = $this->em->getRepository(User::class)->find($userId);
+
+        // Get the receipts grouping file corresponding to this generation
+        $receiptsFromFiscalYearGroupingFile = $this->em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)->find($receiptsGroupingFileId);
+        $receiptsGroupingFile = $receiptsFromFiscalYearGroupingFile->getReceiptsGenerationBase();
+        $fiscalYear = $receiptsFromFiscalYearGroupingFile->getFiscalYear();
 
         // Get the receipts needed in the file
         $receipts = $this->em->getRepository(Receipt::class)->findByFiscalYear($fiscalYear);
 
-        // Creating the database log
-        $receiptsGroupingFile = new ReceiptsGroupingFile();
-        $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
-        $receiptsGroupingFile->setGenerator($user);
-        $receiptsGroupingFile->setReceipts($receipts);
-        $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
-        $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
-        $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
-
-        // Save that the file is being generated
-        $this->em->persist($receiptsGroupingFile);
-        $this->em->persist($receiptsFromFiscalYearGroupingFile);
-        $this->em->flush();
-
         $fullFilename = $this->generateTaxReceiptPdf(
             $receipts,
             'recus-fiscaux_' . $fiscalYear,
-            $receiptGenerationDate
+            $receiptsGroupingFile->getGenerationDateStart()
         );
 
 
+        // Update the receipts grouping file
+        $receiptsGroupingFile->setReceipts($receipts);
         $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());
         $receiptsGroupingFile->setFilename($fullFilename);
 

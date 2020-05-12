@@ -17,8 +17,8 @@ class GenerateReceiptFromFiscalYearMessageHandler implements MessageHandlerInter
 
     public function __invoke(GenerateReceiptFromFiscalYearMessage $generateReceiptFromFiscalYearMessage)
     {
-        $fiscalYear = $generateReceiptFromFiscalYearMessage->getFiscalYear();
+        $receiptsGroupingFileId = $generateReceiptFromFiscalYearMessage->getReceiptsGroupingFileId();
         $userId = $generateReceiptFromFiscalYearMessage->getUserId();
-        $this->receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear, $userId);
+        $this->receiptService->generateTaxReceiptPdfFromFiscalYear($receiptsGroupingFileId, $userId);
     }
 }

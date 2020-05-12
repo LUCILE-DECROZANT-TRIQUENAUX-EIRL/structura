@@ -83,7 +83,25 @@ class ReceiptController extends AbstractController
         {
             $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
 
-            $messageBus->dispatch(new GenerateReceiptFromFiscalYearMessage($fiscalYear, $this->getUser()->getId()));
+            // Creating the database log
+            $receiptGenerationDate = new \DateTime();
+            $receiptsGroupingFile = new ReceiptsGroupingFile();
+            $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
+            $receiptsGroupingFile->setGenerator($this->getUser());
+            $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
+            $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
+            $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+
+            // Save that the file is being generated
+            $em->persist($receiptsGroupingFile);
+            $em->persist($receiptsFromFiscalYearGroupingFile);
+            $em->flush();
+
+            $messageBus->dispatch(
+                    new GenerateReceiptFromFiscalYearMessage(
+                            $receiptsFromFiscalYearGroupingFile->getId(),
+                            $this->getUser()->getId()
+            ));
 
             $this->addFlash(
                     'success', $translator->trans('Génération du PDF en cours...')

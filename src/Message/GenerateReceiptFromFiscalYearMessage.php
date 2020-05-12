@@ -5,18 +5,18 @@ namespace App\Message;
 
 class GenerateReceiptFromFiscalYearMessage
 {
-    private $fiscalYear;
+    private $receiptsGroupingFileId;
     private $userId;
 
-    public function __construct(string $fiscalYear, int $userId)
+    public function __construct(int $receiptsGroupingFileId, int $userId)
     {
-        $this->fiscalYear = $fiscalYear;
+        $this->receiptsGroupingFileId = $receiptsGroupingFileId;
         $this->userId = $userId;
     }
 
-    public function getFiscalYear(): string
+    public function getReceiptsGroupingFileId(): int
     {
-        return $this->fiscalYear;
+        return $this->receiptsGroupingFileId;
     }
 
     public function getUserId(): int
