@@ -66,12 +66,16 @@ class ReceiptService
      * @param \Datetime $receiptGenerationDate The datetime when the generation started.
      */
     public function generateTaxReceiptPdf(
-        User $user,
+        int $userId,
         array $receipts,
         string $filename = 'tax_receipts',
         \DateTime $receiptGenerationDate
     )
     {
+        // Get the user asking for the generation
+        $user = $this->em->getRepository(User::class)->find($userId);
+
+        // Creating the database log
         $receiptsGroupingFile = new ReceiptsGroupingFile();
         $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
         $receiptsGroupingFile->setGenerator($user);
@@ -113,7 +117,7 @@ class ReceiptService
         return $receiptsGroupingFile;
     }
 
-    public function generateTaxReceiptPdfFromFiscalYear($fiscalYear, $user)
+    public function generateTaxReceiptPdfFromFiscalYear($fiscalYear, $userId)
     {
         $receiptGenerationDate = new \DateTime();
         $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
@@ -122,7 +126,7 @@ class ReceiptService
         $receipts = $this->em->getRepository(Receipt::class)->findByFiscalYear($fiscalYear);
 
         $receiptsGroupingFile = $this->generateTaxReceiptPdf(
-            $user,
+            $userId,
             $receipts,
             'recus-fiscaux_'.$fiscalYear,
             $receiptGenerationDate

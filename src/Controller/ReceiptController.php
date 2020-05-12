@@ -4,18 +4,21 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Dompdf\Dompdf;
 use App\Service\ReceiptService;
 use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\ReceiptsGroupingFile;
 use App\Entity\ReceiptsFromFiscalYearGroupingFile;
+use App\Message\GenerateReceiptFromFiscalYearMessage;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
 use App\Form\GenerateTaxReceiptFromFiscalYearType;
 
@@ -51,7 +54,7 @@ class ReceiptController extends AbstractController
      */
     public function generateFromFiscalYearAction(
         Request $request,
-        EventDispatcherInterface $eventDispatcher,
+        MessageBusInterface $messageBus,
         ReceiptService $receiptService
     )
     {
@@ -79,10 +82,7 @@ class ReceiptController extends AbstractController
         {
             $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
 
-            // Call an event, to generate the pdf file in a background process.
-            $eventDispatcher->addListener(KernelEvents::TERMINATE, function (Event $event) use ($fiscalYear, $receiptService) {
-                $receiptService->generateTaxReceiptPdfFromFiscalYear($fiscalYear, $this->getUser());
-            });
+            $messageBus->dispatch(new GenerateReceiptFromFiscalYearMessage($fiscalYear, $this->getUser()->getId()));
 
             return $this->redirectToRoute('receipt_list');
         }
