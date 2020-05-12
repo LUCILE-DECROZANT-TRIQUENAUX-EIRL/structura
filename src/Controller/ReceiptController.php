@@ -55,7 +55,8 @@ class ReceiptController extends AbstractController
     public function generateFromFiscalYearAction(
         Request $request,
         MessageBusInterface $messageBus,
-        ReceiptService $receiptService
+        ReceiptService $receiptService,
+        TranslatorInterface $translator
     )
     {
         // Entity manager
@@ -83,6 +84,10 @@ class ReceiptController extends AbstractController
             $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
 
             $messageBus->dispatch(new GenerateReceiptFromFiscalYearMessage($fiscalYear, $this->getUser()->getId()));
+
+            $this->addFlash(
+                    'success', $translator->trans('Génération du PDF en cours...')
+            );
 
             return $this->redirectToRoute('receipt_list');
         }
