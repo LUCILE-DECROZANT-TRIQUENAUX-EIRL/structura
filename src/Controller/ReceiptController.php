@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Dompdf\Dompdf;
@@ -220,4 +221,23 @@ class ReceiptController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @param ReceiptsGroupingFile $file
+     * @return Response
+     * @Route("/check-generation-grouped-pdf/{id}", name="check_generation_grouped_receipts_pdf", requirements={"_locale"="en|fr"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function checkGenerationGroupedPdfAction(ReceiptsGroupingFile $file)
+    {
+        $response = new Response();
+        $response->setContent(json_encode([
+            'isGenerationComplete' => !empty($file->getGenerationDateEnd()),
+            'downloadUrl' => $this->generateUrl('download_grouped_receipts_pdf', ['id' => $file->getId()]),
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
 }
