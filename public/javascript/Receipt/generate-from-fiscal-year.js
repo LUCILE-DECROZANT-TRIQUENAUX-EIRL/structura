@@ -15,7 +15,7 @@ $(document).ready(function () {
     // setup info message
     $('#generate_tax_receipt_from_fiscal_year_fiscalYear').change(function () {
         if ($(this).find('option:selected').data('last-generation-date')) {
-            showLastGeneratedDateMessage(new Date(selectedElement.data('last-generation-date')));
+            showLastGeneratedDateMessage(new Date($(this).find('option:selected').data('last-generation-date')));
         } else {
             hideLastGeneratedDateMessage();
         }
