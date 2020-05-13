@@ -62,7 +62,28 @@ class ReceiptController extends AbstractController
         // Entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // Find fiscal years for which there is receipts to generate
         $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYears();
+
+        // Check if there is a file being currently generated for each fiscal year
+        $availableFiscalYearsData = [];
+        foreach ($availableFiscalYears as $availableFiscalYear)
+        {
+            $filesBeingCurrentlyGenerated = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
+                    ->findByGenerationInProgress($availableFiscalYear);
+            if (count($filesBeingCurrentlyGenerated) > 0)
+            {
+                $availableFiscalYearsData[$availableFiscalYear] = [
+                    'data-is-under-generation' => 'true',
+                ];
+            }
+            else
+            {
+                $availableFiscalYearsData[$availableFiscalYear] = [
+                    'data-is-under-generation' => 'false',
+                ];
+            }
+        }
 
         // Creating an empty FDO
         $generateTaxReceiptFromFiscalYearFDO = new GenerateTaxReceiptFromFiscalYearFDO();
@@ -72,7 +93,8 @@ class ReceiptController extends AbstractController
             GenerateTaxReceiptFromFiscalYearType::class,
             $generateTaxReceiptFromFiscalYearFDO,
             [
-                'availableFiscalYears' => $availableFiscalYears
+                'availableFiscalYears' => $availableFiscalYears,
+                'availableFiscalYearsData' => $availableFiscalYearsData,
             ]
         );
 

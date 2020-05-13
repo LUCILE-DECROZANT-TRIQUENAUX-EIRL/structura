@@ -22,6 +22,7 @@ class GenerateTaxReceiptFromFiscalYearType extends AbstractType
         $builder
             ->add('fiscalYear', ChoiceType::class, [
                 'choices' => $options['availableFiscalYears'],
+                'choice_attr' => $options['availableFiscalYearsData'],
                 'multiple' => false,
                 'expanded' => false,
                 'label' => $this->translator->trans('Année'),
@@ -34,7 +35,8 @@ class GenerateTaxReceiptFromFiscalYearType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => GenerateTaxReceiptFromFiscalYearFDO::class,
-            'availableFiscalYears' => null
+            'availableFiscalYears' => null,
+            'availableFiscalYearsData' => null,
         ]);
     }
 }

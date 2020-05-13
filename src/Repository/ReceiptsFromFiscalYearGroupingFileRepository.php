@@ -19,4 +19,24 @@ class ReceiptsFromFiscalYearGroupingFileRepository extends ServiceEntityReposito
         parent::__construct($registry, ReceiptsFromFiscalYearGroupingFile::class);
     }
 
+    /**
+     * Return all ReceiptsFromFiscalYearGroupingFile that are currently being generated
+     * @param int $fiscalYear (default: null)
+     * @return ReceiptsFromFiscalYearGroupingFile[]
+     */
+    public function findByGenerationInProgress($fiscalYear = null)
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r')
+                ->join('r.receiptsGenerationBase', 'rgb')
+                ->where('rgb.generationDateEnd IS null');
+
+        if (!empty($fiscalYear))
+        {
+            $qb->andWhere('r.fiscalYear = :fiscalYear')
+                    ->setParameter('fiscalYear', $fiscalYear);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
