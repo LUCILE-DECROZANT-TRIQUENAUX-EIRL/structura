@@ -39,4 +39,31 @@ class ReceiptsFromFiscalYearGroupingFileRepository extends ServiceEntityReposito
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Return the last ReceiptsFromFiscalYearGroupingFile
+     * @param int $fiscalYear (default: null)
+     * @return ReceiptsFromFiscalYearGroupingFile|null
+     */
+    public function findLastGenerated($fiscalYear = null)
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r, rgb')
+                ->join('r.receiptsGenerationBase', 'rgb')
+                ->where('rgb.generationDateEnd IS NOT null')
+                ->orderBy('rgb.generationDateEnd', 'DESC');
+
+        if (!empty($fiscalYear))
+        {
+            $qb->andWhere('r.fiscalYear = :fiscalYear')
+                    ->setParameter('fiscalYear', $fiscalYear);
+        }
+
+        $lastFiles = $qb->getQuery()->getResult();
+        if (empty($lastFiles))
+        {
+            return null;
+        }
+        return $lastFiles[0];
+    }
 }

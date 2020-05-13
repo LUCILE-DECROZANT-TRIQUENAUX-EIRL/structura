@@ -65,24 +65,45 @@ class ReceiptController extends AbstractController
         // Find fiscal years for which there is receipts to generate
         $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYears();
 
-        // Check if there is a file being currently generated for each fiscal year
+        // Setup options for each fiscal year
         $availableFiscalYearsData = [];
         foreach ($availableFiscalYears as $availableFiscalYear)
         {
+            // Check if a file is currently generated
             $filesBeingCurrentlyGenerated = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
                     ->findByGenerationInProgress($availableFiscalYear);
             if (count($filesBeingCurrentlyGenerated) > 0)
             {
-                $availableFiscalYearsData[$availableFiscalYear] = [
+                $dataIsUnderGeneration = [
                     'data-is-under-generation' => 'true',
                 ];
             }
             else
             {
-                $availableFiscalYearsData[$availableFiscalYear] = [
+                $dataIsUnderGeneration = [
                     'data-is-under-generation' => 'false',
                 ];
             }
+
+            // Get the last generation date if it exists
+            $lastFileGenerated = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
+                    ->findLastGenerated($availableFiscalYear);
+            if (!empty($lastFileGenerated))
+            {
+                $dataLastGenerationDate = [
+                    'data-last-generation-date' => $lastFileGenerated->getReceiptsGenerationBase()->getGenerationDateEnd()->format('Y-m-d\TH:i:s'),
+                ];
+            }
+            else
+            {
+                $dataLastGenerationDate = [
+                    'data-last-generation-date' => 'false',
+                ];
+            }
+            $availableFiscalYearsData[$availableFiscalYear] = array_merge(
+                $dataIsUnderGeneration,
+                $dataLastGenerationDate
+            );
         }
 
         // Creating an empty FDO

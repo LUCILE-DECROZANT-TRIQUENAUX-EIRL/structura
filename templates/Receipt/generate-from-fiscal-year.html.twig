@@ -40,8 +40,18 @@
                 <div id="message-generation-disabled" class="alert alert-warning d-none">
                     Un PDF pour l'année fiscale <b><span id='fiscal-year'></span></b> est déjà en cours de génération, veuillez rééssayer plus tard.
                 </div>
+                <div id="message-last-generation" class="alert alert-info d-none">
+                    Dernière génération terminée le <b><span id='last-generation-date'></span></b> à <b><span id='last-generation-hour'></span></b>.
+                </div>
                 {{ form_end(from_fiscal_year_form) }}
-                <button id="from-fiscal-year-submit-button" type="submit" form="from-fiscal-year-form" class="btn btn-primary">
+                <button
+                    id="from-fiscal-year-submit-button"
+                    type="submit"
+                    form="from-fiscal-year-form"
+                    class="btn btn-primary"
+                    data-first-generation-label="{% trans %}Générer{% endtrans %}"
+                    data-regeneration-label="{% trans %}Regénérer{% endtrans %}"
+                    >
                     {% trans %}Générer{% endtrans %}
                 </button>
             </div>
