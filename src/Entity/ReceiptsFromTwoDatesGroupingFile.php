@@ -19,12 +19,12 @@ class ReceiptsFromTwoDatesGroupingFile
     /**
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private $dateFrom;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private $dateTo;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ReceiptsGroupingFile", cascade={"persist", "remove"})
@@ -37,26 +37,26 @@ class ReceiptsFromTwoDatesGroupingFile
         return $this->id;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getDateFrom(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return $this->dateFrom;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setDateFrom(\DateTimeInterface $dateFrom): self
     {
-        $this->startDate = $startDate;
+        $this->dateFrom = $dateFrom;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getDateTo(): ?\DateTimeInterface
     {
-        return $this->endDate;
+        return $this->dateTo;
     }
 
-    public function setEndDate(\DateTimeInterface $endDate): self
+    public function setDateTo(\DateTimeInterface $dateTo): self
     {
-        $this->endDate = $endDate;
+        $this->dateTo = $dateTo;
 
         return $this;
     }
