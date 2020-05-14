@@ -19,32 +19,63 @@ class ReceiptsGenerationFromTwoDatesRepository extends ServiceEntityRepository
         parent::__construct($registry, ReceiptsFromTwoDatesGroupingFile::class);
     }
 
-    // /**
-    //  * @return ReceiptsGenerationFromTwoDates[] Returns an array of ReceiptsGenerationFromTwoDates objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Return all ReceiptsFromTwoDatesGroupingFile that are currently being generated
+     * @param \DateTime $from (default: null)
+     * @param \DateTime $to (default: null)
+     * @return ReceiptsFromTwoDatesGroupingFile[]
+     */
+    public function findByGenerationInProgress(
+        \DateTimeInterface $from = null,
+        \DateTimeInterface $to = null
+    )
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('r')
+                ->select('r')
+                ->join('r.receiptsGenerationBase', 'rgb')
+                ->where('rgb.generationDateEnd IS null');
 
-    /*
-    public function findOneBySomeField($value): ?ReceiptsGenerationFromTwoDates
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!empty($from) && !empty($to))
+        {
+            $qb->andWhere('r.dateFrom = :dateFrom')
+                    ->andWhere('r.dateTo = :dateTo')
+                    ->setParameter('dateFrom', $from)
+                    ->setParameter('dateTo', $to);
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
+
+    /**
+     * Return the last ReceiptsFromTwoDatesGroupingFile
+     * @param int $fiscalYear (default: null)
+     * @return ReceiptsFromTwoDatesGroupingFile|null
+     */
+    public function findLastGenerated(
+        \DateTimeInterface $from = null,
+        \DateTimeInterface $to = null
+    )
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r, rgb')
+                ->join('r.receiptsGenerationBase', 'rgb')
+                ->where('rgb.generationDateEnd IS NOT null')
+                ->orderBy('rgb.generationDateEnd', 'DESC');
+
+        if (!empty($from) && !empty($to))
+        {
+            $qb->andWhere('r.dateFrom = :dateFrom')
+                    ->andWhere('r.dateTo = :dateTo')
+                    ->setParameter('dateFrom', $from)
+                    ->setParameter('dateTo', $to);
+        }
+
+        $lastFiles = $qb->getQuery()->getResult();
+        if (empty($lastFiles))
+        {
+            return null;
+        }
+
+        return $lastFiles[0];
+    }
 }
