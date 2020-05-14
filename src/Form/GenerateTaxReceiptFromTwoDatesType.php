@@ -21,11 +21,11 @@ class GenerateTaxReceiptFromTwoDatesType extends AbstractType
         $builder
             ->add('from', DateType::class, [
                 'widget' => 'single_text',
-                'label' => $this->translator->trans('De'),
+                'label' => $this->translator->trans('Du...'),
             ])
             ->add('to', DateType::class, [
                 'widget' => 'single_text',
-                'label' => $this->translator->trans('À'),
+                'label' => $this->translator->trans('Au...'),
             ])
         ;
     }

@@ -19,9 +19,13 @@ use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\ReceiptsGroupingFile;
 use App\Entity\ReceiptsFromFiscalYearGroupingFile;
+use App\Entity\ReceiptsFromTwoDatesGroupingFile;
 use App\Message\GenerateReceiptFromFiscalYearMessage;
+use App\Message\GenerateReceiptFromTwoDatesMessage;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\FormDataObject\GenerateTaxReceiptFromTwoDatesFDO;
 use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\Form\GenerateTaxReceiptFromTwoDatesType;
 
 /**
  * @Route(path="/{_locale}/receipt", requirements={"_locale"="en|fr"})
@@ -40,9 +44,12 @@ class ReceiptController extends AbstractController
         $annualReceiptsFiles = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
                 ->findAll();
 
+        $betweenTwoDatesReceiptsFiles = $em->getRepository(ReceiptsFromTwoDatesGroupingFile::class)
+                ->findAll();
+
         return $this->render('Receipt/list.html.twig', [
             'generatedAnnualReceipts' => $annualReceiptsFiles,
-            'generatedBetweenTwoDatesReceipts' => null,
+            'generatedBetweenTwoDatesReceipts' => $betweenTwoDatesReceiptsFiles,
             'generatedParticularReceipts' => null,
         ]);
     }
@@ -156,6 +163,89 @@ class ReceiptController extends AbstractController
 
         return $this->render('Receipt/generate-from-fiscal-year.html.twig', [
             'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
+        ]);
+    }
+
+    /**
+     * @return views
+     * @param Request $request The request.
+     * @Route("/generate/from-two-dates", name="receipt_generate_from_two_dates", requirements={"_locale"="en|fr"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function generateFromTwoDatesAction(
+        Request $request,
+        MessageBusInterface $messageBus,
+        ReceiptService $receiptService,
+        TranslatorInterface $translator
+    )
+    {
+        // Entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // Creating an empty FDO
+        $generateTaxReceiptFromTwoDatesFDO = new GenerateTaxReceiptFromTwoDatesFDO();
+
+        // From creation
+        $generateFromTwoDatesForm = $this->createForm(
+            GenerateTaxReceiptFromTwoDatesType::class,
+            $generateTaxReceiptFromTwoDatesFDO
+        );
+
+        $generateFromTwoDatesForm->handleRequest($request);
+
+        // Submit
+        if ($generateFromTwoDatesForm->isSubmitted() && $generateFromTwoDatesForm->isValid())
+        {
+            // Getting form data
+            $from = $generateTaxReceiptFromTwoDatesFDO->getFrom();
+            $to   = $generateTaxReceiptFromTwoDatesFDO->getTo();
+
+
+            // Check if a file is currently generated
+            $filesBeingCurrentlyGenerated = $em->getRepository(ReceiptsFromTwoDatesGroupingFile::class)
+                ->findByGenerationInProgress($from, $to);
+
+            // If files are being generated
+            if (count($filesBeingCurrentlyGenerated) > 0)
+            {
+                // We show a warning message and do nothing more
+                $this->addFlash(
+                        'danger', $translator->trans('Un PDF est déjà en cours de génération pour ces dates-là. Veuillez patienter ou changer de période.')
+                );
+            }
+            else
+            {
+                // Creating the database log
+                $receiptGenerationDate = new \DateTime();
+                $receiptsGroupingFile = new ReceiptsGroupingFile();
+                $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
+                $receiptsGroupingFile->setGenerator($this->getUser());
+                $receiptsFromTwoDatesGroupingFile = new ReceiptsFromTwoDatesGroupingFile();
+                $receiptsFromTwoDatesGroupingFile->setDateFrom($from);
+                $receiptsFromTwoDatesGroupingFile->setDateTo($to);
+                $receiptsFromTwoDatesGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+
+                // Save that the file is being generated
+                $em->persist($receiptsGroupingFile);
+                $em->persist($receiptsFromTwoDatesGroupingFile);
+                $em->flush();
+
+                $messageBus->dispatch(
+                        new GenerateReceiptFromTwoDatesMessage(
+                                $receiptsFromTwoDatesGroupingFile->getId(),
+                                $this->getUser()->getId()
+                ));
+
+                $this->addFlash(
+                        'success', $translator->trans('Génération du PDF en cours...')
+                );
+
+                return $this->redirectToRoute('receipt_list');
+            }
+        }
+
+        return $this->render('Receipt/generate-from-two-dates.html.twig', [
+            'from_two_dates_form' => $generateFromTwoDatesForm->createView(),
         ]);
     }
 

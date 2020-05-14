@@ -19,7 +19,7 @@
            >
             {% trans %}Année fiscale{% endtrans %}
         </a>
-        <a href="{#{{ path('') }}#}"
+        <a href="{{ path('receipt_generate_from_two_dates') }}"
            class="list-group-item list-group-item-action {{ generate_from_two_dates }}"
            >
             {% trans %}Entre deux dates{% endtrans %}
