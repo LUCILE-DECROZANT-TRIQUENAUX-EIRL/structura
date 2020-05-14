@@ -3,7 +3,7 @@ $(document).ready(function () {
     // For each file waiting its generation, run an ajax call each 60sec
     // to check if the generation is complete
     $('.waiting-generation').each(function () {
-        checkGenerationCompleteTimersIdentifier[$(this).data('file-id')] = setInterval(checkIfGenerationHasFinished, 60000, $(this));
+        checkGenerationCompleteTimersIdentifier[$(this).data('file-id')] = setInterval(checkIfGenerationHasFinished, 30000, $(this));
     });
 });
 
@@ -30,8 +30,10 @@ function checkIfGenerationHasFinished(generatingFileDiv)
                         downloadButton.tooltip();
                         downloadButton.parent().tooltip('dispose');
                         // Add fake flashbag message
-                        let fakeFlashbag = $('#fake-flashbag-message-fiscal-year-generation-complete').clone();
+                        let fakeFlashbag = $('#' + generatingFileDiv.data('confirmation-message-id')).clone();
                         fakeFlashbag.find('#fiscal-year').text($(row.find('td')[0]).text());
+                        fakeFlashbag.find('#from-date').text($(row.find('td')[0]).text());
+                        fakeFlashbag.find('#to-date').text($(row.find('td')[1]).text());
                         fakeFlashbag.removeClass('d-none');
                         $('#container-alert-messages').append(fakeFlashbag);
                         // Stop the check

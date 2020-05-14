@@ -62,6 +62,7 @@
                                                 data-file-id="{{ generatedAnnualReceipt.id }}"
                                                 class="waiting-generation"
                                                 data-url-check-generation-complete="{{ path('check_generation_grouped_receipts_pdf', { 'id': generatedAnnualReceipt.receiptsGenerationBase.id }) }}"
+                                                data-confirmation-message-id="fake-flashbag-message-fiscal-year-generation-complete"
                                                 >
                                                 <div
                                                     class="message-generation-complete d-none"
@@ -150,6 +151,7 @@
                                                 data-file-id="{{ generatedBetweenTwoDatesReceipt.id }}"
                                                 class="waiting-generation"
                                                 data-url-check-generation-complete="{{ path('check_generation_grouped_receipts_pdf', { 'id': generatedBetweenTwoDatesReceipt.receiptsGenerationBase.id }) }}"
+                                                data-confirmation-message-id="fake-flashbag-message-between-two-dates-generation-complete"
                                                 >
                                                 <div
                                                     class="message-generation-complete d-none"
@@ -252,5 +254,9 @@
     <div id="fake-flashbag-message-fiscal-year-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
         La génération du PDF des reçus fiscaux de l'année fiscale <b><span id="fiscal-year"></span></b> est terminée.
+    </div>
+    <div id="fake-flashbag-message-between-two-dates-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        La génération du PDF des reçus fiscaux du <b><span id="from-date"></span></b> au <b><span id="to-date"></span></b> est terminée.
     </div>
 {% endblock %}
