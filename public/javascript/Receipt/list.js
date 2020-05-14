@@ -32,6 +32,7 @@ function checkIfGenerationHasFinished(generatingFileDiv)
                         // Add fake flashbag message
                         let fakeFlashbag = $('#fake-flashbag-message-fiscal-year-generation-complete').clone();
                         fakeFlashbag.find('#fiscal-year').text($(row.find('td')[0]).text());
+                        fakeFlashbag.removeClass('d-none');
                         $('#container-alert-messages').append(fakeFlashbag);
                         // Stop the check
                         clearInterval(checkGenerationCompleteTimersIdentifier[generatingFileDiv.data('file-id')]);
