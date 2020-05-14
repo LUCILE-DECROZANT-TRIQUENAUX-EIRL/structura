@@ -10,6 +10,7 @@ use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\ReceiptsGroupingFile;
 use App\Entity\ReceiptsFromFiscalYearGroupingFile;
+use App\Entity\ReceiptsFromTwoDatesGroupingFile;
 use App\Service\Utils\FileService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -130,6 +131,33 @@ class ReceiptService
 
         $this->em->persist($receiptsGroupingFile);
         $this->em->persist($receiptsFromFiscalYearGroupingFile);
+        $this->em->flush();
+    }
+
+    public function generateTaxReceiptPdfFromTwoDates($receiptsGroupingFileId, $userId)
+    {
+        // Get the receipts grouping file corresponding to this generation
+        $receiptsFromTwoDatesGroupingFile = $this->em->getRepository(ReceiptsFromTwoDatesGroupingFile::class)->find($receiptsGroupingFileId);
+        $receiptsGroupingFile = $receiptsFromTwoDatesGroupingFile->getReceiptsGenerationBase();
+        $fromDate = $receiptsFromTwoDatesGroupingFile->getDateFrom();
+        $toDate = $receiptsFromTwoDatesGroupingFile->getDateTo();
+
+        // Get the receipts needed in the file
+        $receipts = $this->em->getRepository(Receipt::class)->findBetweenTwoDates($fromDate, $toDate);
+
+        $fullFilename = $this->generateTaxReceiptPdf(
+            $receipts,
+            'recus-fiscaux_du-' . $fromDate->format('Ymd') . '-au-' . $toDate->format('Ymd'),
+            $receiptsGroupingFile->getGenerationDateStart()
+        );
+
+        // Update the receipts grouping file
+        $receiptsGroupingFile->setReceipts($receipts);
+        $receiptsGroupingFile->setGenerationDateEnd(new \DateTime());
+        $receiptsGroupingFile->setFilename($fullFilename);
+
+        $this->em->persist($receiptsGroupingFile);
+        $this->em->persist($receiptsFromTwoDatesGroupingFile);
         $this->em->flush();
     }
 }

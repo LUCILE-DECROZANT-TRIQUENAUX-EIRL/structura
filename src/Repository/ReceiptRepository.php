@@ -40,4 +40,23 @@ class ReceiptRepository extends ServiceEntityRepository
 
         return $formatedResults;
     }
+
+    /**
+     * Return all the receipts between two given dates
+     * @param \DateTime $fromDate
+     * @param \DateTime $toDate
+     * @return Receipts[]
+     */
+    public function findBetweenTwoDates(\DateTime $fromDate,\DateTime $toDate)
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r')
+                ->join('r.payment', 'p')
+                ->where('p.date_received >= :fromDate')
+                ->setParameter('fromDate', $fromDate)
+                ->andwhere('p.date_received <= :toDate')
+                ->setParameter('toDate', $toDate);
+
+        return $qb->getQuery()->getResult();
+    }
 }
