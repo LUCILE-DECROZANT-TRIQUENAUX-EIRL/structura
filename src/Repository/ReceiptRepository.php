@@ -42,7 +42,24 @@ class ReceiptRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return all the receipts between two given dates
+     * Returns the last order number for a given fiscal year.
+     * @param int $fiscalYear The fiscal year for which we want the last order number.
+     * @return int The last order number for the given fiscal year.
+     */
+    public function findLastOrderNumberForFiscalYear(int $fiscalYear)
+    {
+        $result = $this->createQueryBuilder('r')
+            ->select('MAX(r.orderNumber) AS lastOrderNumber')
+            ->where('r.fiscalYear = :fiscalYear')
+            ->setParameter('fiscalYear', $fiscalYear)
+            ->getQuery()
+            ->getSingleResult();
+
+        return $result['lastOrderNumber'];
+    }
+
+    /**
+     * Return all the receipts between two given dates.
      * @param \DateTime $fromDate
      * @param \DateTime $toDate
      * @return Receipts[]
