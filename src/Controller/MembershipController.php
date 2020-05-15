@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\People;
 use App\Entity\Payment;
+use App\Entity\Receipt;
 use App\Entity\Donation;
 use App\Entity\Membership;
 
@@ -139,6 +140,20 @@ class MembershipController extends AbstractController
 
             $em->persist($membership);
             $em->persist($payment);
+
+            // Receipt
+            $lastOrderNumber = $em->getRepository(Receipt::class)
+                    ->findLastOrderNumberForFiscalYear($fiscalYear);
+
+            $receipt = new Receipt();
+
+            $receipt->setPayment($payment);
+            $receipt->setOrderNumber($lastOrderNumber + 1);
+
+            $now = new \DateTime();
+            $receipt->setFiscalYear($now->format('Y'));
+
+            $em->persist($receipt);
 
             $em->flush();
 

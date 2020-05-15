@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Donation;
 use App\Entity\Payment;
+use App\Entity\Receipt;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
 use App\Repository\DonationRepository;
@@ -35,21 +36,26 @@ class DonationController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $donation = new Donation();
         $updateDonationFDO = new UpdateDonationFDO();
 
         $form = $this->createForm(DonationType::class, $updateDonationFDO);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
 
             $donator = $updateDonationFDO->getDonator();
+
+            // -- DONATION -- //
+            $donation = new Donation();
 
             $donation->setAmount($updateDonationFDO->getAmount());
             $donation->setDonator($donator);
             $donation->setDonationDate($updateDonationFDO->getDonationDate());
 
+
+            // -- PAYMENT -- //
             $payment = new Payment();
 
             $payment->setPayer($donator);
@@ -60,6 +66,20 @@ class DonationController extends AbstractController
             $payment->setComment($updateDonationFDO->getComment());
 
             $em->persist($payment);
+
+            // Putting data used for the receipt in vars
+            $fiscalYear = $updateDonationFDO->getDonationDate()->format('Y');
+            $lastOrderNumber = $em->getRepository(Receipt::class)
+                    ->findLastOrderNumberForFiscalYear($fiscalYear);
+
+            // -- RECEIPT -- //
+            $receipt = new Receipt();
+
+            $receipt->setPayment($payment);
+            $receipt->setOrderNumber($lastOrderNumber + 1);
+            $receipt->setFiscalYear($fiscalYear);
+
+            $em->persist($receipt);
 
             $donation->setPayment($payment);
             $em->persist($donation);
