@@ -28,6 +28,13 @@ class Receipt
     private $orderNumber;
 
     /**
+     * Formatted value for fiscal year and orderNumber.
+     *
+     * @ORM\Column(type="string", length=9)
+     */
+    private $orderCode;
+
+    /**
      * The receipt's fiscal year.
      *
      * @ORM\Column(type="integer")
@@ -59,9 +66,21 @@ class Receipt
         return $this->id;
     }
 
+    public function generateOrderCode(): self
+    {
+        $numberOfDigits = floor(log10($this->orderNumber) + 1);
+        $numberOf0ToAdd = 4 - $numberOfDigits;
+        $orderNumberPart = str_repeat('0', $numberOf0ToAdd) . $this->orderNumber;
+
+        // Format : YYYY-000N
+        $this->orderCode = $this->fiscalYear . '-' . $orderNumberPart;
+
+        return $this;
+    }
+
     public function getOrderCode(): string
     {
-        return $this->fiscalYear . '-' . $this->orderNumber;
+        return $this->orderCode;
     }
 
     public function getOrderNumber(): ?int
@@ -74,6 +93,7 @@ class Receipt
         if ($this->orderNumber === null)
         {
             $this->orderNumber = $orderNumber;
+            $this->generateOrderCode();
         }
 
         return $this;
