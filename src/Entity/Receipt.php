@@ -21,6 +21,7 @@ class Receipt
     /**
      * The receipt's order number.
      * This value is incremented at each receipt creation for a same fiscal year.
+     *
      * Once set, this value can't be edited.
      *
      * @ORM\Column(type="integer")
@@ -28,7 +29,13 @@ class Receipt
     private $orderNumber;
 
     /**
-     * Formatted value for fiscal year and orderNumber.
+     * Code provided as an identifier for the receipt,
+     * used by French administration
+     *
+     * Currently has the form 'YYYY-NNNN' where YYYY is the fiscal year of
+     * the receipt and NNNN the order number of the receipt
+     *
+     * Once set, this value can't be edited.
      *
      * @ORM\Column(type="string", length=9)
      */
@@ -66,8 +73,25 @@ class Receipt
         return $this->id;
     }
 
+    /**
+     *
+     * @return \self
+     * @throws \Exception
+     */
     public function generateOrderCode(): self
     {
+        if (empty($this->fiscalYear))
+        {
+            $message = 'The fiscal year of this receipt is missing';
+            throw new \Exception($message);
+        }
+
+        if (empty($this->orderNumber))
+        {
+            $message = 'The order number of this receipt is missing';
+            throw new \Exception($message);
+        }
+
         $numberOfDigits = floor(log10($this->orderNumber) + 1);
         $numberOf0ToAdd = 4 - $numberOfDigits;
         $orderNumberPart = str_repeat('0', $numberOf0ToAdd) . $this->orderNumber;
@@ -83,6 +107,38 @@ class Receipt
         return $this->orderCode;
     }
 
+    /**
+     * Set the order code using fiscal year and order number of
+     * the receipt
+     *
+     * @return \self
+     * @throws \Exception
+     */
+    public function setOrderCode(): self
+    {
+        if (empty($this->fiscalYear))
+        {
+            $message = 'The fiscal year of this receipt is missing';
+            throw new \Exception($message);
+        }
+
+        if (empty($this->orderNumber))
+        {
+            $message = 'The order number of this receipt is missing';
+            throw new \Exception($message);
+        }
+
+        if (!empty($this->orderCode))
+        {
+            $message = 'The order code of this receipt is already set';
+            throw new \Exception($message);
+        }
+
+        $this->generateOrderCode();
+
+        return $this;
+    }
+
     public function getOrderNumber(): ?int
     {
         return $this->orderNumber;
@@ -90,11 +146,13 @@ class Receipt
 
     public function setOrderNumber(int $orderNumber): self
     {
-        if ($this->orderNumber === null)
+        if (empty($this->orderNumber))
         {
-            $this->orderNumber = $orderNumber;
-            $this->generateOrderCode();
+            $message = 'The order code of this receipt is already set';
+            throw new \Exception($message);
         }
+
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }

@@ -78,6 +78,7 @@ class DonationController extends AbstractController
             $receipt->setPayment($payment);
             $receipt->setOrderNumber($lastOrderNumber + 1);
             $receipt->setFiscalYear($fiscalYear);
+            $receipt->setOrderCode();
 
             $em->persist($receipt);
 
