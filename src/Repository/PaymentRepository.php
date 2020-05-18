@@ -34,4 +34,18 @@ class PaymentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * Custom findAll method not getting all the fields
+     * to avoid incompatibilities in case the Payment class would be modified
+     * in the migration 20200511151231
+     *
+     * @return Payment[]
+     */
+    public function findAllForMigration20200511151231()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p.id');
+
+        return $qb->getQuery()->getResult();
+    }
 }

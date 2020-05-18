@@ -31,7 +31,7 @@ final class Version20200511151231 extends AbstractMigration implements Container
         $em = $this->container->get('doctrine.orm.entity_manager');
         $paymentRepository = $em->getRepository(Payment::class);
 
-        $payments = $paymentRepository->findAll();
+        $payments = $paymentRepository->findAllForMigration20200511151231();
 
         // Desc order payments by their received date
         usort($payments, function($payment1, $payment2) {
