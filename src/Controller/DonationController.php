@@ -90,7 +90,6 @@ class DonationController extends AbstractController
         }
 
         return $this->render('Donation/new.html.twig', [
-            'donation' => $donation,
             'form' => $form->createView(),
         ]);
     }
