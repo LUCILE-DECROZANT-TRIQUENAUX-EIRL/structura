@@ -143,7 +143,7 @@ class MembershipController extends AbstractController
 
             // Receipt
             $lastOrderNumber = $em->getRepository(Receipt::class)
-                    ->findLastOrderNumberForFiscalYear($fiscalYear);
+                    ->findLastOrderNumberForFiscalYear($updateMembershipFDO->getMembershipFiscalYear());
 
             $receipt = new Receipt();
 
