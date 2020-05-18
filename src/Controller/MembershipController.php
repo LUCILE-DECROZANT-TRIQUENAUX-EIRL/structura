@@ -152,6 +152,7 @@ class MembershipController extends AbstractController
 
             $now = new \DateTime();
             $receipt->setFiscalYear($now->format('Y'));
+            $receipt->setOrderCode();
 
             $em->persist($receipt);
 

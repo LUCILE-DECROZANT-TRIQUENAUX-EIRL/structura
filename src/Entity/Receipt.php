@@ -146,9 +146,9 @@ class Receipt
 
     public function setOrderNumber(int $orderNumber): self
     {
-        if (empty($this->orderNumber))
+        if (!empty($this->orderNumber))
         {
-            $message = 'The order code of this receipt is already set';
+            $message = 'The order number of this receipt is already set';
             throw new \Exception($message);
         }
 
