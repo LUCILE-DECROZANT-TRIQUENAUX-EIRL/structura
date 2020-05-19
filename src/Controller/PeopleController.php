@@ -348,6 +348,7 @@ class PeopleController extends AbstractController {
                     $receipts,
                     $filename,
                     new \DateTime(),
+                    true,
                     true
             );
 

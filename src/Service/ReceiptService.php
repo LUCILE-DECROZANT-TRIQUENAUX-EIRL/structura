@@ -71,7 +71,8 @@ class ReceiptService
         array $receipts,
         string $filename = 'tax_receipts',
         \DateTime $receiptGenerationDate,
-        bool $isStreamed = false
+        bool $isStreamed = false,
+        bool $isFromController = false
     )
     {
         // File fullname, which includes the file's extension
@@ -81,6 +82,7 @@ class ReceiptService
         $htmlNeedingConversion = $this->twig->render('PDF/Receipt/_tax_receipt_base.html.twig', [
             'receipts' => $receipts,
             'receiptGenerationDate' => $receiptGenerationDate,
+            'isFromController' => $isFromController,
         ]);
 
         // PDF generator object instantiation
