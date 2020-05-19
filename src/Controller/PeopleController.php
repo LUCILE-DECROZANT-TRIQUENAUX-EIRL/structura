@@ -12,6 +12,7 @@ use App\Entity\Address;
 use App\Entity\Receipt;
 use App\Form\PeopleType;
 use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,7 +22,7 @@ use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdatePeopleDataFDO;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Dompdf\Dompdf;
+//use Dompdf\Dompdf;
 
 /**
  * People controller.
@@ -310,7 +311,7 @@ class PeopleController extends AbstractController {
      * @Route("/generate/from-fiscal-year/{id}", name="people_generate_receipt_by_year", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function generateReceiptsByYearAction(Request $request, People $people, TranslatorInterface $translator)
+    public function generateReceiptsByYearAction(Request $request, People $people, TranslatorInterface $translator, ReceiptService $receiptService)
     {
         // Entity manager
         $em = $this->getDoctrine()->getManager();
@@ -340,23 +341,17 @@ class PeopleController extends AbstractController {
             // Get the receipts needed in the file
             $receipts = $em->getRepository(Receipt::class)->findByFiscalYearAndPeople($fiscalYear, $people);
 
-            $htmlNeedingConversion = $this->render('PDF/Receipt/_tax_receipt_base.html.twig', [
-                'receipts' => $receipts,
-                'receiptGenerationDate' => new \DateTime(),
-            ]);
+            $filename = 'recus-fiscaux_' . $people->getFirstName() . '-' . $people->getLastName();
 
-            // Loading previously rendered html
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml($htmlNeedingConversion);
+            // Generate the PDF and stream it
+            $receiptService->generateTaxReceiptPdf(
+                    $receipts,
+                    $filename,
+                    new \DateTime(),
+                    true
+            );
 
-            // Setup page
-            $dompdf->setPaper('A4', 'portrait');
-
-            // PDF rendering
-            $dompdf->render();
-            $dompdf->stream('tax_receipt.pdf', [
-                'Attachment' => true // force download
-            ]);
+            return;
         }
 
         return $this->render('People/generate-from-fiscal-year.html.twig', [

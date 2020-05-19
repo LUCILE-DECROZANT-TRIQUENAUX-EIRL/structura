@@ -70,7 +70,8 @@ class ReceiptService
     public function generateTaxReceiptPdf(
         array $receipts,
         string $filename = 'tax_receipts',
-        \DateTime $receiptGenerationDate
+        \DateTime $receiptGenerationDate,
+        bool $isStreamed = false
     )
     {
         // File fullname, which includes the file's extension
@@ -94,14 +95,23 @@ class ReceiptService
         // PDF rendering
         $dompdf->render();
 
-        // Saving the rendering's output
-        $output = $dompdf->output();
+        if ($isStreamed)
+        {
+            $dompdf->stream('tax_receipt.pdf', [
+                'Attachment' => true // force download
+            ]);
+        }
+        else
+        {
+            // Saving the rendering's output
+            $output = $dompdf->output();
 
-        // Saving the generated file on the server
-        $fileLocation = $this->projectDir . '/pdf/' . $fullFilename;
-        $this->fileService->file_force_contents($fileLocation, $output);
+            // Saving the generated file on the server
+            $fileLocation = $this->projectDir . '/pdf/' . $fullFilename;
+            $this->fileService->file_force_contents($fileLocation, $output);
 
-        return $fullFilename;
+            return $fullFilename;
+        }
     }
 
     public function generateTaxReceiptPdfFromFiscalYear($receiptsGroupingFileId, $userId)
