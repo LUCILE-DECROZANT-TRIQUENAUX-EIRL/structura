@@ -1,0 +1,76 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    <script src="{{ asset('javascript/People/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('people_list') }}">{% trans %}Annuaire généraliste{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('people_show', { 'id': people.id }) }}">
+            {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('People/_menu-people.html.twig', { generate_receipt_by_year: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>{% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}</h1>
+                    </div>
+                </div>
+
+                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from-fiscal-year-form'}}) }}
+                <div class="form-group">
+                    {{ form_label(from_fiscal_year_form.fiscalYear)}} *
+                    {{ form_widget(from_fiscal_year_form.fiscalYear)}}
+                </div>
+                {{ form_end(from_fiscal_year_form) }}
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <a href="{{ path('people_show', { 'id': people.id }) }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil{% endtrans %}
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="from-fiscal-year-form-button"
+                            type="submit"
+                            form="from-fiscal-year-form"
+                            class="btn btn-primary">
+                            {% trans %}Générer{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
