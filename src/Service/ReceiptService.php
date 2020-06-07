@@ -99,7 +99,7 @@ class ReceiptService
 
         if ($isStreamed)
         {
-            $dompdf->stream('tax_receipt.pdf', [
+            $dompdf->stream($fullFilename, [
                 'Attachment' => true // force download
             ]);
         }

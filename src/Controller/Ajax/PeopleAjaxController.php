@@ -3,12 +3,17 @@
 namespace App\Controller\Ajax;
 
 use App\Entity\People;
+use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\Service\ReceiptService;
+use App\Entity\Receipt;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/ajax/people", name="ajax_people_")
@@ -60,5 +65,37 @@ class PeopleAjaxController extends FOSRestController
         $response->headers->set('Content-Type', 'text/html');
 
         return $response;
+    }
+
+    /**
+     * Generate and return the PDF containing all the receipts for a given year
+     *
+     * @param Request $request The request.
+     * @param People $people The people for which we want the file
+     * @Route("/generate/from-fiscal-year/{id}", name="generate_from_fiscal_year", methods={"POST"})
+     * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
+     */
+    public function generateReceiptsByYearAction(Request $request, People $people, ReceiptService $receiptService)
+    {
+        // Entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $fiscalYear = $request->request->all()['generate_tax_receipt_from_fiscal_year']['fiscalYear'];
+
+        // Get the receipts needed in the file
+        $receipts = $em->getRepository(Receipt::class)->findByFiscalYearAndPeople($fiscalYear, $people);
+
+        $filename = 'recus-fiscaux_' . $people->getFirstName() . '-' . $people->getLastName();
+
+        // Generate the PDF and stream it
+        $receiptService->generateTaxReceiptPdf(
+            $receipts,
+            $filename,
+            new \DateTime(),
+            true,
+            true
+        );
+
+        return;
     }
 }

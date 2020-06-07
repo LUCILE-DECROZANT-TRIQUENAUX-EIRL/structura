@@ -7,6 +7,7 @@
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
     <script src="{{ asset('javascript/People/phone.js') }}"></script>
+    <script src="{{ asset('javascript/People/generate-from-fiscal-year.js') }}"></script>
     <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
@@ -48,7 +49,7 @@
                     </div>
                 </div>
 
-                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from-fiscal-year-form'}}) }}
+                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from-fiscal-year-form'}} ) }}
                 <div class="form-group">
                     {{ form_label(from_fiscal_year_form.fiscalYear)}} *
                     {{ form_widget(from_fiscal_year_form.fiscalYear)}}
@@ -62,10 +63,12 @@
                         </a>
                     </div>
                     <div class="col text-right">
+                        <div class="loader-animated d-none" style="margin-top: -20px;"><div></div><div></div><div></div></div>
                         <button
                             id="from-fiscal-year-form-button"
                             type="submit"
                             form="from-fiscal-year-form"
+                            data-submit-path="{{ path('ajax_people_generate_from_fiscal_year', { 'id': people.id }) }}"
                             class="btn btn-primary">
                             {% trans %}Générer{% endtrans %}
                         </button>

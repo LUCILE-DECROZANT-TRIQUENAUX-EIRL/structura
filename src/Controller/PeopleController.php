@@ -22,7 +22,6 @@ use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdatePeopleDataFDO;
 use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
 use Symfony\Contracts\Translation\TranslatorInterface;
-//use Dompdf\Dompdf;
 
 /**
  * People controller.
@@ -303,7 +302,7 @@ class PeopleController extends AbstractController {
     }
 
     /**
-     * Generate and return the PDF containing all the receipts for a given year
+     * Show the form that allows to generate and download a PDF file containing all the receipts for a given year.
      *
      * @return views
      * @param Request $request The request.
@@ -311,7 +310,7 @@ class PeopleController extends AbstractController {
      * @Route("/generate/from-fiscal-year/{id}", name="people_generate_receipt_by_year", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function generateReceiptsByYearAction(Request $request, People $people, TranslatorInterface $translator, ReceiptService $receiptService)
+    public function generateReceiptsByYearAction(Request $request, People $people, ReceiptService $receiptService)
     {
         // Entity manager
         $em = $this->getDoctrine()->getManager();
@@ -332,28 +331,6 @@ class PeopleController extends AbstractController {
         );
 
         $generateFromFiscalYearForm->handleRequest($request);
-
-        // Submit
-        if ($generateFromFiscalYearForm->isSubmitted() && $generateFromFiscalYearForm->isValid())
-        {
-            $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
-
-            // Get the receipts needed in the file
-            $receipts = $em->getRepository(Receipt::class)->findByFiscalYearAndPeople($fiscalYear, $people);
-
-            $filename = 'recus-fiscaux_' . $people->getFirstName() . '-' . $people->getLastName();
-
-            // Generate the PDF and stream it
-            $receiptService->generateTaxReceiptPdf(
-                    $receipts,
-                    $filename,
-                    new \DateTime(),
-                    true,
-                    true
-            );
-
-            return;
-        }
 
         return $this->render('People/generate-from-fiscal-year.html.twig', [
             'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
