@@ -33,6 +33,7 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
+        "components/jquery": "^3.3",
         "twbs/bootstrap": "^4.5",
         "twig/extensions": "^1.5"
     },
@@ -78,8 +79,11 @@
         },
         "post-install-cmd": [
             "@auto-scripts",
-            "ln -s ../../../vendor/twbs/bootstrap/dist/css ./public/css/library/Bootstrap",
-            "ln -s ../../../vendor/twbs/bootstrap/dist/js ./public/javascript/library/Bootstrap"
+            "mkdir -p public/javascript/library/jQuery/",
+            "ln -sf ../../../../vendor/components/jquery/jquery.min.js ./public/javascript/library/jQuery/jquery.min.js",
+            "ln -sf ../../../../vendor/components/jquery/jquery.min.map ./public/javascript/library/jQuery/jquery.min.map",
+            "ln -sf ../../../vendor/twbs/bootstrap/dist/css ./public/css/library/Bootstrap",
+            "ln -sf ../../../vendor/twbs/bootstrap/dist/js ./public/javascript/library/Bootstrap"
         ],
         "post-update-cmd": [
             "@auto-scripts"
