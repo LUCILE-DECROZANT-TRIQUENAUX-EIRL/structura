@@ -26,6 +26,7 @@ app/config/parameters.yml
 public/css/library/Bootstrap
 public/javascript/library/Bootstrap
 public/javascript/library/jQuery
+public/javascript/library/DataTables
 ###< local files ###
 
 ###> squizlabs/php_codesniffer ###
