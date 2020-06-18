@@ -23,6 +23,8 @@ path_mapping.ods
 server_start_dev.sh
 server_start_test.sh
 app/config/parameters.yml
+public/css/library/Bootstrap
+public/javascript/library/Bootstrap
 ###< local files ###
 
 ###> squizlabs/php_codesniffer ###

@@ -33,6 +33,7 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
+        "twbs/bootstrap": "^4.5",
         "twig/extensions": "^1.5"
     },
     "require-dev": {
@@ -76,7 +77,9 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "ln -s ../../../vendor/twbs/bootstrap/dist/css ./public/css/library/Bootstrap",
+            "ln -s ../../../vendor/twbs/bootstrap/dist/js ./public/javascript/library/Bootstrap"
         ],
         "post-update-cmd": [
             "@auto-scripts"
