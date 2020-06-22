@@ -20,7 +20,11 @@ class AssociationController extends AbstractController
      */
     public function show(AssociationRepository $associationRepository): Response
     {
-        $association = new Association();
+        $entityManager = $this->getDoctrine()->getManager();
+        $association = $entityManager->getRepository(Association::class)->findOneById(1);
+        if (empty($association)) {
+            $association = new Association();
+        }
         return $this->render('Association/show.html.twig', [
             'association' => $association,
         ]);
@@ -31,14 +35,22 @@ class AssociationController extends AbstractController
      */
     public function edit(Request $request): Response
     {
-        $association = new Association();
+        $entityManager = $this->getDoctrine()->getManager();
+        $association = $entityManager->getRepository(Association::class)->findOneById(1);
+        if (empty($association)) {
+            $association = new Association();
+        }
 
         $form = $this->createForm(AssociationType::class, $association);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->persist($association);
+            $entityManager->flush();
 
+            $this->addFlash(
+                'success', 'Les informations ont bien été enregistrées'
+            );
             return $this->redirectToRoute('association_index');
         }
 
