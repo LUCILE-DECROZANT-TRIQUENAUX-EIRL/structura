@@ -194,12 +194,23 @@
 
             <div id="container-alert-messages" class="container">
                 {% for type, messages in app.session.flashbag.all() %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ type }} alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans %}Close{% endtrans %}</span></button>
-                            {{ message | raw }}
-                        </div>
-                    {% endfor %}
+                    {% if type == 'association-data-warning' %}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {% for message in messages %}
+                                <div class="alert alert-warning" role="alert">
+                                    Les informations de l'association ne sont pas renseignées.
+                                    <a href="{{ path('association_edit') }}" class="alert-link">Renseigner les informations</a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans %}Close{% endtrans %}</span></button>
+                                {{ message | raw }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 {% endfor %}
             </div>
 
