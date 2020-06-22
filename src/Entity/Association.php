@@ -49,7 +49,7 @@ class Association
         return $this;
     }
 
-    public function getTreasurerSignatureFilenameFilename(): ?string
+    public function getTreasurerSignatureFilename(): ?string
     {
         return $this->treasurerSignatureFilename;
     }
