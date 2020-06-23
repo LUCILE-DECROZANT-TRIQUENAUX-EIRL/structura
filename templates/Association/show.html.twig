@@ -60,10 +60,17 @@
                                         {% if (association.logoFilename) is empty %}
                                             -
                                         {% else %}
-                                            <img src="{{ association.logoFilename }}"/>
+                                            <img src="/{{ association.logoFilename }}"/>
                                         {% endif %}
                                     </td>
                                     <td>
+                                        <a
+                                            href="{{ path('association_upload_logo') }}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="Téléverser le logo de l'association">
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>

@@ -1,0 +1,67 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Téléverser le logo de l'association{% endtrans %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        <a href="{{ path('association_index') }}">{% trans %}Informations de l'association{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Téléverser le logo de l'association{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col">
+                        <h1>
+                            {% trans %}Téléverser le logo de l'association{% endtrans %}
+                        </h1>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_start(form, {'attr': {'id': 'form-edit-association'}}) }}
+                        <div class="form-group">
+                            {{ form_label(form.logo)}}
+                            {{ form_widget(form.logo)}}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('association_index') }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner aux informations de l'association{% endtrans %}
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="edit-member-submit-button"
+                            type="submit"
+                            form="form-edit-association"
+                            class="btn btn-primary">
+                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Téléverser le logo{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
