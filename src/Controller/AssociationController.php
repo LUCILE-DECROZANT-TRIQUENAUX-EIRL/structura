@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Association;
 use App\Form\AssociationType;
+use App\FormDataObject\AssociationNameFDO;
 use App\Repository\AssociationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,20 +32,26 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="association_edit", methods={"GET","POST"})
+     * @Route("/edit-name", name="association_edit_name", methods={"GET","POST"})
      */
-    public function edit(Request $request): Response
+    public function editName(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        // use a FDO to only edit the name of the association
+        $associationNameFDO = new AssociationNameFDO();
         $association = $entityManager->getRepository(Association::class)->findOneById(1);
         if (empty($association)) {
             $association = new Association();
         }
+        // display the current name in the form
+        $associationNameFDO->setName($association->getName());
 
-        $form = $this->createForm(AssociationType::class, $association);
+        $form = $this->createForm(AssociationType::class, $associationNameFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $association->setName($associationNameFDO->getName());
             $entityManager->persist($association);
             $entityManager->flush();
 

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Association;
+use App\FormDataObject\AssociationNameFDO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,19 +17,13 @@ class AssociationType extends AbstractType
                     'label' => 'Nom de l\'association',
                     'required' => true
                 ])
-                ->add('logoFilename', TextType::class, [
-                    'label' => 'Chemin d\'accès au logo de l\'association',
-                ])
-                ->add('treasurerSignatureFilename', TextType::class, [
-                    'label' => 'Chemin d\'accès à la signature de lae trésorier.e',
-                ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Association::class,
+            'data_class' => AssociationNameFDO::class,
         ]);
     }
 }

@@ -37,12 +37,21 @@
                             <tbody>
                                 <tr>
                                     <th class="w-25">Nom de l'association</th>
-                                    <td class="col-10">
+                                    <td>
                                         {% if (association.name) is empty %}
                                             -
                                         {% else %}
                                             {{ association.name }}
                                         {% endif %}
+                                    </td>
+                                    <td class="column-action">
+                                        <a
+                                            href="{{ path('association_edit_name') }}"
+                                            class="btn btn-primary"
+                                            data-toggle="tooltip"
+                                            title="Éditer le nom de l'association">
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -54,6 +63,8 @@
                                             <img src="{{ association.logoFilename }}"/>
                                         {% endif %}
                                     </td>
+                                    <td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Signature de lae trésorie.re</th>
@@ -64,6 +75,8 @@
                                             <img src="{{ association.treasurerSignatureFilename }}"/>
                                         {% endif %}
                                     </td>
+                                    <td>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,14 +84,9 @@
                 </div>
                 <div class="row mt-3">
                     {% if is_granted("ROLE_ADMIN") %}
-                        <div class="col-md">
+                        <div class="col">
                             <a href="{{ path('administration_dashboard') }}" class="btn btn-secondary">
                                 <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la page d'administration{% endtrans %}
-                            </a>
-                        </div>
-                        <div class="col-md text-right">
-                            <a href="{{ path('association_edit') }}" class="btn btn-primary">
-                                <i class="icon ion-md-create"></i>&nbsp;{% trans %}Éditer les informations{% endtrans %}
                             </a>
                         </div>
                     {% endif %}
