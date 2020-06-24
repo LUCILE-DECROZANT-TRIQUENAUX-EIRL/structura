@@ -9,7 +9,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\People;
 use App\Entity\Address;
+use App\Entity\Receipt;
 use App\Form\MemberType;
+use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -301,6 +305,43 @@ class MemberController extends AbstractController {
                 'member_edit' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Show the form that allows to generate and download a PDF file containing all the receipts for a given year.
+     *
+     * @return views
+     * @param Request $request The request.
+     * @param People $people The people for which we want the file
+     * @Route("/{id}/generate/from-fiscal-year", name="member_generate_receipt_by_year", methods={"GET", "POST"})
+     * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
+     */
+    public function generateReceiptsByYearAction(Request $request, People $member, ReceiptService $receiptService)
+    {
+        // Entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // Find fiscal years for which there is receipts to generate
+        $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYearsByPeople($member);
+
+        // Creating an empty FDO
+        $generateTaxReceiptFromFiscalYearFDO = new GenerateTaxReceiptFromFiscalYearFDO();
+
+        // From creation
+        $generateFromFiscalYearForm = $this->createForm(
+            GenerateTaxReceiptFromFiscalYearType::class,
+            $generateTaxReceiptFromFiscalYearFDO,
+            [
+                'availableFiscalYears' => $availableFiscalYears,
+            ]
+        );
+
+        $generateFromFiscalYearForm->handleRequest($request);
+
+        return $this->render('Member/generate-from-fiscal-year.html.twig', [
+            'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
+            'member' => $member,
+        ]);
     }
 
     /**
