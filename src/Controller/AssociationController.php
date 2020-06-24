@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Association;
 use App\Form\AssociationType;
 use App\Form\AssociationLogoType;
+use App\Form\AssociationTreasurerSignatureType;
 use App\FormDataObject\AssociationLogoFDO;
 use App\FormDataObject\AssociationNameFDO;
+use App\FormDataObject\AssociationTreasurerSignatureFDO;
 use App\Repository\AssociationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,7 +77,7 @@ class AssociationController extends AbstractController
     public function uploadLogoAction(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
 
-        // use a FDO to only edit the name of the association
+        // use a FDO to only edit the logo of the association
         $associationLogoFDO = new AssociationLogoFDO();
         $association = $entityManager->getRepository(Association::class)->findOneById(1);
         if (empty($association)) {
@@ -105,6 +107,47 @@ class AssociationController extends AbstractController
         }
 
         return $this->render('Association/edit-logo.html.twig', [
+            'association' => $association,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/upload-treasurer-signature", name="association_upload_treasurer_signature", methods={"GET","POST"})
+     */
+    public function uploadTreasurerSignatureAction(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // use a FDO to only edit the treasurer signature
+        $associationTreasurerSignatureFDO = new AssociationTreasurerSignatureFDO();
+        $association = $entityManager->getRepository(Association::class)->findOneById(1);
+        if (empty($association)) {
+            $association = new Association();
+        }
+
+        $form = $this->createForm(AssociationTreasurerSignatureType::class, $associationTreasurerSignatureFDO);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $signature = $associationTreasurerSignatureFDO->getTreasurerSignature();
+            $name = 'treasurer-signature.' . $signature->guessExtension();
+            $uploadDirectory = $this->getParameter('kernel.project_dir') . '/public/images/uploads';
+            $signature->move(
+                    $uploadDirectory,
+                    $name
+            );
+
+            $association->setTreasurerSignatureFilename('images/uploads/' . $name);
+            $entityManager->persist($association);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success', 'Le logo a bien été téléversé.'
+            );
+            return $this->redirectToRoute('association_index');
+        }
+
+        return $this->render('Association/edit-treasurer-signature.html.twig', [
             'association' => $association,
             'form' => $form->createView(),
         ]);
