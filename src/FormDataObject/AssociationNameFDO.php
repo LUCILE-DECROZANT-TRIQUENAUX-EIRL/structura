@@ -14,7 +14,7 @@ class AssociationNameFDO
         return $this->name;
     }
 
-    function setName(string $name): AssociationNameFDO
+    function setName(?string $name): AssociationNameFDO
     {
         $this->name = $name;
         return $this;

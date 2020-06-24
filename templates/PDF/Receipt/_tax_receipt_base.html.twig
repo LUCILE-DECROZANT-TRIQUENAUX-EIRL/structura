@@ -20,6 +20,8 @@
     <body>
         {% for index, receipt in receipts %}
             {% include 'PDF/Receipt/_tax_receipt.html.twig' with {
+                'isFromController': isFromController,
+                'association': association,
                 'receipt': receipt,
                 'receiptGenerationDate' : receiptGenerationDate
             } %}

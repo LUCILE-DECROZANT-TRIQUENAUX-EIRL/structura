@@ -3,9 +3,13 @@
     <table>
         <tr>
             <td>
-                logo asso
+                {% if isFromController %}
+                    <img class="logo" src="../public/{{ association.logoFilename }}">
+                {% else %}
+                    <img class="logo" src="public/{{ association.logoFilename }}">
+                {% endif %}
             </td>
-            <td>
+            <td id="receipt-title">
                 <h1 class="text-center">Association Huntington Avenir</h1>
                 <p class="text-center font-weight-bold font-italic">
                     Association des familles et des personnes confontrées à la maladie de Huntington et leurs ami.es
@@ -144,10 +148,21 @@
         </tr>
     </table>
 
-    <hr>
+    <table class="cutable-line">
+        <tr>
+            <td>
+                {% if isFromController %}
+                    <img class="scissors-icon" src="../public/images/scissors.png">
+                {% else %}
+                    <img class="scissors-icon" src="public/images/scissors.png">
+                {% endif %}
+            </td>
+            <td class="line"><hr></td>
+        </tr>
+    </table>
 
     {#--- CUTABLE PART TITLE ---#}
-    <table class="mt-3">
+    <table>
         <tr>
             <td class="small">
                 <span class="font-weight-bold small">REÇU FISCAL</span>
@@ -272,8 +287,12 @@
                 <td class="text-right align-top">
                     Le Trésorier Christophe LEROY
                 </td>
-                <td class="w-25 text-right align-top mt-4 mb-4">
-                    signature
+                <td class="w-25 text-right align-top pt-0 pb-0">
+                    {% if isFromController %}
+                        <img class="signature" src="../public/{{ association.treasurerSignatureFilename }}">
+                    {% else %}
+                        <img class="signature" src="public/{{ association.treasurerSignatureFilename }}">
+                    {% endif %}
                 </td>
             </tr>
         </table>

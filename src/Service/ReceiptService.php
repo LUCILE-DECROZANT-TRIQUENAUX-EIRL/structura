@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Association;
 use App\Entity\User;
 use App\Entity\Payment;
 use App\Entity\Receipt;
@@ -75,11 +76,15 @@ class ReceiptService
         bool $isFromController = false
     )
     {
+        // Retreive association information
+        $association = $this->em->getRepository(Association::class)->findOneById(1);
+
         // File fullname, which includes the file's extension
         $fullFilename = $receiptGenerationDate->format('Y-m-d:H-i-s') . '_' . $filename . '.pdf';
 
         // We render the twig template of a tax receipt into pure html
         $htmlNeedingConversion = $this->twig->render('PDF/Receipt/_tax_receipt_base.html.twig', [
+            'association' => $association,
             'receipts' => $receipts,
             'receiptGenerationDate' => $receiptGenerationDate,
             'isFromController' => $isFromController,

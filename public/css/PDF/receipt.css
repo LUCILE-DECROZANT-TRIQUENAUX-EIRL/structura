@@ -28,11 +28,37 @@ table {
     text-decoration: underline;
 }
 
+/* Define logo size */
+.logo {
+    height: 100px;
+    width: auto;
+}
+
+/* Define title size */
+#receipt-title {
+    width: 650px;
+}
+
 /* Display the payer address a bit bigger than the rest */
 td.payer-address,
 td.payer-address > p,
 td.payer-address > p > span {
     font-size: 16px;
+}
+
+/* Nicely display cutable part line */
+.cutable-line {
+    margin-top: -5px;
+    margin-bottom: -10px;
+}
+
+.cutable-line .scissors-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.cutable-line .line {
+    width: 725px;
 }
 
 /* Nicely space the association information in the cutable part */
@@ -58,6 +84,12 @@ td.payer-address > p > span {
 }
 #association-purpose > #purposes-list {
     width: 94%;
+}
+
+/* Define signature size */
+.signature {
+    height: 60px;
+    width: auto;
 }
 
 div.new-page + div.new-page {
