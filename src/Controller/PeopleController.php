@@ -307,7 +307,7 @@ class PeopleController extends AbstractController {
      * @return views
      * @param Request $request The request.
      * @param People $people The people for which we want the file
-     * @Route("/generate/from-fiscal-year/{id}", name="people_generate_receipt_by_year", methods={"GET", "POST"})
+     * @Route("/{id}/generate/from-fiscal-year", name="people_generate_receipt_by_year", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function generateReceiptsByYearAction(Request $request, People $people, ReceiptService $receiptService)
