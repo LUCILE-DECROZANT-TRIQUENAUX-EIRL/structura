@@ -48,7 +48,9 @@ class ReceiptsGenerationFromTwoDatesRepository extends ServiceEntityRepository
 
     /**
      * Return the last ReceiptsFromTwoDatesGroupingFile
-     * @param int $fiscalYear (default: null)
+     *
+     * @param \DateTime $from (default: null)
+     * @param \DateTime $to (default: null)
      * @return ReceiptsFromTwoDatesGroupingFile|null
      */
     public function findLastGenerated(
