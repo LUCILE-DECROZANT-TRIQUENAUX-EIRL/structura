@@ -10,6 +10,7 @@ use App\FormDataObject\AssociationLogoFDO;
 use App\FormDataObject\AssociationNameFDO;
 use App\FormDataObject\AssociationTreasurerSignatureFDO;
 use App\Repository\AssociationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ class AssociationController extends AbstractController
 {
     /**
      * @Route("/", name="association_index", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function show(AssociationRepository $associationRepository): Response
     {
@@ -37,6 +39,7 @@ class AssociationController extends AbstractController
 
     /**
      * @Route("/edit-name", name="association_edit_name", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editName(Request $request): Response
     {
@@ -73,6 +76,7 @@ class AssociationController extends AbstractController
 
     /**
      * @Route("/upload-logo", name="association_upload_logo", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function uploadLogoAction(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
@@ -114,6 +118,7 @@ class AssociationController extends AbstractController
 
     /**
      * @Route("/upload-treasurer-signature", name="association_upload_treasurer_signature", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function uploadTreasurerSignatureAction(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
