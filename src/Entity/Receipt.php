@@ -20,7 +20,7 @@ class Receipt
 
     /**
      * The receipt's order number.
-     * This value is incremented at each receipt creation for a same fiscal year.
+     * This value is incremented at each receipt creation for a same year.
      *
      * Once set, this value can't be edited.
      *
@@ -32,7 +32,7 @@ class Receipt
      * Code provided as an identifier for the receipt,
      * used by French administration
      *
-     * Currently has the form 'YYYY-NNNN' where YYYY is the fiscal year of
+     * Currently has the form 'YYYY-NNNN' where YYYY is the year of
      * the receipt and NNNN the order number of the receipt
      *
      * Once set, this value can't be edited.
@@ -42,11 +42,11 @@ class Receipt
     private $orderCode;
 
     /**
-     * The receipt's fiscal year.
+     * The receipt's year.
      *
      * @ORM\Column(type="integer")
      */
-    private $fiscalYear;
+    private $year;
 
     /**
      * The payment corresponding to this receipt.
@@ -80,9 +80,9 @@ class Receipt
      */
     public function generateOrderCode(): self
     {
-        if (empty($this->fiscalYear))
+        if (empty($this->year))
         {
-            $message = 'The fiscal year of this receipt is missing';
+            $message = 'The year of this receipt is missing';
             throw new \Exception($message);
         }
 
@@ -97,7 +97,7 @@ class Receipt
         $orderNumberPart = str_repeat('0', $numberOf0ToAdd) . $this->orderNumber;
 
         // Format : YYYY-000N
-        $this->orderCode = $this->fiscalYear . '-' . $orderNumberPart;
+        $this->orderCode = $this->year . '-' . $orderNumberPart;
 
         return $this;
     }
@@ -108,7 +108,7 @@ class Receipt
     }
 
     /**
-     * Set the order code using fiscal year and order number of
+     * Set the order code using year and order number of
      * the receipt
      *
      * @return \self
@@ -116,9 +116,9 @@ class Receipt
      */
     public function setOrderCode(): self
     {
-        if (empty($this->fiscalYear))
+        if (empty($this->year))
         {
-            $message = 'The fiscal year of this receipt is missing';
+            $message = 'The year of this receipt is missing';
             throw new \Exception($message);
         }
 
@@ -157,14 +157,14 @@ class Receipt
         return $this;
     }
 
-    public function getFiscalYear(): ?int
+    public function getYear(): ?int
     {
-        return $this->fiscalYear;
+        return $this->year;
     }
 
-    public function setFiscalYear(int $fiscalYear): self
+    public function setYear(int $year): self
     {
-        $this->fiscalYear = $fiscalYear;
+        $this->year = $year;
 
         return $this;
     }
