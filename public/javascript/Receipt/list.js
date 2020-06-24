@@ -31,7 +31,7 @@ function checkIfGenerationHasFinished(generatingFileDiv)
                         downloadButton.parent().tooltip('dispose');
                         // Add fake flashbag message
                         let fakeFlashbag = $('#' + generatingFileDiv.data('confirmation-message-id')).clone();
-                        fakeFlashbag.find('#fiscal-year').text($(row.find('td')[0]).text());
+                        fakeFlashbag.find('#year').text($(row.find('td')[0]).text());
                         fakeFlashbag.find('#from-date').text($(row.find('td')[0]).text());
                         fakeFlashbag.find('#to-date').text($(row.find('td')[1]).text());
                         fakeFlashbag.removeClass('d-none');

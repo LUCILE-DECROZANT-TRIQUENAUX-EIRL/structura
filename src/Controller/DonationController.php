@@ -68,16 +68,16 @@ class DonationController extends AbstractController
             $em->persist($payment);
 
             // Putting data used for the receipt in vars
-            $fiscalYear = $updateDonationFDO->getDonationDate()->format('Y');
+            $thisYear = (new \DateTime())->format('Y');
             $lastOrderNumber = $em->getRepository(Receipt::class)
-                    ->findLastOrderNumberForFiscalYear($fiscalYear);
+                    ->findLastOrderNumberForAYear($thisYear);
 
             // -- RECEIPT -- //
             $receipt = new Receipt();
 
             $receipt->setPayment($payment);
             $receipt->setOrderNumber($lastOrderNumber + 1);
-            $receipt->setFiscalYear($fiscalYear);
+            $receipt->setYear($thisYear);
             $receipt->setOrderCode();
 
             $em->persist($receipt);

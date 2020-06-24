@@ -10,7 +10,7 @@ use App\Entity\User;
 use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\ReceiptsGroupingFile;
-use App\Entity\ReceiptsFromFiscalYearGroupingFile;
+use App\Entity\ReceiptsFromYearGroupingFile;
 use App\Entity\ReceiptsFromTwoDatesGroupingFile;
 use App\Service\Utils\FileService;
 use Dompdf\Dompdf;
@@ -121,22 +121,22 @@ class ReceiptService
         }
     }
 
-    public function generateTaxReceiptPdfFromFiscalYear($receiptsGroupingFileId, $userId)
+    public function generateTaxReceiptPdfFromYear($receiptsGroupingFileId, $userId)
     {
         // Get the user asking for the generation
         $user = $this->em->getRepository(User::class)->find($userId);
 
         // Get the receipts grouping file corresponding to this generation
-        $receiptsFromFiscalYearGroupingFile = $this->em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)->find($receiptsGroupingFileId);
-        $receiptsGroupingFile = $receiptsFromFiscalYearGroupingFile->getReceiptsGenerationBase();
-        $fiscalYear = $receiptsFromFiscalYearGroupingFile->getFiscalYear();
+        $receiptsFromYearGroupingFile = $this->em->getRepository(ReceiptsFromYearGroupingFile::class)->find($receiptsGroupingFileId);
+        $receiptsGroupingFile = $receiptsFromYearGroupingFile->getReceiptsGenerationBase();
+        $year = $receiptsFromYearGroupingFile->getYear();
 
         // Get the receipts needed in the file
-        $receipts = $this->em->getRepository(Receipt::class)->findByFiscalYear($fiscalYear);
+        $receipts = $this->em->getRepository(Receipt::class)->findByYear($year);
 
         $fullFilename = $this->generateTaxReceiptPdf(
             $receipts,
-            'recus-fiscaux_' . $fiscalYear,
+            'recus-fiscaux_' . $year,
             $receiptsGroupingFile->getGenerationDateStart()
         );
 
@@ -147,7 +147,7 @@ class ReceiptService
         $receiptsGroupingFile->setFilename($fullFilename);
 
         $this->em->persist($receiptsGroupingFile);
-        $this->em->persist($receiptsFromFiscalYearGroupingFile);
+        $this->em->persist($receiptsFromYearGroupingFile);
         $this->em->flush();
     }
 

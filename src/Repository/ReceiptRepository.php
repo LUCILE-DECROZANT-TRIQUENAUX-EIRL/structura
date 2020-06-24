@@ -20,13 +20,13 @@ class ReceiptRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return int[] Returns an array of all the fiscal years
+     * @return int[] Returns an array of all the years
      * to which one or more receipt as been associated.
      */
-    public function findAvailableFiscalYears()
+    public function findAvailableYears()
     {
         $results = $this->createQueryBuilder('r')
-            ->select('r.fiscalYear')
+            ->select('r.year')
             ->distinct()
             ->getQuery()
             ->getResult();
@@ -35,21 +35,21 @@ class ReceiptRepository extends ServiceEntityRepository
 
         foreach($results as $result)
         {
-            $formatedResults[$result['fiscalYear']] = $result['fiscalYear'];
+            $formatedResults[$result['year']] = $result['year'];
         }
 
         return $formatedResults;
     }
 
     /**
-     * @return int[] Returns an array of all the fiscal years
+     * @return int[] Returns an array of all the years
      * to which one or more receipt as been associated for the people
      * passed in parameters
      */
-    public function findAvailableFiscalYearsByPeople($people)
+    public function findAvailableYearsByPeople($people)
     {
         $results = $this->createQueryBuilder('r')
-            ->select('r.fiscalYear')
+            ->select('r.year')
             ->join('r.payment', 'p')
             ->where('p.payer = :people')
             ->setParameter('people', $people)
@@ -61,23 +61,23 @@ class ReceiptRepository extends ServiceEntityRepository
 
         foreach ($results as $result)
         {
-            $formatedResults[$result['fiscalYear']] = $result['fiscalYear'];
+            $formatedResults[$result['year']] = $result['year'];
         }
 
         return $formatedResults;
     }
 
     /**
-     * Returns the last order number for a given fiscal year.
-     * @param int $fiscalYear The fiscal year for which we want the last order number.
-     * @return int The last order number for the given fiscal year.
+     * Returns the last order number for a given year.
+     * @param int $year The year for which we want the last order number.
+     * @return int The last order number for the given year.
      */
-    public function findLastOrderNumberForFiscalYear(int $fiscalYear)
+    public function findLastOrderNumberForAYear(int $year)
     {
         $result = $this->createQueryBuilder('r')
             ->select('MAX(r.orderNumber) AS lastOrderNumber')
-            ->where('r.fiscalYear = :fiscalYear')
-            ->setParameter('fiscalYear', $fiscalYear)
+            ->where('r.year = :year')
+            ->setParameter('year', $year)
             ->getQuery()
             ->getSingleResult();
 
@@ -104,20 +104,20 @@ class ReceiptRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return all the receipts corresponding to a people and a fiscal year
-     * @param int $fiscalYear
+     * Return all the receipts corresponding to a people and a year
+     * @param int $year
      * @param type $people
      * @return Receipts[]
      */
-    public function findByFiscalYearAndPeople(int $fiscalYear, $people)
+    public function findByYearAndPeople(int $year, $people)
     {
         $qb = $this->createQueryBuilder('r')
                 ->select('r, p')
                 ->join('r.payment', 'p')
                 ->where('p.payer = :people')
                 ->setParameter('people', $people)
-                ->andwhere('r.fiscalYear = :fiscalYear')
-                ->setParameter('fiscalYear', $fiscalYear);
+                ->andwhere('r.year = :year')
+                ->setParameter('year', $year);
 
         return $qb->getQuery()->getResult();
     }

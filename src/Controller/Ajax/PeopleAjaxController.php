@@ -3,8 +3,8 @@
 namespace App\Controller\Ajax;
 
 use App\Entity\People;
-use App\Form\GenerateTaxReceiptFromFiscalYearType;
-use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\Form\GenerateTaxReceiptFromYearType;
+use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 use App\Service\ReceiptService;
 use App\Entity\Receipt;
 
@@ -72,7 +72,7 @@ class PeopleAjaxController extends FOSRestController
      *
      * @param Request $request The request.
      * @param People $people The people for which we want the file
-     * @Route("/generate/from-fiscal-year/{id}", name="generate_from_fiscal_year", methods={"POST"})
+     * @Route("/generate/from-year/{id}", name="generate_from_year", methods={"POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function generateReceiptsByYearAction(Request $request, People $people, ReceiptService $receiptService)
@@ -80,10 +80,10 @@ class PeopleAjaxController extends FOSRestController
         // Entity manager
         $em = $this->getDoctrine()->getManager();
 
-        $fiscalYear = $request->request->all()['generate_tax_receipt_from_fiscal_year']['fiscalYear'];
+        $year = $request->request->all()['generate_tax_receipt_from_year']['year'];
 
         // Get the receipts needed in the file
-        $receipts = $em->getRepository(Receipt::class)->findByFiscalYearAndPeople($fiscalYear, $people);
+        $receipts = $em->getRepository(Receipt::class)->findByYearAndPeople($year, $people);
 
         $filename = 'recus-fiscaux_' . $people->getFirstName() . '-' . $people->getLastName();
 

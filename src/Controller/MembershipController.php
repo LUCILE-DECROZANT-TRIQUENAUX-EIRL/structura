@@ -142,16 +142,16 @@ class MembershipController extends AbstractController
             $em->persist($payment);
 
             // Receipt
+            $thisYear = (new \DateTime())->format('Y');
             $lastOrderNumber = $em->getRepository(Receipt::class)
-                    ->findLastOrderNumberForFiscalYear($updateMembershipFDO->getMembershipFiscalYear());
+                    ->findLastOrderNumberForAYear($thisYear);
 
             $receipt = new Receipt();
 
             $receipt->setPayment($payment);
             $receipt->setOrderNumber($lastOrderNumber + 1);
 
-            $now = new \DateTime();
-            $receipt->setFiscalYear($now->format('Y'));
+            $receipt->setYear($thisYear);
             $receipt->setOrderCode();
 
             $em->persist($receipt);

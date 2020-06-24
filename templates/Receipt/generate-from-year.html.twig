@@ -10,7 +10,7 @@
         {% trans %}Reçus fiscaux{% endtrans %}
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Générer selon l'année fiscale{% endtrans %}
+        {% trans %}Générer selon l'année{% endtrans %}
     </li>
 {% endblock %}
 
@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/Receipt/generate-from-fiscal-year.js') }}"></script>
+    <script src="{{ asset('javascript/Receipt/generate-from-year.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -27,27 +27,27 @@
     <div class="container">
         <div class="row">
             <div class="col-2">
-                {{ include('Receipt/_menu-receipts.html.twig', { generate_from_fiscal_year : 'active' }) }}
+                {{ include('Receipt/_menu-receipts.html.twig', { generate_from_year : 'active' }) }}
             </div>
             <div class="col-10">
-                <h1>{% trans %}Générer selon l'année fiscale{% endtrans %}</h1>
+                <h1>{% trans %}Générer selon l'année{% endtrans %}</h1>
 
-                {{ form_start(from_fiscal_year_form, {'attr': {'id': 'from-fiscal-year-form'}}) }}
+                {{ form_start(from_year_form, {'attr': {'id': 'from-year-form'}}) }}
                 <div class="form-group">
-                    {{ form_label(from_fiscal_year_form.fiscalYear)}} *
-                    {{ form_widget(from_fiscal_year_form.fiscalYear)}}
+                    {{ form_label(from_year_form.year)}} *
+                    {{ form_widget(from_year_form.year)}}
                 </div>
                 <div id="message-generation-disabled" class="alert alert-warning d-none">
-                    Un PDF pour l'année fiscale <b><span id='fiscal-year'></span></b> est déjà en cours de génération, veuillez rééssayer plus tard.
+                    Un PDF pour l'année <b><span id='year'></span></b> est déjà en cours de génération, veuillez rééssayer plus tard.
                 </div>
                 <div id="message-last-generation" class="alert alert-info d-none">
                     Dernière génération terminée le <b><span id='last-generation-date'></span></b> à <b><span id='last-generation-hour'></span></b>.
                 </div>
-                {{ form_end(from_fiscal_year_form) }}
+                {{ form_end(from_year_form) }}
                 <button
-                    id="from-fiscal-year-submit-button"
+                    id="from-year-submit-button"
                     type="submit"
-                    form="from-fiscal-year-form"
+                    form="from-year-form"
                     class="btn btn-primary"
                     data-first-generation-label="{% trans %}Générer{% endtrans %}"
                     data-regeneration-label="{% trans %}Regénérer{% endtrans %}"

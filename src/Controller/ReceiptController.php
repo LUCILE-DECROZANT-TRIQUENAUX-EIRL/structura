@@ -18,13 +18,13 @@ use App\Service\ReceiptService;
 use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\ReceiptsGroupingFile;
-use App\Entity\ReceiptsFromFiscalYearGroupingFile;
+use App\Entity\ReceiptsFromYearGroupingFile;
 use App\Entity\ReceiptsFromTwoDatesGroupingFile;
-use App\Message\GenerateReceiptFromFiscalYearMessage;
+use App\Message\GenerateReceiptFromYearMessage;
 use App\Message\GenerateReceiptFromTwoDatesMessage;
-use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 use App\FormDataObject\GenerateTaxReceiptFromTwoDatesFDO;
-use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\Form\GenerateTaxReceiptFromYearType;
 use App\Form\GenerateTaxReceiptFromTwoDatesType;
 
 /**
@@ -41,7 +41,7 @@ class ReceiptController extends AbstractController
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $annualReceiptsFiles = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
+        $annualReceiptsFiles = $em->getRepository(ReceiptsFromYearGroupingFile::class)
                 ->findAll();
 
         $betweenTwoDatesReceiptsFiles = $em->getRepository(ReceiptsFromTwoDatesGroupingFile::class)
@@ -57,10 +57,10 @@ class ReceiptController extends AbstractController
     /**
      * @return views
      * @param Request $request The request.
-     * @Route("/generate/from-fiscal-year", name="receipt_generate_from_fiscal_year", requirements={"_locale"="en|fr"})
+     * @Route("/generate/from-year", name="receipt_generate_from_year", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function generateFromFiscalYearAction(
+    public function generateFromYearAction(
         Request $request,
         MessageBusInterface $messageBus,
         ReceiptService $receiptService,
@@ -71,15 +71,15 @@ class ReceiptController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         // Find fiscal years for which there is receipts to generate
-        $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYears();
+        $availableYears = $em->getRepository(Receipt::class)->findAvailableYears();
 
         // Setup options for each fiscal year
-        $availableFiscalYearsData = [];
-        foreach ($availableFiscalYears as $availableFiscalYear)
+        $availableYearsData = [];
+        foreach ($availableYears as $availableYear)
         {
             // Check if a file is currently generated
-            $filesBeingCurrentlyGenerated = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
-                    ->findByGenerationInProgress($availableFiscalYear);
+            $filesBeingCurrentlyGenerated = $em->getRepository(ReceiptsFromYearGroupingFile::class)
+                    ->findByGenerationInProgress($availableYear);
             if (count($filesBeingCurrentlyGenerated) > 0)
             {
                 $dataIsUnderGeneration = [
@@ -94,8 +94,8 @@ class ReceiptController extends AbstractController
             }
 
             // Get the last generation date if it exists
-            $lastFileGenerated = $em->getRepository(ReceiptsFromFiscalYearGroupingFile::class)
-                    ->findLastGenerated($availableFiscalYear);
+            $lastFileGenerated = $em->getRepository(ReceiptsFromYearGroupingFile::class)
+                    ->findLastGenerated($availableYear);
             if (!empty($lastFileGenerated))
             {
                 $dataLastGenerationDate = [
@@ -108,49 +108,49 @@ class ReceiptController extends AbstractController
                     'data-last-generation-date' => 'false',
                 ];
             }
-            $availableFiscalYearsData[$availableFiscalYear] = array_merge(
+            $availableYearsData[$availableYear] = array_merge(
                 $dataIsUnderGeneration,
                 $dataLastGenerationDate
             );
         }
 
         // Creating an empty FDO
-        $generateTaxReceiptFromFiscalYearFDO = new GenerateTaxReceiptFromFiscalYearFDO();
+        $generateTaxReceiptFromYearFDO = new GenerateTaxReceiptFromYearFDO();
 
         // From creation
-        $generateFromFiscalYearForm = $this->createForm(
-            GenerateTaxReceiptFromFiscalYearType::class,
-            $generateTaxReceiptFromFiscalYearFDO,
+        $generateFromYearForm = $this->createForm(
+            GenerateTaxReceiptFromYearType::class,
+            $generateTaxReceiptFromYearFDO,
             [
-                'availableFiscalYears' => $availableFiscalYears,
-                'availableFiscalYearsData' => $availableFiscalYearsData,
+                'availableYears' => $availableYears,
+                'availableYearsData' => $availableYearsData,
             ]
         );
 
-        $generateFromFiscalYearForm->handleRequest($request);
+        $generateFromYearForm->handleRequest($request);
 
         // Submit
-        if ($generateFromFiscalYearForm->isSubmitted() && $generateFromFiscalYearForm->isValid())
+        if ($generateFromYearForm->isSubmitted() && $generateFromYearForm->isValid())
         {
-            $fiscalYear = $generateTaxReceiptFromFiscalYearFDO->getFiscalYear();
+            $year = $generateTaxReceiptFromYearFDO->getYear();
 
             // Creating the database log
             $receiptGenerationDate = new \DateTime();
             $receiptsGroupingFile = new ReceiptsGroupingFile();
             $receiptsGroupingFile->setGenerationDateStart($receiptGenerationDate);
             $receiptsGroupingFile->setGenerator($this->getUser());
-            $receiptsFromFiscalYearGroupingFile = new ReceiptsFromFiscalYearGroupingFile();
-            $receiptsFromFiscalYearGroupingFile->setFiscalYear($fiscalYear);
-            $receiptsFromFiscalYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
+            $receiptsFromYearGroupingFile = new ReceiptsFromYearGroupingFile();
+            $receiptsFromYearGroupingFile->setYear($year);
+            $receiptsFromYearGroupingFile->setReceiptsGenerationBase($receiptsGroupingFile);
 
             // Save that the file is being generated
             $em->persist($receiptsGroupingFile);
-            $em->persist($receiptsFromFiscalYearGroupingFile);
+            $em->persist($receiptsFromYearGroupingFile);
             $em->flush();
 
             $messageBus->dispatch(
-                    new GenerateReceiptFromFiscalYearMessage(
-                            $receiptsFromFiscalYearGroupingFile->getId(),
+                    new GenerateReceiptFromYearMessage(
+                            $receiptsFromYearGroupingFile->getId(),
                             $this->getUser()->getId()
             ));
 
@@ -161,8 +161,8 @@ class ReceiptController extends AbstractController
             return $this->redirectToRoute('receipt_list');
         }
 
-        return $this->render('Receipt/generate-from-fiscal-year.html.twig', [
-            'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
+        return $this->render('Receipt/generate-from-year.html.twig', [
+            'from_year_form' => $generateFromYearForm->createView(),
         ]);
     }
 

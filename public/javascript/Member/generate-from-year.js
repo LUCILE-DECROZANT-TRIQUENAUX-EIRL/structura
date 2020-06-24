@@ -2,14 +2,14 @@
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
-    $("#from-fiscal-year-form").submit(function(e) {
+    $("#from-year-form").submit(function(e) {
         e.preventDefault(); //Prevent Default action.
 
         // We show the loading message
         $('.loader-animated').removeClass('d-none');
-        $('#from-fiscal-year-form-button').addClass('d-none');
+        $('#from-year-form-button').addClass('d-none');
 
-        let formURL = $('#from-fiscal-year-form-button').data('submit-path');
+        let formURL = $('#from-year-form-button').data('submit-path');
         let formData = new FormData(this);
 
         $.ajax({
@@ -28,7 +28,7 @@ $(document).ready(function() {
             success: function(data, textStatus, jqXHR)
             {
                 $('.loader-animated').addClass('d-none');
-                $('#from-fiscal-year-form-button').removeClass('d-none');
+                $('#from-year-form-button').removeClass('d-none');
 
                 if(jqXHR.status === 200)
                 {
@@ -53,7 +53,7 @@ $(document).ready(function() {
             error: function(jqXHR, textStatus, errorThrown)
             {
                 $('.loader-animated').addClass('d-none');
-                $('#from-fiscal-year-form-button').removeClass('d-none');
+                $('#from-year-form-button').removeClass('d-none');
             }
         });
     });

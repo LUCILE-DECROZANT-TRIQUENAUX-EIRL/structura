@@ -11,5 +11,5 @@ framework:
 
         routing:
             # Route your messages to the transports
-            'App\Message\GenerateReceiptFromFiscalYearMessage': async
+            'App\Message\GenerateReceiptFromYearMessage': async
             'App\Message\GenerateReceiptFromTwoDatesMessage': async

@@ -33,7 +33,7 @@
                 <h1>{% trans %}Reçus générés{% endtrans %}</h1>
 
                 <div class="border col p-3">
-                    <h3>Années fiscales</h3>
+                    <h3>Années</h3>
                     <table
                         class="table table-striped"
                         data-toggle="datatable"
@@ -51,7 +51,7 @@
                             {% for generatedAnnualReceipt in generatedAnnualReceipts %}
                                 <tr>
                                     <td class="align-middle">
-                                        {{ generatedAnnualReceipt.fiscalYear }}
+                                        {{ generatedAnnualReceipt.year }}
                                     </td>
                                     <td class="align-middle">
                                         {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
@@ -62,7 +62,7 @@
                                                 data-file-id="{{ generatedAnnualReceipt.id }}"
                                                 class="waiting-generation"
                                                 data-url-check-generation-complete="{{ path('check_generation_grouped_receipts_pdf', { 'id': generatedAnnualReceipt.receiptsGenerationBase.id }) }}"
-                                                data-confirmation-message-id="fake-flashbag-message-fiscal-year-generation-complete"
+                                                data-confirmation-message-id="fake-flashbag-message-year-generation-complete"
                                                 >
                                                 <div
                                                     class="message-generation-complete d-none"
@@ -251,9 +251,9 @@
     </div>
     <br>
 
-    <div id="fake-flashbag-message-fiscal-year-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
+    <div id="fake-flashbag-message-year-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        La génération du PDF des reçus fiscaux de l'année fiscale <b><span id="fiscal-year"></span></b> est terminée.
+        La génération du PDF des reçus fiscaux de l'année <b><span id="year"></span></b> est terminée.
     </div>
     <div id="fake-flashbag-message-between-two-dates-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>

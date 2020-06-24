@@ -51,7 +51,7 @@ class ReceiptFixtures extends Fixture implements FixtureGroupInterface, Dependen
             {
                 $receipt = new Receipt();
                 $receipt->setPayment($payment);
-                $receipt->setFiscalYear($year);
+                $receipt->setYear($year);
                 $receipt->setOrderNumber($i++);
                 $receipt->setOrderCode();
                 $manager->persist($receipt);

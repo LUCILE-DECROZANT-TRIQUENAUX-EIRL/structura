@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var selectedElement = $('#generate_tax_receipt_from_fiscal_year_fiscalYear option:selected');
+    var selectedElement = $('#generate_tax_receipt_from_year_year option:selected');
     // If a PDF has been generated for this fiscal year,
     // display an information message
     if (selectedElement.data('last-generation-date')) {
@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
     // On fiscal year selection,
     // setup info message
-    $('#generate_tax_receipt_from_fiscal_year_fiscalYear').change(function () {
+    $('#generate_tax_receipt_from_year_year').change(function () {
         if ($(this).find('option:selected').data('last-generation-date')) {
             showLastGeneratedDateMessage(new Date($(this).find('option:selected').data('last-generation-date')));
         } else {
@@ -30,19 +30,19 @@ $(document).ready(function () {
 
 function disableForm() {
     // Setup and show the message
-    $('#fiscal-year').text($(this).find('option:selected').text());
+    $('#year').text($(this).find('option:selected').text());
     $('#message-generation-disabled').removeClass('d-none');
     // Disable the submit button
-    $('#from-fiscal-year-submit-button').prop('disabled', true);
-    $('#from-fiscal-year-submit-button').addClass('disabled');
+    $('#from-year-submit-button').prop('disabled', true);
+    $('#from-year-submit-button').addClass('disabled');
 }
 
 function enableForm() {
     // Hide the message
     $('#message-generation-disabled').addClass('d-none');
     // Enable the button
-    $('#from-fiscal-year-submit-button').prop('disabled', false);
-    $('#from-fiscal-year-submit-button').removeClass('disabled');
+    $('#from-year-submit-button').prop('disabled', false);
+    $('#from-year-submit-button').removeClass('disabled');
 }
 
 function showLastGeneratedDateMessage(lastGenerationDate) {
@@ -56,8 +56,8 @@ function showLastGeneratedDateMessage(lastGenerationDate) {
     // Show the message
     $('#message-last-generation').removeClass('d-none');
     // Change button label
-    $('#from-fiscal-year-submit-button').text(
-            $('#from-fiscal-year-submit-button').data('regeneration-label')
+    $('#from-year-submit-button').text(
+            $('#from-year-submit-button').data('regeneration-label')
     );
 }
 
@@ -65,7 +65,7 @@ function hideLastGeneratedDateMessage() {
     // Hide the message
     $('#message-last-generation').addClass('d-none');
     // Change button label
-    $('#from-fiscal-year-submit-button').text(
-            $('#from-fiscal-year-submit-button').data('first-generation-label')
+    $('#from-year-submit-button').text(
+            $('#from-year-submit-button').data('first-generation-label')
     );
 }

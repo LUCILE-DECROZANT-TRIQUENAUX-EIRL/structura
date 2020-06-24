@@ -7,9 +7,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 
-class GenerateTaxReceiptFromFiscalYearType extends AbstractType
+class GenerateTaxReceiptFromYearType extends AbstractType
 {
     private $translator;
 
@@ -20,13 +20,13 @@ class GenerateTaxReceiptFromFiscalYearType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fiscalYear', ChoiceType::class, [
-                'choices' => $options['availableFiscalYears'],
-                'choice_attr' => $options['availableFiscalYearsData'],
+            ->add('year', ChoiceType::class, [
+                'choices' => $options['availableYears'],
+                'choice_attr' => $options['availableYearsData'],
                 'multiple' => false,
                 'expanded' => false,
                 'label' => $this->translator->trans('Année'),
-                'placeholder' => $this->translator->trans('Sélectionnez une année fiscale'),
+                'placeholder' => $this->translator->trans('Sélectionnez une année'),
             ]);
         ;
     }
@@ -34,9 +34,9 @@ class GenerateTaxReceiptFromFiscalYearType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => GenerateTaxReceiptFromFiscalYearFDO::class,
-            'availableFiscalYears' => null,
-            'availableFiscalYearsData' => null,
+            'data_class' => GenerateTaxReceiptFromYearFDO::class,
+            'availableYears' => null,
+            'availableYearsData' => null,
         ]);
     }
 }

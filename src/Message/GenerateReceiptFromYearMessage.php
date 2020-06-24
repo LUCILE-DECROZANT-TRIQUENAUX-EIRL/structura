@@ -3,7 +3,7 @@
 namespace App\Message;
 
 
-class GenerateReceiptFromFiscalYearMessage
+class GenerateReceiptFromYearMessage
 {
     private $receiptsGroupingFileId;
     private $userId;

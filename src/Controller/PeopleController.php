@@ -11,7 +11,7 @@ use App\Entity\People;
 use App\Entity\Address;
 use App\Entity\Receipt;
 use App\Form\PeopleType;
-use App\Form\GenerateTaxReceiptFromFiscalYearType;
+use App\Form\GenerateTaxReceiptFromYearType;
 use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdatePeopleDataFDO;
-use App\FormDataObject\GenerateTaxReceiptFromFiscalYearFDO;
+use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -307,7 +307,7 @@ class PeopleController extends AbstractController {
      * @return views
      * @param Request $request The request.
      * @param People $people The people for which we want the file
-     * @Route("/{id}/generate/from-fiscal-year", name="people_generate_receipt_by_year", methods={"GET", "POST"})
+     * @Route("/{id}/generate/from-year", name="people_generate_receipt_by_year", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
     public function generateReceiptsByYearAction(Request $request, People $people, ReceiptService $receiptService)
@@ -316,24 +316,24 @@ class PeopleController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         // Find fiscal years for which there is receipts to generate
-        $availableFiscalYears = $em->getRepository(Receipt::class)->findAvailableFiscalYearsByPeople($people);
+        $availableYears = $em->getRepository(Receipt::class)->findAvailableYearsByPeople($people);
 
         // Creating an empty FDO
-        $generateTaxReceiptFromFiscalYearFDO = new GenerateTaxReceiptFromFiscalYearFDO();
+        $generateTaxReceiptFromYearFDO = new GenerateTaxReceiptFromYearFDO();
 
         // From creation
-        $generateFromFiscalYearForm = $this->createForm(
-            GenerateTaxReceiptFromFiscalYearType::class,
-            $generateTaxReceiptFromFiscalYearFDO,
+        $generateFromYearForm = $this->createForm(
+            GenerateTaxReceiptFromYearType::class,
+            $generateTaxReceiptFromYearFDO,
             [
-                'availableFiscalYears' => $availableFiscalYears,
+                'availableYears' => $availableYears,
             ]
         );
 
-        $generateFromFiscalYearForm->handleRequest($request);
+        $generateFromYearForm->handleRequest($request);
 
-        return $this->render('People/generate-from-fiscal-year.html.twig', [
-            'from_fiscal_year_form' => $generateFromFiscalYearForm->createView(),
+        return $this->render('People/generate-from-year.html.twig', [
+            'from_year_form' => $generateFromYearForm->createView(),
             'people' => $people,
         ]);
     }

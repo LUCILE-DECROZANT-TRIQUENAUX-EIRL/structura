@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ReceiptsFromFiscalYearGroupingFileRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ReceiptsFromYearGroupingFileRepository")
  */
-class ReceiptsFromFiscalYearGroupingFile
+class ReceiptsFromYearGroupingFile
 {
     /**
      * @ORM\Id()
@@ -19,7 +19,7 @@ class ReceiptsFromFiscalYearGroupingFile
     /**
      * @ORM\Column(type="integer")
      */
-    private $fiscalYear;
+    private $year;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ReceiptsGroupingFile", cascade={"persist", "remove"})
@@ -32,14 +32,14 @@ class ReceiptsFromFiscalYearGroupingFile
         return $this->id;
     }
 
-    public function getFiscalYear(): ?int
+    public function getYear(): ?int
     {
-        return $this->fiscalYear;
+        return $this->year;
     }
 
-    public function setFiscalYear(int $fiscalYear): self
+    public function setYear(int $year): self
     {
-        $this->fiscalYear = $fiscalYear;
+        $this->year = $year;
 
         return $this;
     }
