@@ -24,15 +24,33 @@ final class Version20200515180231 extends AbstractMigration implements Container
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $receipts = $em->getRepository(Receipt::class)->findAll();
+        $receiptRepository = $em->getRepository(Receipt::class);
+        $receipts = $receiptRepository->findByAllForVersion20200515180231();
 
         foreach ($receipts as $receipt)
         {
-            $receipt->generateOrderCode();
-            $em->persist($receipt);
+            if (empty($receipt['fiscal_year']))
+            {
+                $message = 'The year of this receipt is missing';
+                throw new \Exception($message);
+            }
+
+            if (empty($receipt['order_number']))
+            {
+                $message = 'The order number of this receipt is missing';
+                throw new \Exception($message);
+            }
+
+            $numberOfDigits = floor(log10((int) $receipt['order_number']) + 1);
+            $numberOf0ToAdd = 4 - $numberOfDigits;
+            $orderNumberPart = str_repeat('0', (int) $numberOf0ToAdd) . $receipt['order_number'];
+
+            $orderCode = $receipt['fiscal_year'] . '-' . $orderNumberPart;
+
+            $receiptRepository->updateOrderCodeForVersion20200515180231($receipt['id'], $orderCode);
         }
 
-        $em->flush();
+        $receipts = $receiptRepository->findByAllForVersion20200515180231();
     }
 
     public function up(Schema $schema) : void

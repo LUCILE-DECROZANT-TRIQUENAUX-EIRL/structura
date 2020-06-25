@@ -121,4 +121,38 @@ class ReceiptRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Return all receipts, used in migration, should not be edited nor deleted
+     *
+     * @return array
+     */
+    public function findByAllForVersion20200515180231()
+    {
+        $connexion = $this->getEntityManager()
+            ->getConnection();
+        $sql = 'SELECT * FROM receipt';
+        $query = $connexion->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
+    /**
+     * Update receipt order code, used in migration, should not be edited nor deleted
+     *
+     * @param int $id id of receipt needing update
+     * @param string $orderCode new order code
+     */
+    public function updateOrderCodeForVersion20200515180231($id, $orderCode)
+    {
+        $connexion = $this->getEntityManager()
+            ->getConnection();
+        $sql = 'UPDATE receipt SET order_code=:order_code WHERE id=:id';
+        $query = $connexion->prepare($sql);
+        $query->execute([
+            'id' => $id,
+            'order_code' => $orderCode,
+        ]);
+    }
 }
