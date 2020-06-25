@@ -1,0 +1,18 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+<li class="nav-item dropdown">
+    {# We show the current locale flag #}
+    <a class="nav-link dropdown-toggle locale-link" href="#" id="dropdown-locale" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ app.request.locale }}">
+        <img class="h-100" src="{{ asset('images/flags/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}">
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-locale">
+        {# Foreach project locales except the current #}
+        {% for locale in locales if locale != app.request.locale %}
+            <a class="dropdown-item locale-link text-center" title="{{ locale }}" href="{{ path(route, params|merge({ _locale: locale })) }}">
+                <img class="h-100" src="{{ asset('images/flags/' ~ locale ~ '.png') }}" alt="{{ locale }}">
+            </a>
+        {% endfor %}
+    </div>
+</li>

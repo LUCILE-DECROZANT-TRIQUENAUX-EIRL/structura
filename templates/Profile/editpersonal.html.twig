@@ -1,6 +1,6 @@
 {% extends 'Home/base.html.twig' %}
 
-{% set profileLabel = app.user.username == member.user.username ? "mon profil" : "l'utilisateurice" %}
+{% block title %}{% trans %}Modifier mes informations personnelles{% endtrans %}{% endblock %}
 
 {% block javascript %}
     <script src="{{ asset('javascript/User/edit.js') }}"></script>
@@ -12,56 +12,216 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ path('profile_show', { 'id': user.id }) }}">
-            Mon profil
+            {% trans %}Mon profil{% endtrans %}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Éditer mon profil
+        {% trans %}Modifier mes informations personnelles{% endtrans %}
     </li>
 {% endblock %}
 
 {% block body %}
-<br>
-<div class="container">
-    <div class="row">
+    <br>
+    <div class="container">
+        <div class="row">
 
-    <div class="col-8 col-md-2">
-        <ul class="list-group">
-          <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Profil</a>
-        </ul>
-
-        <br>
-        <h4>Édition</h4>
-
-        <ul class="list-group">
-          <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Informations personnelles</a>
-          <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
-          <a href="{{ path('profile_editsensible', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
-          <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
-        </ul>
-    </div>
-
-
-
-        <div class="col-12 col-md-10">
-
-        <div class="col">
-            <h1>
-            Édition des informations personnelles
-            </h1>
-        </div>
-
-        {{ form_start(profile_editpersonal, {'attr': {'id': 'form-editpersonal-profile'}}) }}
-            <div class="form-group">
+            <div class="col-2">
+                {{ include('Profile/_menu-edit-profile.html.twig', { personal: 'active' }) }}
             </div>
-        {{ form_end(profile_editpersonal) }}
 
+            <div class="col-10">
+                <h1>
+                    {% trans %}Identité{% endtrans %}
+                </h1>
+
+                <div class="mt-4 row">
+                    <div class="col-2">
+                        <img
+                            class="img-thumbnail"
+                            src="{{ asset('images/placeholder-personne.jpg') }}"
+                            alt="{% trans %}Emplacement pour l'avatar{% endtrans %}"
+                            data-toggle="tooltip"
+                            title="{% trans %}Work in progress...{% endtrans %}"
+                            >
+                    </div>
+                    <div class="col-10">
+                        {{ form_start(profile_edit_personal_data, {'attr': {'id': 'form-edit-personal-data'}}) }}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-1 align-middle">
+                                    <label for="app_user_denomination" class="required">{% trans %}Civilité{% endtrans %}</label>
+                                </div>
+                                <div class="col-11">
+                                    {{ form_widget(profile_edit_personal_data.denomination) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="app_user_username" class="required">{% trans %}Prénom{% endtrans %}</label>
+                                    {{ form_widget(profile_edit_personal_data.firstName) }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="app_user_username" class="required">{% trans %}Nom de famille{% endtrans %}</label>
+                                    {{ form_widget(profile_edit_personal_data.lastName) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    {% trans %}Adresse{% endtrans %}
+                                </h2>
+                            </div>
+                        </div>
+                        {% for address in profile_edit_personal_data.addresses %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">{% trans %}Adresse{% endtrans %}</label>
+                                        {{ form_widget(address.line) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">{% trans %}Code postal{% endtrans %}</label>
+                                        {{ form_widget(address.postalCode) }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">{% trans %}Ville{% endtrans %}</label>
+                                        {{ form_widget(address.city) }}
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">{% trans %}Pays{% endtrans %}</label>
+                                        {{ form_widget(address.country) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    {% trans %}Téléphone et email{% endtrans %}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone fixe{% endtrans %}</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.homePhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone portable{% endtrans %}</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.cellPhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">{% trans %}Téléphone professionnel{% endtrans %}</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.workPhoneNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="app_user_username" class="required">{% trans %}Fax{% endtrans %}</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{ form_widget(profile_edit_personal_data.workFaxNumber) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <label for="app_user_username" class="required">{% trans %}Email{% endtrans %}</label>
+                                        </div>
+                                        <div class="col-11">
+                                            {{ form_widget(profile_edit_personal_data.emailAddress) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h2>
+                                    {% trans %}Commentaires{% endtrans %}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for="app_user_username" class="required">{% trans %}Observations{% endtrans %}</label>
+                                </div>
+                                <div class="col-10">
+                                    {{ form_widget(profile_edit_personal_data.observations) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for="app_user_username" class="required">{% trans %}Détails médicaux{% endtrans %}</label>
+                                </div>
+                                <div class="col-10">
+                                    {{ form_widget(profile_edit_personal_data.sensitiveObservations) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(profile_edit_personal_data) }}
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="col text-center">
+                                        <button
+                                            id="edit-contact-submit-button"
+                                            type="submit"
+                                            form="form-edit-personal-data"
+                                            class="btn btn-primary"
+                                            >
+                                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Enregistrer les changements{% endtrans %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

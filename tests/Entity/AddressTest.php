@@ -46,4 +46,3 @@ class AddressTest extends TestCase
     }
 }
 
-?>

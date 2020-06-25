@@ -1,11 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Liste des adhérent·es{% endtrans %}{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Liste des adhérent·es
+        {% trans %}Liste des adhérent·es{% endtrans %}
     </li>
 {% endblock %}
 
@@ -14,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Liste des adhérent·es</h1>
+                <h1>{% trans %}Liste des adhérent·es{% endtrans %}</h1>
             </div>
         </div>
     </div>
@@ -24,32 +26,55 @@
         <table
             class="table table-striped"
             data-toggle="datatable"
-            data-create-label="Enregistrer un·e nouvel·le adhérent·es"
-            data-create-path="{{ path('member_create') }}"
-            data-fixed-columns-right="3"
+            data-filter-bar="toggle"
+            data-copy-button="toggle"
+            data-csv-button="toggle"
+            data-pdf-button="toggle"
             >
             <thead>
                 <tr>
-                    <th data-sortable="true" data-exportable="true">Nom</th>
-                    <th data-sortable="true" data-exportable="true">Prénom</th>
-                    <th data-exportable="true">Mail</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th data-exportable="true">{% trans %}Mail{% endtrans %}</th>
+                    <th data-exportable="true" class="text-center">{% trans %}Téléphone fixe{% endtrans %}</th>
+                    <th data-exportable="true" class="text-center">{% trans %}Téléphone portable{% endtrans %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="d-none">
                 {% for member in members %}
                     <tr>
                         <td class="align-middle">{{ member.lastname }}</td>
                         <td class="align-middle">{{ member.firstname }}</td>
-                        <td class="align-middle">{{ member.emailAddress }}</td>
+                        <td class="align-middle">
+                            {% if member.emailAddress is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="">{{ member.emailAddress }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.homePhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ member.homePhoneNumber }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.cellPhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ member.cellPhoneNumber }}</span>
+                            {% endif %}
+                        </td>
                         <td class="align-middle column-action">
                             <a
                                 href="{{ path('member_show', { 'id': member.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Voir le profil"
+                                title="{% trans %}Voir le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-eye"></i>
                             </a>
@@ -59,7 +84,7 @@
                                 href="{{ path('member_edit', { 'id': member.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Éditer le profil"
+                                title="{% trans %}Éditer le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-create"></i>
                             </a>
@@ -68,7 +93,7 @@
                             <a
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Supprimer le profil"
+                                title="{% trans %}Supprimer le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-trash"></i>
                             </a>
@@ -88,19 +113,19 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <p>
-                            Souhaitez-vous réellement supprimer les données de <strong>{{ member.firstName }} {{ member.lastName }}</strong>&nbsp;?
+                            {% trans %}Souhaitez-vous réellement supprimer les données de{% endtrans %} <strong>{{ member.firstName }} {{ member.lastName }}</strong>&nbsp;?
                         </p>
                         <div class="alert alert-warning" role="alert">
-                            <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="col">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;Annuler</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
                         </div>
                         <div class="col text-right">
                         {{ form_start(delete_member_form) }}
-                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;Supprimer </button>
+                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;{% trans %}Supprimer{% endtrans %} </button>
                         {{ form_end(delete_member_form) }}
                         </div>
                     </div>

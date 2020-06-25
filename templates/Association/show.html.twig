@@ -1,0 +1,112 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Informations de l'association{% endtrans %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Informations de l'association{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col">
+                        <h1>
+                            {% trans %}Informations de l'association{% endtrans %}
+                        </h1>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col styledtable">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th class="w-25">Nom de l'association</th>
+                                    <td>
+                                        {% if (association.name) is empty %}
+                                            -
+                                        {% else %}
+                                            {{ association.name }}
+                                        {% endif %}
+                                    </td>
+                                    <td class="column-action">
+                                        <a
+                                            href="{{ path('association_edit_name') }}"
+                                            class="btn btn-primary"
+                                            data-toggle="tooltip"
+                                            title="Éditer le nom de l'association">
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Logo</th>
+                                    <td>
+                                        {% if (association.logoFilename) is empty %}
+                                            -
+                                        {% else %}
+                                            <img src="/{{ association.logoFilename }}"/>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="{{ path('association_upload_logo') }}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="Téléverser le logo de l'association">
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Signature de lae trésorie.re</th>
+                                    <td>
+                                        {% if (association.treasurerSignatureFilename) is empty %}
+                                            -
+                                        {% else %}
+                                            <img src="/{{ association.treasurerSignatureFilename }}"/>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="{{ path('association_upload_treasurer_signature') }}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="Téléverser la signature de lae trésorie.re">
+                                            <i class="icon ion-md-create"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <div class="col">
+                            <a href="{{ path('administration_dashboard') }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la page d'administration{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

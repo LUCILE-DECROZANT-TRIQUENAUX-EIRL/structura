@@ -1,0 +1,38 @@
+{% block body %}
+    {% set show = show is defined ? show : null %}
+    {% set pseudonym = pseudonym is defined ? pseudonym : null %}
+    {% set password = password is defined ? password : null %}
+    {% set personal = personal is defined ? personal : null %}
+    {% set newsletter = newsletter is defined ? newsletter : null %}
+    <ul class="list-group">
+        <a href="{{ path('profile_show', { 'id': user.id }) }}"
+           class="list-group-item list-group-item-action {{ show }}">
+            {% trans %}Profil{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <ul class="list-group">
+        <a
+            href="{{ path('profile_edit_pseudonym', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ pseudonym }}"
+            >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Pseudonyme{% endtrans %}
+        </a>
+        <a
+            href="{{ path('profile_edit_password', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ password }}"
+            >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Mot de passe{% endtrans %}
+        </a>
+        <a
+            href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ personal }}">
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Informations personnelles{% endtrans %}
+        </a>
+        <a
+            href="{{ path('profile_edit_newsletter', { 'id': user.id }) }}"
+            class="list-group-item list-group-item-action {{ newsletter }}">
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Abonnement aux newsletter{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}

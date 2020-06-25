@@ -1,8 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}
+    {% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}
+{% endblock %}
+
 {% block javascript %}
     <script src="{{ asset('javascript/User/new.js') }}"></script>
-    <script src="{{ asset('javascript/Member/phone.js') }}"></script>
+    <script src="{{ asset('javascript/People/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -11,13 +16,13 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('member_list') }}">Liste des adhérent.es</a>
+        <a href="{{ path('member_list') }}">{% trans %}Liste des adhérent.es{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Enregistrer une nouvelle personne dans l'annuaire
+        {% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}
     </li>
 {% endblock %}
 
@@ -26,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
+                <h1>{% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}</h1>
             </div>
             <div class="col text-right">
             </div>
@@ -34,84 +39,103 @@
     </div>
 
     <div class="container">
-        <p> Les champs notés avec * sont requis. </p>
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
         {{ form_start(form, {'attr': {'id': 'form-create-member'}}) }}
-            <div class="form-group">
-                {{ form_label(form.denomination)}} *
-                {{ form_widget(form.denomination)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.denomination)}} *
+            {{ form_widget(form.denomination)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.firstname)}} *
-                {{ form_widget(form.firstname)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.firstname)}} *
+            {{ form_widget(form.firstname)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.lastname)}} *
-                {{ form_widget(form.lastname)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.lastname)}} *
+            {{ form_widget(form.lastname)}}
+        </div>
 
 
-            {% for address in form.addresses.vars.prototype %}
+        {% for address in form.addresses.vars.prototype %}
             <div class="form-group">
                 {{ form_label(address) }}
                 {{ form_widget(address) }}
             </div>
-            {% endfor %}
+        {% endfor %}
 
 
-            <div class="form-group">
-                {{ form_label(form.emailAddress)}}
-                {{ form_widget(form.emailAddress)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.emailAddress)}}
+            {{ form_widget(form.emailAddress)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.isReceivingNewsletter)}}
-                {{ form_widget(form.isReceivingNewsletter)}}
-                {{ form_label(form.newsletterDematerialization)}}
-                {{ form_widget(form.newsletterDematerialization)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.isReceivingNewsletter)}}
+            {{ form_widget(form.isReceivingNewsletter)}}
+            {{ form_label(form.newsletterDematerialization)}}
+            {{ form_widget(form.newsletterDematerialization)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.homePhoneNumber)}}
-                {{ form_widget(form.homePhoneNumber)}}
-                {{ form_help(form.homePhoneNumber)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.homePhoneNumber)}}
+            {{ form_widget(form.homePhoneNumber)}}
+            {{ form_help(form.homePhoneNumber)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.cellPhoneNumber)}}
-                {{ form_widget(form.cellPhoneNumber)}}
-                {{ form_help(form.cellPhoneNumber)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.cellPhoneNumber)}}
+            {{ form_widget(form.cellPhoneNumber)}}
+            {{ form_help(form.cellPhoneNumber)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.workPhoneNumber)}}
-                {{ form_widget(form.workPhoneNumber)}}
-                {{ form_help(form.workPhoneNumber)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.workPhoneNumber)}}
+            {{ form_widget(form.workPhoneNumber)}}
+            {{ form_help(form.workPhoneNumber)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.workFaxNumber)}}
-                {{ form_widget(form.workFaxNumber)}}
-                {{ form_help(form.workFaxNumber)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.workFaxNumber)}}
+            {{ form_widget(form.workFaxNumber)}}
+            {{ form_help(form.workFaxNumber)}}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.observations)}}
-                {{ form_widget(form.observations)}}
-                {{ form_help(form.observations)}}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.observations)}}
+            {{ form_widget(form.observations)}}
+            {{ form_help(form.observations)}}
+        </div>
 
-            {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+        {% if is_granted('ROLE_GESTION_SENSIBLE')%}
             <div class="form-group">
                 {{ form_label(form.sensitiveObservations)}}
                 {{ form_widget(form.sensitiveObservations)}}
                 {{ form_help(form.sensitiveObservations)}}
             </div>
-            {% endif %}
+        {% endif %}
+        {% do form.sensitiveObservations.setRendered %}
 
         {{ form_end(form) }}
     </div>
     <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('member_list') }}" class="btn btn-secondary">
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhérent⋅es{% endtrans %}
+                </a>
+            </div>
+            <div class="col text-right">
+                <button
+                    id="create-member-submit-button"
+                    type="submit" form="form-create-member"
+                    class="btn btn-primary">
+                    <i class="icon ion-md-add"></i>&nbsp;Créer
+                </button>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

@@ -1,16 +1,18 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Liste des utilisateurices{% endtrans %}{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     {% if is_granted("ROLE_ADMIN") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('administration_dashboard') }}">Administration</a>
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        Liste des utilisateurices
+        {% trans %}Liste des utilisateurices{% endtrans %}
     </li>
 {% endblock %}
 
@@ -19,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Liste des utilisateurices</h1>
+                <h1>{% trans %}Liste des utilisateurices{% endtrans %}</h1>
             </div>
         </div>
     </div>
@@ -29,21 +31,22 @@
         <table
             class="table table-striped"
             data-toggle="datatable"
+            data-filter-bar="toggle"
             data-create-label="Enregistrer un.e nouvel.le utilisateurice"
-            data-create-path="{{ path('user_create') }}"
+            data-create-path="{{ path('user_create', {from: 'list'}) }}"
             data-fixed-columns-right="3"
             >
             <thead>
                 <tr>
-                    <th data-sortable="true" data-exportable="true">Identifiant</th>
-                    <th data-sortable="true" data-exportable="true">Nom d'utilisateurice</th>
-                    <th data-sortable="true" data-exportable="true">Rôles</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Identifiant{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom d'utilisateurice{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Rôles{% endtrans %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="d-none">
             {% set delete_user_form = "" %}
                 {% for user in users %}
                     <tr>
@@ -69,7 +72,7 @@
                                 href="{{ path('user_show', { 'id': user.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Voir le profil"
+                                title="{% trans %}Voir le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-eye"></i>
                             </a>
@@ -79,7 +82,7 @@
                                 href="{{ path('user_edit', { 'id': user.id }) }}"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Éditer le profil"
+                                title="{% trans %}Éditer le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-create"></i>
                             </a>
@@ -88,7 +91,7 @@
                             <a
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                title="Supprimer le profil"
+                                title="{% trans %}Supprimer le profil{% endtrans %}"
                                 >
                                 <i class="icon ion-md-trash"></i>
                             </a>
@@ -108,22 +111,22 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <p>
-                            Souhaitez-vous réellement supprimer le profil de <strong>{{ user.username }}</strong> ?
+                            {% trans %}Souhaitez-vous réellement supprimer le profil de{% endtrans %} <strong>{{ user.username }}</strong> ?
                         </p>
                         <div class="alert alert-warning" role="alert">
-                            <i class="icon ion-md-alert"></i>&nbsp;Les données seront supprimées de manière définitive.
+                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="col">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                <i class="icon ion-md-arrow-back"></i>&nbsp;Annuler
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}
                             </button>
                         </div>
                         <div class="col text-right">
                         {{ form_start(delete_user_form) }}
                             <button type="submit" class="btn btn-danger" id="delete_button">
-                                <i class="icon ion-md-trash" ></i>&nbsp;Supprimer 
+                                <i class="icon ion-md-trash" ></i>&nbsp;{% trans %}Supprimer{% endtrans %}
                             </button>
                         {{ form_end(delete_user_form) }}
                         </div>

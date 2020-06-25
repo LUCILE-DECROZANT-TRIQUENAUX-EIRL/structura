@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Responsibility;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,9 +23,9 @@ class ResponsibilityType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Responsibility'
-        ));
+        $resolver->setDefaults([
+            'data_class' => Responsibility::class,
+        ]);
     }
 
     /**

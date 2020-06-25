@@ -23,4 +23,3 @@ class DenominationTest extends TestCase
     }
 }
 
-?>

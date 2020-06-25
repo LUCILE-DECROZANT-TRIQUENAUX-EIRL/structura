@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Denomination
@@ -24,7 +25,8 @@ class Denomination
     /**
      * @var string
      *
-     * @ORM\Column(name="label", type="string", length=255, unique=true)
+     * @Gedmo\Translatable
+     * @ORM\Column(name="label", type="string", length=255)
      */
     private $label;
 

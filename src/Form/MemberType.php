@@ -12,14 +12,22 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form with all user's infos
  */
 class MemberType extends AbstractType
 {
+    public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
+
 
     /**
      * {@inheritdoc}
@@ -32,10 +40,10 @@ class MemberType extends AbstractType
                     'class' => Denomination::class,
                     // Uses the Responsibility.label property as the visible option string
                     'choice_label' => 'label',
-                    'label' => 'Dénomination',
+                    'label' => $this->translator->trans('Dénomination'),
                     'multiple' => false,
                     'expanded' => false,
-                    'placeholder' => 'Aucune',
+                    'placeholder' => $this->translator->trans('Aucune'),
                     'required' => true,
                     'choice_attr' => function($denomination)
                     {
@@ -43,11 +51,11 @@ class MemberType extends AbstractType
                     },
                 ])
                 ->add('firstname', TextType::class, [
-                    'label' => 'Prénom',
+                    'label' => $this->translator->trans('Prénom'),
                     'required' => true
                 ])
                 ->add('lastname', TextType::class, [
-                    'label' => 'Nom de famille',
+                    'label' => $this->translator->trans('Nom de famille'),
                     'required' => true
                 ])
                 ->add('addresses', CollectionType::class, [
@@ -57,51 +65,46 @@ class MemberType extends AbstractType
                     'allow_add' => true,
                     'required' => false
                 ])
-                ->add('emailAddress', TextType::class, [
-                    'label' => 'Adresse mail',
+                ->add('emailAddress', EmailType::class, [
+                    'label' =>$this->translator->trans( 'Adresse mail'),
                     'required' => false
                 ])
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Reçoit la newsletter'
+                    'label' => $this->translator->trans('Reçoit la newsletter')
                 ])
                 ->add('newsletterDematerialization', CheckboxType::class, [
                     'required' => false,
-                    'label' => 'Reçoit la newsletter au format dématérialisé'
+                    'label' => $this->translator->trans('Reçoit la newsletter au format dématérialisé (e-mail)')
                 ])
                 ->add('homePhoneNumber', TelType::class, [
-                    'label' => 'Téléphone fixe',
-                    'help' => 'Les numéros doivent commencer par 01, 02, 03, 04 ou 05 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Téléphone fixe'),
+                    'help' =>$this->translator->trans( 'Les numéros doivent commencer par 01, 02, 03, 04, 05, 08 ou 09 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('cellPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone portable',
-                    'help' => 'Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres',
+                    'label' => $this->translator->trans('Téléphone portable'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 06 ou 07 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('workPhoneNumber', TelType::class, [
-                    'label' => 'Téléphone de travail',
-                    'help' => 'Seuls les chiffres sont acceptés',
+                    'label' => $this->translator->trans('Téléphone de travail'),
+                    'help' => $this->translator->trans('Les numéros doivent commencer par 0 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('workFaxNumber', TelType::class, [
-                    'label' => 'Fax de travail',
-                    'help' => 'Seuls les chiffres sont acceptés',
+                    'label' => $this->translator->trans('Fax de travail'),
+                    'help' =>$this->translator->trans( 'Les numéros doivent commencer par 0 et ne comporter que des chiffres'),
                     'required' => false
                 ])
                 ->add('observations', TextareaType::class, [
-                    'label' => 'Observations',
+                    'label' => $this->translator->trans('Observations'),
                     'required' => false
                 ])
                 ->add('sensitiveObservations', TextareaType::class, [
-                    'label' => 'Détails médicaux',
-                    'required' => false
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
+                    'label' => $this->translator->trans('Détails médicaux'),
+                    'required' => false,
+                    'empty_data' => ''
                 ]);
     }
 
@@ -111,7 +114,7 @@ class MemberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\People'
+            'data_class' => 'App\FormDataObject\UpdateMemberDataFDO'
         ));
     }
 
@@ -120,7 +123,7 @@ class MemberType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_user';
+        return 'app_member';
     }
 
 }

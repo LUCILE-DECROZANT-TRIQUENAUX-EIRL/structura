@@ -1,0 +1,152 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+    {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Membership/common.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('membership_list') }}">{% trans %}Liste des adhésions actives{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('Membership/_menu_membership.html.twig', { show_membership: 'active' }) }}
+            </div>
+            <div class="col-12 col-md-10">
+                <div class="col">
+                    <h1>
+                    {% if membership.dateStart and membership.dateEnd %}
+                        {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+                        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+                    {% else %}
+                        {% trans %}Cette adhésion n'est pas définie dans le temps{% endtrans %}
+                    {% endif %}
+                    </h1>
+                </div>
+                <br>
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h2 class="text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h2>
+                        <h2 class="lead text-center">{{ membership.type.description }}</h2>
+                        <br><br><hr><br>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>{% trans %}Montant du paiement{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
+                                    <br>
+                                    <h4>{% trans %}Payée via{% endtrans %}&nbsp;: <small>{{ membership.payment.type.label }}</small></h4>
+                                </div>
+                                <br>
+                                <div class="col-6">
+                                    {% if membership.payment.dateReceived is null %}
+                                        <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}</h4>
+                                    {% else %}
+                                        <h4>{% trans %}Paiement reçu le{% endtrans %} <small>{{ membership.payment.dateReceived | date('d M. Y') }}</small></h4>
+                                    {% endif %}
+                                    <br>
+                                    {% if membership.payment.dateCashed is null %}
+                                        <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}</h4>
+                                    {% else %}
+                                        <h4>{% trans %}Paiement encaissé le{% endtrans %} <small>{{ membership.payment.dateCashed | date('d M. Y') }}</small></h4>
+                                    {% endif %}
+                                    <br>
+                                </div>
+                                <div class="col">
+                                    <h4>{% trans %}Par{% endtrans %}&nbsp;:
+                                        {% set payer = membership.payment.payer %}
+                                        <div class="card payer-card">
+                                            <div class="card-body p-2">
+                                                <h5 class="card-title mb-0">{{ payer.denomination.label }} {{ payer.firstName }} {{ payer.lastName }}</h5>
+                                            </div>
+                                        </div>
+                                    </h4>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <h4>{% trans %}Commentaire :{% endtrans %}
+                                        <small>{{ membership.comment is null ? '-' : membership.comment }}</small>
+                                    </h4>
+                                </div>
+                                <div class="container">
+                                    <br><br><hr><br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 class="text-center">{% trans %}Adhérent.es{% endtrans %}</h2>
+                                            <br>
+                                        </div>
+                                        {% for member in membership.members %}
+                                            <div class="col-4">
+                                                <div class="card">
+                                                    <a  class="card-body text-white"
+                                                        href="{{ path('people_show', { 'id': member.id }) }}"
+                                                        data-toggle="tooltip"
+                                                        title="{% trans %}Voir le profil de {% endtrans %} {{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}"
+                                                        >
+                                                        <h5 class="card-title text-dark">{{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}</h5>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% if (membership.payment.donation) %}
+                                <div class="container">
+                                    <br><br><hr><br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 class="text-center">{% trans %}Don effectué via le même paiement{% endtrans %}</h2>
+                                            <br>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <h5>{{ membership.payment.donation.amount }}&nbsp;€</h5>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <a class="btn btn-secondary btn-block"
+                                                    href="{{ path('donation_show', { 'id': membership.payment.donation.id }) }}">
+                                                        {% trans %}Voir le don{% endtrans %}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    {% if is_granted("ROLE_GESTION") %}
+                    <div class="col">
+                        <a href="{{ path('membership_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions actives{% endtrans %}</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

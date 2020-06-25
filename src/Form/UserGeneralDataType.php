@@ -11,13 +11,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form for user's infos other than their password
  */
 class UserGeneralDataType extends AbstractType
 {
+    public $translator;
 
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+}
+    
     /**
      * {@inheritdoc}
      */
@@ -25,14 +31,14 @@ class UserGeneralDataType extends AbstractType
     {
         $builder
                 ->add('username', TextType::class, [
-                    'label' => 'Nom d\'utilisateurice'
+                    'label' => $this->translator->trans('Nom d\'utilisateurice')
                 ])
                 ->add('responsibilities', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Responsibility::class,
                     // uses the Responsibility.label property as the visible option string
                     'choice_label' => 'label',
-                    'label' => 'Rôles',
+                    'label' => $this->translator->trans('Rôles'),
                     'multiple' => true,
                     'expanded' => true,
                     'choice_attr' => function($responsibility)
@@ -42,12 +48,6 @@ class UserGeneralDataType extends AbstractType
                             'data-responsibility-automatically-managed' => $responsibility->isAutomatic(),
                         ];
                     },
-                ])
-                ->add('submit',SubmitType::class, [
-                'label' => 'Changer les informations',
-                'attr' => [
-                    'class' => 'btn btn-outline-primary float-right'
-                    ]
                 ]);
     }
 
@@ -57,7 +57,7 @@ class UserGeneralDataType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\User'
+            'data_class' => 'App\FormDataObject\UpdateUserGeneralDataFDO'
         ));
     }
 

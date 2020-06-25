@@ -1,0 +1,79 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    <script src="{{ asset('javascript/People/generate-from-year.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('people_list') }}">{% trans %}Annuaire généraliste{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('people_show', { 'id': people.id }) }}">
+            {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('People/_menu-people.html.twig', { generate_receipt_by_year: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>{% trans %}Télécharger les reçus fiscaux de{% endtrans %} {{ people.firstName }} {{ people.lastName }}</h1>
+                    </div>
+                </div>
+
+                {{ form_start(from_year_form, {'attr': {'id': 'from-year-form'}} ) }}
+                <div class="form-group">
+                    {{ form_label(from_year_form.year)}} *
+                    {{ form_widget(from_year_form.year)}}
+                </div>
+                {{ form_end(from_year_form) }}
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <a href="{{ path('people_show', { 'id': people.id }) }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil{% endtrans %}
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <div class="loader-animated d-none" style="margin-top: -20px;"><div></div><div></div><div></div></div>
+                        <button
+                            id="from-year-form-button"
+                            type="submit"
+                            form="from-year-form"
+                            data-submit-path="{{ path('ajax_people_generate_from_year', { 'id': people.id }) }}"
+                            class="btn btn-primary">
+                            {% trans %}Générer{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

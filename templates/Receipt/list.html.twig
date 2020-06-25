@@ -1,0 +1,262 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Reçus fiscaux{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('home') }}">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item">
+        {% trans %}Reçus fiscaux{% endtrans %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Reçus générés{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/Dashboard/home.css') }}">
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/Receipt/list.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                {{ include('Receipt/_menu-receipts.html.twig', { show_list: 'active' }) }}
+            </div>
+            <div class="col-10">
+                <h1>{% trans %}Reçus générés{% endtrans %}</h1>
+
+                <div class="border col p-3">
+                    <h3>Années</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Année{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedAnnualReceipt in generatedAnnualReceipts %}
+                                <tr>
+                                    <td class="align-middle">
+                                        {{ generatedAnnualReceipt.year }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                            {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('long', 'none') }}
+                                            à {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('none', 'short') }}
+                                        {% else %}
+                                            <div
+                                                data-file-id="{{ generatedAnnualReceipt.id }}"
+                                                class="waiting-generation"
+                                                data-url-check-generation-complete="{{ path('check_generation_grouped_receipts_pdf', { 'id': generatedAnnualReceipt.receiptsGenerationBase.id }) }}"
+                                                data-confirmation-message-id="fake-flashbag-message-year-generation-complete"
+                                                >
+                                                <div
+                                                    class="message-generation-complete d-none"
+                                                    >
+                                                    {% trans %}Génération terminée !{% endtrans %}
+                                                </div>
+                                                <div class="progress">
+                                                    <div
+                                                        class="progress-bar progress-bar-striped progress-bar-animated"
+                                                        role="progressbar"
+                                                        aria-valuenow="2"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        style="width: 100%"
+                                                        data-toggle="tooltip"
+                                                        title="{% trans %}PDF en cours de génération{% endtrans %}"
+                                                        >
+                                                        {% trans %}PDF en cours de génération{% endtrans %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generator.username }}
+                                        (<span class="text-uppercase">{{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
+                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                    </td>
+                                    <td class="align-middle column-action">
+                                        {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                            <a
+                                                href="{{ path('download_grouped_receipts_pdf', { 'id': generatedAnnualReceipt.receiptsGenerationBase.id }) }}"
+                                                class="btn btn-secondary"
+                                                data-toggle="tooltip"
+                                                title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                                >
+                                                <i class="icon ion-md-download"></i>
+                                            </a>
+                                        {% else %}
+                                            <div
+                                                data-toggle="tooltip"
+                                                title="{% trans %}PDF en cours de génération{% endtrans %}"
+                                                >
+                                                <a
+                                                    href=""
+                                                    class="btn btn-secondary disabled"
+                                                    data-generate-title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                                    >
+                                                    <i class="icon ion-md-download"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border col p-3 mt-4">
+                    <h3>Entre deux dates</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Du...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Au...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedBetweenTwoDatesReceipt in generatedBetweenTwoDatesReceipts %}
+                                <tr>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.dateFrom | localizeddate('long', 'none') }}</td>
+                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.dateTo | localizeddate('long', 'none') }}</td>
+                                    <td class="align-middle">
+                                        {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                            {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateStart | localizeddate('long', 'none') }}
+                                            à {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateStart | localizeddate('none', 'short') }}
+                                        {% else %}
+                                            <div
+                                                data-file-id="{{ generatedBetweenTwoDatesReceipt.id }}"
+                                                class="waiting-generation"
+                                                data-url-check-generation-complete="{{ path('check_generation_grouped_receipts_pdf', { 'id': generatedBetweenTwoDatesReceipt.receiptsGenerationBase.id }) }}"
+                                                data-confirmation-message-id="fake-flashbag-message-between-two-dates-generation-complete"
+                                                >
+                                                <div
+                                                    class="message-generation-complete d-none"
+                                                    >
+                                                    {% trans %}Génération terminée !{% endtrans %}
+                                                </div>
+                                                <div class="progress">
+                                                    <div
+                                                        class="progress-bar progress-bar-striped progress-bar-animated"
+                                                        role="progressbar"
+                                                        aria-valuenow="2"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        style="width: 100%"
+                                                        data-toggle="tooltip"
+                                                        title="{% trans %}PDF en cours de génération{% endtrans %}"
+                                                        >
+                                                        {% trans %}PDF en cours de génération{% endtrans %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.username }}
+                                        (<span class="text-uppercase">{{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
+                                        {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                    </td>
+                                    <td class="align-middle column-action">
+                                        {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                            <a
+                                                href="{{ path('download_grouped_receipts_pdf', { 'id': generatedBetweenTwoDatesReceipt.receiptsGenerationBase.id }) }}"
+                                                class="btn btn-secondary"
+                                                data-toggle="tooltip"
+                                                title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                                >
+                                                <i class="icon ion-md-download"></i>
+                                            </a>
+                                        {% else %}
+                                            <div
+                                                data-toggle="tooltip"
+                                                title="{% trans %}PDF en cours de génération{% endtrans %}"
+                                                >
+                                                <a
+                                                    href=""
+                                                    class="btn btn-secondary disabled"
+                                                    data-generate-title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                                    >
+                                                    <i class="icon ion-md-download"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border col p-3 mt-4">
+                    <h3>Spéciaux</h3>
+                    <table
+                        class="table table-striped"
+                        data-toggle="datatable"
+                        data-fixed-columns-right="1"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">{% trans %}Généré le...{% endtrans %}</th>
+                                <th data-sortable="true">{% trans %}Par...{% endtrans %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="d-none">
+                            {% for generatedParticularReceipt in generatedParticularReceipts %}
+                                <tr>
+                                    <td class="align-middle">{{ generatedParticularReceipt.generationDate }}</td>
+                                    <td class="align-middle">{{ generatedParticularReceipt.generator }}</td>
+                                    <td class="align-middle column-action">
+                                        <a
+                                            href="{#{{ path('', { 'id': generatedParticularReceipt.id }) }}#}"
+                                            class="btn btn-secondary"
+                                            data-toggle="tooltip"
+                                            title="{% trans %}Télécharger le PDF{% endtrans %}"
+                                            >
+                                            <i class="icon ion-md-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div id="fake-flashbag-message-year-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        La génération du PDF des reçus fiscaux de l'année <b><span id="year"></span></b> est terminée.
+    </div>
+    <div id="fake-flashbag-message-between-two-dates-generation-complete" class="alert alert-success alert-dismissible d-none" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        La génération du PDF des reçus fiscaux du <b><span id="from-date"></span></b> au <b><span id="to-date"></span></b> est terminée.
+    </div>
+{% endblock %}

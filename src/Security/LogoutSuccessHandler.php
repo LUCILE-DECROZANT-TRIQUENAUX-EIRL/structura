@@ -24,7 +24,7 @@ implements LogoutSuccessHandlerInterface
     /**
      * Constructor
      */
-    public function __construct(HttpUtils $httpUtils, string $targetUrl = '/', FlashBagInterface $flashBag)
+    public function __construct(HttpUtils $httpUtils, string $targetUrl = 'home', FlashBagInterface $flashBag)
     {
         parent::__construct($httpUtils, $targetUrl);
 

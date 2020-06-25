@@ -3,13 +3,13 @@
 {% block body %}
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-4">Erreur 401</h1>
-    <p class="lead">Authentification nécessaire.</p>
+      <h1 class="display-4">{% trans %}Erreur 401{% endtrans %}</h1>
+      <p class="lead">{% trans %}Authentification nécessaire.{% endtrans %}</p>
 
     <hr class="my-4">
     <br>
       <a class="btn btn-primary" data-dismiss="modal" href="/login">
-          S'authentifier
+          {% trans %}S'authentifier{% endtrans %}
       </a>
   </div>
 </div>

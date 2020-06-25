@@ -1,11 +1,13 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Administration{% endtrans %}{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item active">
-        <a href="{{ path('home') }}">Accueil</a>
+        <a href="{{ path('home') }}">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Administration
+        {% trans %}Administration{% endtrans %}
     </li>
 {% endblock %}
 
@@ -21,24 +23,65 @@
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <div class="flip-card-icon">
+                                <i class="icon ion-md-information-circle-outline"></i>
+                            </div>
+                            <h4>
+                                {% trans %}Informations de l'association{% endtrans %}
+                            </h4>
+                            <p class="">
+                                {% trans %}Les spécificités de l'association<br>(nom, logo, etc.){% endtrans %}
+                            </p>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="flip-card-item">
+                                <a class="" href="{{ path('association_index') }}">
+                                    {% trans %}Informations de l'association{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="flip-card-item">
+                                <a class="btn btn-primary btn-block" href="{{ path('association_edit_name') }}">
+                                    {% trans %}Modifier le nom{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="flip-card-item">
+                                <a class="btn btn-primary btn-block" href="{{ path('association_upload_logo') }}">
+                                    <i class="icon ion-md-image"></i>
+                                    {% trans %}Téléverser le logo{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="flip-card-item">
+                                <a class="btn btn-primary btn-block" href="{{ path('association_upload_treasurer_signature') }}">
+                                    <i class="icon ion-md-finger-print"></i>
+                                    {% trans %}Téléverser la signature du trésorier{% endtrans %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="flip-card" data-toggle="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="flip-card-icon">
                                 <i class="icon ion-md-people"></i>
                             </div>
                             <h4>
-                                Gestion des utilisateurices
+                                {% trans %}Gestion des utilisateurices{% endtrans %}
                             </h4>
                             <p class="">
-                                Tout ce qui concerne les comptes pouvant se connecter à l'application.
+                                {% trans %}Tout ce qui concerne les comptes pouvant se connecter à l'application.{% endtrans %}
                             </p>
                         </div>
                         <div class="flip-card-back">
                             <div class="flip-card-item">
                                 <a class="" href="{{ path('user_list') }}">
-                                    Liste des comptes
+                                    {% trans %}Liste des comptes{% endtrans %}
                                 </a>
                             </div>
                             <div>
-                                <a class="btn btn-primary btn-block" href="{{ path('user_create') }}">
-                                    Enregistrer un nouveau compte
+                                <a class="btn btn-primary btn-block" href="{{ path('user_create', {from: 'dashboard'}) }}">
+                                    {% trans %}Enregistrer un nouveau compte{% endtrans %}
                                 </a>
                             </div>
                         </div>

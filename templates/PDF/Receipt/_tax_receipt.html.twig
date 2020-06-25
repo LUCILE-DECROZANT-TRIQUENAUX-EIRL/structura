@@ -1,0 +1,300 @@
+<div class="new-page">
+    {#--- TITLE AND SUBTITLE ---#}
+    <table>
+        <tr>
+            <td>
+                {% if isFromController %}
+                    <img class="logo" src="../public/{{ association.logoFilename }}">
+                {% else %}
+                    <img class="logo" src="public/{{ association.logoFilename }}">
+                {% endif %}
+            </td>
+            <td id="receipt-title">
+                <h1 class="text-center">Association Huntington Avenir</h1>
+                <p class="text-center font-weight-bold font-italic">
+                    Association des familles et des personnes confontrées à la maladie de Huntington et leurs ami.es
+                </p>
+                <p class="small text-center text-muted">
+                    Association loi 1901 déclarée le 23/07/97 à la Préfecture de l'Isère n°0381025744 - J.O. du 16/08/97 - CCP 3.104.49 C GRENOBLE<br>
+                    dépôt en Préfecture du Rhône le 17 août 2007 n°W38000008 - J.O. du 8 septembre 2007
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    {#--- ADDRESSES ---#}
+    <table class="mt-4">
+        <tr>
+            <td>
+                <p class="text-underlined">
+                    Siège social :
+                </p>
+                <p>
+                    1 Chemin des Pervenches 69120 VAULX EN VELIN
+                </p>
+                <p class="mt-1 font-weight-bold text-underlined">
+                    Secrétariat :
+                </p>
+                <p class="font-weight-bold">
+                    5 rue Milton Friedman - ZI Montbertrand
+                </p>
+                <p class="font-weight-bold">
+                    38230 CHARVIEUX CHAVAGNEUX
+                </p>
+                <p class="mt-1">
+                    <span class="text-underlined">Tél :</span> 04 78 32 02 85 -
+                    <span class="text-underlined">Fax :</span> 04 37 42 50 15
+                </p>
+                <p class="mt-1">
+                    <span class="text-underlined">Site :</span>
+                    <a href="http://www.huntingtonavenir.net">http://www.huntingtonavenir.net</a>
+                </p>
+                <p class="mt-1">
+                    <span class="text-underlined">Courriel :</span>
+                    <a href="mailto:contact@huntingtonavenir.net">contact@huntingtonavenir.net</a>
+                </p>
+            </td>
+            <td class="payer-address">
+                <p class="font-weight-bold">
+                    <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
+                    {{ receipt.payment.payer.firstName }}
+                </p>
+                <p>
+                    {{ receipt.payment.payer.addresses[0].line }}
+                </p>
+                <p>
+                    {{ receipt.payment.payer.addresses[0].postalCode }}
+                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    {#--- ACKNOWLEDGMENT ---#}
+    <table class="mt-4 ml-4 mr-4">
+        <tr>
+            <td class="font-weight-bold mb-3">
+                Charvieu, le
+                {{ receiptGenerationDate | localizeddate('long', 'none') }}
+            </td>
+        </tr>
+        <tr>
+            <td class="border-left border-secondary pl-4 pr-4">
+                <p>
+                    Madame, Monsieur,
+                </p>
+                <p class="mt-3 text-justify">
+                    Nous vous remercions vivement de l'aide que vous nous apportez
+                    et de l'intérêt que vous portez à notre association.
+                    Grâce à vous, grâce à toutes les personnes qui nous soutiennent,
+                    nous pouvons développer notre action après des malades et de leur famille&nbsp;;
+                    et faire avancer la recherche.
+                </p>
+                <p class="mt-3 pb-1">
+                    Veuillez croire, Madame, Monsieur, en notre gratitude la plus vive.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="pl-4 pr-4">
+                <p class="mt-3 text-right">
+                    Le Trésorier, Christophe LEROY
+                </p>
+                <p class="text-right">
+                    06 10 60 60 75
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    {#--- KEEPABLE REFERENCES ---#}
+    <table class="mt-4">
+        <tr>
+            <td class="w-75">
+                Cotisation ou don de :
+                <span class="font-weight-bold">{{ receipt.payment.amount }} €</span>
+                du
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('short', 'none')}}</span>
+                par
+                <span class="font-weight-bold">{{ receipt.payment.type.label }}</span>
+            </td>
+            <td class="w-25 text-right">
+                N° d'ordre&nbsp;:
+                <span class="font-weight-bold">{{ receipt.orderCode }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="small font-italic">
+                Il est établi un reçu par règlement.
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    {#--- USEFUL LEGAL DATA ---#}
+    <table class="mt-1">
+        <tr>
+            <td>
+                Déduction fiscale : vos cotisations et dons enregistrés pour
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | date('Y') }}</span>
+                seront déductibles de vos impôts déclarés en
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | date('Y') + 1 }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="font-italic">
+                Partie du haut à conserver
+            </td>
+        </tr>
+    </table>
+
+    <table class="cutable-line">
+        <tr>
+            <td>
+                {% if isFromController %}
+                    <img class="scissors-icon" src="../public/images/scissors.png">
+                {% else %}
+                    <img class="scissors-icon" src="public/images/scissors.png">
+                {% endif %}
+            </td>
+            <td class="line"><hr></td>
+        </tr>
+    </table>
+
+    {#--- CUTABLE PART TITLE ---#}
+    <table>
+        <tr>
+            <td class="small">
+                <span class="font-weight-bold small">REÇU FISCAL</span>
+                à joindre à votre déclaration de revenus
+                <span class="font-weight-bold small">{{ receipt.payment.dateReceived | date('Y') }}</span>
+                en
+                <span class="font-weight-bold small">{{ receipt.payment.dateReceived | date('Y') + 1 }}</span>.
+            </td>
+            <td class="small">
+                Article 200-5 du code des impôts.
+            </td>
+            <td class="text-right">
+                N° d'ordre&nbsp;:
+                <span class="font-weight-bold">{{ receipt.orderCode }}</span>
+            </td>
+        </tr>
+    </table>
+
+    {#--- CUTABLE PART ASSOCIATION INFORMATION ---#}
+    <div class="border mt-2 pt-2 pb-0 pr-3 pl-3">
+        <table>
+            <tr id="detachable-association-information">
+                <td id="label-recipient" class="font-weight-bold">
+                    BÉNÉFICIAIRE&nbsp;:
+                </td>
+                <td id="association-data" class="">
+                    <h4 class="text-center">Association Huntington Avenir</h4>
+                    <p class="text-center font-weight-bold font-italic">
+                        Association des familles et des personnes confontrées à la maladie de Huntington et leurs ami.es
+                    </p>
+                    <p class="text-center text-muted">
+                        Association loi 1901 déclarée le 23/07/97 à la Préfecture de l'Isère n°0381025744 - J.O. du 16/08/97 - CCP 3.104.49 C GRENOBLE<br>
+                        dépôt en Préfecture du Rhône le 17 août 2007 n°W38000008 - J.O. du 8 septembre 2007
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <span class="font-weight-bold">Organisme d'intérêt général :</span>
+                    Association à caractère social et familial
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr id="association-purpose">
+                <td id="label-purpose" class="align-top">
+                    Objet :
+                </td>
+                <td id="purposes-list">
+                    <ul>
+                        <li class="small font-italic">
+                            défense des intérêts matériels et moraux des familles concernées
+                            par la maladie de Huntington et les maladies rares neuro-dégénératives,
+                        </li>
+                        <li class="small font-italic">
+                            réconfort et soutient aux malades ainsi qu'à leur entourage,
+                        </li>
+                        <li class="small font-italic">
+                            aide à la recherche médicale sur ces maladies,
+                        </li>
+                        <li class="small font-italic">
+                            création et gestion d'établissements, de comités locaux et d'antennes locales,
+                        </li>
+                        <li class="small font-italic">
+                            acquisition, location ou vente de tout immeuble dans l'intérêt
+                            de son fonctionnement.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {#--- CUTABLE PART DONATOR INFORMATION ---#}
+    <div class="border-left border-right pt-2 pb-2 pr-3 pl-3">
+        <table>
+            <tr>
+                <td class="font-weight-bold">
+                    Donateurice&nbsp;:
+                </td>
+                <td class="text-center font-weight-bold">
+                    <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
+                    {{ receipt.payment.payer.firstName }},
+                    {{ receipt.payment.payer.addresses[0].line }}
+                    {{ receipt.payment.payer.addresses[0].postalCode }}
+                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {#--- CUTABLE PART DONATION INFORMATION ---#}
+    <div class="border-left border-right pt-2 pb-2 pr-3 pl-3">
+        <div>
+            Læ bénéficiaire reconnaît avoir reçu à titre de don manuel la somme de :
+            <span class="font-weight-bold">{{ receipt.payment.amount }}&nbsp;€</span>
+        </div>
+        <div>
+            Somme en toutes lettres :
+            <span class="font-weight-bold">***&nbsp;{{ receipt.payment.amount | localizednumber('spellout') | upper }}&nbsp;EUROS&nbsp;***</span>
+        </div>
+        <div>
+            Date du paiement :
+            <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('long', 'none') }}</span>
+        </div>
+        <div>
+            Mode de versement :
+            <span class="font-weight-bold">{{ receipt.payment.type.label }}</span>
+        </div>
+    </div>
+
+    {#--- CUTABLE PART SIGNATURE ---#}
+    <div class="border pt-2 pb-2 pr-3 pl-3">
+        <table>
+            <tr>
+                <td class="align-top">
+                    Fait à CHARVIEU le
+                    <span class="font-weight-bold">{{ receiptGenerationDate | localizeddate('long', 'none') }}</span>
+                </td>
+                <td class="text-right align-top">
+                    Le Trésorier Christophe LEROY
+                </td>
+                <td class="w-25 text-right align-top pt-0 pb-0">
+                    {% if isFromController %}
+                        <img class="signature" src="../public/{{ association.treasurerSignatureFilename }}">
+                    {% else %}
+                        <img class="signature" src="public/{{ association.treasurerSignatureFilename }}">
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

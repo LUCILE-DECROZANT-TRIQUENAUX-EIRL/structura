@@ -1,0 +1,133 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('donation_list') }}">{% trans %}Liste des dons{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('Donation/_menu-donation.html.twig', { show_donation: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                <h1>
+                    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+                </h1>
+                <br>
+                <div class="container styledtable">
+                <br>
+                <h3>{% trans %}Informations du don{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Montant{% endtrans %}</th>
+                                <td>{{ donation.amount }}&nbsp;€</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date de règlement{% endtrans %}</th>
+                                <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Donateurice{% endtrans %}</th>
+                                <td>
+                                    <a  href="{{ path('people_show', { 'id': donation.donator.id }) }}"
+                                        data-toggle="tooltip"
+                                        title="{% trans %}Voir le profil de {% endtrans %} {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}"
+                                        >
+                                        {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h3>{% trans %}Informations du paiement{% endtrans %}</h3>
+                    <br>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans %}Montant{% endtrans %}</th>
+                                <td>{{ donation.payment.amount }}&nbsp;€</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date de réception{% endtrans %}</th>
+                                <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Date d'encaissement{% endtrans %}</th>
+                                <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Réglé via...{% endtrans %}</th>
+                                <td>{{ donation.payment.type.label }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Commentaire{% endtrans %}</th>
+                                <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+
+                <div class="row">
+                    {% if is_granted("ROLE_GESTION") %}
+                    <div class="col">
+                        <a href="{{ path('donation_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                    </div>
+                    {% endif %}
+                    <div class="col text-right">
+                        <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
+                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal-deletion-donation-{{ donation.id }}" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>
+                        {% trans %}Souhaitez-vous réellement supprimer ce don de{% endtrans %} <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
+                    </p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
+                    </div>
+                    <div class="col text-right">
+                        {{ include('Donation/_delete_form_button.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

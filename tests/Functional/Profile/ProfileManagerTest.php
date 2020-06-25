@@ -45,7 +45,7 @@ class ProfileManagerTest extends WebTestCase
         $node->click();
         sleep(1);
 
-        // Go to Members page
+        // Go to Peoples page
         $node = new NodeElement('//a[contains(.,"gestiSensible")]', $mink->getSession());
         $node->click();
 
@@ -122,4 +122,3 @@ class ProfileManagerTest extends WebTestCase
 
 }
 
-?>

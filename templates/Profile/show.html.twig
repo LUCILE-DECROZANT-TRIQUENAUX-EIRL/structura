@@ -1,15 +1,17 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Mon profil{% endtrans %}{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
 {% endblock %}
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active">
-        Mon profil
+        {% trans %}Mon profil{% endtrans %}
     </li>
 {% endblock %}
 
@@ -18,136 +20,115 @@
     <div class="container">
         <div class="row">
 
-        <div class="col-8 col-md-2">
-            <ul class="list-group">
-              <a href="{{ path('profile_show', { 'id': user.id }) }}" class="list-group-item list-group-item-action active">Profil</a>
-            </ul>
-
-            <br>
-            <h4>Édition</h4>
-
-            <ul class="list-group">
-              {% if member.firstname is not empty %}
-              <a href="{{ path('profile_editpersonal', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations personnelles</a>
-              <a href="{{ path('profile_editcontact', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations de contact</a>
-              {% endif %}
-              <a href="{{ path('profile_editsensible', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Informations sensibles</a>
-              <a href="{{ path('profile_editroles', { 'id': user.id }) }}" class="list-group-item list-group-item-action">Rôles</a>
-            </ul>
-        </div>
-
-
-
-        <div class="col-12 col-md-10">
-            <div class="col">
+            <div class="col-8 col-md-2">
+                {{ include('Profile/_menu-edit-profile.html.twig', { show: 'active' }) }}
+            </div>
+            <div class="col-12 col-md-10">
                 <h1>
-                {% if member.denomination or member.firstname or member.lastname %}
-                {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
-                {% else %}
-                Ce.tte membre n'a pas de nom
-                {% endif %}
+                    {% if people.denomination or people.firstname or people.lastname %}
+                        {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname }}
+                    {% else %}
+                        {% trans %}Ce.tte personne n'a pas de nom{% endtrans %}
+                    {% endif %}
                 </h1>
-            </div>
-            <br>
-            <div class="container styledtable">
-            <br>
-            {% if member.firstname is not empty %}
-                <h3>Informations de contact</h3>
                 <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>Mail</th>
-                            <td>
-                            {{ member.emailAddress }}&nbsp;&nbsp;
-                            {{member.isReceivingNewsletter ?
-                                '<span data-toggle="tooltip" title="Reçoit la newsletter" >
-                                <i class="icon ion-md-paper"></i> </span>' : ''
-                            }}
-                            {{member.newsletterDematerialization ?
-                                '<span data-toggle="tooltip" title="Newsletter envoyée sous format dématérialisé" >
-                                <i class="icon ion-md-mail"></i> </span>' : ''
-                             }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Adresse</th>
-                            <td>
-                            {% if member.hasNoAddressDefined() %}
-                                Vous n'avez pas d'addresse enregistrée.
-                            {% else %}
-                                {% for address in member.addresses %}
-                                    {{address.line}}
-                                    <br>
-                                    {{address.postalCode}}, {{address.city}}, {{address.country}}
-                                {% endfor %}
-                            {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Téléphone fixe</th>
-                            <td><div class="phone">{{ member.homePhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>Téléphone portable</th>
-                            <td><div class="phone">{{ member.cellPhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>Téléphone professionnel</th>
-                            <td><div class="phone">{{ member.workPhoneNumber }}</div></td>
-                        </tr>
-                        <tr>
-                            <th>Fax</th>
-                            <td><div class="phone">{{ member.workFaxNumber }}</div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <h3>Informations personnelles</h3>
-                <br>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>Observations</th>
-                            <td>{{ member.observations}}</td>
-                        </tr>
-                        {% if is_granted("ROLE_GESTION_SENSIBLE") %}
-                        <tr>
-                            <th>Détails médicaux</th>
-                            <td>{{ member.sensitiveObservations }}</td>
-                        </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
-                {% endif %}
-                {{ user.roles ? '
-                <br>
-
-                    <h3>Rôles</h3>': '' }}
+                <div class="container styledtable">
                     <br>
-                    <table class="table table-hover">
-                        <tbody>
+                    {% if people.firstname is not empty %}
+                        <h3>{% trans %}Informations de contact{% endtrans %}</h3>
+                        <br>
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>{% trans %}Mail{% endtrans %}</th>
+                                    <td>
+                                        {{ people.emailAddress }}&nbsp;&nbsp;
+                                        {% if (people.isReceivingNewsletter) %}
+                                            <span data-toggle="tooltip" title="{% trans %}Reçoit la newsletter{% endtrans %}" >
+                                                <i class="icon ion-md-paper"></i>
+                                            </span>
+                                        {% endif %}
+                                        {% if (people.newsletterDematerialization) %}
+                                            <span data-toggle="tooltip" title="{% trans %}Newsletter envoyée sous format dématérialisé{% endtrans %}" >
+                                                <i class="icon ion-md-mail"></i>
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{% trans %}Adresse{% endtrans %}</th>
+                                    <td>
+                                        {% if people.hasNoAddressDefined() %}
+                                            {% trans %}Vous n'avez pas d'addresse enregistrée.{% endtrans %}
+                                        {% else %}
+                                            {% for address in people.addresses %}
+                                                {{address.line}}
+                                                <br>
+                                                {{address.postalCode}}, {{address.city}}, {{address.country | upper}}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{% trans %}Téléphone fixe{% endtrans %}</th>
+                                    <td><div class="phone">{{ people.homePhoneNumber }}</div></td>
+                                </tr>
+                                <tr>
+                                    <th>{% trans %}Téléphone portable{% endtrans %}</th>
+                                    <td><div class="phone">{{ people.cellPhoneNumber }}</div></td>
+                                </tr>
+                                <tr>
+                                    <th>{% trans %}Téléphone professionnel{% endtrans %}</th>
+                                    <td><div class="phone">{{ people.workPhoneNumber }}</div></td>
+                                </tr>
+                                <tr>
+                                    <th>{% trans %}Fax{% endtrans %}</th>
+                                    <td><div class="phone">{{ people.workFaxNumber }}</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <h3>{% trans %}Champs de saisie libre{% endtrans %}</h3>
+                        <br>
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>{% trans %}Observations{% endtrans %}</th>
+                                    <td>{{ people.observations}}</td>
+                                </tr>
+                                {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+                                    <tr>
+                                        <th>{% trans %}Détails médicaux{% endtrans %}</th>
+                                        <td>{{ people.sensitiveObservations }}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    {% if (user.roles) %}
+                        <br>
+                        <h3>{% trans %}Rôles{% endtrans %}</h3>
+                        <br>
+                        <table class="table table-hover">
+                            <tbody>
 
-                                    {% for responsibility in user.responsibilities %}
-                                        <tr>
-                                            <th>
-                                                {{ responsibility is not empty ? responsibility.label : '-' }}
-                                            </th>
-                                            <td>
-                                                {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                            </tr>
-                        </tbody>
-                    </table>
-
+                                {% for responsibility in user.responsibilities %}
+                                    <tr>
+                                        <th>
+                                            {{ responsibility is not empty ? responsibility.label : '-' }}
+                                        </th>
+                                        <td>
+                                            {{ responsibility is not empty ? responsibility.description : "Ce compte n'a pas de rôle." }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
             </div>
-            <br>
-
-
         </div>
-    </div>
 
 
-{% endblock %}
+    {% endblock %}

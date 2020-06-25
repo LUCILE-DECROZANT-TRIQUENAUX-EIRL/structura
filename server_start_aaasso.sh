@@ -271,5 +271,8 @@ fi
 # Making a new with the right parameters (dev or test depending on user input)
 cp ".env.local_for_${env}" .env.local
 
+# Launching the messenger process that consume messages in a new terminal
+x-terminal-emulator -e php bin/console messenger:consume async -vv
+
 # Starting the symfony server with the newly created env file
 symfony server:start

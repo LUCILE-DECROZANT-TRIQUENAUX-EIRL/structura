@@ -1,0 +1,78 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Modifier mon abonnement aux newsletter{% endtrans %}{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('profile_show', { 'id': user.id }) }}">
+            {% trans %}Mon profil{% endtrans %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Modifier mon abonnement aux newsletter{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                {{ include('Profile/_menu-edit-profile.html.twig', { newsletter: 'active' }) }}
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        <h2>
+                            {% trans %}Newsletter{% endtrans %}
+                        </h2>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col">
+                        {{ form_start(form, {'attr': {'id': 'form-edit-newsletter-choices'}}) }}
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_widget(form.isReceivingNewsletter) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_widget(form.newsletterDematerialization) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button
+                            id="edit-password-submit-button"
+                            type="submit"
+                            form="form-edit-newsletter-choices"
+                            class="btn btn-primary"
+                            >
+                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Enregistrer les modifications{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

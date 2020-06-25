@@ -1,10 +1,12 @@
 {% extends 'Home/base.html.twig' %}
 
+{% block title %}{% trans %}Connexion{% endtrans %}{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item" aria-current="page">
-        <a href="/">Accueil</a>
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Connexion</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans %}Connexion{% endtrans %}</li>
 {% endblock %}
 
 {% block body %}
@@ -12,10 +14,10 @@
         <div class="row">
             <div class="col">
                 <p class="text-center lead">
-                    Bienvenue sur la base de données de l'association <strong>Huntington Avenir</strong>.
+                    {% trans %}Bienvenue sur la base de données de l'association{% endtrans %} <strong>{% trans %}Huntington Avenir{% endtrans %}</strong>.
                 </p>
                 <p class="text-center lead">
-                    Pour accéder au logiciel, identifiez-vous
+                    {% trans %}Pour accéder au logiciel, identifiez-vous{% endtrans %}
                 </p>
             </div>
         </div>
@@ -29,7 +31,7 @@
                             class="form-control"
                             id="username"
                             name="_username"
-                            placeholder="Nom d'utilisateurice"
+                            placeholder="{% trans %}Nom d'utilisateurice{% endtrans %}"
                             value="{% if username is defined %}{{ username }}{% endif %}"
                         >
                     </div>
@@ -38,14 +40,14 @@
                             class="form-control"
                             id="password"
                             name="_password"
-                            placeholder="Mot de passe"
+                            placeholder="{% trans %}Mot de passe{% endtrans %}"
                         >
                     </div>
                     <button
                         type="submit"
                         class="btn btn-primary center-block"
                     >
-                        Connexion
+                        {% trans %}Connexion{% endtrans %}
                     </button>
                 </form>
             </div>

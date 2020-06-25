@@ -52,9 +52,9 @@ class HomeManagerTest extends WebTestCase
     }
 
     /**
-     * Test if the Members menu is here
+     * Test if the Peoples menu is here
      */
-    public function testMenuMembers()
+    public function testMenuPeoples()
     {
         // Create a new client to browse the app
         $client = $this->connection();
@@ -84,4 +84,3 @@ class HomeManagerTest extends WebTestCase
 
 }
 
-?>

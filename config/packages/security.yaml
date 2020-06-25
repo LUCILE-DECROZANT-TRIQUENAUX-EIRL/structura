@@ -21,14 +21,14 @@ security:
 
             # activate the login page as page to authenticate
             form_login:
-                login_path: /login
-                check_path: /login
+                login_path: login
+                check_path: login
                 success_handler: App\Security\AuthenticationSuccessHandler
 
             # activate the logout page as page to logout
             logout:
-                path: /logout
-                target: /
+                path: logout
+                target: home
                 success_handler: App\Security\LogoutSuccessHandler
 
             # activate different ways to authenticate

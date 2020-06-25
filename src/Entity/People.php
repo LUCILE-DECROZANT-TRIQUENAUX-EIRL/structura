@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,7 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class People
 {
-
     /**
      * A private ID used to identify the people.
      *
@@ -173,16 +174,39 @@ class People
     private $addresses;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Membership", inversedBy="members", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"date_start" = "DESC"})
+     * @ORM\JoinTable(
+     *      name="peoples_memberships",
+     *      joinColumns={@JoinColumn(name="membership_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="people_id", referencedColumnName="id")}
+     * )
+     */
+    private $memberships;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="donator", orphanRemoval=true)
+     */
+    private $donations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="payer", orphanRemoval=true)
+     */
+    private $payments;
+
+    /**
      *
      */
-     function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
-     {
-         $this->id = $id;
-         $this->user = $user;
-         $this->denomination = $denomination;
-         $this->firstName = $firstName;
-         $this->lastName = $lastName;
-     }
+    function __construct($id = -1, $user = NULL, $denomination = NULL, $firstName = NULL, $lastName = NULL)
+    {
+        $this->id = $id;
+        $this->user = $user;
+        $this->denomination = $denomination;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->memberships = new ArrayCollection();
+        $this->donations = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -607,5 +631,94 @@ class People
             }
         }
         return true;
+    }
+
+    public function getActiveMembership()
+    {
+        foreach ($this->memberships as $membership)
+        {
+            if ($membership->getDateEnd() > new \DateTime("now"))
+            {
+                return $membership;
+            }
+        }
+        return null;
+    }
+
+    public function getMemberships()
+    {
+        return $this->memberships;
+    }
+
+    public function setMemberships(?Membership $memberships): self
+    {
+        $this->memberships = $memberships;
+
+        return $this;
+    }
+
+    /**
+     * Add a membership to the person
+     *
+     * @param Membership $membership The membership to add.
+     */
+    public function addMembership($membership)
+    {
+        $this->memberships[] = $membership;
+    }
+
+    /**
+     * Remove a membership from the person
+     *
+     * @param Membership $membershipToRemove The membership to remove.
+     */
+    public function removeMembership($membershipToRemove)
+    {
+        $membershipToRemoveIndex = null;
+
+        foreach($this->memberships as $index => $membership)
+        {
+            if($membership->getId() == $membershipToRemove->getId())
+            {
+                $membershipToRemoveIndex = $index;
+                break;
+            }
+        }
+
+        if($membershipToRemoveIndex !== null)
+        {
+            $this->memberships->remove($membershipToRemoveIndex);
+        }
+    }
+
+    /**
+     * @return Collection|Donation[]
+     */
+    public function getDonations(): Collection
+    {
+        return $this->donations;
+    }
+
+    public function addDonation(Donation $donation): self
+    {
+        if (!$this->donations->contains($donation)) {
+            $this->donations[] = $donation;
+            $donation->setDonator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonation(Donation $donation): self
+    {
+        if ($this->donations->contains($donation)) {
+            $this->donations->removeElement($donation);
+            // set the owning side to null (unless already changed)
+            if ($donation->getDonator() === $this) {
+                $donation->setDonator(null);
+            }
+        }
+
+        return $this;
     }
 }

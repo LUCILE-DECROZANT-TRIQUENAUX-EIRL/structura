@@ -1,9 +1,32 @@
 @import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
 
-body
-{
-    /* Avoid to hide content with footer */
-    padding-bottom: 100px;
+/* avoid content being hidden behind the top navbar */
+header {
+    height: 56px;
+}
+
+/* add shadow on navbar if scrolled down */
+#top-navbar {
+  transition: 0.2s;
+}
+
+/* make footer going to the bottom of the page even if there is not much content */
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+#main-content {
+  flex: 1 0 auto;
+}
+footer {
+  flex-shrink: 0;
+}
+
+.navbar-shadowed {
+  box-shadow: 0px -2px 10px #999;
 }
 
 a {
@@ -86,6 +109,15 @@ a {
     text-align: center;
 }
 
+/* set spaces every two numbers on 10 character phone numbers */
+.phone
+{
+    width: 6em;
+    word-wrap: break-word;
+    columns: 5;
+    column-gap: 0.2em;
+}
+
 /* Flip card */
 .flip-card
 {
@@ -144,4 +176,66 @@ a {
 .flip-card-inner > div > .flip-card-item:last-of-type
 {
     margin-bottom: 0;
+}
+
+/* Square btn */
+.square-btn-wrapper {
+    position: relative;
+}
+
+.square-btn-wrapper:before {
+    content:     "";
+    display:     block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.btn.square-btn {
+    position: absolute;
+    top:      0;
+    left:     0;
+    bottom:   0;
+    right:    0;
+}
+
+/* Spinner loader animation */
+.loader-animated {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.loader-animated div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #af4e7a;
+    animation: loader-animated 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loader-animated div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+}
+.loader-animated div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+}
+.loader-animated div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+}
+@keyframes loader-animated {
+    0% {
+        top: 8px;
+        height: 64px;
+    }
+    50%, 100% {
+        top: 24px;
+        height: 32px;
+    }
+}
+
+/* set default size for form error message */
+.field-error-spot {
+    min-height: 24px;
 }

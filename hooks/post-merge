@@ -3,25 +3,51 @@
 # This hook cannot affect the outcome of git merge and is not executed, if the merge failed due to conflicts.
 # This script check the name of the local branch and propose to update the structure of the database if the branch is in the list of dev branches
 
-# assign standard input to the keyboard to get the confirmation 
+# define font settings used to display messages
+defaultFontSettings='\033[0m'
+magentaBackground='\e[48;5;161m'
+purpleBackground='\e[38;5;255m\e[48;5;133m'
+blueBackground='\e[48;5;19m'
+bold='\e[1m'
+
+# assign standard input to the keyboard to get the confirmation
 exec < /dev/tty
+
 # list of developpement branches
 branchesDev=("develop")
 
-#get path to top level directory of the git repertory
+# get path to top level directory of the git repertory
 dir=`git rev-parse --show-cdup`
-#script to exec to update the BDD
+
+# command used to install needed composants
+installComposants=$dir"composer install"
+
+# command used to execute DB migrations
 updateBDD=$dir"bin/console doctrine:migration:migrate"
 
 branch=`git rev-parse --abbrev-ref HEAD`
 for i in ${branchesDev[@]}
-do 
-	if [ "$i" == "$branch" ]; then
-		read -r -p "You seem to be in a developpement branch, do you want to update the database ? [y/N] " response
-		response=${response,,}    # tolower
-		if [[ "$response" =~ ^(yes|y)$ ]] ; then
-			$updateBDD
-		fi
-	break
-	fi
+do
+    if [ "$i" == "$branch" ]; then
+        # display big title
+        echo -e "${magentaBackground}${bold}                                                              ${defaultFontSettings}"
+        echo -e "${magentaBackground}${bold}                                                              ${defaultFontSettings}"
+        echo -e "${purpleBackground}${bold}                Development environment update                ${defaultFontSettings}"
+        echo -e "${blueBackground}${bold}                                                              ${defaultFontSettings}"
+        echo -e "${blueBackground}${bold}                                                              ${defaultFontSettings}"
+        echo -e ""
+
+        read -r -p "You seem to be on a developpement branch, do you want to check components installation? [Y/n] " response
+        response=${response,,}    # tolower
+        if [[ "$response" =~ ^(yes|y|())$ ]] ; then
+            $installComposants
+        fi
+
+        read -r -p "You seem to be on a developpement branch, do you want to update the database? [Y/n] " response
+        response=${response,,}    # tolower
+        if [[ "$response" =~ ^(yes|y|())$ ]] ; then
+            $updateBDD
+        fi
+        break
+    fi
 done

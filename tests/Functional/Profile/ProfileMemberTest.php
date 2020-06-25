@@ -15,7 +15,7 @@ use DMore\ChromeDriver\ChromeDriver;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class ProfileMemberTest extends WebTestCase
+class ProfilePeopleTest extends WebTestCase
 {
 
     /**
@@ -121,4 +121,3 @@ class ProfileMemberTest extends WebTestCase
 
 }
 
-?>

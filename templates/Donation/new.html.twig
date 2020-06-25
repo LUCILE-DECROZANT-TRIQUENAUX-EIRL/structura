@@ -1,0 +1,103 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Enregistrer un nouveau don{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('donation_list') }}">{% trans %}Liste des dons{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Enregistrer un nouveau don{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/Donation/edit.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'id': 'form-edit-donation'}}) }}
+    <div class="container mt-4">
+        <div class="border p-3">
+            <div id="people-selector" class="row">
+                {% include 'Donation/_people_selector.html.twig'
+                    with {'form_donator_widget' : form_widget(form.donator)} %}
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <div class="border p-3">
+                    <div class="col-12">
+                        <label for="donation_amount">{% trans %}Fait un don de{% endtrans %}</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.amount) }}
+                        <div class="field-error-spot">
+                            {{ form_errors(form.amount) }}
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="donation_donation_date">{% trans %}Le{% endtrans %}</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.donation_date) }}
+                        <div class="field-error-spot">
+                            {{ form_errors(form.donation_date) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="border p-3">
+                    <div class="col-12">
+                        <label for="donation_payment_type">{% trans %}Règle via{% endtrans %}</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.payment_type) }}
+                        <div class="field-error-spot">
+                            {{ form_errors(form.payment_type) }}
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="donation_cashed_date">{% trans %}Paiment encaissé le{% endtrans %}</label>
+                    </div>
+                    <div class="col-12">
+                        {{ form_widget(form.cashed_date) }}
+                        <div class="field-error-spot">
+                            {{ form_errors(form.cashed_date) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <label for="donation_comment">{% trans %}Commentaire{% endtrans %}</label>
+            </div>
+            <div class="col-12">
+                {{ form_widget(form.comment) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <a href="{{ path('donation_list') }}" class="btn btn-secondary">{% trans %}Retour à la liste des dons{% endtrans %}</a>
+            </div>
+            <div class="col-md-6">
+                <button
+                    class="btn btn-primary float-right"
+                    type="submit"
+                    form="form-edit-donation"
+                >
+                    {% trans %}Enregistrer les modifications{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

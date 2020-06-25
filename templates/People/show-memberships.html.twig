@@ -1,0 +1,53 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Liste des adhésions de {% endtrans %} {{ people.firstName }} {{ people.lastName }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('people_list') }}">{% trans %}Annuaire généraliste{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if people.user != NULL and app.user.username == people.user.username %}
+            <a href="{{ path('people_show', { 'id': people.id }) }}">{% trans %}Mon profil{% endtrans %}</a>
+        {% else %}
+            <a href="{{ path('people_show', { 'id': people.id }) }}">{% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}</a>
+        {% endif %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Liste des adhésions de {% endtrans %} {{ people.firstName }} {{ people.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-8 col-md-2">
+                {{ include('People/_menu-people.html.twig', { show_memberships: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                {{ include('Member/_user-s-memberships-list.html.twig') }}
+
+                <div class="row mt-3">
+                    {% if is_granted("ROLE_GESTION") %}
+                        <div class="col-md">
+                            <a href="{{ path('people_show', { 'id': people.id }) }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+.square-btn.huge-button {
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.square-btn.huge-button > div {
+}
+
+.square-btn.huge-button > div > .icon.ion-md-add {
+    display: box;
+    font-size: 50px;
+}
+
+/* Avoid tooltip break on disabled elements */
+.tooltip-wrapper {
+    display: inline-block;
+}
+
+/* Allow the opened row to take the full width */
+.dtr-details {
+    width: 100%;
+}
+
+/* Hide the generated title of an openened row */
+table.dataTable > tbody > tr.child span.dtr-title {
+    display: none;
+}
+
+/* make buttons full width */
+table.dataTable > tbody > tr span,
+table.dataTable > tbody > tr span > .btn {
+    width: 100%;
+}
+
+/* Add specific cursor on openable rows */
+table.dataTable[data-rows="openable"] > tbody > tr,
+table.dataTable[data-rows="openable"] > tbody > tr > td {
+    cursor: pointer;
+}
+
+.table-striped tbody tr {
+    transition-property: background-color color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+.table-striped tbody tr.row-opened {
+    transition-property: background-color color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    background-color: #af4e7a;
+    color: #fff;
+}

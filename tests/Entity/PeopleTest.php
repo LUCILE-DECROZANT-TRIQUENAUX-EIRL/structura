@@ -167,4 +167,3 @@ class PeopleTest extends TestCase
 
 }
 
-?>

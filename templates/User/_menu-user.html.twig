@@ -1,0 +1,26 @@
+{% block body %}
+    {% set show_profile = show_profile is defined ? show_profile : null %}
+    {% set show_history = show_history is defined ? show_history : null %}
+    {% set edit_user = edit_user is defined ? edit_user : null %}
+    
+    <ul class="list-group">
+        <a href="{{ path('user_show', { 'id': user.id }) }}"
+           class="list-group-item list-group-item-action {{ show_profile }}"
+           >
+            {% trans %}Profil{% endtrans %}
+        </a>
+        <a href="{{ path('user_history', { 'id': user.id }) }}"
+           class="list-group-item list-group-item-action {{ show_history }}"
+           >
+            {% trans %}Historique{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <ul class="list-group">
+        <a href="{{ path('user_edit', { 'id': user.id }) }}"
+           class="list-group-item list-group-item-action {{ edit_user }}"
+           >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Profil{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}

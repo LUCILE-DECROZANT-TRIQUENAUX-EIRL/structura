@@ -16,7 +16,7 @@ use App\Entity\User;
 // They're tested on the Home folder
 // Here it would be the same function
 // Or new functions would need to be written using Mink
-class AdministrationProfileMemberTest extends WebTestCase
+class AdministrationProfilePeopleTest extends WebTestCase
 {
 
     /**
@@ -57,4 +57,3 @@ class AdministrationProfileMemberTest extends WebTestCase
 
 }
 
-?>

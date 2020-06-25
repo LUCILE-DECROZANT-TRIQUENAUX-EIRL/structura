@@ -39,4 +39,3 @@ class UserUpdaterTest extends TestCase
         $this->assertContains('20/07/2017',$resp);
     }
 }
-?>

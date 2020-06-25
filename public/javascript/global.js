@@ -1,3 +1,12 @@
+// Add shadow under top navbar if scrolled down
+$(window).scroll(function () {
+    if ($(window).scrollTop() > 10) {
+        $('#top-navbar').addClass('navbar-shadowed');
+    } else {
+        $('#top-navbar').removeClass('navbar-shadowed');
+    }
+});
+
 $(document).ready(function () {
     // Togle all datatables of the project
     $(function () {
@@ -12,7 +21,11 @@ $(document).ready(function () {
                 }
             });
 
-            let buttons = [{
+            let buttons = [];
+
+            // Check if there is a copy in clipboard button wanted to add it if needed
+            if ($table.data('copy-button')) {
+                let copyButton = {
                     extend: 'copy',
                     text: '<i class="ion-md-clipboard"></i>',
                     attr: {
@@ -23,7 +36,13 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                }, {
+                };
+                buttons.push(copyButton);
+            }
+
+            // Check if there is a csv export button wanted to add it if needed
+            if ($table.data('csv-button')) {
+                let csvButton = {
                     extend: 'csv',
                     text: '<i class="ion-md-grid"></i>',
                     attr: {
@@ -34,7 +53,13 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                }, {
+                };
+                buttons.push(csvButton);
+            }
+
+            // Check if there is a pdf export button wanted to add it if needed
+            if ($table.data('pdf-button')) {
+                let pdfButton = {
                     extend: 'pdf',
                     text: '<i class="ion-md-document"></i>',
                     attr: {
@@ -45,8 +70,10 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: exportableColumns,
                     }
-                },
-            ];
+                };
+                buttons.push(pdfButton);
+            }
+
             // Check if there is a create button wanted to add it if needed
             if ($table.data('create-label')) {
                 if ($table.data('create-path')) {
@@ -70,6 +97,33 @@ $(document).ready(function () {
                 console.warn('You must define the attribute `data-create-label` in your table.')
             }
 
+            let tableDomDescription = '';
+
+            // Check if there is a filter bar wanted to add it if needed
+            if ($table.data('filter-bar')) {
+                tableDomDescription = '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>';
+            } else {
+                // If no buttons wanted, remove the empty header
+                if (buttons.length > 0) {
+                    tableDomDescription = '<"datatable-header"<"datatable-buttons"B>>t<"datatable-footer"p>';
+                } else {
+                    tableDomDescription = 't<"datatable-footer"p>';
+                }
+            }
+
+            // Check the number of rows wanted (default: 10)
+            let countRowsDisplayed = 10; // Set default to 10 rows
+            let customCountRowsDisplayed = $table.data('number-rows-display'); // Get the custom settings
+            if (customCountRowsDisplayed) {
+                if (Number.isInteger(customCountRowsDisplayed)) { // Check if the parameter is an integer before using it
+                    countRowsDisplayed = customCountRowsDisplayed;
+                } else {
+                    console.warn('The attribute `data-number-rows-display` has to be an integer.');
+                }
+            } else {
+                console.debug('There will be the default 10 rows displayed per page.');
+            }
+
             // Check if there is a specific configuration wanted to fix columns
             let countFixedColumnsRight = 2; // Set default to 2 columns
             let customCountFixedColumnsRight = $table.data('fixed-columns-right'); // Get the custom settings
@@ -87,17 +141,63 @@ $(document).ready(function () {
                 sortableColumns.push({orderable: $(this).data('sortable') === true});
             });
 
+            // Select which column will be sorted at start
+            let orderedColumnIndex = 0; // Set default to 0 (first column)
+            let customOrderedColumnIndex = $table.data('ordered-column-index'); // Get the custom setting
+
+            if (customOrderedColumnIndex) {
+                if (Number.isInteger(customOrderedColumnIndex)) { // Check if the parameter is an integer before using it
+                    orderedColumnIndex = customOrderedColumnIndex;
+                } else {
+                    console.warn('The attribute `data-ordered-column-index` has to be an integer.');
+                }
+            } else {
+                console.debug('The data will be sorted by default.');
+                orderedColumnIndex = 0;
+            }
+            let orderedColumn = [[orderedColumnIndex, 'asc']];
+
+            // Check if rows are openable
+            let openable = {};
+            let isRowsOpenable = $table.data('rows'); // Get the custom setting
+
+            if (isRowsOpenable) {
+                if (isRowsOpenable === 'openable') {
+                    openable = {
+                        details: {
+                            type: 'column',
+                            target: 'tr'
+                        }
+                    };
+                    orderedColumnIndex = customOrderedColumnIndex;
+                } else {
+                    openable = false;
+                    console.debug('The rows will not be openable on click.');
+                }
+            } else {
+                openable = false;
+                console.debug('The rows will not be openable on click.');
+            }
+
             // Instanciate the DataTable
             $table.DataTable({
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
+                order: orderedColumn,
                 columns: sortableColumns,
+                responsive: openable,
                 language: {
                     url: '/json/datatable/fr_FR.json',
                 },
                 buttons: buttons,
-                dom: '<"datatable-header"<"datatable-filter"f><"datatable-buttons"B>>t<"datatable-footer"p>',
+                dom: tableDomDescription,
+                pageLength: countRowsDisplayed,
+                initComplete: function (settings, json) {
+                    // We show the table that was hidden while datatable was initializing
+                    // This prevents the table's raw HTML to be visible before the datatable is fully loaded
+                    $table.children('tbody').removeClass('d-none');
+                }
             });
         });
     });

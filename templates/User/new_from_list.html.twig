@@ -1,0 +1,102 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Enregistrer un.e nouvel.le utilisateurice{% endtrans %}{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/new.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/new.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('user_list') }}">{% trans %}Liste des utilisateurices{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Enregistrer un.e nouvel.le utilisateurice{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Enregistrer un.e nouvel.le utilisateurice{% endtrans %}</h1>
+            </div>
+            <div class="col text-right">
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+
+        {{ form_start(form, {'attr': {'id': 'form-create-user'}}) }}
+            <div class="form-group">
+                {{ form_label(form.username) }} *
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.first) }} *
+                {{ form_widget(form.plainPassword.first) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.second) }} *
+                {{ form_widget(form.plainPassword.second) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.responsibilities) }}
+                {% for responsibility in form.responsibilities %}
+                    {% if not responsibility.vars.attr['data-responsibility-automatically-managed'] %}
+                        <div class="form-group">
+                            {{ form_widget(responsibility) }}
+                            {{ form_label(responsibility) }}
+                            <span class="text-muted responsibility-description">
+                                {{ responsibility.vars.attr['data-responsibility-description'] }}
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a
+                    id="return-button"
+                    href="{{ path('user_list') }}"
+                    class="btn btn-secondary"
+                    >
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}
+                </a>
+            </div>
+            <div class="col text-right">
+                <button
+                    id="create-user-submit-button"
+                    type="submit"
+                    form="form-create-user"
+                    class="btn btn-primary"
+                    >
+                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

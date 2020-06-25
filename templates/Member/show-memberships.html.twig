@@ -1,0 +1,56 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Liste des adhésions de {% endtrans %} {{ member.firstName }} {{ member.lastName }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Membership/common.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('member_list') }}">{% trans %}Liste des adhérent·es{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if member.user != NULL and app.user.username == member.user.username %}
+            <a href="{{ path('member_show', { 'id': member.id }) }}">{% trans %}Mon profil{% endtrans %}</a>
+        {% else %}
+            <a href="{{ path('member_show', { 'id': member.id }) }}">{% trans %}Profil de{% endtrans %} {{ member.firstName }} {{ member.lastName }}</a>
+        {% endif %}
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Liste des adhésions de {% endtrans %} {{ member.firstName }} {{ member.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('Member/_menu-member.html.twig', { show_memberships: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                {{ include('Member/_user-s-memberships-list.html.twig') }}
+
+                <div class="row mt-3">
+                    {% if is_granted("ROLE_GESTION") %}
+                        <div class="col-md">
+                            <a href="{{ path('member_show', { 'id': member.id }) }}" class="btn btn-secondary">
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil de l'adhérent.e{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

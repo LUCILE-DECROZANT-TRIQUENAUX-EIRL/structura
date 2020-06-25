@@ -1,0 +1,148 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Éditer le profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    <script src="{{ asset('javascript/People/phone.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/edit.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('people_list') }}">{% trans %}Annuaire généraliste{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('people_show', { 'id': people.id }) }}">
+            {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Éditer le profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('People/_menu-people.html.twig', { edit_profile: 'active' }) }}
+            </div>
+
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>{% trans %}Édition de la personne dans l'annuaire{% endtrans %}</h1>
+                    </div>
+                </div>
+                <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+
+                {{ form_start(people_edit, {'attr': {'id': 'form-edit-people'}}) }}
+                <div class="form-group">
+                    {{ form_label(people_edit.denomination)}} *
+                    {{ form_widget(people_edit.denomination)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.firstname)}} *
+                    {{ form_widget(people_edit.firstname)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.lastname)}} *
+                    {{ form_widget(people_edit.lastname)}}
+                </div>
+
+                <div class="form-group">
+                    {% for address in people_edit.addresses %}
+                        {{ form_widget(address) }}
+                        {{ form_label(address) }}
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.emailAddress)}}
+                    {{ form_widget(people_edit.emailAddress)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.isReceivingNewsletter)}}
+                    {{ form_widget(people_edit.isReceivingNewsletter)}}
+                    {{ form_label(people_edit.newsletterDematerialization)}}
+                    {{ form_widget(people_edit.newsletterDematerialization)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.homePhoneNumber)}}
+                    {{ form_widget(people_edit.homePhoneNumber)}}
+                    {{ form_help(people_edit.homePhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.cellPhoneNumber)}}
+                    {{ form_widget(people_edit.cellPhoneNumber)}}
+                    {{ form_help(people_edit.cellPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.workPhoneNumber)}}
+                    {{ form_widget(people_edit.workPhoneNumber)}}
+                    {{ form_help(people_edit.workPhoneNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.workFaxNumber)}}
+                    {{ form_widget(people_edit.workFaxNumber)}}
+                    {{ form_help(people_edit.workFaxNumber)}}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(people_edit.observations)}}
+                    {{ form_widget(people_edit.observations)}}
+                    {{ form_help(people_edit.observations)}}
+                </div>
+
+                {% if is_granted('ROLE_GESTION_SENSIBLE') %}
+                    <div class="form-group">
+                        {{ form_label(people_edit.sensitiveObservations)}}
+                        {{ form_widget(people_edit.sensitiveObservations)}}
+                        {{ form_help(people_edit.sensitiveObservations)}}
+                    </div>
+                {% endif %}
+
+                {% do people_edit.sensitiveObservations.setRendered %}
+
+                {{ form_end(people_edit) }}
+
+
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('people_show', { 'id': people.id }) }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil{% endtrans %}
+                        </a>
+                    </div>
+                    <div class="col text-right">
+                        <button
+                            id="edit-people-submit-button"
+                            type="submit"
+                            form="form-edit-people"
+                            class="btn btn-primary">
+                            {% trans %}Enregistrer les modifications{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
