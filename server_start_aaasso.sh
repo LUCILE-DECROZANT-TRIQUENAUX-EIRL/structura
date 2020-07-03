@@ -275,4 +275,5 @@ cp ".env.local_for_${env}" .env.local
 x-terminal-emulator -e php bin/console messenger:consume async -vv
 
 # Starting the symfony server with the newly created env file
-symfony server:start
+symfony self:update --yes
+symfony server:start --no-interaction
