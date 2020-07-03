@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions diverses
+    url: https://lucile-decrozant-triquenaux-eirl.fr
+    about: Merci de poser vos questions via cette URL plutôt qu'en ouvrant une issue.
+  - name: White hats, grey hats
+    url: https://lucile-decrozant-triquenaux-eirl.fr
+    about: Merci d'envoyer vos rapports de sécurité via cette URL.
