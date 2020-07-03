@@ -82,4 +82,8 @@ then
     exit 2
 fi
 
+# --- Install using Composer --- #
+echo 'Installing project dependencies...'
+composer install
+
 exit
