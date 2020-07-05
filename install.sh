@@ -32,6 +32,24 @@ diplayUsage() {
     echo '                Display this manual.'
 }
 
+# --- Check if admin usename or password start with a - and throw an error if so --- #
+check_admin_login_data() {
+    echo 'Checking if admin login is starting with a hyphen'
+
+    if [[ $admin_username == -* ]];
+    then
+        echo '[ERROR] This tool does not support currently admin username starting with an hyphen.'
+        echo 'Exiting the script'
+        exit 2
+    fi
+    if [[ $admin_password == -* ]];
+    then
+        echo '[ERROR] This tool does not support currently admin password starting with an hyphen.'
+        echo 'Exiting the script'
+        exit 2
+    fi
+}
+
 # Ask user input of missing arguments
 ask_user_input() {
     echo 'Please enter the following information:'
@@ -151,48 +169,59 @@ then
     if [ -z "$admin_username" ]
     then
         echo 'Missing administrator username argument.'
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ -z "$admin_password" ]
     then
         echo 'Missing administrator password argument.'
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ "$database_host" = "" ]
     then
         echo "Argument database-host is mandatory."
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ "$database_port" = "" ]
     then
         echo "Argument database-port is mandatory."
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ "$database_user" = "" ]
     then
         echo "Argument database-user is mandatory."
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ "$database_password" = "" ]
     then
         echo "Argument database-password is mandatory."
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
 
     if [ "$database_name" = "" ]
     then
         echo "Argument database-name is mandatory."
+        diplayUsage
+        echo 'Exiting the script'
+        exit 2
     fi
-
-    diplayUsage
-    echo 'Exiting the script'
-    exit 2
 fi
-
-# --- Install using Composer --- #
-echo 'Installing project dependencies...'
-composer install
-
-
 
 # --- Setup .env file --- #
 # --- No interaction mode --- #
@@ -206,7 +235,6 @@ then
 
 # --- Interactive mode --- #
 else
-    echo "Since you have no environment configuration file, we will create one."
     # Asking user environment informations
     ask_user_input
 
@@ -217,10 +245,20 @@ else
     setup_env_file
 fi
 
+# --- Check admin data --- #
+check_admin_login_data
+
+# --- Install using Composer --- #
+echo 'Installing project dependencies...'
+composer install
+
 # --- Create database --- #
 bin/console doctrine:database:create
 
 # --- Create database schema --- #
 bin/console doctrine:migration:migrate -n
+
+# --- Create admin account --- #
+bin/console app:create-admin-account "${admin_username}" "${admin_password}"
 
 exit

@@ -103,6 +103,53 @@ class UserService
     }
 
     /**
+     * Create the very first admin account of Structura
+     *
+     * @param string $username Username of the admin account
+     * @param string $plainPassword Password of the admin account
+     *
+     * @return User Admin account created
+     *
+     * @throws Exception Admin account already exists
+     */
+    public function createFirstAdminAccount(string $username, string $plainPassword)
+    {
+        $existingUsers = $this->em->getRepository(User::class)->findAll();
+        if (count($existingUsers) > 0)
+        {
+            throw new \Exception('An admin account is already created.');
+        }
+
+        // Setup username
+        $user = new User();
+        $user->setUsername($username);
+
+        // Setup password
+        $password = $this->passwordEncoder->encodePassword(
+                $user,
+                $plainPassword
+        );
+        $user->setPassword($password);
+
+        // Setup responsibilities
+        $adminResponsibility = $this->em->getRepository(Responsibility::class)->findOneBy([
+            'label' => Responsibility::ADMINISTRATEURICE_LABEL,
+        ]);
+        $user->addResponsibility($adminResponsibility);
+        $adminSensibleResponsibility = $this->em->getRepository(Responsibility::class)->findOneBy([
+            'label' => Responsibility::ADMINISTRATEURICE_SENSIBLE_LABEL,
+        ]);
+        $user->addResponsibility($adminSensibleResponsibility);
+        $user = $this->manageResponsibilities($user);
+
+        // Save account
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+    }
+
+    /**
      * Add or remove automatically user's responsibilities
      * depending on which one they already have
      *
