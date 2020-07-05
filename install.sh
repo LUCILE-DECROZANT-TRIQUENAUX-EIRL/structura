@@ -261,4 +261,15 @@ bin/console doctrine:migration:migrate -n
 # --- Create admin account --- #
 bin/console app:create-admin-account "${admin_username}" "${admin_password}"
 
+# --- Display warning message about Messages worker --- #
+# --- Define font settings used to display messages --- #
+defaultFontSettings='\033[0m'
+orangeBackground='\e[48;5;202m'
+bold='\033[1m'
+
+echo ''
+echo -e "${orangeBackground}${bold}[ WARNING ]${defaultFontSettings} This software needs the Symfony messenger deamon to run properly."
+echo -e "${orangeBackground}${bold}[ WARNING ]${defaultFontSettings} You need to run it using: ${bold}bin/console messenger:consume${defaultFontSettings}"
+echo -e "${orangeBackground}${bold}[ WARNING ]${defaultFontSettings} Make sure to relaunch it if you reboot your server."
+
 exit
