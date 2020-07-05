@@ -220,4 +220,7 @@ fi
 # --- Create database --- #
 bin/console doctrine:database:create
 
+# --- Create database schema --- #
+bin/console doctrine:migration:migrate -n
+
 exit
