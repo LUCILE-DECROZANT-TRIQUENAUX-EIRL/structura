@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\PeopleTypeRepository")
+ */
+class PeopleType
+{
+    const CONTACT_CODE = 1;
+    const SOCIAL_POLE_CODE = 2;
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @var int Code of the type
+     * @ORM\Column(name="code", type="integer", unique=true)
+     */
+    private $code;
+
+    /**
+     * @Gedmo\Translatable
+     * @ORM\Column(type="string", length=255)
+     */
+    private $label;
+
+    /**
+     * @Gedmo\Translatable
+     * @ORM\Column(type="string", length=3000)
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="types", cascade={"persist", "remove"})
+     *
+     */
+    private $peoples;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+}

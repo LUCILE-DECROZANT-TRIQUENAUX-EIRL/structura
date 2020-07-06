@@ -174,6 +174,16 @@ class People
     private $addresses;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PeopleType", inversedBy="peoples", cascade={"persist", "remove"})
+     * @ORM\JoinTable(
+     *      name="peoples_people_types",
+     *      joinColumns={@JoinColumn(name="people_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="people_type_id", referencedColumnName="id")}
+     * )
+     */
+    private $types;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Membership", inversedBy="members", cascade={"persist", "remove"})
      * @ORM\OrderBy({"date_start" = "DESC"})
      * @ORM\JoinTable(
@@ -643,6 +653,50 @@ class People
             }
         }
         return null;
+    }
+
+    function getTypes()
+    {
+        return $this->types;
+    }
+
+    function setTypes($types): void
+    {
+        $this->types = $types;
+    }
+
+    /**
+     * Add a type to the person
+     *
+     * @param Type $type The type to add.
+     */
+    public function addType($type)
+    {
+        $this->types[] = $type;
+    }
+
+    /**
+     * Remove a type from the person
+     *
+     * @param Type $typeToRemove The typte to remove.
+     */
+    public function removeType($typeToRemove)
+    {
+        $typeToRemoveIndex = null;
+
+        foreach($this->types as $index => $type)
+        {
+            if ($type->getId() == $typeToRemove->getId())
+            {
+                $typeToRemoveIndex = $index;
+                break;
+            }
+        }
+
+        if ($typeToRemoveIndex !== null)
+        {
+            $this->types->remove($typeToRemoveIndex);
+        }
     }
 
     public function getMemberships()
