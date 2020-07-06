@@ -39,40 +39,75 @@
     <div class="container">
         <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
         {{ form_start(form, {'attr': {'id': 'form-create-people'}}) }}
-            <div class="form-group">
-                {{ form_label(form.denomination)}} *
-                {{ form_widget(form.denomination)}}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.firstname)}} *
-                {{ form_widget(form.firstname)}}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.lastname)}} *
-                {{ form_widget(form.lastname)}}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.isContact)}}
-                {{ form_widget(form.isContact)}}
-            </div>
-
-            {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE')%}
-                <div class="form-group">
-                    {{ form_label(form.needHelp)}}
-                    {{ form_widget(form.needHelp)}}
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        {{ form_label(form.denomination)}} *
+                        {{ form_widget(form.denomination)}}
+                    </div>
                 </div>
-            {% endif %}
 
-            {% for address in form.addresses.vars.prototype %}
-            <div class="form-group">
-                {{ form_label(address) }}
-                {{ form_widget(address) }}
+                <div class="col-4">
+                    <div class="form-group">
+                        {{ form_label(form.firstname)}} *
+                        {{ form_widget(form.firstname)}}
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="form-group">
+                        {{ form_label(form.lastname)}} *
+                        {{ form_widget(form.lastname)}}
+                    </div>
+                </div>
             </div>
-            {% endfor %}
 
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.isContact)}}
+                        {{ form_widget(form.isContact)}}
+                    </div>
+                </div>
+
+                {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE')%}
+                    <div class="col">
+                        <div class="form-group">
+                            {{ form_label(form.needHelp)}}
+                            {{ form_widget(form.needHelp)}}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.addresses.vars.prototype.children.line) }}
+                        {{ form_widget(form.addresses.vars.prototype.children.line) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-2">
+                    <div class="form-group">
+                        {{ form_label(form.addresses.vars.prototype.children.postalCode) }}
+                        {{ form_widget(form.addresses.vars.prototype.children.postalCode) }}
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="form-group">
+                        {{ form_label(form.addresses.vars.prototype.children.city) }}
+                        {{ form_widget(form.addresses.vars.prototype.children.city) }}
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="form-group">
+                        {{ form_label(form.addresses.vars.prototype.children.country) }}
+                        {{ form_widget(form.addresses.vars.prototype.children.country) }}
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 {{ form_label(form.emailAddress)}}
@@ -86,28 +121,38 @@
                 {{ form_widget(form.newsletterDematerialization)}}
             </div>
 
-            <div class="form-group">
-                {{ form_label(form.homePhoneNumber)}}
-                {{ form_widget(form.homePhoneNumber)}}
-                {{ form_help(form.homePhoneNumber)}}
-            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.homePhoneNumber)}}
+                        {{ form_widget(form.homePhoneNumber)}}
+                        {{ form_help(form.homePhoneNumber)}}
+                    </div>
+                </div>
 
-            <div class="form-group">
-                {{ form_label(form.cellPhoneNumber)}}
-                {{ form_widget(form.cellPhoneNumber)}}
-                {{ form_help(form.cellPhoneNumber)}}
-            </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.cellPhoneNumber)}}
+                        {{ form_widget(form.cellPhoneNumber)}}
+                        {{ form_help(form.cellPhoneNumber)}}
+                    </div>
+                </div>
 
-            <div class="form-group">
-                {{ form_label(form.workPhoneNumber)}}
-                {{ form_widget(form.workPhoneNumber)}}
-                {{ form_help(form.workPhoneNumber)}}
-            </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.workPhoneNumber)}}
+                        {{ form_widget(form.workPhoneNumber)}}
+                        {{ form_help(form.workPhoneNumber)}}
+                    </div>
+                </div>
 
-            <div class="form-group">
-                {{ form_label(form.workFaxNumber)}}
-                {{ form_widget(form.workFaxNumber)}}
-                {{ form_help(form.workFaxNumber)}}
+                <div class="col">
+                    <div class="form-group">
+                        {{ form_label(form.workFaxNumber)}}
+                        {{ form_widget(form.workFaxNumber)}}
+                        {{ form_help(form.workFaxNumber)}}
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
