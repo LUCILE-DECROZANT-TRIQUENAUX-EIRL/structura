@@ -41,7 +41,7 @@
 
             <div class="col-12 col-md-10">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-10">
                         <h1>
                             {% if member.denomination or member.firstname or member.lastname %}
                                 {{ member.denomination ? member.denomination.label : "" }} {{ member.firstname }} {{ member.lastname }}
@@ -50,6 +50,19 @@
                             {% endif %}
                         </h1>
                         <br>
+                    </div>
+                    <div class="col-2 text-right">
+                        <h2>
+                            {% for type in member.types %}
+                                <span
+                                    class="badge badge-info"
+                                    data-toggle="tooltip"
+                                    title="{{ type.description }}"
+                                    >
+                                    {{ type.label }}
+                                </span>
+                            {% endfor %}
+                        </h2>
                     </div>
                 </div>
                 <div class="row">

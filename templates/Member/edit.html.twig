@@ -63,6 +63,11 @@
                 </div>
 
                 <div class="form-group">
+                    {{ form_label(member_edit.isContact)}}
+                    {{ form_widget(member_edit.isContact)}}
+                </div>
+
+                <div class="form-group">
                     {% for address in member_edit.addresses %}
                         {{ form_widget(address) }}
                         {{ form_label(address) }}

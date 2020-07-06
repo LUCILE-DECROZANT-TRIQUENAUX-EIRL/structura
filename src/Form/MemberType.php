@@ -58,6 +58,10 @@ class MemberType extends AbstractType
                     'label' => $this->translator->trans('Nom de famille'),
                     'required' => true
                 ])
+                ->add('isContact', CheckboxType::class, [
+                    'label' => $this->translator->trans('Cette personne est un contact'),
+                    'required' => false,
+                ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
                     'entry_type' => AddressType::class,

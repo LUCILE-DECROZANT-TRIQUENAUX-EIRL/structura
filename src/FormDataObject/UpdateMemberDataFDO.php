@@ -32,6 +32,12 @@ class UpdateMemberDataFDO
     private $lastName;
 
     /**
+     * A boolean used to check if the people has PeopleType contact.
+     * @var boolean
+     */
+    private $isContact = false;
+
+    /**
      * The email address of the people.
      * @var string
      */
@@ -110,6 +116,7 @@ class UpdateMemberDataFDO
         $updateMemberDataFDO->denomination = $people->getDenomination();
         $updateMemberDataFDO->firstName = $people->getFirstName();
         $updateMemberDataFDO->lastName = $people->getLastName();
+        $updateMemberDataFDO->isContact = $people->isContact();
         $updateMemberDataFDO->emailAddress = $people->getEmailAddress();
         $updateMemberDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
         $updateMemberDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
@@ -201,6 +208,17 @@ class UpdateMemberDataFDO
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    function isContact(): ?bool
+    {
+        return $this->isContact;
+    }
+
+    function setIsContact(bool $isContact): self
+    {
+        $this->isContact = $isContact;
         return $this;
     }
 

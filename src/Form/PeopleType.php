@@ -59,7 +59,7 @@ class PeopleType extends AbstractType
                 ])
                 ->add('isContact', CheckboxType::class, [
                     'label' => $this->translator->trans('Cette personne est un contact'),
-                    'required' => true,
+                    'required' => false,
                 ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
