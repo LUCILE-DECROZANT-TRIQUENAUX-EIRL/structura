@@ -183,7 +183,7 @@ then
         exit 2
     fi
 
-    if [ "$database_host" = "" ]
+    if [ -z "$database_host" ]
     then
         echo "Argument database-host is mandatory."
         diplayUsage
@@ -191,7 +191,7 @@ then
         exit 2
     fi
 
-    if [ "$database_port" = "" ]
+    if [ -z "$database_port" ]
     then
         echo "Argument database-port is mandatory."
         diplayUsage
@@ -199,7 +199,7 @@ then
         exit 2
     fi
 
-    if [ "$database_user" = "" ]
+    if [ -z "$database_user" ]
     then
         echo "Argument database-user is mandatory."
         diplayUsage
@@ -207,7 +207,7 @@ then
         exit 2
     fi
 
-    if [ "$database_password" = "" ]
+    if [ -z "$database_password" ]
     then
         echo "Argument database-password is mandatory."
         diplayUsage
@@ -215,7 +215,7 @@ then
         exit 2
     fi
 
-    if [ "$database_name" = "" ]
+    if [ -z "$database_name" ]
     then
         echo "Argument database-name is mandatory."
         diplayUsage
