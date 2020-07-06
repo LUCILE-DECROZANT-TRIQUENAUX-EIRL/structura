@@ -53,14 +53,16 @@
                     </div>
                     <div class="col-2 text-right">
                         <h2>
-                            {% for type in people.types %}
-                                <span
-                                    class="badge badge-info"
-                                    data-toggle="tooltip"
-                                    title="{{ type.description }}"
-                                    >
-                                    {{ type.label }}
-                                </span>
+                            {% for type in member.types %}
+                                {% if not type.isSensible or (type.isSensible and (is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE'))) %}
+                                    <span
+                                        class="badge badge-info"
+                                        data-toggle="tooltip"
+                                        title="{{ type.description }}"
+                                        >
+                                        {{ type.label }}
+                                    </span>
+                                {% endif %}
                             {% endfor %}
                         </h2>
                     </div>
