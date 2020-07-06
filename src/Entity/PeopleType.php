@@ -41,6 +41,15 @@ class PeopleType
     private $description;
 
     /**
+     * A boolean used to check if the information is sensible.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(name="is_sensible", type="boolean")
+     */
+    private $isSensible;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="types", cascade={"persist", "remove"})
      *
      */
@@ -82,6 +91,17 @@ class PeopleType
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    function getIsSensible(): ?bool
+    {
+        return $this->isSensible;
+    }
+
+    function setIsSensible(bool $isSensible): self
+    {
+        $this->isSensible = $isSensible;
         return $this;
     }
 }
