@@ -80,12 +80,17 @@ class PeopleController extends AbstractController {
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            if ($updatePeopleDataFDO->isContact())
+            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updateMemberDataFDO->isContact())
             {
-                $type = $em->getRepository(PeopleType::class)->findOneBy([
-                    'code' => PeopleType::CONTACT_CODE,
-                ]);
-                $people->addType($type);
+                $individual->addType($type);
+            }
+            else
+            {
+                $individual->removeType($type);
+
             }
 
             if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
@@ -229,12 +234,17 @@ class PeopleController extends AbstractController {
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            if ($updatePeopleDataFDO->isContact())
+            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updateMemberDataFDO->isContact())
             {
-                $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
-                    'code' => PeopleType::CONTACT_CODE,
-                ]);
-                $people->addType($type);
+                $individual->addType($type);
+            }
+            else
+            {
+                $individual->removeType($type);
+
             }
 
             if ($updatePeopleDataFDO->getAddresses() === null)
