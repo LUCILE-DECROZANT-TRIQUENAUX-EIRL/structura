@@ -38,6 +38,8 @@
                     <th data-exportable="true">{% trans %}Mail{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone fixe{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone portable{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Code postal{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Ville{% endtrans %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -67,6 +69,20 @@
                                 <span class="">-</span>
                             {% else %}
                                 <span class="phone">{{ member.cellPhoneNumber }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.addresses[0].postalCode is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="">{{ member.addresses[0].postalCode }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if member.addresses[0].city is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ member.addresses[0].city }}</span>
                             {% endif %}
                         </td>
                         <td class="align-middle column-action">
