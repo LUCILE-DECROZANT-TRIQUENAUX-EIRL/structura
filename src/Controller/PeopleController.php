@@ -57,6 +57,31 @@ class PeopleController extends AbstractController {
     }
 
     /**
+     * Lists all people entities having Contact type.
+     * @return views
+     * @Route(path="/contact", name="contact_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function listContactsAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $peoples = $em->getRepository(People::class)->findContacts();
+
+        $deleteForms = [];
+
+        foreach ($peoples as $people) {
+            $deleteForm = $this->createDeleteForm($people);
+            $deleteForms[$people->getId()] = $deleteForm->createView();
+        }
+
+
+        return $this->render('Contact/list.html.twig', array(
+                'contacts' => $peoples,
+                'contact_deletion_forms' => $deleteForms,
+        ));
+    }
+
+    /**
      * Creates a new people entity.
      * @return views
      * @param Request $request The request.

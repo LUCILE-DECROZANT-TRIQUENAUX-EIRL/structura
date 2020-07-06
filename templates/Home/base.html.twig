@@ -69,6 +69,15 @@
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                             {% endif %}
+                                            {% if is_granted("ROLE_GESTION") %}
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ path('contact_list') }}"
+                                                    >
+                                                    {% trans %}Contacts{% endtrans %}
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                            {% endif %}
                                             <a
                                                 class="dropdown-item disabled"
                                                 href="#"
