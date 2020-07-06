@@ -52,6 +52,7 @@ check_admin_login_data() {
 
 # Ask user input of missing arguments
 ask_user_input() {
+    echo
     echo 'Please enter the following information:'
 
     if [ -z "$admin_username" ]
@@ -246,20 +247,20 @@ else
 fi
 
 # --- Check admin data --- #
-check_admin_login_data
+check_admin_login_data || exit
 
 # --- Install using Composer --- #
 echo 'Installing project dependencies...'
-composer install
+composer install || exit
 
 # --- Create database --- #
-bin/console doctrine:database:create
+bin/console doctrine:database:create || exit
 
 # --- Create database schema --- #
-bin/console doctrine:migration:migrate -n
+bin/console doctrine:migration:migrate -n || exit
 
 # --- Create admin account --- #
-bin/console app:create-admin-account "${admin_username}" "${admin_password}"
+bin/console app:create-admin-account "${admin_username}" "${admin_password}" || exit
 
 # --- Display warning message about Messages worker --- #
 # --- Define font settings used to display messages --- #
