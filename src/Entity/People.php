@@ -684,7 +684,12 @@ class People
     {
         $typeToRemoveIndex = null;
 
-        foreach($this->types as $index => $type)
+        if (empty($this->types))
+        {
+            return $this;
+        }
+
+        foreach ($this->types as $index => $type)
         {
             if ($type->getId() == $typeToRemove->getId())
             {
@@ -697,6 +702,7 @@ class People
         {
             $this->types->remove($typeToRemoveIndex);
         }
+        return $this;
     }
 
     public function getMemberships()
@@ -786,6 +792,23 @@ class People
         foreach ($this->getTypes() as $type)
         {
             if ($type->getCode() === PeopleType::CONTACT_CODE)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check is this people has a Social Pole type
+     *
+     * @return bool True if people has Social Pole type, false otherwise
+     */
+    public function needHelp(): bool
+    {
+        foreach ($this->getTypes() as $type)
+        {
+            if ($type->getCode() === PeopleType::SOCIAL_POLE_CODE)
             {
                 return true;
             }

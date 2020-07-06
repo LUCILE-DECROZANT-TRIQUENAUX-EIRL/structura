@@ -70,6 +70,13 @@
                     {{ form_widget(people_edit.isContact)}}
                 </div>
 
+                {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE') %}
+                    <div class="form-group">
+                        {{ form_label(people_edit.needHelp)}}
+                        {{ form_widget(people_edit.needHelp)}}
+                    </div>
+                {% endif %}
+
                 <div class="form-group">
                     {% for address in people_edit.addresses %}
                         {{ form_widget(address) }}
@@ -119,7 +126,7 @@
                     {{ form_help(people_edit.observations)}}
                 </div>
 
-                {% if is_granted('ROLE_GESTION_SENSIBLE') %}
+                {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE') %}
                     <div class="form-group">
                         {{ form_label(people_edit.sensitiveObservations)}}
                         {{ form_widget(people_edit.sensitiveObservations)}}
@@ -128,6 +135,7 @@
                 {% endif %}
 
                 {% do people_edit.sensitiveObservations.setRendered %}
+                {% do people_edit.needHelp.setRendered %}
 
                 {{ form_end(people_edit) }}
 

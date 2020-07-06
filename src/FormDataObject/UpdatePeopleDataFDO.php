@@ -51,6 +51,12 @@ class UpdatePeopleDataFDO
     private $isContact = false;
 
     /**
+     * A boolean used to check if the people has PeopleType social pole.
+     * @var boolean
+     */
+    private $needHelp = false;
+
+    /**
      * A boolean used to check if the people want to receive the newletter
      * by mail or by email (true for email, false for physical mail).
      * @var boolean
@@ -118,6 +124,7 @@ class UpdatePeopleDataFDO
         $updatePeopleDataFDO->firstName = $people->getFirstName();
         $updatePeopleDataFDO->lastName = $people->getLastName();
         $updatePeopleDataFDO->isContact = $people->isContact();
+        $updatePeopleDataFDO->needHelp = $people->needHelp();
         $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
         $updatePeopleDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
         $updatePeopleDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
@@ -268,6 +275,17 @@ class UpdatePeopleDataFDO
     function setIsContact(bool $isContact): self
     {
         $this->isContact = $isContact;
+        return $this;
+    }
+
+    function needHelp(): ?bool
+    {
+        return $this->needHelp;
+    }
+
+    function setNeedHelp(bool $needHelp): self
+    {
+        $this->needHelp = $needHelp;
         return $this;
     }
 

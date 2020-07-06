@@ -105,17 +105,29 @@ class PeopleController extends AbstractController {
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
 
-            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+            $typeContact = $em->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,
             ]);
             if ($updatePeopleDataFDO->isContact())
             {
-                $people->addType($type);
+                $people->addType($typeContact);
             }
             else
             {
-                $people->removeType($type);
+                $people->removeType($typeContact);
 
+            }
+
+            $typeSocialPole = $em->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updatePeopleDataFDO->needHelp())
+            {
+                $people->addType($typeSocialPole);
+            }
+            else
+            {
+                $people->removeType($typeSocialPole);
             }
 
             if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
@@ -269,6 +281,19 @@ class PeopleController extends AbstractController {
             else
             {
                 $people->removeType($type);
+
+            }
+
+            $typeSocialPole = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updatePeopleDataFDO->needHelp())
+            {
+                $people->addType($typeSocialPole);
+            }
+            else
+            {
+                $people->removeType($typeSocialPole);
 
             }
 

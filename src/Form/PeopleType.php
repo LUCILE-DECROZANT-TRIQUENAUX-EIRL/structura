@@ -61,6 +61,10 @@ class PeopleType extends AbstractType
                     'label' => $this->translator->trans('Cette personne est un contact'),
                     'required' => false,
                 ])
+                ->add('needHelp', CheckboxType::class, [
+                    'label' => $this->translator->trans('Cette personne est en lien avec le Pôle Social'),
+                    'required' => false,
+                ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,
                     'entry_type' => AddressType::class,

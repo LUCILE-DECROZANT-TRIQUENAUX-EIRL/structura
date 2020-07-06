@@ -61,6 +61,13 @@
             {{ form_widget(form.isContact)}}
         </div>
 
+        {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE') %}
+            <div class="form-group">
+                {{ form_label(form.needHelp)}}
+                {{ form_widget(form.needHelp)}}
+            </div>
+        {% endif %}
+
         {% for address in form.addresses.vars.prototype %}
             <div class="form-group">
                 {{ form_label(address) }}
