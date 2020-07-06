@@ -67,27 +67,27 @@ ask_user_input() {
         echo
     fi
 
-    if [ "$database_host" = "" ]
+    if [ -z "$database_host" ]
     then
         # Ask and read database_host with default value 127.0.0.1
         read -p 'Database host [127.0.0.1] : ' database_host
         database_host=${database_host:-'127.0.0.1'}
     fi
 
-    if [ "$database_port" = "" ]
+    if [ -z "$database_port" ]
     then
         # Ask and read database_port with default value 3306
         read -p 'Database port [3306] : ' database_port
         database_port=${database_port:-3306}
     fi
 
-    if [ "$database_user" = "" ]
+    if [ -z "$database_user" ]
     then
         # Ask and read database_user, no default value
         read -p 'Database user : ' database_user
     fi
 
-    if [ "$database_password" = "" ]
+    if [ -z "$database_password" ]
     then
         # Ask and read database_password with no default value
         read -sp 'Database password : ' database_password
@@ -95,7 +95,7 @@ ask_user_input() {
         echo
     fi
 
-    if [ "$database_name" = "" ]
+    if [ -z "$database_name" ]
     then
         # Ask and read database_name with default value erp-asso-test
         read -p 'Database name [structura] : ' database_name
