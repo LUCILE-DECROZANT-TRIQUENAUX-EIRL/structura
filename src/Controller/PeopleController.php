@@ -104,6 +104,7 @@ class PeopleController extends AbstractController {
             $people->setDenomination($updatePeopleDataFDO->getDenomination());
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
+            $people->setFirstContactYear($updatePeopleDataFDO->getFirstContactYear());
 
             $typeContact = $em->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,

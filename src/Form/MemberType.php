@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -61,6 +62,10 @@ class MemberType extends AbstractType
                 ->add('isContact', CheckboxType::class, [
                     'label' => $this->translator->trans('Cette personne est un contact'),
                     'required' => false,
+                ])
+                ->add('firstContactYear', IntegerType::class, [
+                    'label' => $this->translator->trans('Année du premier contact avec cette personne'),
+                    'required' => true,
                 ])
                 ->add('needHelp', CheckboxType::class, [
                     'label' => $this->translator->trans('Cette personne est en lien avec le Pôle Social'),

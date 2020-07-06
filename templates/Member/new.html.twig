@@ -157,6 +157,15 @@
                 </div>
             </div>
 
+            {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE')%}
+                aaaaaaa
+                <div class="form-group">
+                    {{ form_label(form.firstContactYear) }}
+                    {{ form_widget(form.firstContactYear) }}
+                    {{ form_help(form.firstContactYear) }}
+                </div>
+            {% endif %}
+
             <div class="form-group">
                 {{ form_label(form.observations)}}
                 {{ form_widget(form.observations)}}
@@ -170,8 +179,10 @@
                     {{ form_help(form.sensitiveObservations)}}
                 </div>
             {% endif %}
+
             {% do form.sensitiveObservations.setRendered %}
             {% do form.needHelp.setRendered %}
+            {% do form.firstContactYear.setRendered %}
 
         {{ form_end(form) }}
     </div>

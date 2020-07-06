@@ -68,6 +68,15 @@ class People
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     *
+     * @ORM\Column(name="first_contact_year", type="integer")
+     */
+    private $firstContactYear;
+
+    /**
      * The email address of the people.
      *
      * @var string
@@ -216,6 +225,7 @@ class People
         $this->lastName = $lastName;
         $this->memberships = new ArrayCollection();
         $this->donations = new ArrayCollection();
+        $this->firstContactYear = (int) date('Y');
     }
 
     /**
@@ -292,6 +302,24 @@ class People
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(int $firstContactYear): self
+    {
+        $this->firstContactYear = $firstContactYear;
         return $this;
     }
 

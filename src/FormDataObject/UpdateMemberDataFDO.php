@@ -32,6 +32,13 @@ class UpdateMemberDataFDO
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     */
+    private $firstContactYear;
+
+    /**
      * A boolean used to check if the people has PeopleType contact.
      * @var boolean
      */
@@ -111,6 +118,11 @@ class UpdateMemberDataFDO
      */
     private $addresses;
 
+    function __construct()
+    {
+        $this->firstContactYear = (int) date('Y');
+    }
+
     /**
      *
      */
@@ -123,6 +135,14 @@ class UpdateMemberDataFDO
         $updateMemberDataFDO->firstName = $people->getFirstName();
         $updateMemberDataFDO->lastName = $people->getLastName();
         $updateMemberDataFDO->isContact = $people->isContact();
+        if (empty($people->getFirstContactYear()))
+        {
+            $updateMemberDataFDO->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $updateMemberDataFDO->firstContactYear = $people->getFirstContactYear();
+        }
         $updateMemberDataFDO->needHelp = $people->needHelp();
         $updateMemberDataFDO->emailAddress = $people->getEmailAddress();
         $updateMemberDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
@@ -215,6 +235,24 @@ class UpdateMemberDataFDO
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(int $firstContactYear): self
+    {
+        $this->firstContactYear = $firstContactYear;
         return $this;
     }
 

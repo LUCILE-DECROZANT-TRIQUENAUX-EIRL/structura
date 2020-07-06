@@ -33,6 +33,13 @@ class UpdatePeopleDataFDO
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     */
+    private $firstContactYear;
+
+    /**
      * The email address of the people.
      * @var string
      */
@@ -112,6 +119,11 @@ class UpdatePeopleDataFDO
      */
     private $addresses;
 
+    function __construct()
+    {
+        $this->firstContactYear = (int) date('Y');
+    }
+
     /**
      *
      */
@@ -123,6 +135,14 @@ class UpdatePeopleDataFDO
         $updatePeopleDataFDO->denomination = $people->getDenomination();
         $updatePeopleDataFDO->firstName = $people->getFirstName();
         $updatePeopleDataFDO->lastName = $people->getLastName();
+        if (empty($people->getFirstContactYear()))
+        {
+            $updatePeopleDataFDO->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $updatePeopleDataFDO->firstContactYear = $people->getFirstContactYear();
+        }
         $updatePeopleDataFDO->isContact = $people->isContact();
         $updatePeopleDataFDO->needHelp = $people->needHelp();
         $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
@@ -216,6 +236,24 @@ class UpdatePeopleDataFDO
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(int $firstContactYear): self
+    {
+        $this->firstContactYear = $firstContactYear;
         return $this;
     }
 
