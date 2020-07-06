@@ -83,13 +83,13 @@ class PeopleController extends AbstractController {
             $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,
             ]);
-            if ($updateMemberDataFDO->isContact())
+            if ($updatePeopleDataFDO->isContact())
             {
-                $individual->addType($type);
+                $people->addType($type);
             }
             else
             {
-                $individual->removeType($type);
+                $people->removeType($type);
 
             }
 
@@ -237,13 +237,13 @@ class PeopleController extends AbstractController {
             $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,
             ]);
-            if ($updateMemberDataFDO->isContact())
+            if ($updatePeopleDataFDO->isContact())
             {
-                $individual->addType($type);
+                $people->addType($type);
             }
             else
             {
-                $individual->removeType($type);
+                $people->removeType($type);
 
             }
 
