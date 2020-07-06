@@ -152,6 +152,26 @@ do
         admin_password="${i#*=}"
         shift # past argument=value
         ;;
+        --database-host=*)
+        database_host="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-port=*)
+        database_port="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-user=*)
+        database_user="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-password=*)
+        database_password="${i#*=}"
+        shift # past argument=value
+        ;;
+        --database-name=*)
+        database_name="${i#*=}"
+        shift # past argument=value
+        ;;
         *)
         # unknown argument or option
         ;;
