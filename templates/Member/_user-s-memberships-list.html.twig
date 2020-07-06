@@ -14,7 +14,7 @@
                     {% trans %}Adhésion en cours{% endtrans %}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ member.activeMembership.type.label }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
+                    <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ member.activeMembership.type.label }} {{ member.activeMembership.fiscalYear }} ({{ member.activeMembership.type.defaultAmount }}&nbsp;€)</h5>
                     <h6 class="card-subtitle mb-2 text-muted text-center">{{ member.activeMembership.type.description }}</h6>
                     <p class="card-text text-center">
                         {% trans %}Adhésion du{% endtrans %} {{ member.activeMembership.getDateStart | date('d M. Y') }}
@@ -129,7 +129,7 @@
                             {% trans %}Ancienne adhésion{% endtrans %}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h5>
+                            <h5 class="card-title text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} {{ membership.fiscalYear }} ({{ membership.type.defaultAmount }}&nbsp;€)</h5>
                             <h6 class="card-subtitle mb-2 text-muted text-center">{{ membership.type.description }}</h6>
                             <p class="card-text text-center">
                                 {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
