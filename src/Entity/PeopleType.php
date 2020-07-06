@@ -51,6 +51,16 @@ class PeopleType
         return $this->id;
     }
 
+    function getCode(): int
+    {
+        return $this->code;
+    }
+
+    function setCode(int $code): void
+    {
+        $this->code = $code;
+    }
+
     public function getLabel(): ?string
     {
         return $this->label;

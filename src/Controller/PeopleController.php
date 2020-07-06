@@ -10,7 +10,8 @@ use App\Entity\User;
 use App\Entity\People;
 use App\Entity\Address;
 use App\Entity\Receipt;
-use App\Form\PeopleType;
+use App\Entity\PeopleType;
+use App\Form\PeopleType as PeopleForm;
 use App\Form\GenerateTaxReceiptFromYearType;
 use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,7 +69,7 @@ class PeopleController extends AbstractController {
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(PeopleType::class, $updatePeopleDataFDO);
+        $form = $this->createForm(PeopleForm::class, $updatePeopleDataFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,6 +79,14 @@ class PeopleController extends AbstractController {
             $people->setDenomination($updatePeopleDataFDO->getDenomination());
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
+
+            if ($updatePeopleDataFDO->isContact())
+            {
+                $type = $em->getRepository(PeopleType::class)->findOneBy([
+                    'code' => PeopleType::CONTACT_CODE,
+                ]);
+                $people->addType($type);
+            }
 
             if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
                 $address = new Address();
@@ -206,7 +215,7 @@ class PeopleController extends AbstractController {
 
         $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($people);
-        $editForm = $this->createForm(PeopleType::class, $updatePeopleDataFDO);
+        $editForm = $this->createForm(PeopleForm::class, $updatePeopleDataFDO);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -219,6 +228,14 @@ class PeopleController extends AbstractController {
             $people->setDenomination($updatePeopleDataFDO->getDenomination());
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
+
+            if ($updatePeopleDataFDO->isContact())
+            {
+                $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                    'code' => PeopleType::CONTACT_CODE,
+                ]);
+                $people->addType($type);
+            }
 
             if ($updatePeopleDataFDO->getAddresses() === null)
             {

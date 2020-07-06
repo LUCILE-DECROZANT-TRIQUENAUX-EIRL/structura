@@ -54,6 +54,10 @@
                 {{ form_widget(form.lastname)}}
             </div>
 
+            <div class="form-group">
+                {{ form_label(form.isContact)}}
+                {{ form_widget(form.isContact)}}
+            </div>
 
             {% for address in form.addresses.vars.prototype %}
             <div class="form-group">

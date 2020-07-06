@@ -3,6 +3,7 @@ namespace App\FormDataObject;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
+use App\Entity\PeopleType;
 
 class UpdatePeopleDataFDO
 {
@@ -42,6 +43,12 @@ class UpdatePeopleDataFDO
      * @var boolean
      */
     private $isReceivingNewsletter = false;
+
+    /**
+     * A boolean used to check if the people has PeopleType contact.
+     * @var boolean
+     */
+    private $isContact = false;
 
     /**
      * A boolean used to check if the people want to receive the newletter
@@ -110,6 +117,7 @@ class UpdatePeopleDataFDO
         $updatePeopleDataFDO->denomination = $people->getDenomination();
         $updatePeopleDataFDO->firstName = $people->getFirstName();
         $updatePeopleDataFDO->lastName = $people->getLastName();
+        $updatePeopleDataFDO->isContact = $people->isContact();
         $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
         $updatePeopleDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
         $updatePeopleDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
@@ -249,6 +257,17 @@ class UpdatePeopleDataFDO
     {
         $this->isReceivingNewsletter = $isReceivingNewsletter;
 
+        return $this;
+    }
+
+    function isContact(): ?bool
+    {
+        return $this->isContact;
+    }
+
+    function setIsContact(bool $isContact): self
+    {
+        $this->isContact = $isContact;
         return $this;
     }
 

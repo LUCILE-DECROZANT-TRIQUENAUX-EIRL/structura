@@ -775,4 +775,21 @@ class People
 
         return $this;
     }
+
+    /**
+     * Check is this people has a Contact type
+     *
+     * @return bool True if people has Contact type, false otherwise
+     */
+    public function isContact(): bool
+    {
+        foreach ($this->getTypes() as $type)
+        {
+            if ($type->getCode() === PeopleType::CONTACT_CODE)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
