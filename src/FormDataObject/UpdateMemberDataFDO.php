@@ -250,9 +250,16 @@ class UpdateMemberDataFDO
      * @param int $firstContactYear
      * @return \self
      */
-    function setFirstContactYear(int $firstContactYear): self
+    function setFirstContactYear(?int $firstContactYear): self
     {
-        $this->firstContactYear = $firstContactYear;
+        if (empty($firstContactYear))
+        {
+            $this->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $this->firstContactYear = $firstContactYear;
+        }
         return $this;
     }
 
