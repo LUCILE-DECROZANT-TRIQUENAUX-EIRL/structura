@@ -120,6 +120,14 @@
                     {{ form_help(people_edit.workFaxNumber)}}
                 </div>
 
+                {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE') %}
+                    <div class="form-group">
+                        {{ form_label(people_edit.firstContactYear)}}
+                        {{ form_widget(people_edit.firstContactYear)}}
+                        {{ form_help(people_edit.firstContactYear)}}
+                    </div>
+                {% endif %}
+
                 <div class="form-group">
                     {{ form_label(people_edit.observations)}}
                     {{ form_widget(people_edit.observations)}}
@@ -136,6 +144,7 @@
 
                 {% do people_edit.sensitiveObservations.setRendered %}
                 {% do people_edit.needHelp.setRendered %}
+                {% do people_edit.firstContactYear.setRendered %}
 
                 {{ form_end(people_edit) }}
 
