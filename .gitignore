@@ -27,6 +27,8 @@ public/css/library/Bootstrap
 public/javascript/library/Bootstrap
 public/javascript/library/jQuery
 public/javascript/library/DataTables
+public/javascript/library/Chart.js
+public/javascript/library/Moment
 public/images/uploads/
 ###< local files ###
 
