@@ -109,6 +109,57 @@ a {
     text-align: center;
 }
 
+/* Select2 dropdowns Bootstrap 4 style */
+/* Select element */
+.select2-container
+{
+    width: 100% !important;
+}
+.select2-container .select2-selection--single
+{
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    height: calc(2.25rem + 2px);
+    padding: 4px 3px 3px 8px;
+}
+/* Select element arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow
+{
+    top: 6px;
+}
+/* Opened dropdown */
+.select2-dropdown
+{
+    border-radius: 0;
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+}
+/* Search input */
+.select2-container--default .select2-search--dropdown .select2-search__field
+{
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+    border-radius: 0;
+}
+/* Dropdown options */
+.select2-results__option
+{
+    padding: 8px 17px;
+}
+/* Dropdown option hovered */
+.select2-container--default .select2-results__option--highlighted[aria-selected]
+{
+    background-color: #af4e7a;
+}
+
 /* set spaces every two numbers on 10 character phone numbers */
 .phone
 {
