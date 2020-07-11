@@ -207,6 +207,15 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 
+    // Toggle all Select2 dropdown of the project
+    $(function () {
+        $('[data-toggle="select2"]').each(function (index) {
+            let $select = $(this);
+
+            $select.select2();
+        });
+    });
+
     // Toggle all flip cards of the project
     $(function () {
         $('[data-toggle="flip-card"]').each(function (index) {
