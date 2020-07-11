@@ -33,6 +33,9 @@ class DonationType extends AbstractType
                 ->add('donator', EntityType::class, [
                     // looks for choices from this entity
                     'class' => People::class,
+                    'attr' => [
+                        'data-toggle' => 'select2'
+                    ],
                     // uses firstname and lastname as the visible option string
                     'choice_label' => function($people) {
                         return $people->getFirstName() . ' ' . $people->getLastName();
