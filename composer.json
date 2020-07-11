@@ -100,7 +100,13 @@
             "wget https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.js -O ./vendor/Chart.js/chart.min.js",
             "wget https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.css -O ./vendor/Chart.js/chart.min.css",
             "ln -sf ../../../../vendor/Chart.js/chart.min.js ./public/javascript/library/Chart.js/chart.min.js",
-            "ln -sf ../../../../vendor/Chart.js/chart.min.css ./public/javascript/library/Chart.js/chart.min.css"
+            "ln -sf ../../../../vendor/Chart.js/chart.min.css ./public/javascript/library/Chart.js/chart.min.css",
+            "wget https://github.com/select2/select2/archive/4.0.13.zip -O ./vendor/select2.zip",
+            "unzip -o vendor/select2.zip -d vendor/",
+            "rm -r vendor/Select2",
+            "mv vendor/select2-4.0.13 vendor/Select2",
+            "rm vendor/select2.zip",
+            "ln -sf ../../../vendor/Select2/dist ./public/javascript/library/Select2"
         ],
         "post-update-cmd": [
             "@auto-scripts"
