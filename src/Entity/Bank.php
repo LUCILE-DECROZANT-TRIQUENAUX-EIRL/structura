@@ -21,6 +21,15 @@ class Bank
      */
     private $name;
 
+    /**
+     * The list of all the payments for this bank.
+     *
+     * @var banks[]
+     *
+     * @ORM\OneToMany(targetEntity="Payment", mappedBy="bank")
+     */
+    private $banks;
+
     public function getId(): ?int
     {
         return $this->id;

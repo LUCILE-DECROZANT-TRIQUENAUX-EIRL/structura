@@ -61,6 +61,11 @@ class Payment
     private $payer;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bank", inversedBy="payments")
+     */
+    private $bank;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Receipt", mappedBy="payment", cascade={"persist", "remove"})
      */
     private $receipt;
@@ -190,6 +195,18 @@ class Payment
         if ($newPayment !== $donation->getPayment()) {
             $donation->setPayment($newPayment);
         }
+
+        return $this;
+    }
+
+    function getBank()
+    {
+        return $this->bank;
+    }
+
+    function setBank(Bank $bank): self
+    {
+        $this->bank = $bank;
 
         return $this;
     }
