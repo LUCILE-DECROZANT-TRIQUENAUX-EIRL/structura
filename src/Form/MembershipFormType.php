@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\People;
-use App\Entity\PaymentType;
+use App\Entity\Bank;
 use App\Entity\MembershipType;
+use App\Entity\PaymentType;
+use App\Entity\People;
 use App\Repository\PeopleRepository;
 
 use Symfony\Component\Form\AbstractType;
@@ -156,6 +157,18 @@ class MembershipFormType extends AbstractType
             ],
             'required' => false,
             'help' => $this->translator->trans('adhérent·e·s maximum pour une adhésion de type')
+        ]);
+
+        $builder->add('bank', EntityType::class, [
+            'class' => Bank::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false,
+            'label' => $this->translator->trans('Banque'),
+            'attr' => [
+                'data-toggle' => 'select2',
+            ],
+            'placeholder' => $this->translator->trans('Sélectionnez une banque'),
         ]);
     }
 

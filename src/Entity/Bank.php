@@ -24,11 +24,11 @@ class Bank
     /**
      * The list of all the payments for this bank.
      *
-     * @var banks[]
+     * @var payments[]
      *
-     * @ORM\OneToMany(targetEntity="Payment", mappedBy="bank")
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="bank")
      */
-    private $banks;
+    private $payments;
 
     public function getId(): ?int
     {
