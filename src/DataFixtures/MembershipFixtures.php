@@ -8,11 +8,12 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\People;
+use App\Entity\Bank;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
+use App\Entity\People;
 
 class MembershipFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
@@ -32,6 +33,10 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
         // Creating MembershipType
         $output->writeln('      <comment>></comment> <info>Membership types creation...</info>');
+        $bankRepository = $manager->getRepository(Bank::class);
+        $banks = $bankRepository->findAll();
+        $banksCount = count($banks);
+
         $MembershipTypeFamily = new MembershipType();
         $MembershipTypeFamily->setDefaultAmount(30.0);
         $MembershipTypeFamily->setLabel('Famille');
@@ -64,6 +69,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCheque50->setType($paymentTypeCheck);
         $paymentAdhesionCheque50->setDateReceived(new \DateTime('2017-02-17 16:01:57'));
         $paymentAdhesionCheque50->setDateCashed(new \DateTime('2017-02-17 16:01:57'));
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionCheque50->setBank($bank);
 
         $manager->persist($paymentAdhesionCheque50);
 
@@ -73,6 +80,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionHelloAsso30->setType($paymentTypeHelloAsso);
         $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime('2017-01-18 14:36:03'));
         $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime('2017-01-18 14:36:03'));
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionHelloAsso30->setBank($bank);
 
         $manager->persist($paymentAdhesionHelloAsso30);
 
@@ -82,6 +91,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCash20->setType($paymentTypeCash);
         $paymentAdhesionCash20->setDateReceived(new \DateTime('2019-10-27 12:21:09'));
         $paymentAdhesionCash20->setDateCashed(new \DateTime('2019-10-27 12:21:09'));
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionCash20->setBank($bank);
 
         $manager->persist($paymentAdhesionCash20);
 
@@ -92,7 +103,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCard20->setType($paymentTypeCard);
         $paymentAdhesionCard20->setDateReceived(new \DateTime('2018-05-11 08:28:09'));
         $paymentAdhesionCard20->setDateCashed(new \DateTime('2018-05-11 08:28:09'));
-
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionCard20->setBank($bank);
 
 
         // Fifth payment (transfer)
@@ -101,6 +113,8 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionTransfer20->setType($paymentTypeTransfer);
         $paymentAdhesionTransfer20->setDateReceived(new \DateTime('2018-04-25 10:59:02'));
         $paymentAdhesionTransfer20->setDateCashed(new \DateTime('2018-04-25 10:59:02'));
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionTransfer20->setBank($bank);
 
         $manager->persist($paymentAdhesionTransfer20);
 
