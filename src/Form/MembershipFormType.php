@@ -150,14 +150,9 @@ class MembershipFormType extends AbstractType
             'multiple' => false,
             'expanded' => false,
             'attr' => [
-                'class' => 'selectpicker',
-                'data-live-search' => 'true',
-                'data-live-search-normalize' => 'true',
-                'data-live-search-placeholder' => $this->translator->trans('Rechercher...'),
-                'data-size' => '6',
-                'title' => $this->translator->trans('Sélectionnez une personne pour l\'ajouter'),
-                'data-style-base' => 'custom-form-dropdown',
-                'data-style' => 'btn',
+                'data-toggle' => 'select2',
+                'data-placeholder' => 'Sélectionnez une personne pour l\'ajouter',
+                'data-disabled-placeholder' => 'Nombre maximum d\'adhérent·e atteint',
             ],
             'required' => false,
             'help' => $this->translator->trans('adhérent·e·s maximum pour une adhésion de type')

@@ -8,9 +8,6 @@ var selectedPeopleCount = 0;
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
-    // -- Precising the Bootstrap version for the bootstrap-select plugin -- //
-    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-
     // -- Declaration of the event listeners -- //
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
@@ -319,13 +316,18 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // And update the title to help the user
     if (selectedPeopleCount == currentMembershipType.number_max_members)
     {
+        $('#app_membership_newMember').select2({
+            placeholder: $('#app_membership_newMember').data('disabled-placeholder'),
+            templateSelection: function () {
+                return $('#app_membership_newMember').data('disabled-placeholder');
+            }
+        });
         $('#app_membership_newMember').prop('disabled', true);
-        $('#app_membership_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
-        $('#app_membership_newMember').selectpicker('refresh');
 
         removeDisplayNone('payment-part');
         removeDisplayNone('member-creation-submit-button');
     }
+    $('#app_membership_newMember').prop('selectedIndex', 0);
 }
 
 /**
@@ -353,8 +355,12 @@ function deselectPeople(peopleId)
     if (selectedPeopleCount < currentMembershipType.number_max_members)
     {
         $('#app_membership_newMember').prop('disabled', false);
-        $('#app_membership_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
-        $('#app_membership_newMember').selectpicker('refresh');
+        $('#app_membership_newMember').select2({
+            placeholder: $('#app_membership_newMember').data('placeholder'),
+            templateSelection: function () {
+                return $('#app_membership_newMember').data('placeholder');
+            }
+        });
 
         addDisplayNone('payment-part');
         addDisplayNone('member-creation-submit-button');
@@ -375,26 +381,8 @@ function deselectPeople(peopleId)
  */
 function addPeopleToSelectionList(peopleId)
 {
-    let peopleName = $('#people-recap-name-'+peopleId).html();
-
-    // Adding the people in the select list
-    $('#app_membership_newMember').append('<option value="'+peopleId+'">' + peopleName + '</option>');
-
-    let selectList = $('#app_membership_newMember option');
-
-    // Sorting by value (Aka, People's id)
-    selectList.sort(function(a, b) {
-        a = a.value;
-        b = b.value;
-
-        return a-b;
-    });
-
-    // Replacing the list by the sorted list
-    $('#app_membership_newMember').html(selectList);
-
-    // Selectiong the blank value
-    $('.selectpicker').selectpicker('val', '');
+    $('#app_membership_newMember option[value="' + peopleId + '"]')
+            .prop('disabled', false);
 }
 
 /**
@@ -404,8 +392,8 @@ function addPeopleToSelectionList(peopleId)
  */
 function removePeopleFromSelectionList(peopleId)
 {
-    $('#app_membership_newMember option[value="' + peopleId + '"]').remove();
-    $('.selectpicker').selectpicker('refresh');
+    $('#app_membership_newMember option[value="' + peopleId + '"]')
+            .prop('disabled', true);
 }
 
 /**

@@ -212,7 +212,15 @@ $(document).ready(function () {
         $('[data-toggle="select2"]').each(function (index) {
             let $select = $(this);
 
-            $select.select2();
+            // Check if there is a selected option placeholder to add it if needed
+            let placeholder = null;
+            if ($select.data('placeholder')) {
+                placeholder = $select.data('placeholder');
+            }
+
+            $select.select2({
+                'placeholder': placeholder,
+            });
         });
     });
 
