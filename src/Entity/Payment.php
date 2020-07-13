@@ -212,9 +212,9 @@ class Payment
      * @throws \Exception If bank information is not needed in the
      *                    corresponding payment type, throws an exception
      */
-    function setBank(Bank $bank): self
+    function setBank(?Bank $bank): self
     {
-        if (!$this->type->isBankneeded())
+        if (!$this->type->isBankneeded() && !is_null($bank))
         {
             throw new \Exception('Bank information is not needed in this payment.');
         }

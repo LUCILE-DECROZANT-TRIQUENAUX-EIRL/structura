@@ -118,6 +118,14 @@ class MembershipController extends AbstractController
             $payment->setAmount($updateMembershipFDO->getPaymentAmount());
             $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
             $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($updateMembershipFDO->getBank());
+            }
+            else
+            {
+                $payment->setBank(null);
+            }
 
             $payment->setPayer($updateMembershipFDO->getPayer());
             $payment->setMembership($membership);
@@ -236,6 +244,14 @@ class MembershipController extends AbstractController
             $payment->setAmount($updateMembershipFDO->getPaymentAmount());
             $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
             $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($updateMembershipFDO->getBank());
+            }
+            else
+            {
+                $payment->setBank(null);
+            }
 
             $payment->setPayer($updateMembershipFDO->getPayer());
 
