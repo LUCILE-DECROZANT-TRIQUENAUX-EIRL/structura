@@ -80,8 +80,6 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionHelloAsso30->setType($paymentTypeHelloAsso);
         $paymentAdhesionHelloAsso30->setDateReceived(new \DateTime('2017-01-18 14:36:03'));
         $paymentAdhesionHelloAsso30->setDateCashed(new \DateTime('2017-01-18 14:36:03'));
-        $bank = $banks[rand(0, $banksCount - 1)];
-        $paymentAdhesionHelloAsso30->setBank($bank);
 
         $manager->persist($paymentAdhesionHelloAsso30);
 
@@ -91,8 +89,6 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCash20->setType($paymentTypeCash);
         $paymentAdhesionCash20->setDateReceived(new \DateTime('2019-10-27 12:21:09'));
         $paymentAdhesionCash20->setDateCashed(new \DateTime('2019-10-27 12:21:09'));
-        $bank = $banks[rand(0, $banksCount - 1)];
-        $paymentAdhesionCash20->setBank($bank);
 
         $manager->persist($paymentAdhesionCash20);
 
@@ -103,8 +99,6 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCard20->setType($paymentTypeCard);
         $paymentAdhesionCard20->setDateReceived(new \DateTime('2018-05-11 08:28:09'));
         $paymentAdhesionCard20->setDateCashed(new \DateTime('2018-05-11 08:28:09'));
-        $bank = $banks[rand(0, $banksCount - 1)];
-        $paymentAdhesionCard20->setBank($bank);
 
 
         // Fifth payment (transfer)
@@ -113,8 +107,6 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionTransfer20->setType($paymentTypeTransfer);
         $paymentAdhesionTransfer20->setDateReceived(new \DateTime('2018-04-25 10:59:02'));
         $paymentAdhesionTransfer20->setDateCashed(new \DateTime('2018-04-25 10:59:02'));
-        $bank = $banks[rand(0, $banksCount - 1)];
-        $paymentAdhesionTransfer20->setBank($bank);
 
         $manager->persist($paymentAdhesionTransfer20);
 
@@ -232,6 +224,12 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
             // Card payment generated for this membership
             $payment = clone $paymentAdhesionCard20;
+            // Change date received and date cashed to add more diversity and cohesion
+            $days = rand(1, 200);
+            $paymentDateTimestamp = strtotime('-' . $days . ' days', $now->getTimestamp());
+            $paymentDate = new \DateTime('@' . $paymentDateTimestamp);
+            $payment->setDateReceived($paymentDate);
+            $payment->setDateCashed($paymentDate);
 
             // Create and associate active and inactive memberships evenly on members
             if ($index % 2 == 0)

@@ -61,30 +61,47 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
         $people = $peopleRepository->findAll();
         $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
 
-        foreach ($people as $index => $individual)
+        for ($i = 0 ; $i < 5 ; $i++)
         {
-            if ($index % 3 == 0)
+            foreach ($people as $index => $individual)
             {
-                $amountDonation = (float) rand (20, 1000);
-                $dateDonation = rand (2017, 2019) . '-02-15 ' . rand (10, 23) . ':00:00';
+                // Only create donations of 1/3 people
+                if ($index % 3 == 0)
+                {
+                    // Create donations of amount between 5 and 200€
+                    $amountDonation = (float) rand (5, 200);
+                    // Create donation between this year and two years ago
+                    $currentDate = new \DateTime();
+                    $currentYear = date('Y', $currentDate->getTimestamp());
+                    $yearTwoYearsAgo = date('Y', strtotime('-2 years', $currentDate->getTimestamp()));
+                    $dateDonation = rand ($yearTwoYearsAgo, $currentYear)
+                            . '-'
+                            . rand (01, 12)
+                            . '-'
+                            . rand (01, 28)
+                            . ' '
+                            . rand (10, 23)
+                            . ':00:00';
 
-                $paymentDonationCheque = new Payment();
-                $paymentDonationCheque->setAmount($amountDonation);
-                $paymentDonationCheque->setType($paymentTypeCheck);
-                $paymentDonationCheque->setDateReceived(new \DateTime($dateDonation));
-                $paymentDonationCheque->setPayer($individual);
+                    $paymentDonationCheque = new Payment();
+                    $paymentDonationCheque->setAmount($amountDonation);
+                    $paymentDonationCheque->setType($paymentTypeCheck);
+                    $paymentDonationCheque->setDateReceived(new \DateTime($dateDonation));
+                    $paymentDonationCheque->setDateCashed(new \DateTime($dateDonation));
+                    $paymentDonationCheque->setPayer($individual);
 
-                $bank = $banks[rand(0, $banksCount - 1)];
-                $paymentDonationCheque->setBank($bank);
+                    $bank = $banks[rand(0, $banksCount - 1)];
+                    $paymentDonationCheque->setBank($bank);
 
-                $manager->persist($paymentDonationCheque);
+                    $manager->persist($paymentDonationCheque);
 
-                $donation = new Donation();
-                $donation->setAmount($amountDonation);
-                $donation->setDonationDate(new \DateTime($dateDonation));
-                $donation->setDonator($individual);
-                $donation->setPayment($paymentDonationCheque);
-                $manager->persist($donation);
+                    $donation = new Donation();
+                    $donation->setAmount($amountDonation);
+                    $donation->setDonationDate(new \DateTime($dateDonation));
+                    $donation->setDonator($individual);
+                    $donation->setPayment($paymentDonationCheque);
+                    $manager->persist($donation);
+                }
             }
         }
         $manager->flush();
