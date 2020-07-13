@@ -36,6 +36,16 @@ class PaymentType
      */
     private $payments;
 
+    /**
+     * Boolean to check in the Payment of this type if Bank information
+     * is needed.
+     *
+     * @var boolean True is Bank is needed in payment, false otherwise
+     *
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $isBankneeded;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
@@ -97,6 +107,18 @@ class PaymentType
                 $payment->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    function isBankneeded(): bool
+    {
+        return $this->isBankneeded;
+    }
+
+    function setIsBankneeded(bool $isBankneeded): self
+    {
+        $this->isBankneeded = $isBankneeded;
 
         return $this;
     }
