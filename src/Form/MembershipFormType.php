@@ -75,7 +75,13 @@ class MembershipFormType extends AbstractType
             'expanded' => false,
             'attr' => [
                 'autocomplete' => 'off',
-            ]
+            ],
+            'choice_attr' => function(PaymentType $paymentType)
+            {
+                return [
+                    'data-is-bank-needed' => $paymentType->isBankneeded(),
+                ];
+            },
         ]);
 
         $builder->add('membershipAmount', MoneyType::class, [

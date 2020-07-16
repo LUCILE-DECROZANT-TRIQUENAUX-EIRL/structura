@@ -8,6 +8,17 @@ var selectedPeopleCount = 0;
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
+    // Show bank select if payment type needs it
+    let isBankNeeded = $("option:selected", '#app_membership_bank').data('is-bank-needed') === undefined ? false : true;
+    if (isBankNeeded)
+    {
+        removeDisplayNone('payment-bank');
+    }
+    else
+    {
+        addDisplayNone('payment-bank');
+    }
+
     // -- Declaration of the event listeners -- //
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
@@ -29,6 +40,20 @@ $(document).ready(function() {
         {
             addDisplayNone('member-selection-part');
             addDisplayNone('payment-part');
+        }
+    });
+
+    // Show/hide bank select picker depending on payment type
+    $('#app_membership_paymentType').change(function(event) {
+        let isBankNeeded = $("option:selected", this).data('is-bank-needed') === undefined ? false : true;
+        console.debug(isBankNeeded);
+        if (isBankNeeded)
+        {
+            removeDisplayNone('payment-bank');
+        }
+        else
+        {
+            addDisplayNone('payment-bank');
         }
     });
 
