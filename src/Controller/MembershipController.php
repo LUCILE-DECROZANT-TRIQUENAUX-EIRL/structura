@@ -126,6 +126,7 @@ class MembershipController extends AbstractController
             {
                 $payment->setBank(null);
             }
+            $payment->setComment($updateMembershipFDO->getComment());
 
             $payment->setPayer($updateMembershipFDO->getPayer());
             $payment->setMembership($membership);
@@ -252,6 +253,7 @@ class MembershipController extends AbstractController
             {
                 $payment->setBank(null);
             }
+            $payment->setComment($updateMembershipFDO->getComment());
 
             $payment->setPayer($updateMembershipFDO->getPayer());
 
