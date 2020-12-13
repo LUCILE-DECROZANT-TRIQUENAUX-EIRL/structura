@@ -8,7 +8,7 @@
     max-height: 297mm;
 }
 
-.tag-row {
+tr {
     page-break-inside: avoid;
 }
 
