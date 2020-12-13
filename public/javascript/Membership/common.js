@@ -46,7 +46,6 @@ $(document).ready(function() {
     // Show/hide bank select picker depending on payment type
     $('#app_membership_paymentType').change(function(event) {
         let isBankNeeded = $("option:selected", this).data('is-bank-needed') === undefined ? false : true;
-        console.debug(isBankNeeded);
         if (isBankNeeded)
         {
             removeDisplayNone('payment-bank');
