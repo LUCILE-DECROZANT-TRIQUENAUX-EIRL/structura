@@ -23,10 +23,13 @@ class TagController extends AbstractController
      */
     public function index()
     {
-        // Entity manager
+        // Entity manager creation
         $em = $this->getDoctrine()->getManager();
+
+        // Getting all people sorted by last name
         $people = $em->getRepository(People::class)->findBy([], ['lastName' => 'ASC']);
 
+        // Returning the rendered view
         return $this->render('Tag/index.html.twig', [
             'people' => $people,
         ]);
@@ -38,12 +41,13 @@ class TagController extends AbstractController
      */
     public function generate(TagService $tagService)
     {
-        // Entity manager
+        // Entity manager creation
         $em = $this->getDoctrine()->getManager();
 
-        // $people = $em->getRepository(People::class)->findAll();
+        // Getting all people sorted by last name
         $people = $em->getRepository(People::class)->findBy([], ['lastName' => 'ASC']);
 
+        // Generating the pdf file containing tags and returning it.
         return $tagService->generateTagsPdf($people, 'etiquettes', true, true);
     }
 }
