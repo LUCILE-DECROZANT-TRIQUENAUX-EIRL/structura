@@ -170,6 +170,7 @@ class MembershipFormType extends AbstractType
             'choice_label' => 'name',
             'multiple' => false,
             'expanded' => false,
+            'required' => false,
             'label' => $this->translator->trans('Banque'),
             'attr' => [
                 'data-toggle' => 'select2',
