@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block javascript %}
+    <script src="{{ asset('javascript/Donation/common.js') }}"></script>
     <script src="{{ asset('javascript/Donation/edit.js') }}"></script>
 {% endblock %}
 
@@ -61,6 +62,9 @@
                         {{ form_widget(form.payment_type) }}
                         <div class="field-error-spot">
                             {{ form_errors(form.payment_type) }}
+                        </div>
+                        <div id="payment-bank" class="form-group d-none">
+                            {{ form_row(form.bank)}}
                         </div>
                     </div>
                     <div class="col-12 mt-3">

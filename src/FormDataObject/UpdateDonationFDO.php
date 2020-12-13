@@ -3,6 +3,7 @@
 namespace App\FormDataObject;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use \App\Entity\Bank;
 use \App\Entity\Donation;
 use \App\Entity\Payment;
 
@@ -23,6 +24,8 @@ class UpdateDonationFDO
 
     private $comment;
 
+    private $bank;
+
     public function __construct(Donation $donation = null)
     {
         if ($donation !== null)
@@ -35,6 +38,7 @@ class UpdateDonationFDO
             $this->paymentType = $payment->getType();
             $this->cashedDate = $payment->getDateCashed();
             $this->comment = $payment->getComment();
+            $this->bank = $payment->getBank();
         }
     }
 
@@ -101,6 +105,29 @@ class UpdateDonationFDO
     function setComment($comment): self
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * Return donation payment bank
+     *
+     * @return Bank
+     */
+    function getBank(): ?Bank
+    {
+        return $this->bank;
+    }
+
+    /**
+     * Set donation payment bank
+     *
+     * @param Bank $bank
+     * @return \self
+     */
+    function setBank(?Bank $bank): self
+    {
+        $this->bank = $bank;
+
         return $this;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Bank;
 use App\Entity\Donation;
 use App\Entity\People;
 use App\Entity\Payment;
@@ -13,9 +14,16 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DonationType extends AbstractType
 {
+    public $translator;
+
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -23,12 +31,22 @@ class DonationType extends AbstractType
                     'attr' => ['placeholder' => '15,50'],
                 ])
                 ->add('payment_type', EntityType::class, [
-                    // looks for choices from this entity
-                    'class' => PaymentType::class,
+                    'label' => $this->translator->trans('Via'),
                     // uses the label property as the visible option string
                     'choice_label' => 'label',
+                    // looks for choices from this entity
+                    'class' => PaymentType::class,
                     'multiple' => false,
                     'expanded' => false,
+                    'attr' => [
+                        'autocomplete' => 'off',
+                    ],
+                    'choice_attr' => function(PaymentType $paymentType)
+                    {
+                        return [
+                            'data-is-bank-needed' => $paymentType->isBankneeded(),
+                        ];
+                    },
                 ])
                 ->add('donator', EntityType::class, [
                     // looks for choices from this entity
@@ -54,6 +72,18 @@ class DonationType extends AbstractType
                     'required' => false,
                 ])
         ;
+        $builder->add('bank', EntityType::class, [
+            'class' => Bank::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false,
+            'required' => false,
+            'label' => $this->translator->trans('Banque'),
+            'attr' => [
+                'data-toggle' => 'select2',
+            ],
+            'placeholder' => $this->translator->trans('Sélectionnez une banque'),
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
