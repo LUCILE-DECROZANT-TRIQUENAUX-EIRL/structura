@@ -54,7 +54,15 @@
                                 <div class="col-6">
                                     <h4>{% trans %}Montant du paiement{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
                                     <br>
-                                    <h4>{% trans %}Payée via{% endtrans %}&nbsp;: <small>{{ membership.payment.type.label }}</small></h4>
+                                    <h4>
+                                        {% trans %}Payée via{% endtrans %}&nbsp;:
+                                        <small>
+                                            {{ membership.payment.type.label }}
+                                            {% if (membership.payment.bank is not null) %}
+                                                ({{ membership.payment.bank.name }})
+                                            {% endif %}
+                                        </small>
+                                    </h4>
                                 </div>
                                 <br>
                                 <div class="col-6">
