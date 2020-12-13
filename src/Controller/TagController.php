@@ -1,4 +1,8 @@
 <?php
+/**
+ * Tag controller.
+ * This controller is used for tags generation.
+ */
 
 namespace App\Controller;
 
