@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag Service
+ */
 
 namespace App\Service;
 
@@ -48,6 +51,7 @@ class TagService
 
     /**
      * Generate a single pdf file containing all the tags corresponding to a list of given people addresses.
+     * Each page can contain up to 24 tags (3 per line maximum, 8 lines maximum).
      *
      * @param array $people An array containing all the people used for tag generation.
      * @param string $filename The name of the newly generated file (without the path or the extension).
