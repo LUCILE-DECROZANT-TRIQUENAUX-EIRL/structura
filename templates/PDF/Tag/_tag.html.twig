@@ -34,6 +34,10 @@
                     <br>
                     {{address.line | upper }}
                     <br>
+                    {% if not address.lineTwo is null %}
+                        {{address.lineTwo | upper }}
+                        <br>
+                    {% endif %}
                     <span class="font-weight-bold">
                         {{address.postalCode}} {{address.city | upper }}
                     </span>
