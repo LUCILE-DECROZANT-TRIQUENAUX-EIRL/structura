@@ -81,6 +81,9 @@
                                                 {% for address in people.addresses %}
                                                     {{address.line}}
                                                     <br>
+                                                    {% if not address.lineTwo is null %}
+                                                        {{ address.lineTwo }}<br>
+                                                    {% endif %}
                                                     {{address.postalCode}}, {{address.city}}, {{address.country}}
                                                 {% endfor %}
                                             {% endif %}

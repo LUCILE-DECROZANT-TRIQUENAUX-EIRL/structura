@@ -19,6 +19,13 @@
                                     {{address.line}}
                                 </div>
                             </div>
+                            {% if not address.lineTwo is null %}
+                                <div class="row">
+                                    <div class="col">
+                                        {{address.lineTwo}}
+                                    </div>
+                                </div>
+                            {% endif %}
                             <div class="row">
                                 <div class="col">
                                     {{address.postalCode}} {{address.city}}

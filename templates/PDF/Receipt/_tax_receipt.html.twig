@@ -62,6 +62,11 @@
                 <p>
                     {{ receipt.payment.payer.addresses[0].line }}
                 </p>
+                {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
+                    <p>
+                        {{ receipt.payment.payer.addresses[0].lineTwo }}
+                    </p>
+                {% endif %}
                 <p>
                     {{ receipt.payment.payer.addresses[0].postalCode }}
                     <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
@@ -249,6 +254,9 @@
                     <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
                     {{ receipt.payment.payer.firstName }},
                     {{ receipt.payment.payer.addresses[0].line }}
+                    {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
+                        {{ receipt.payment.payer.addresses[0].lineTwo }}
+                    {% endif %}
                     {{ receipt.payment.payer.addresses[0].postalCode }}
                     <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                 </td>
