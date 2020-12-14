@@ -1,0 +1,76 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Enregistrer une nouvelle banque{% endtrans %}{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/User/new.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/new.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Enregistrer une nouvelle banque{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Enregistrer une nouvelle banque{% endtrans %}</h1>
+            </div>
+            <div class="col text-right">
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+
+        {{ form_start(form, {'attr': {'id': 'form-register-bank'}}) }}
+            <div class="form-group">
+                {{ form_label(form.name) }} *
+                {{ form_widget(form.name) }}
+            </div>
+            {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a
+                    id="return-button"
+                    href="{{ path('administration_dashboard') }}"
+                    class="btn btn-secondary"
+                    >
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au tableau de bord{% endtrans %}
+                </a>
+            </div>
+            <div class="col text-right">
+                <button
+                    id="register-bank-submit-button"
+                    type="submit"
+                    form="form-register-bank"
+                    class="btn btn-primary"
+                    >
+                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

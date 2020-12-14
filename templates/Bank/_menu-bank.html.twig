@@ -1,0 +1,20 @@
+{% block body %}
+    {% set show_bank = show_bank is defined ? show_bank : null %}
+    {% set edit_bank = edit_bank is defined ? edit_bank : null %}
+
+    <ul class="list-group">
+        <a href="{{ path('bank_show', { 'id': bank.id }) }}"
+           class="list-group-item list-group-item-action {{ show_bank }}"
+           >
+            {% trans %}Banque{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <ul class="list-group">
+        <a href="{{ path('bank_edit', { 'id': bank.id }) }}"
+           class="list-group-item list-group-item-action {{ edit_bank }}"
+           >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Banque{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}

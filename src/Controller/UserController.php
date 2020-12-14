@@ -35,7 +35,7 @@ class UserController extends AbstractController
     public function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
     }
-    
+
     /**
      * Lists all user entities.
      * @return views
@@ -94,7 +94,7 @@ class UserController extends AbstractController
                         $couldntBeCreatedTranslation
                     )
                 );
-                
+
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (FormIsInvalid $ex)
@@ -109,7 +109,7 @@ class UserController extends AbstractController
                         $couldntBeCreatedTranslation
                     )
                 );
-                
+
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
             catch (\Exception $e)
@@ -120,7 +120,7 @@ class UserController extends AbstractController
                 );
                 return $this->renderNewUserView($from, $form, $createdUser);
             }
-            
+
             $userTranslation = $this->translator->trans('L\'utilisateurice');
             $hasBeenCreatedTranslation = $this->translator->trans('a été créé.e');
 
@@ -324,7 +324,7 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($currentUser);
             $em->flush();
-            
+
             $userTranslation = $this->translator->trans('L\'utilisateurice');
             $hasBeenDeletedTranslation = $this->translator->trans('ont bien été supprimées');
 
