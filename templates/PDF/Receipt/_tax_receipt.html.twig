@@ -10,13 +10,12 @@
                 {% endif %}
             </td>
             <td id="receipt-title">
-                <h1 class="text-center">Association Huntington Avenir</h1>
+                <h1 class="text-center">{{ association.name }}</h1>
                 <p class="text-center font-weight-bold font-italic">
-                    Association des familles et des personnes confontrées à la maladie de Huntington et leurs ami.es
+                    Association d'accompagnement des maladies neurodégénératives
                 </p>
                 <p class="small text-center text-muted">
-                    Association loi 1901 déclarée le 23/07/97 à la Préfecture de l'Isère n°0381025744 - J.O. du 16/08/97 - CCP 3.104.49 C GRENOBLE<br>
-                    dépôt en Préfecture du Rhône le 17 août 2007 n°W38000008 - J.O. du 8 septembre 2007
+                    Association loi 1901 déclarée le 12/06/2019 à la Préfecture de l'Isère n°W38201000 - J.O. du 29 Juin 2019
                 </p>
             </td>
         </tr>
@@ -26,15 +25,6 @@
     <table class="mt-4">
         <tr>
             <td>
-                <p class="text-underlined">
-                    Siège social :
-                </p>
-                <p>
-                    1 Chemin des Pervenches 69120 VAULX EN VELIN
-                </p>
-                <p class="mt-1 font-weight-bold text-underlined">
-                    Secrétariat :
-                </p>
                 <p class="font-weight-bold">
                     5 rue Milton Friedman - ZI Montbertrand
                 </p>
@@ -42,16 +32,11 @@
                     38230 CHARVIEUX CHAVAGNEUX
                 </p>
                 <p class="mt-1">
-                    <span class="text-underlined">Tél :</span> 04 78 32 02 85 -
-                    <span class="text-underlined">Fax :</span> 04 37 42 50 15
-                </p>
-                <p class="mt-1">
-                    <span class="text-underlined">Site :</span>
-                    <a href="http://www.huntingtonavenir.net">http://www.huntingtonavenir.net</a>
+                    <span class="text-underlined">Tél :</span> 04 78 32 02 85
                 </p>
                 <p class="mt-1">
                     <span class="text-underlined">Courriel :</span>
-                    <a href="mailto:contact@huntingtonavenir.net">contact@huntingtonavenir.net</a>
+                    <a href="mailto:contact-amand@gmail.com">contact-amand@gmail.com</a>
                 </p>
             </td>
             <td class="payer-address">
@@ -105,8 +90,12 @@
                 <p class="mt-3 text-right">
                     Le Trésorier, Christophe LEROY
                 </p>
-                <p class="text-right">
-                    06 10 60 60 75
+                <p class="text-right mt-2">
+                    {% if isFromController %}
+                        <img class="signature" src="../public/{{ association.treasurerSignatureFilename }}">
+                    {% else %}
+                        <img class="signature" src="public/{{ association.treasurerSignatureFilename }}">
+                    {% endif %}
                 </p>
             </td>
         </tr>
@@ -194,13 +183,12 @@
                     BÉNÉFICIAIRE&nbsp;:
                 </td>
                 <td id="association-data" class="">
-                    <h4 class="text-center">Association Huntington Avenir</h4>
+                    <h4 class="text-center">{{ association.name }}</h4>
                     <p class="text-center font-weight-bold font-italic">
-                        Association des familles et des personnes confontrées à la maladie de Huntington et leurs ami.es
+                        Association d'accompagnement des maladies neurodégénératives
                     </p>
                     <p class="text-center text-muted">
-                        Association loi 1901 déclarée le 23/07/97 à la Préfecture de l'Isère n°0381025744 - J.O. du 16/08/97 - CCP 3.104.49 C GRENOBLE<br>
-                        dépôt en Préfecture du Rhône le 17 août 2007 n°W38000008 - J.O. du 8 septembre 2007
+                        Association loi 1901 déclarée le 12/06/2019 à la Préfecture de l'Isère n°W38201000 - J.O. du 29 Juin 2019
                     </p>
                 </td>
             </tr>
