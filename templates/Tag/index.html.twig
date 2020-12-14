@@ -1,0 +1,33 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Étiquettes (70x35mm){% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {# <link rel="stylesheet" href="{{ asset('css/Tag/index.css') }}"> #}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active">
+        {% trans %}Étiquettes (70x35mm){% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a
+                    href="{{ path('tag_generate') }}"
+                    class="btn btn-primary"
+                    title="{% trans %}Générer les étiquettes{% endtrans %}"
+                >
+                    <i class="icon ion-md-download"></i>&nbsp;Générer les étiquettes
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
