@@ -34,6 +34,13 @@ class Address
     /**
      * @var string
      *
+     * @ORM\Column(name="line_two", type="string", length=1000, nullable=true)
+     */
+    private $lineTwo;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
      */
     private $postalCode;
@@ -59,9 +66,10 @@ class Address
      * @param string $city The city.
      * @param string $country Country.
      */
-    public function __construct(string $line = NULL, string $postalCode = NULL, string $city = NULL, string $country = NULL)
+    public function __construct(string $line = NULL, string $lineTwo = NULL, string $postalCode = NULL, string $city = NULL, string $country = NULL)
     {
         $this->line = $line;
+        $this->lineTwo = $lineTwo;
         $this->postalCode = $postalCode;
         $this->city = $city;
         $this->country = $country;
@@ -99,6 +107,30 @@ class Address
     public function getLine()
     {
         return $this->line;
+    }
+
+    /**
+     * Set line two
+     *
+     * @param string $lineTwo Second line of the address.
+     *
+     * @return Address
+     */
+    public function setLineTwo(string $lineTwo)
+    {
+        $this->lineTwo = $lineTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get line two
+     *
+     * @return string
+     */
+    public function getLineTwo()
+    {
+        return $this->lineTwo;
     }
 
     /**
