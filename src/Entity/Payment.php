@@ -110,7 +110,7 @@ class Payment
     {
         if ($amount <= 0)
         {
-            throw new \InvalidArgumentException('The donation amount should be greater than 0');
+            throw new \InvalidArgumentException('The payment amount should be greater than 0');
         }
 
         $this->amount = $amount;
