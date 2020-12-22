@@ -14,6 +14,7 @@ use App\Form\MembershipFormType;
 use App\FormDataObject\MemberSelectionFDO;
 use App\FormDataObject\UpdateMembershipFDO;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -301,5 +302,41 @@ class MembershipController extends AbstractController
             'membership' => $membership,
             'membership_edit_form' => $membershipEditForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="membership_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Membership $membership, TranslatorInterface $translator): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$membership->getId(), $request->request->get('_token'))) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $payment = $membership->getPayment();
+            if ($membership->getAmount() === $payment->getAmount())
+            {
+                $entityManager->remove($payment);
+                $entityManager->remove($membership);
+            }
+            else
+            {
+                $payment->setAmount($payment->getAmount() - $membership->getAmount());
+                $entityManager->persist($payment);
+                $entityManager->remove($membership);
+            }
+
+
+            $entityManager->flush();
+            $this->addFlash(
+                    'success', $translator->trans('Adhésion supprimée.')
+            );
+        } else {
+            $this->addFlash(
+                    'danger', $translator->trans('Une erreur est survenue.')
+            );
+        }
+
+        return $this->redirectToRoute('membership_list');
     }
 }

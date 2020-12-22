@@ -152,6 +152,33 @@
                         <a href="{{ path('membership_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions actives{% endtrans %}</a>
                     </div>
                     {% endif %}
+                    <div class="col text-right">
+                        <button data-toggle="modal" data-target="#confirmation-modal-deletion-membership-{{ membership.id }}" class="btn btn-danger">
+                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer l'adhésion{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirmation-modal-deletion-membership-{{ membership.id }}" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>
+                        {% trans %}Souhaitez-vous réellement supprimer cette adhésion&nbsp;?{% endtrans %}
+                    </p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
+                    </div>
+                    <div class="col text-right">
+                        {{ include('Membership/_delete_form_button.html.twig') }}
+                    </div>
                 </div>
             </div>
         </div>
