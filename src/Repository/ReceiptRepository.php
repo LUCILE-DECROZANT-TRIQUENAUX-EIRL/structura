@@ -119,10 +119,14 @@ class ReceiptRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('r')
                 ->select('r, p')
                 ->join('r.payment', 'p')
+                ->join('p.type', 't')
                 ->where('p.payer = :people')
-                ->setParameter('people', $people)
                 ->andwhere('r.year = :year')
-                ->setParameter('year', $year);
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('people', $people)
+                ->setParameter('year', $year)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
 
         return $qb->getQuery()->getResult();
     }
