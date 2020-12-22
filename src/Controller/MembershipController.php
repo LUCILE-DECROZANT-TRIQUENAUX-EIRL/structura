@@ -126,7 +126,7 @@ class MembershipController extends AbstractController
             $donationAmount = $updateMembershipFDO->getDonationAmount();
 
             // If donation is also done with the membership
-            if (!empty($donationAmount)) {
+            if (!empty($donationAmount) && $donationAmount > 0) {
                 $donation = new Donation();
 
                 $donation->setAmount($donationAmount);

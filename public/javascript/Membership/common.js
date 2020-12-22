@@ -11,6 +11,11 @@ $(document).ready(function() {
     // -- Precising the Bootstrap version for the bootstrap-select plugin -- //
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
+    // -- Changing the paymentAmount type by cloning it, to add html5 validation -- //
+    // Note : In symfony 5.2 the type can be set in the FormType
+    // We'll need TODO this when we will update our version
+    $('#app_membership_paymentAmount').clone().attr('type','number').insertAfter('#app_membership_paymentAmount').prev().remove();
+
     // -- Declaration of the event listeners -- //
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
