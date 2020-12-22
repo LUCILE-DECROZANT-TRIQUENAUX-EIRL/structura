@@ -169,8 +169,22 @@ class DonationController extends AbstractController
     public function delete(Request $request, Donation $donation, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$donation->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($donation);
+
+            $payment = $donation->getPayment();
+            if ($donation->getAmount() === $payment->getAmount())
+            {
+                $entityManager->remove($payment);
+                $entityManager->remove($donation);
+            }
+            else
+            {
+                $payment->setAmount($payment->getAmount() - $donation->getAmount());
+                $entityManager->persist($payment);
+                $entityManager->remove($donation);
+            }
+
             $entityManager->flush();
             $this->addFlash(
                     'success', $translator->trans('Don supprimé.')
