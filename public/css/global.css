@@ -1,5 +1,10 @@
 @import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
 
+/* make input placeholders a bit lighter */
+.form-control::placeholder {
+    opacity: 0.4;
+}
+
 /* avoid content being hidden behind the top navbar */
 header {
     height: 56px;
