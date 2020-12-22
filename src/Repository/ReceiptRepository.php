@@ -109,6 +109,26 @@ class ReceiptRepository extends ServiceEntityRepository
     }
 
     /**
+     * Return all the receipts for a given year.
+     * @param int $year
+     * @return Receipts[]
+     */
+    public function findByYear(int $year)
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r, p')
+                ->join('r.payment', 'p')
+                ->join('p.type', 't')
+                ->andwhere('r.year = :year')
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('year', $year)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * Return all the receipts corresponding to a people and a year
      * @param int $year
      * @param type $people
