@@ -7,7 +7,7 @@ use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\Donation;
 use App\Entity\Membership;
-
+use App\Entity\PaymentType;
 use App\Form\MemberSelectionType;
 use App\Form\MembershipFormType;
 
@@ -90,6 +90,10 @@ class MembershipController extends AbstractController
         $peopleWithNoActiveMembership = $em->getRepository(People::class)->findWithNoActiveMembership();
 
         $updateMembershipFDO = new UpdateMembershipFDO();
+
+        // Preselect check payment type
+        $checkPaymentType = $em->getRepository(PaymentType::class)->find(4);
+        $updateMembershipFDO->setPaymentType($checkPaymentType);
 
         $membershipCreationForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
             'selectablePeople' => $peopleWithNoActiveMembership
