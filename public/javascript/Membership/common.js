@@ -21,6 +21,13 @@ $(document).ready(function() {
         updatePaymentAmount();
     });
 
+    $('#app_membership_paymentAmount').focus(function() {
+        // Setting the payment amount to null on focus if value is 0
+        if ($('#app_membership_paymentAmount').val() == 0) {
+            $('#app_membership_paymentAmount').val('');
+        }
+    });
+
     $('#app_membership_membershipAmount').keyup(function() {
         updatePaymentAmount();
     });
