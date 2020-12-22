@@ -12,6 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class PaymentType
 {
+    const HELLO_ASSO_LABEL = 'HelloAsso';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

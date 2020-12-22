@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Receipt;
+use App\Entity\PaymentType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -95,10 +96,14 @@ class ReceiptRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('r')
                 ->select('r')
                 ->join('r.payment', 'p')
+                ->join('p.type', 't')
                 ->where('p.date_received >= :fromDate')
-                ->setParameter('fromDate', $fromDate)
                 ->andwhere('p.date_received <= :toDate')
-                ->setParameter('toDate', $toDate);
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('fromDate', $fromDate)
+                ->setParameter('toDate', $toDate)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
 
         return $qb->getQuery()->getResult();
     }
