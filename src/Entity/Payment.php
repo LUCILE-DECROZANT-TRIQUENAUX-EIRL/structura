@@ -61,6 +61,19 @@ class Payment
     private $payer;
 
     /**
+     * When the payment is made by check, save the check number
+     * @ORM\Column(type="string", length=40)
+     */
+    private $check_number;
+
+    /**
+     * When the payment is made by check, save the check issuer
+     * @ORM\Column(type="string", length=300)
+     */
+    private $check_issuer;
+
+    /**
+     * When the payment is made by check, save the bank
      * @ORM\ManyToOne(targetEntity="App\Entity\Bank", inversedBy="payments")
      */
     private $bank;
