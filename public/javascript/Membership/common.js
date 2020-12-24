@@ -9,7 +9,7 @@ var selectedPeopleCount = 0;
 ///////////////////////////////////
 $(document).ready(function() {
     // Show bank select if payment type needs it
-    let isBankNeeded = $("option:selected", '#app_membership_bank').data('is-bank-needed') === undefined ? false : true;
+    let isBankNeeded = $("option:selected", '#app_membership_paymentType').data('is-bank-needed') === undefined ? false : true;
     if (isBankNeeded)
     {
         removeDisplayNone('payment-bank');
