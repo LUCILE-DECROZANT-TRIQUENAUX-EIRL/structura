@@ -11,7 +11,11 @@
         {% if not donator.hasNoAddressDefined() %}
             {% for address in donator.addresses %}
                 <div class="col-sm-12">
-                    {{address.line}} {{address.postalCode}} {{address.city}}, {{address.country}}
+                    {{address.line}}
+                    {% if not address.lineTwo is null %}
+                        {{ address.lineTwo }}
+                    {% endif %}
+                    {{address.postalCode}} {{address.city}}, {{address.country}}
                 </div>
             {% endfor %}
         {% else %}

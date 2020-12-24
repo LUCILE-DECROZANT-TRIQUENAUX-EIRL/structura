@@ -169,6 +169,11 @@
                                             <a class="nav-link" href="{{ path('receipt_list') }}">{% trans %}Reçus fiscaux{% endtrans %}</a>
                                         </li>
                                     {% endif %}
+                                    {% if is_granted("ROLE_GESTION") %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('tag_index') }}">{% trans %}Étiquettes (70x35mm){% endtrans %}</a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
                             </ul>
                             <ul class="navbar-nav ml-auto">

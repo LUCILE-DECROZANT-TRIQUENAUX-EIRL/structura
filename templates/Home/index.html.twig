@@ -119,6 +119,9 @@
                                                 <p class="border text-center p-2">
                                                     {{ individual.firstName }} {{ individual.lastName }}<br>
                                                     {{ individual.addresses[0].line }}<br>
+                                                    {% if not individual.addresses[0].lineTwo is null %}
+                                                        {{ individual.addresses[0].lineTwo }}<br>
+                                                    {% endif %}
                                                     {{ individual.addresses[0].postalCode }}
                                                     {{ individual.addresses[0].city | upper }}<br>
                                                     {{ individual.addresses[0].country | upper }}<br>

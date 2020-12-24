@@ -1,0 +1,24 @@
+/* Setup default settings */
+@page {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    max-width: 210mm;
+    height: 297mm;
+    max-height: 297mm;
+}
+
+tr {
+    page-break-inside: avoid;
+}
+
+.tag {
+    width: 60mm;
+    max-width: 60mm;
+    height: 31mm;
+    max-height: 31mm;
+    padding: 3mm 5mm;
+    margin: 0;
+    font-size: 12px;
+    font-family: sans-serif !important;
+}

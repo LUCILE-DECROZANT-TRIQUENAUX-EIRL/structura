@@ -19,9 +19,26 @@ $(document).ready(function() {
         addDisplayNone('payment-bank');
     }
 
+    // -- Changing the paymentAmount type by cloning it, to add html5 validation -- //
+    // Note : In symfony 5.2 the type can be set in the FormType
+    // We'll need TODO this when we will update our version
+    $('#app_membership_paymentAmount')
+            .clone()
+            .attr('type','number')
+            .insertAfter('#app_membership_paymentAmount')
+            .prev()
+            .remove();
+
     // -- Declaration of the event listeners -- //
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
+    });
+
+    $('#app_membership_paymentAmount').focus(function() {
+        // Setting the payment amount to null on focus if value is 0
+        if ($('#app_membership_paymentAmount').val() == 0) {
+            $('#app_membership_paymentAmount').val('');
+        }
     });
 
     $('#app_membership_membershipAmount').keyup(function() {

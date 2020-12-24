@@ -43,20 +43,24 @@ class MembershipFormType extends AbstractType
                 'autocomplete' => 'off',
             ],
             'placeholder' => $this->translator->trans('Sélectionnez un type d\'adhésion'),
+            'required' => true,
         ]);
 
         $builder->add('membershipDate_start', DateType::class, [
             'label' => $this->translator->trans('L\'adhésion est valable du'),
             'widget' => 'single_text',
+            'required' => true,
         ]);
 
         $builder->add('membershipDate_end', DateType::class, [
             'label' => $this->translator->trans('Au'),
             'widget' => 'single_text',
+            'required' => true,
         ]);
 
         $builder->add('membershipFiscal_year', IntegerType::class, [
             'label' => $this->translator->trans('Pour l\'année fiscale'),
+            'required' => true,
         ]);
 
         $builder->add('membershipComment', TextareaType::class, [
@@ -82,6 +86,7 @@ class MembershipFormType extends AbstractType
                     'data-is-bank-needed' => $paymentType->isBankneeded(),
                 ];
             },
+            'required' => true,
         ]);
 
         $builder->add('membershipAmount', MoneyType::class, [
@@ -89,6 +94,7 @@ class MembershipFormType extends AbstractType
             'attr' => [
                 'readonly' => 'readonly',
             ],
+            'required' => true,
         ]);
 
         $builder->add('donationAmount', MoneyType::class, [
@@ -101,12 +107,16 @@ class MembershipFormType extends AbstractType
 
         $builder->add('paymentAmount', MoneyType::class, [
             'label' => $this->translator->trans('Le règlement est de'),
+            'required' => true,
+            'attr' => [
+                'min' => '1',
+            ]
         ]);
 
         $builder->add('paymentDate_received', DateType::class, [
             'label' => $this->translator->trans('Le'),
             'widget' => 'single_text',
-            'required' => false,
+            'required' => true,
             'attr' => [
                 'autocomplete' => 'off',
             ]
@@ -134,6 +144,7 @@ class MembershipFormType extends AbstractType
             },
             'multiple' => false,
             'expanded' => false,
+            'required' => true,
         ]);
 
         $builder->add('members', EntityType::class, [
