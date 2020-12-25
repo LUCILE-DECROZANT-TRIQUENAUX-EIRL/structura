@@ -109,6 +109,8 @@
                         </div>
                         <div id="payment-bank" class="form-group">
                             {{ form_row(membership_creation_form.bank)}}
+                            {{ form_row(membership_creation_form.check_issuer)}}
+                            {{ form_row(membership_creation_form.check_number)}}
                         </div>
                         <div id="payment-date-received-group" class="form-group">
                             {{ form_label(membership_creation_form.paymentDate_received)}} *

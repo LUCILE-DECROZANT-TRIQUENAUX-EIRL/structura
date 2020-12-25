@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MembershipFormType extends AbstractType
@@ -187,6 +188,14 @@ class MembershipFormType extends AbstractType
                 'data-toggle' => 'select2',
             ],
             'placeholder' => $this->translator->trans('Sélectionnez une banque'),
+        ]);
+
+        $builder->add('check_number', TextType::class, [
+            'label' => $this->translator->trans('Numéro du chèque'),
+        ]);
+
+        $builder->add('check_issuer', TextType::class, [
+            'label' => $this->translator->trans('Signataire'),
         ]);
     }
 

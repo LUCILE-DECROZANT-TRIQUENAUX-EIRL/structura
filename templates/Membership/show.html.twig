@@ -58,8 +58,12 @@
                                         {% trans %}Payée via{% endtrans %}&nbsp;:
                                         <small>
                                             {{ membership.payment.type.label }}
-                                            {% if (membership.payment.bank is not null) %}
-                                                ({{ membership.payment.bank.name }})
+                                            {% if (membership.payment.type.isBankNeeded is not null) %}
+                                                ({{ membership.payment.bank.name }})<br>
+                                                <small>
+                                                    Numéro du chèque : {{ membership.payment.checkNumber }}<br>
+                                                    Signataire du chèque : {{ membership.payment.checkIssuer }}
+                                                </small>
                                             {% endif %}
                                         </small>
                                     </h4>
@@ -80,7 +84,7 @@
                                     <br>
                                 </div>
                                 <div class="col">
-                                    <h4>{% trans %}Par{% endtrans %}&nbsp;:
+                                    <h4>{% trans %}Réglé par{% endtrans %}&nbsp;:
                                         {% set payer = membership.payment.payer %}
                                         <div class="card payer-card">
                                             <div class="card-body p-2">
