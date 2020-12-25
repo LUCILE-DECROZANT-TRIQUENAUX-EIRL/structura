@@ -62,13 +62,13 @@ class Payment
 
     /**
      * When the payment is made by check, save the check number
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=40, nullable=true)
      */
     private $check_number;
 
     /**
      * When the payment is made by check, save the check issuer
-     * @ORM\Column(type="string", length=300)
+     * @ORM\Column(type="string", length=300, nullable=true)
      */
     private $check_issuer;
 
@@ -250,6 +250,28 @@ class Payment
             $receipt->setPayment($this);
         }
 
+        return $this;
+    }
+
+    function getCheckNumber(): ?string
+    {
+        return $this->check_number;
+    }
+
+    function getCheckIssuer(): ?string
+    {
+        return $this->check_issuer;
+    }
+
+    function setCheckNumber($check_number): self
+    {
+        $this->check_number = $check_number;
+        return $this;
+    }
+
+    function setCheckIssuer($check_issuer): self
+    {
+        $this->check_issuer = $check_issuer;
         return $this;
     }
 }
