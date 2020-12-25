@@ -58,7 +58,7 @@
                                         {% trans %}Payée via{% endtrans %}&nbsp;:
                                         <small>
                                             {{ membership.payment.type.label }}
-                                            {% if (membership.payment.type.isBankNeeded is not null) %}
+                                            {% if (membership.payment.type.isBankNeeded) %}
                                                 ({{ membership.payment.bank.name }})<br>
                                                 <small>
                                                     Numéro du chèque : {{ membership.payment.checkNumber }}<br>
