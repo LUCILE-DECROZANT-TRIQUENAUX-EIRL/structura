@@ -8,16 +8,11 @@ var selectedPeopleCount = 0;
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
-    // Show bank select if payment type needs it
+    /*
+     * Show bank select if payment type needs it
+     */
     let isBankNeeded = $("option:selected", '#app_membership_paymentType').data('is-bank-needed') === undefined ? false : true;
-    if (isBankNeeded)
-    {
-        removeDisplayNone('payment-bank');
-    }
-    else
-    {
-        addDisplayNone('payment-bank');
-    }
+    isBankNeeded ? showCheckInformationForm() : hideCheckInformationForm();
 
     // -- Changing the paymentAmount type by cloning it, to add html5 validation -- //
     // Note : In symfony 5.2 the type can be set in the FormType
@@ -33,46 +28,48 @@ $(document).ready(function() {
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
+    $('#app_membership_membershipAmount').keyup(function() {
+        updatePaymentAmount();
+    });
 
+    /*
+     * Setting the payment amount to null on focus if value is 0
+     */
     $('#app_membership_paymentAmount').focus(function() {
-        // Setting the payment amount to null on focus if value is 0
         if ($('#app_membership_paymentAmount').val() == 0) {
             $('#app_membership_paymentAmount').val('');
         }
     });
 
-    $('#app_membership_membershipAmount').keyup(function() {
-        updatePaymentAmount();
-    });
-
+    /*
+     * Update the form when user change the membership type
+     */
     $('#app_membership_membershipType').change(function(event) {
         // If it's not the placeholder that have been selected
         if ($(this).val() > 0)
         {
             getMembershipType($(this).val());
-            removeDisplayNone('member-selection-part');
-            addDisplayNone('payment-part');
+            removeDisplayNone('#member-selection-part');
+            addDisplayNone('#payment-part');
         }
         else
         {
-            addDisplayNone('member-selection-part');
-            addDisplayNone('payment-part');
+            addDisplayNone('#member-selection-part');
+            addDisplayNone('#payment-part');
         }
     });
 
-    // Show/hide bank select picker depending on payment type
+    /*
+     * Show or hide the check information depending on payment type
+     */
     $('#app_membership_paymentType').change(function(event) {
         let isBankNeeded = $("option:selected", this).data('is-bank-needed') === undefined ? false : true;
-        if (isBankNeeded)
-        {
-            removeDisplayNone('payment-bank');
-        }
-        else
-        {
-            addDisplayNone('payment-bank');
-        }
+        isBankNeeded ? showCheckInformationForm() : hideCheckInformationForm();
     });
 
+    /*
+     * Udpate the form when user select a new people for the membership
+     */
     $('#app_membership_newMember').change(function() {
         let selectedPeopleId = $(this).val();
 
@@ -107,6 +104,18 @@ $(document).ready(function() {
 
     // Empty the payer selection list
     $('#app_membership_payer').empty();
+
+    /*
+     * Copy check date values into payment date input
+     */
+    $('#check-date').val($('#app_membership_paymentDate_received').val());
+    $('#check-date').on('input', function () {
+        $('#app_membership_paymentDate_received').val($(this).val());
+    });
+    $('#app_membership_paymentDate_received').on('input', function () {
+        $('#check-date').val($(this).val());
+    });
+
 });
 
 //////////////////////////////////
@@ -365,8 +374,8 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
         });
         $('#app_membership_newMember').prop('disabled', true);
 
-        removeDisplayNone('payment-part');
-        removeDisplayNone('member-creation-submit-button');
+        removeDisplayNone('#payment-part');
+        removeDisplayNone('#member-creation-submit-button');
     }
     $('#app_membership_newMember').prop('selectedIndex', 0);
 }
@@ -403,8 +412,8 @@ function deselectPeople(peopleId)
             }
         });
 
-        addDisplayNone('payment-part');
-        addDisplayNone('member-creation-submit-button');
+        addDisplayNone('#payment-part');
+        addDisplayNone('#member-creation-submit-button');
     }
 
     // We're removing the selected people from the payer list
@@ -488,52 +497,18 @@ function removeMemberFromConfirmationModal(peopleId)
     $('#confirmation-membership-member-' + peopleId).remove();
 }
 
-/**
- * Add or remove the d-none class to an element
- * Depending on if it has it or not
- *
- * @param {string} elementId The DOM element's id property
- */
-function toggleDisplayNone(elementId)
+function showCheckInformationForm()
 {
-    let element = $('#' + elementId);
-
-    if (element.hasClass('d-none'))
-    {
-        element.removeClass('d-none');
-    }
-    else
-    {
-        element.addClass('d-none');
-    }
+    removeDisplayNone('.check-information');
+    $('.check-information input').prop('required', true)
+    $('.check-information select').prop('required', true)
+    $('#app_membership_paymentDate_received').prop('readonly', 'readonly');
 }
 
-/**
- * Add the d-none class to an element if it doesn't have it already.
- *
- * @param {string} elementId The DOM element's id property
- */
-function addDisplayNone(elementId)
+function hideCheckInformationForm()
 {
-    let element = $('#' + elementId);
-
-    if (!element.hasClass('d-none'))
-    {
-        element.addClass('d-none');
-    }
-}
-
-/**
- * Remove the d-none class to an element if it already has it.
- *
- * @param {string} elementId The DOM element's id property
- */
-function removeDisplayNone(elementId)
-{
-    let element = $('#' + elementId);
-
-    if (element.hasClass('d-none'))
-    {
-        element.removeClass('d-none');
-    }
+    addDisplayNone('.check-information');
+    $('.check-information input').prop('required', false)
+    $('.check-information select').prop('required', false)
+    $('#app_membership_paymentDate_received').prop('readonly', false);
 }

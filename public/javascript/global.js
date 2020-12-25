@@ -249,3 +249,50 @@ $(document).ready(function () {
         });
     });
 });
+
+/**
+* Add or remove the d-none class to an element
+* Depending on if it has it or not
+*
+* @param {string} elementSelector The DOM element's id property
+*/
+function toggleDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+    else
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Add the d-none class to an element if it doesn't have it already.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function addDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (!element.hasClass('d-none'))
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Remove the d-none class to an element if it already has it.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function removeDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+}

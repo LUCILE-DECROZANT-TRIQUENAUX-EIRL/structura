@@ -73,7 +73,7 @@ class MembershipFormType extends AbstractType
         ]);
 
         $builder->add('paymentType', EntityType::class, [
-            'label' => $this->translator->trans('Via'),
+            'label' => $this->translator->trans('Le paiement est réalisé par'),
             'choice_label' => 'label',
             'class' => PaymentType::class,
             'multiple' => false,
@@ -107,7 +107,7 @@ class MembershipFormType extends AbstractType
         ]);
 
         $builder->add('paymentAmount', MoneyType::class, [
-            'label' => $this->translator->trans('Le règlement est de'),
+            'label' => $this->translator->trans('Le montant du paiement est de'),
             'required' => true,
             'attr' => [
                 'min' => '1',
