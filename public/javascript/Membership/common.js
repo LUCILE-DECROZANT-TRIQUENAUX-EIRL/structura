@@ -120,7 +120,7 @@ $(document).ready(function() {
     /*
      * Catch form submission to reenable select (readonly not available for this element)
      */
-    $('#membership-creation-form').on('submit', function () {
+    $('form').on('submit', function () {
         $('#app_membership_payer').prop('disabled', false);
     });
 });
