@@ -127,7 +127,7 @@
                                             {{ form_help(membership_edit_form.check_number)}}
                                         </div>
                                         <div class="form-group col h-100 check-information">
-                                            <label for="check_date" class="required">Le</label> *
+                                            <label for="check-date" class="required">Le</label> *
                                             <input
                                                 type="date"
                                                 id="check-date"
@@ -137,10 +137,10 @@
                                                 class="form-control">
                                         </div>
                                         <div class="form-group col-12 h-100 check-information">
-                                            {{ form_label(membership_edit_form.check_issuer)}} *
-                                            {{ form_errors(membership_edit_form.check_issuer)}}
-                                            {{ form_widget(membership_edit_form.check_issuer)}}
-                                            {{ form_help(membership_edit_form.check_issuer)}}
+                                            <label for="check-issuer" class="required">Signataire</label> *
+                                            <select id="check-issuer" name="check-issuer" autocomplete="off" class="form-control">
+                                                <option value="" disabled selected>Choisissez une personne</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

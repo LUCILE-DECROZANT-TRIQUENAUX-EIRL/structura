@@ -44,8 +44,6 @@ class UpdateMembershipFDO
 
     private $checkNumber;
 
-    private $checkIssuer;
-
     public function __construct(Membership $membership = null)
     {
         if ($membership !== null)
@@ -68,7 +66,6 @@ class UpdateMembershipFDO
             $this->payer = $payment->getPayer();
             $this->bank = $payment->getBank();
             $this->checkNumber = $payment->getCheckNumber();
-            $this->checkIssuer = $payment->getCheckIssuer();
 
             $donation = $payment->getDonation();
 
@@ -357,20 +354,9 @@ class UpdateMembershipFDO
         return $this->checkNumber;
     }
 
-    function getCheckIssuer(): ?string
-    {
-        return $this->checkIssuer;
-    }
-
     function setCheckNumber($checkNumber): self
     {
         $this->checkNumber = $checkNumber;
-        return $this;
-    }
-
-    function setCheckIssuer($checkIssuer): self
-    {
-        $this->checkIssuer = $checkIssuer;
         return $this;
     }
 }

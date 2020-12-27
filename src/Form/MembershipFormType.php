@@ -143,6 +143,7 @@ class MembershipFormType extends AbstractType
                 $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
                 return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
             },
+            'placeholder' => 'Choisissez une personne',
             'multiple' => false,
             'expanded' => false,
             'required' => true,
@@ -192,10 +193,6 @@ class MembershipFormType extends AbstractType
 
         $builder->add('check_number', TextType::class, [
             'label' => $this->translator->trans('Numéro du chèque'),
-        ]);
-
-        $builder->add('check_issuer', TextType::class, [
-            'label' => $this->translator->trans('Signataire'),
         ]);
     }
 

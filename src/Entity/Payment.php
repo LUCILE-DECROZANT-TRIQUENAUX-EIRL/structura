@@ -67,12 +67,6 @@ class Payment
     private $check_number;
 
     /**
-     * When the payment is made by check, save the check issuer
-     * @ORM\Column(type="string", length=300, nullable=true)
-     */
-    private $check_issuer;
-
-    /**
      * When the payment is made by check, save the bank
      * @ORM\ManyToOne(targetEntity="App\Entity\Bank", inversedBy="payments")
      */
@@ -258,20 +252,9 @@ class Payment
         return $this->check_number;
     }
 
-    function getCheckIssuer(): ?string
-    {
-        return $this->check_issuer;
-    }
-
     function setCheckNumber($check_number): self
     {
         $this->check_number = $check_number;
-        return $this;
-    }
-
-    function setCheckIssuer($check_issuer): self
-    {
-        $this->check_issuer = $check_issuer;
         return $this;
     }
 }

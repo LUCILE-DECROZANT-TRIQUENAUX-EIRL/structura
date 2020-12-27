@@ -102,9 +102,6 @@ $(document).ready(function() {
     helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
     $('#app_membership_newMember_help').html(helpMessage);
 
-    // Empty the payer selection list
-    $('#app_membership_payer').empty();
-
     /*
      * Copy check date values into payment date input
      */
@@ -116,6 +113,23 @@ $(document).ready(function() {
         $('#check-date').val($(this).val());
     });
 
+    /*
+     * Copy check issuer values into payment payer input
+     */
+    $('#check-issuer').val($('#app_membership_payer').val());
+    $('#check-issuer').on('change', function () {
+        $('#app_membership_payer').val($(this).val());
+    });
+    $('#app_membership_payer').on('change', function () {
+        $('#check-issuer').val($(this).val());
+    });
+
+    /*
+     * Catch form submission to reenable select (readonly not available for this element)
+     */
+    $('#membership-creation-form').on('submit', function () {
+        $('#app_membership_payer').prop('disabled', false);
+    });
 });
 
 //////////////////////////////////
@@ -355,6 +369,8 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // We're adding the selected people to the payer list
     $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
     $('#app_membership_payer').trigger('change');
+    $('#check-issuer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+    $('#check-issuer').trigger('change');
 
     // Updating the confirmation modal
     addMemberToConfirmationModal(selectedPeopleId, selectedPeopleName);
@@ -419,6 +435,8 @@ function deselectPeople(peopleId)
     // We're removing the selected people from the payer list
     $('#app_membership_payer option[value="' + peopleId + '"]').remove();
     $('#app_membership_payer').trigger('change');
+    $('#check-issuer option[value="' + peopleId + '"]').remove();
+    $('#check-issuer').trigger('change');
 
     // Update the confirmation modal
     removeMemberFromConfirmationModal(peopleId);
@@ -503,6 +521,7 @@ function showCheckInformationForm()
     $('.check-information input').prop('required', true)
     $('.check-information select').prop('required', true)
     $('#app_membership_paymentDate_received').prop('readonly', 'readonly');
+    $('#app_membership_payer').prop('disabled', 'disabled');
 }
 
 function hideCheckInformationForm()
@@ -511,4 +530,5 @@ function hideCheckInformationForm()
     $('.check-information input').prop('required', false)
     $('.check-information select').prop('required', false)
     $('#app_membership_paymentDate_received').prop('readonly', false);
+    $('#app_membership_payer').prop('disabled', false);
 }

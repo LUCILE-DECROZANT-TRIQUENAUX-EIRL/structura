@@ -126,7 +126,6 @@ class MembershipController extends AbstractController
             if ($payment->getType()->isBankneeded())
             {
                 $payment->setBank($updateMembershipFDO->getBank());
-                $payment->setCheckIssuer($updateMembershipFDO->getCheckIssuer());
                 $payment->setCheckNumber($updateMembershipFDO->getCheckNumber());
             }
             else
@@ -253,7 +252,6 @@ class MembershipController extends AbstractController
             if ($payment->getType()->isBankneeded())
             {
                 $payment->setBank($updateMembershipFDO->getBank());
-                $payment->setCheckIssuer($updateMembershipFDO->getCheckIssuer());
                 $payment->setCheckNumber($updateMembershipFDO->getCheckNumber());
             }
             else
