@@ -1,0 +1,35 @@
+<div
+    class="col mt-3 check-summary"
+    data-toggle="tooltip"
+    title="Informations du chèque"
+    >
+    <div class="bg-white border p-3 h-100">
+        <div class="row">
+            <div class="col font-weight-bold text-center">
+                <h5>
+                    <span class="text-uppercase">
+                        {{ payment.bank ? payment.bank.name : "" }}
+                    </span>
+                </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Numéro&nbsp;:
+                {{ payment.checkNumber }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Signataire&nbsp;:
+                {{ payment.checkIssuer }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Daté du&nbsp;:
+                {{ payment.dateReceived | localizeddate('long', 'none') }}
+            </div>
+        </div>
+    </div>
+</div>

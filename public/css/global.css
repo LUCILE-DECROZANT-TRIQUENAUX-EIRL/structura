@@ -295,3 +295,14 @@ a {
 .field-error-spot {
     min-height: 24px;
 }
+
+.people-summary:hover > div {
+    color: #212529;
+    background-color: #f6f6f6 !important;
+    cursor: pointer;
+}
+
+.people-summary img {
+    max-width: 100px;
+    max-height: 100px;
+}

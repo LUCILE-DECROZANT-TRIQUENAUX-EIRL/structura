@@ -33,123 +33,134 @@
                 {{ include('Membership/_menu_membership.html.twig', { show_membership: 'active' }) }}
             </div>
             <div class="col-12 col-md-10">
-                <div class="col">
-                    <h1>
-                    {% if membership.dateStart and membership.dateEnd %}
-                        {% trans %}Adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
-                        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
-                    {% else %}
-                        {% trans %}Cette adhésion n'est pas définie dans le temps{% endtrans %}
-                    {% endif %}
-                    </h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h3 class="text-center">
+                                {% trans %}Adhésion{% endtrans %}
+                                <span class="text-lowercase">{{ membership.type.label }}</span>
+                                ({{ membership.type.defaultAmount }}&nbsp;€)
+                            </h3>
+                            <div class="text-center text-muted font-weight-light font-italic mb-2">
+                                {{ membership.type.description }}
+                            </div>
+                            <div class="lead text-center">
+                                valable du
+                                {{ membership.getDateStart | localizeddate('long', 'none') }}
+                                au
+                                {{ membership.getDateEnd | localizeddate('long', 'none') }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h2 class="text-center">{% trans %}Adhésion{% endtrans %} {{ membership.type.label }} ({{ membership.type.defaultAmount }}&nbsp;€)</h2>
-                        <h2 class="lead text-center">{{ membership.type.description }}</h2>
-                        <br><br><hr><br>
-                        <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                {% if membership.members | length > 1 %}
+                                    Membres
+                                {% else %}
+                                    Membre
+                                {% endif %}
+                            </h4>
                             <div class="row">
-                                <div class="col-6">
-                                    <h4>{% trans %}Montant du paiement{% endtrans %}&nbsp;: <small>{{ membership.payment.amount }}&nbsp;€</small></h4>
-                                    <br>
-                                    <h4>
-                                        {% trans %}Payée via{% endtrans %}&nbsp;:
-                                        <small>
-                                            {{ membership.payment.type.label }}
-                                            {% if (membership.payment.type.isBankNeeded) %}
-                                                ({{ membership.payment.bank.name }})<br>
-                                                <small>
-                                                    Numéro du chèque : {{ membership.payment.checkNumber }}<br>
-                                                    Signataire du chèque : {{ membership.payment.checkIssuer }}
-                                                </small>
-                                            {% endif %}
-                                        </small>
-                                    </h4>
+                                {% for member in membership.members %}
+                                    {% include 'Membership/_people-summary.html.twig' with {'people': member} %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Paiement
+                            </h4>
+                            <div class="lead text-center mb-4">
+                                {% if membership.payment.dateCashed is null %}
+                                    <i class="icon ion-md-warning text-info"></i>&nbsp;Paiement pas encore encaissé
+                                {% else %}
+                                    Encaissé le {{ membership.payment.dateCashed | localizeddate('long', 'none') }}
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5>
+                                        Montant&nbsp;:
+                                        {{ membership.payment.amount }}&nbsp;€
+                                    </h5>
                                 </div>
-                                <br>
-                                <div class="col-6">
-                                    {% if membership.payment.dateReceived is null %}
-                                        <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}</h4>
-                                    {% else %}
-                                        <h4>{% trans %}Paiement reçu le{% endtrans %} <small>{{ membership.payment.dateReceived | date('d M. Y') }}</small></h4>
-                                    {% endif %}
-                                    <br>
-                                    {% if membership.payment.dateCashed is null %}
-                                        <h4><i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}</h4>
-                                    {% else %}
-                                        <h4>{% trans %}Paiement encaissé le{% endtrans %} <small>{{ membership.payment.dateCashed | date('d M. Y') }}</small></h4>
-                                    {% endif %}
-                                    <br>
+                                <div class="col text-center">
+                                    <h5>
+                                        Reçu le&nbsp;:
+                                        {{ membership.payment.dateReceived | localizeddate('long', 'none') }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-center">
+                                    <h5 class="mb-0">
+                                        Effectué par&nbsp;:
+                                    </h5>
+                                    <div class="row">
+                                        {% include 'Membership/_people-summary.html.twig' with {'people': membership.payment.payer} %}
+                                    </div>
                                 </div>
                                 <div class="col">
-                                    <h4>{% trans %}Réglé par{% endtrans %}&nbsp;:
-                                        {% set payer = membership.payment.payer %}
-                                        <div class="card payer-card">
-                                            <div class="card-body p-2">
-                                                <h5 class="card-title mb-0">{{ payer.denomination.label }} {{ payer.firstName }} {{ payer.lastName }}</h5>
-                                            </div>
-                                        </div>
-                                    </h4>
+                                    <h5 class="mb-0 text-center">
+                                        Réglé via&nbsp;:
+                                        {{ membership.payment.type.label }}
+                                    </h5>
+                                    {% if (membership.payment.type.isBankNeeded) %}
+                                        {% include 'Payment/_check-summary.html.twig' with {'payment': membership.payment} %}
+                                    {% endif %}
                                 </div>
-                                <div class="col-12 mt-3">
-                                    <h4>{% trans %}Commentaire :{% endtrans %}
-                                        <small>{{ membership.comment is null ? '-' : membership.comment }}</small>
-                                    </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if membership.payment.donation is not null %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="bg-light p-4 mb-4">
+                                <h4 class="text-center mb-4">
+                                    Un don de {{ membership.payment.donation.amount }}&nbsp;€ est lié à cette adhésion
+                                </h4>
+                                <div>
+                                    <a class="btn btn-block btn-lg btn-primary"
+                                        href="{{ path('donation_show', { 'id': membership.payment.donation.id }) }}"
+                                        >
+                                        {% trans %}Voir le don{% endtrans %}
+                                    </a>
                                 </div>
-                                <div class="container">
-                                    <br><br><hr><br>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h2 class="text-center">{% trans %}Adhérent.es{% endtrans %}</h2>
-                                            <br>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Commentaire
+                            </h4>
+                            <div class="row">
+                                <div class="col">
+                                    {% if membership.comment != '' %}
+                                        {{ membership.comment }}
+                                    {% else  %}
+                                        <div class="text-center">
+                                            <span class="text-italic text-muted">
+                                                Pas de commentaire.
+                                            </span>
                                         </div>
-                                        {% for member in membership.members %}
-                                            <div class="col-4">
-                                                <div class="card">
-                                                    <a  class="card-body text-white"
-                                                        href="{{ path('people_show', { 'id': member.id }) }}"
-                                                        data-toggle="tooltip"
-                                                        title="{% trans %}Voir le profil de {% endtrans %} {{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}"
-                                                        >
-                                                        <h5 class="card-title text-dark mb-0">{{ member.denomination.label }} {{ member.firstName }} {{ member.lastName }}</h5>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
+                                    {% endif %}
                                 </div>
-                                {% if (membership.payment.donation) %}
-                                <div class="container">
-                                    <br><br><hr><br>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h2 class="text-center">{% trans %}Don effectué via le même paiement{% endtrans %}</h2>
-                                            <br>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body text-center">
-                                                    <h5>{{ membership.payment.donation.amount }}&nbsp;€</h5>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <a class="btn btn-secondary btn-block"
-                                                    href="{{ path('donation_show', { 'id': membership.payment.donation.id }) }}">
-                                                        {% trans %}Voir le don{% endtrans %}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
                 <br>
-
                 <div class="row">
                     {% if is_granted("ROLE_GESTION") %}
                     <div class="col">
