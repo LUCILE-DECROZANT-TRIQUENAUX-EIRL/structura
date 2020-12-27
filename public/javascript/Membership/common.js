@@ -64,13 +64,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#app_membership_payer').change(function() {
-        let selectedPayerName = $("#app_membership_payer option:selected").html();
-
-        // Update the payer recap
-        $('#confirmation-membership-payer').html(selectedPayerName);
-    });
-
     // -- Initialisation at page loading -- //
 
     // Adding two spans in the selection list help message
@@ -101,23 +94,6 @@ function updatePaymentAmount() {
 
     // Update the donation amount
     $('#app_membership_donationAmount').val(donationAmount);
-
-    // Update the confirmation membership amount
-    $('#confirmation-membership-amount').html(membershipAmount);
-
-    if (donationAmount > 0)
-    {
-        // Update the confirmation donation amount
-        $('#confirmation-membership-donation-amount').html(donationAmount);
-
-        // Show the donation part
-        removeDisplayNone('confirmation-membership-part-donation');
-    }
-    else
-    {
-        // Hide the donation part
-        addDisplayNone('confirmation-membership-part-donation');
-    }
 }
 
 /**
@@ -239,9 +215,6 @@ function getMembershipType(membershipTypeId)
             $('#newMember-help-number').html(membershipType.number_max_members);
             $('#newMember-help-type').html(membershipType.label);
 
-            // Updating the recap membership type
-            $('#confirmation-membership-type').html(membershipType.label);
-
             // Setting the membership and payment default amount
             $('#app_membership_membershipAmount').val(membershipType.default_amount);
             $('#app_membership_paymentAmount').val(membershipType.default_amount + donationAmount);
@@ -321,9 +294,6 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
     $('#app_membership_payer').trigger('change');
 
-    // Updating the confirmation modal
-    addMemberToConfirmationModal(selectedPeopleId, selectedPeopleName);
-
     // Increasing the counter.
     selectedPeopleCount++;
 
@@ -375,9 +345,6 @@ function deselectPeople(peopleId)
     // We're removing the selected people from the payer list
     $('#app_membership_payer option[value="' + peopleId + '"]').remove();
     $('#app_membership_payer').trigger('change');
-
-    // Update the confirmation modal
-    removeMemberFromConfirmationModal(peopleId);
 }
 
 /**
@@ -436,39 +403,6 @@ function resetSelectedPeople()
             deselectPeople(peopleId);
         }
     });
-}
-
-/**
- *
- * @param {number} peopleId
- * @param {string} peopleName
- */
-function addMemberToConfirmationModal(peopleId, peopleName)
-{
-    // Cloning the card that serves as a model
-    let newCard = $('#confirmation-membership-members').clone();
-
-    // Changing it's id to prevent duplicate id
-    // And to be able to remove the card easily
-    newCard.attr('id', 'confirmation-membership-member-' + peopleId);
-
-    // Setting the people name as the card's title
-    newCard.find('.confirmation-membership-member').html(peopleName);
-
-    // Adding the new card to the DOM
-    $('#confirmation-membership-members').before(newCard);
-
-    // Removing the d-none class
-    removeDisplayNone('confirmation-membership-member-' + peopleId);
-}
-
-/**
- *
- * @param {number} peopleId
- */
-function removeMemberFromConfirmationModal(peopleId)
-{
-    $('#confirmation-membership-member-' + peopleId).remove();
 }
 
 /**
