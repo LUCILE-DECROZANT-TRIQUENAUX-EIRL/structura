@@ -12,7 +12,7 @@ use App\Service\Utils\FileService;
 use Dompdf\Dompdf;
 
 /**
- * Class containing methods used to handle receipts.
+ * Class containing methods used to handle tags.
  */
 class TagService
 {
