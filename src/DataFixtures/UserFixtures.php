@@ -90,7 +90,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdminSensible->setLastName('Schaeffer');
         $peopleAdminSensible->setEmailAddress('administrator-sensible@fake.mail');
 
-        $peopleAdminSensibleAddress = new Address('101 rue Nancy Cárdenas', '59122', 'Cambrai', 'France');
+        $peopleAdminSensibleAddress = new Address('101 rue Nancy Cárdenas', null, '59122', 'Cambrai', 'France');
         $manager->persist($peopleAdminSensibleAddress);
         $peopleAdminSensible->addAddress($peopleAdminSensibleAddress);
 
@@ -133,7 +133,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdmin->setLastName('Halphen');
         $peopleAdmin->setEmailAddress('administrator@fake.mail');
 
-        $peopleAdminAddress = new Address('2 rue de la mine', '34000', 'Montpellier', 'France');
+        $peopleAdminAddress = new Address('2 rue de la mine', null, '34000', 'Montpellier', 'France');
         $manager->persist($peopleAdminAddress);
         $peopleAdmin->addAddress($peopleAdminAddress);
 
@@ -174,7 +174,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdminUniquement->setLastName('Truc');
         $peopleAdminUniquement->setEmailAddress('administrator-life@fake.mail');
 
-        $peopleAdminUniquementAddress = new Address('102 rue Simon Nkoli', '83129', 'Six-Fours-les-Plages', 'France');
+        $peopleAdminUniquementAddress = new Address('102 rue Simon Nkoli', 'Chez Corinne Khali', '83129', 'Six-Fours-les-Plages', 'France');
         $manager->persist($peopleAdminUniquementAddress);
         $peopleAdminUniquement->addAddress($peopleAdminUniquementAddress);
 
@@ -213,7 +213,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleGestionnaireSensible->setLastName('Soyer');
         $peopleGestionnaireSensible->setEmailAddress('gestionnaire-sensible@fake.mail');
 
-        $peopleGestionnaireSensibleAddress = new Address('563 rue Olympe de Gouges', '34730', 'Prades-le-Lez', 'France');
+        $peopleGestionnaireSensibleAddress = new Address('563 rue Olympe de Gouges', null, '34730', 'Prades-le-Lez', 'France');
         $manager->persist($peopleGestionnaireSensibleAddress);
         $peopleGestionnaireSensible->addAddress($peopleGestionnaireSensibleAddress);
 
@@ -255,7 +255,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleGestionnaire1->setLastName('Trintignant');
         $peopleGestionnaire1->setEmailAddress('gestionnaire1@fake.mail');
 
-        $peopleGestionnaire1Address = new Address('4 rue Denise Oliver-Melez', '13104', 'Arles', 'France');
+        $peopleGestionnaire1Address = new Address('4 rue Denise Oliver-Melez', null, '13104', 'Arles', 'France');
         $manager->persist($peopleGestionnaire1Address);
         $peopleGestionnaire1->addAddress($peopleGestionnaire1Address);
 
@@ -295,7 +295,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleGestionnaire2->setLastName('De Verley');
         $peopleGestionnaire2->setEmailAddress('gestionnaire2@fake.mail');
 
-        $peopleGestionnaire2Address = new Address('14 rue Iris Morales', '93300', 'Aubervilliers', 'France');
+        $peopleGestionnaire2Address = new Address('14 rue Iris Morales', null, '93300', 'Aubervilliers', 'France');
         $manager->persist($peopleGestionnaire2Address);
         $peopleGestionnaire2->addAddress($peopleGestionnaire2Address);
 
@@ -336,7 +336,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleInformateurice->setLastName('Dubois');
         $peopleInformateurice->setEmailAddress('informateurice-sensible@fake.mail');
 
-        $peopleInformateuriceAddress = new Address('137 Avenue Simone Veil', '69150', 'Décines-Charpieu', 'France');
+        $peopleInformateuriceAddress = new Address('137 Avenue Simone Veil', 'Bâtiment 45', '69150', 'Décines-Charpieu', 'France');
         $manager->persist($peopleInformateuriceAddress);
         $peopleInformateurice->addAddress($peopleInformateuriceAddress);
 
@@ -376,7 +376,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE1->setLastName('Vérany');
         $peopleAdherentE1->setEmailAddress('adherente1@fake.mail');
 
-        $peopleAdherentE1Address = new Address('15 rue Mary Ann Weathers', '76200', 'Dieppe', 'France');
+        $peopleAdherentE1Address = new Address('15 rue Mary Ann Weathers', null, '76200', 'Dieppe', 'France');
         $manager->persist($peopleAdherentE1Address);
         $peopleAdherentE1->addAddress($peopleAdherentE1Address);
 
@@ -414,7 +414,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE2->setLastName('Maurice');
         $peopleAdherentE2->setEmailAddress('adherente2@fake.mail');
 
-        $peopleAdherentE2Address = new Address('25 rue Angela Davis', '93100', 'Montreuil', 'France');
+        $peopleAdherentE2Address = new Address('25 rue Angela Davis', null, '93100', 'Montreuil', 'France');
         $manager->persist($peopleAdherentE2Address);
         $peopleAdherentE2->addAddress($peopleAdherentE2Address);
 
@@ -452,7 +452,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE3->setLastName('Bullion');
         $peopleAdherentE3->setEmailAddress('adherente3@fake.mail');
 
-        $peopleAdherentE3Address = new Address('35 rue Barbara Smith', '93200', 'Saint-Denis', 'France');
+        $peopleAdherentE3Address = new Address('35 rue Barbara Smith', 'Appartement 874', '93200', 'Saint-Denis', 'France');
         $manager->persist($peopleAdherentE3Address);
         $peopleAdherentE3->addAddress($peopleAdherentE3Address);
 
@@ -490,7 +490,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE4->setLastName('Lafaille');
         $peopleAdherentE4->setEmailAddress('adherente4@fake.mail');
 
-        $peopleAdherentE4Address = new Address('45 rue Sojourner Truth', '97200', 'Fort-de-France', 'France');
+        $peopleAdherentE4Address = new Address('45 rue Sojourner Truth', null, '97200', 'Fort-de-France', 'France');
         $manager->persist($peopleAdherentE4Address);
         $peopleAdherentE4->addAddress($peopleAdherentE4Address);
 
@@ -528,7 +528,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE5->setLastName('Duval');
         $peopleAdherentE5->setEmailAddress('adherente5@fake.mail');
 
-        $peopleAdherentE5Address = new Address('22 rue Harriet Tubman', '98713', 'Papeete', 'France');
+        $peopleAdherentE5Address = new Address('22 rue Harriet Tubman', null, '98713', 'Papeete', 'France');
         $manager->persist($peopleAdherentE5Address);
         $peopleAdherentE5->addAddress($peopleAdherentE5Address);
 
@@ -566,7 +566,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE6->setLastName('Rit');
         $peopleAdherentE6->setEmailAddress('adherente6@fake.mail');
 
-        $peopleAdherentE6Address = new Address('141 rue Frances Harper', '97300', 'Cayenne', 'France');
+        $peopleAdherentE6Address = new Address('141 rue Frances Harper', null, '97300', 'Cayenne', 'France');
         $manager->persist($peopleAdherentE6Address);
         $peopleAdherentE6->addAddress($peopleAdherentE6Address);
 
@@ -600,7 +600,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE7->setLastName('Lespérance');
         $peopleAdherentE7->setEmailAddress('adherente7@fake.mail');
 
-        $peopleAdherentE7Address = new Address('13 rue Mary Church Terrel', '92000', 'Nanterre', 'France');
+        $peopleAdherentE7Address = new Address('13 rue Mary Church Terrel', null, '92000', 'Nanterre', 'France');
         $manager->persist($peopleAdherentE7Address);
         $peopleAdherentE7->addAddress($peopleAdherentE7Address);
 
@@ -634,7 +634,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE8->setLastName('Lagueux');
         $peopleAdherentE8->setEmailAddress('adherente8@fake.mail');
 
-        $peopleAdherentE8Address = new Address('56 rue Sylvia Rivera', '94400', 'Vitry-sur-Seine', 'France');
+        $peopleAdherentE8Address = new Address('56 rue Sylvia Rivera', null, '94400', 'Vitry-sur-Seine', 'France');
         $manager->persist($peopleAdherentE8Address);
         $peopleAdherentE8->addAddress($peopleAdherentE8Address);
 
@@ -668,7 +668,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE9->setLastName('Totah');
         $peopleAdherentE9->setEmailAddress('adherente9@fake.mail');
 
-        $peopleAdherentE9Address = new Address('47 rue Marsha P. Johnson', '69286', 'Rillieux-la-Pape', 'France');
+        $peopleAdherentE9Address = new Address('47 rue Marsha P. Johnson', null, '69286', 'Rillieux-la-Pape', 'France');
         $manager->persist($peopleAdherentE9Address);
         $peopleAdherentE9->addAddress($peopleAdherentE9Address);
 
@@ -702,7 +702,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE10->setLastName('Kouri');
         $peopleAdherentE10->setEmailAddress('adherente10@fake.mail');
 
-        $peopleAdherentE10Address = new Address('198 rue Josephine Baker', '78146', 'Chatou', 'France');
+        $peopleAdherentE10Address = new Address('198 rue Josephine Baker', null, '78146', 'Chatou', 'France');
         $manager->persist($peopleAdherentE10Address);
         $peopleAdherentE10->addAddress($peopleAdherentE10Address);
 
@@ -736,7 +736,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE11->setLastName('Ch\'eng');
         $peopleAdherentE11->setEmailAddress('adherente11@fake.mail');
 
-        $peopleAdherentE11Address = new Address('456 rue Karl Heinrich Ulrichs', '62510', 'Liévin', 'France');
+        $peopleAdherentE11Address = new Address('456 rue Karl Heinrich Ulrichs', null, '62510', 'Liévin', 'France');
         $manager->persist($peopleAdherentE11Address);
         $peopleAdherentE11->addAddress($peopleAdherentE11Address);
 
@@ -770,7 +770,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE12->setLastName('Reho');
         $peopleAdherentE12->setEmailAddress('adherente12@fake.mail');
 
-        $peopleAdherentE12Address = new Address('2 rue Michael Dillon', '97103', 'Baie-Mahault', 'France');
+        $peopleAdherentE12Address = new Address('2 rue Michael Dillon', null, '97103', 'Baie-Mahault', 'France');
         $manager->persist($peopleAdherentE12Address);
         $peopleAdherentE12->addAddress($peopleAdherentE12Address);
 
@@ -804,7 +804,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE13->setLastName('Musliyevich');
         $peopleAdherentE13->setEmailAddress('adherente13@fake.mail');
 
-        $peopleAdherentE13Address = new Address('184 rue Virginia Woolf', '62498', 'Lens', 'France');
+        $peopleAdherentE13Address = new Address('184 rue Virginia Woolf', null, '62498', 'Lens', 'France');
         $manager->persist($peopleAdherentE13Address);
         $peopleAdherentE13->addAddress($peopleAdherentE13Address);
 
@@ -838,7 +838,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE14->setLastName('Moravcová');
         $peopleAdherentE14->setEmailAddress('adherente14@fake.mail');
 
-        $peopleAdherentE14Address = new Address('123 rue Bayard Rustin', '88160', 'Épinal', 'France');
+        $peopleAdherentE14Address = new Address('123 rue Bayard Rustin', null, '88160', 'Épinal', 'France');
         $manager->persist($peopleAdherentE14Address);
         $peopleAdherentE14->addAddress($peopleAdherentE14Address);
 
@@ -872,7 +872,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleAdherentE15->setLastName('Milić');
         $peopleAdherentE15->setEmailAddress('adherente15@fake.mail');
 
-        $peopleAdherentE15Address = new Address('1 rue Frida Kahlo', '86066', 'Châtellerault', 'France');
+        $peopleAdherentE15Address = new Address('1 rue Frida Kahlo', null, '86066', 'Châtellerault', 'France');
         $manager->persist($peopleAdherentE15Address);
         $peopleAdherentE15->addAddress($peopleAdherentE15Address);
 
@@ -907,7 +907,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleSupportive->setLastName('Cauw');
         $peopleSupportive->setEmailAddress('supportive@fake.mail');
 
-        $peopleSupportiveAddress = new Address('127 rue Ada Lovelace', '98805', 'Dumbéa', 'France');
+        $peopleSupportiveAddress = new Address('127 rue Ada Lovelace', null, '98805', 'Dumbéa', 'France');
         $manager->persist($peopleSupportiveAddress);
         $peopleSupportive->addAddress($peopleSupportiveAddress);
 
@@ -945,7 +945,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleRich->setLastName('Kronem');
         $peopleRich->setEmailAddress('rich@fake.mail');
 
-        $peopleRichAddress = new Address('12 Avenue des Champs-Élysées', '75008', 'Paris', 'France');
+        $peopleRichAddress = new Address('12 Avenue des Champs-Élysées', null, '75008', 'Paris', 'France');
         $manager->persist($peopleRichAddress);
         $peopleRich->addAddress($peopleRichAddress);
         $peopleRich->addAddress($peopleAdherentE5Address);
@@ -985,7 +985,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleRegistered->setLastName('Manchon');
         $peopleRegistered->setEmailAddress('inscrite@fake.mail');
 
-        $peopleRegisteredAddress = new Address('22 rue des écureuils', '13001', 'Marseille', 'France');
+        $peopleRegisteredAddress = new Address('22 rue des écureuils', null, '13001', 'Marseille', 'France');
         $manager->persist($peopleRegisteredAddress);
         $peopleRegistered->addAddress($peopleRegisteredAddress);
 
@@ -1022,7 +1022,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleTest->setLastName('Dubois');
         $peopleTest->setEmailAddress('administrator-life@fake.mail');
 
-        $peopleTestAddress = new Address('103 rue Ifti Nasim', '97408', 'La Possession', 'France');
+        $peopleTestAddress = new Address('103 rue Ifti Nasim', null, '97408', 'La Possession', 'France');
         $manager->persist($peopleTestAddress);
         $peopleTest->addAddress($peopleTestAddress);
 
@@ -1060,7 +1060,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $peopleTest2->setLastName('Carton');
         $peopleTest2->setEmailAddress('administrator-life@fake.mail');
 
-        $peopleTest2Address = new Address('10 rue des catacombes', '97610', 'Koungou', 'France');
+        $peopleTest2Address = new Address('10 rue des catacombes', null, '97610', 'Koungou', 'France');
         $manager->persist($peopleTest2Address);
         $peopleTest2->addAddress($peopleTest2Address);
 

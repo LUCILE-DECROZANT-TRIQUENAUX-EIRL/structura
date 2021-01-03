@@ -127,7 +127,7 @@
                                             {{ form_help(membership_edit_form.check_number)}}
                                         </div>
                                         <div class="form-group col h-100 check-information">
-                                            <label for="check_date" class="required">Le</label> *
+                                            <label for="check-date" class="required">Le</label> *
                                             <input
                                                 type="date"
                                                 id="check-date"
@@ -137,10 +137,10 @@
                                                 class="form-control">
                                         </div>
                                         <div class="form-group col-12 h-100 check-information">
-                                            {{ form_label(membership_edit_form.check_issuer)}} *
-                                            {{ form_errors(membership_edit_form.check_issuer)}}
-                                            {{ form_widget(membership_edit_form.check_issuer)}}
-                                            {{ form_help(membership_edit_form.check_issuer)}}
+                                            <label for="check-issuer" class="required">Signataire</label> *
+                                            <select id="check-issuer" name="check-issuer" autocomplete="off" class="form-control">
+                                                <option value="" disabled selected>Choisissez une personne</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -225,73 +225,12 @@
                             </a>
                         </div>
                         <div class="col text-right">
-                            <button id="member-creation-submit-button" class="btn btn-primary d-none" type="button" data-toggle="modal" data-target="#confirmation-modal">
+                            <button id="member-creation-submit-button"
+                                    class="btn btn-primary d-none"
+                                    type="submit" form="membership-edit-form">
                                 {% trans %}Enregistrer les modifications{% endtrans %}
                             </button>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>{% trans %}Confirmez la sauvegarde{% endtrans %}</p>
-                    <div class="container mt-3">
-                        <div class="row justify-content-between">
-                            <div class="col pl-0">
-                                <div class="border p-3 h-100">
-                                    <label>{% trans %}de l'adhésion de{% endtrans %}</label>
-                                    <div id="confirmation-membership-members" class="card mb-3 d-none">
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-0 confirmation-membership-member"></h5>
-                                        </div>
-                                    </div>
-                                    <label>{% trans %}de type{% endtrans %}</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-0">
-                                                <span id="confirmation-membership-type"></span> (<span id="confirmation-membership-amount"></span> €)
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pr-0">
-                                <div class="border p-3 h-100">
-                                    <div id="confirmation-membership-part-donation" class="d-none mb-3">
-                                        <label>{% trans %}et d'un don d'un montant de{% endtrans %}</label>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title mb-0">
-                                                    <span id="confirmation-membership-donation-amount"></span> €
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <label>{% trans %}réglé par{% endtrans %}</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 id="confirmation-membership-payer" class="card-title mb-0"></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
-                    </div>
-                    <div class="col text-right">
-                        <button id="member-creation-submit-button" type="submit" form="membership-edit-form" class="btn btn-primary">
-                            {% trans %}Confirmer{% endtrans %}
-                        </button>
                     </div>
                 </div>
             </div>
