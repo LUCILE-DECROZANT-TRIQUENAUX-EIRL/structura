@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "antishov/doctrine-extensions-bundle": "^1.4",
+        "components/jquery": "^3.3",
         "dmore/chrome-mink-driver": "^2.7",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "dompdf/dompdf": "^0.8.5",
@@ -33,9 +34,9 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
-        "components/jquery": "^3.3",
         "twbs/bootstrap": "^4.5",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "twig/intl-extra": "^3.3"
     },
     "require-dev": {
         "behat/mink": "dev-master",
