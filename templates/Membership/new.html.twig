@@ -67,30 +67,65 @@
     <div id="payment-part" class="d-none">
         <div class="container mt-3">
             <div class="row justify-content-between">
+                <div class="col">
+                    <p>{% trans %}Les champs notés avec * sont requis.{% endtrans %}</p>
+                </div>
+            </div>
+            <div class="row justify-content-between">
                 <div class="col-md-4">
                     <div class="border p-3 h-100">
-                        {{ form_row(membership_creation_form.membershipDate_start)}}
-                        {{ form_row(membership_creation_form.membershipDate_end)}}
-                        {{ form_row(membership_creation_form.membershipFiscal_year)}}
+                        <div id="membership-date-start-group" class="form-group">
+                            {{ form_label(membership_creation_form.membershipDate_start)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.membershipDate_start)}}
+                            {{ form_widget(membership_creation_form.membershipDate_start)}}
+                            {{ form_help(membership_creation_form.membershipDate_start)}}
+                        </div>
+                        <div id="membership-date-end-group" class="form-group">
+                            {{ form_label(membership_creation_form.membershipDate_end)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.membershipDate_end)}}
+                            {{ form_widget(membership_creation_form.membershipDate_end)}}
+                            {{ form_help(membership_creation_form.membershipDate_end)}}
+                        </div>
+                        <div id="membership-fiscal-year-group" class="form-group">
+                            {{ form_label(membership_creation_form.membershipFiscal_year)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.membershipFiscal_year)}}
+                            {{ form_widget(membership_creation_form.membershipFiscal_year)}}
+                            {{ form_help(membership_creation_form.membershipFiscal_year)}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="border p-3 h-100">
                         <div id="payment-amount-group" class="form-group">
-                            {{ form_label(membership_creation_form.paymentAmount)}}
-                            {{ form_errors(membership_creation_form.paymentAmount)}}
+                            {{ form_label(membership_creation_form.paymentAmount)}}&nbsp;*
                             {{ form_widget(membership_creation_form.paymentAmount)}}
+                            {{ form_errors(membership_creation_form.paymentAmount)}}
                             {{ form_help(membership_creation_form.paymentAmount)}}
                         </div>
-                        {{ form_row(membership_creation_form.payer)}}
-                        {{ form_row(membership_creation_form.paymentType)}}
-                        {{ form_row(membership_creation_form.paymentDate_received)}}
+                        <div id="payer-group" class="form-group">
+                            {{ form_label(membership_creation_form.payer)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.payer)}}
+                            {{ form_widget(membership_creation_form.payer)}}
+                            {{ form_help(membership_creation_form.payer)}}
+                        </div>
+                        <div id="payment-type-group" class="form-group">
+                            {{ form_label(membership_creation_form.paymentType)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.paymentType)}}
+                            {{ form_widget(membership_creation_form.paymentType)}}
+                            {{ form_help(membership_creation_form.paymentType)}}
+                        </div>
+                        <div id="payment-date-received-group" class="form-group">
+                            {{ form_label(membership_creation_form.paymentDate_received)}}&nbsp;*
+                            {{ form_errors(membership_creation_form.paymentDate_received)}}
+                            {{ form_widget(membership_creation_form.paymentDate_received)}}
+                            {{ form_help(membership_creation_form.paymentDate_received)}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="border p-3 h-100">
                         <div id="membership-amount-group" class="form-group">
-                            {{ form_label(membership_creation_form.membershipAmount)}}
+                            {{ form_label(membership_creation_form.membershipAmount)}}&nbsp;*
                             {{ form_errors(membership_creation_form.membershipAmount)}}
                             {{ form_widget(membership_creation_form.membershipAmount)}}
                             {{ form_help(membership_creation_form.membershipAmount)}}
@@ -124,72 +159,9 @@
                 </a>
             </div>
             <div class="col text-right">
-                <button id="member-creation-submit-button" class="btn btn-primary d-none" type="button" data-toggle="modal" data-target="#confirmation-modal">
+                <button id="member-creation-submit-button" type="submit" form="membership-creation-form" class="btn btn-primary">
                     {% trans %}Enregistrer l'adhésion{% endtrans %}
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>{% trans %}Confirmez l'enregistrement{% endtrans %}</p>
-                    <div class="container mt-3">
-                        <div class="row justify-content-between">
-                            <div class="col pl-0">
-                                <div class="border p-3 h-100">
-                                    <label>{% trans %}de l'adhésion de{% endtrans %}</label>
-                                    <div id="confirmation-membership-members" class="card mb-3 d-none">
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-0 confirmation-membership-member"></h5>
-                                        </div>
-                                    </div>
-                                    <label>{% trans %}de type{% endtrans %}</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-0">
-                                                <span id="confirmation-membership-type"></span> (<span id="confirmation-membership-amount"></span> €)
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col pr-0">
-                                <div class="border p-3 h-100">
-                                    <div id="confirmation-membership-part-donation" class="d-none mb-3">
-                                        <label>{% trans %}et d'un don d'un montant de{% endtrans %}</label>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title mb-0">
-                                                    <span id="confirmation-membership-donation-amount"></span> €
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <label>{% trans %}réglé par{% endtrans %}</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 id="confirmation-membership-payer" class="card-title mb-0"></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
-                    </div>
-                    <div class="col text-right">
-                        <button id="member-creation-submit-button" type="submit" form="membership-creation-form" class="btn btn-primary">
-                            {% trans %}Confirmer{% endtrans %}
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

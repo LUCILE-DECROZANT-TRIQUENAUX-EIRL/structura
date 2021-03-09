@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Donation;
 use App\Entity\Payment;
+use App\Entity\PaymentType;
 use App\Entity\Receipt;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
@@ -37,6 +38,11 @@ class DonationController extends AbstractController
     public function new(Request $request): Response
     {
         $updateDonationFDO = new UpdateDonationFDO();
+
+        // Preselect check payment type
+        $em = $this->getDoctrine()->getManager();
+        $checkPaymentType = $em->getRepository(PaymentType::class)->find(4);
+        $updateDonationFDO->setPaymentType($checkPaymentType);
 
         $form = $this->createForm(DonationType::class, $updateDonationFDO);
         $form->handleRequest($request);

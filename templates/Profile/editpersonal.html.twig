@@ -93,6 +93,14 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="app_user_username" class="required">{% trans %}Adresse, deuxième ligne{% endtrans %}</label>
+                                        {{ form_widget(address.lineTwo) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="app_user_username" class="required">{% trans %}Code postal{% endtrans %}</label>
