@@ -81,30 +81,65 @@
                 <div id="payment-part">
                     <div class="container mt-3">
                         <div class="row justify-content-between">
+                            <div class="col">
+                                <p>{% trans %}Les champs notés avec * sont requis.{% endtrans %}</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
                             <div class="col-md-4">
                                 <div class="border p-3 h-100">
-                                    {{ form_row(membership_edit_form.membershipDate_start)}}
-                                    {{ form_row(membership_edit_form.membershipDate_end)}}
-                                    {{ form_row(membership_edit_form.membershipFiscal_year)}}
+                                    <div id="membership-date-start-group" class="form-group">
+                                        {{ form_label(membership_edit_form.membershipDate_start)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.membershipDate_start)}}
+                                        {{ form_widget(membership_edit_form.membershipDate_start)}}
+                                        {{ form_help(membership_edit_form.membershipDate_start)}}
+                                    </div>
+                                    <div id="membership-date-end-group" class="form-group">
+                                        {{ form_label(membership_edit_form.membershipDate_end)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.membershipDate_end)}}
+                                        {{ form_widget(membership_edit_form.membershipDate_end)}}
+                                        {{ form_help(membership_edit_form.membershipDate_end)}}
+                                    </div>
+                                    <div id="membership-fiscal-year-group" class="form-group">
+                                        {{ form_label(membership_edit_form.membershipFiscal_year)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.membershipFiscal_year)}}
+                                        {{ form_widget(membership_edit_form.membershipFiscal_year)}}
+                                        {{ form_help(membership_edit_form.membershipFiscal_year)}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="border p-3 h-100">
                                     <div id="payment-amount-group" class="form-group">
-                                        {{ form_label(membership_edit_form.paymentAmount)}}
-                                        {{ form_errors(membership_edit_form.paymentAmount)}}
+                                        {{ form_label(membership_edit_form.paymentAmount)}}&nbsp;*
                                         {{ form_widget(membership_edit_form.paymentAmount)}}
+                                        {{ form_errors(membership_edit_form.paymentAmount)}}
                                         {{ form_help(membership_edit_form.paymentAmount)}}
                                     </div>
-                                    {{ form_row(membership_edit_form.payer)}}
-                                    {{ form_row(membership_edit_form.paymentType)}}
-                                    {{ form_row(membership_edit_form.paymentDate_received)}}
+                                    <div id="payer-group" class="form-group">
+                                        {{ form_label(membership_edit_form.payer)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.payer)}}
+                                        {{ form_widget(membership_edit_form.payer)}}
+                                        {{ form_help(membership_edit_form.payer)}}
+                                    </div>
+                                    <div id="payment-type-group" class="form-group">
+                                        {{ form_label(membership_edit_form.paymentType)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.paymentType)}}
+                                        {{ form_widget(membership_edit_form.paymentType)}}
+                                        {{ form_help(membership_edit_form.paymentType)}}
+                                    </div>
+                                    <div id="payment-date-received-group" class="form-group">
+                                        {{ form_label(membership_edit_form.paymentDate_received)}}&nbsp;*
+                                        {{ form_errors(membership_edit_form.paymentDate_received)}}
+                                        {{ form_widget(membership_edit_form.paymentDate_received)}}
+                                        {{ form_help(membership_edit_form.paymentDate_received)}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="border p-3 h-100">
                                     <div id="membership-amount-group" class="form-group">
-                                        {{ form_label(membership_edit_form.membershipAmount)}}
+                                        {{ form_label(membership_edit_form.membershipAmount)}}&nbsp;*
                                         {{ form_errors(membership_edit_form.membershipAmount)}}
                                         {{ form_widget(membership_edit_form.membershipAmount)}}
                                         {{ form_help(membership_edit_form.membershipAmount)}}
