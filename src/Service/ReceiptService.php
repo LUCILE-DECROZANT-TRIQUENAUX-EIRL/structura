@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Association;
 use App\Entity\User;
@@ -54,6 +55,7 @@ class ReceiptService
         string $projectDir
     )
     {
+        $twig->addExtension(new IntlExtension());
         $this->twig = $twig;
         $this->fileService = $fileService;
         $this->em = $em;
