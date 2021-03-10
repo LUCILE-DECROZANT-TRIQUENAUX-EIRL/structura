@@ -52,13 +52,15 @@ class DonationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $donator = $updateDonationFDO->getDonator();
+            $donationDate = $updateDonationFDO->getDonationDate();
 
             // -- DONATION -- //
             $donation = new Donation();
 
             $donation->setAmount($updateDonationFDO->getAmount());
             $donation->setDonator($donator);
-            $donation->setDonationDate($updateDonationFDO->getDonationDate());
+            $donation->setDonationDate($donationDate);
+
 
 
             // -- PAYMENT -- //
@@ -67,23 +69,23 @@ class DonationController extends AbstractController
             $payment->setPayer($donator);
             $payment->setType($updateDonationFDO->getPaymentType());
             $payment->setAmount($updateDonationFDO->getAmount());
-            $payment->setDateReceived($updateDonationFDO->getDonationDate());
+            $payment->setDateReceived($donationDate);
             $payment->setDateCashed($updateDonationFDO->getCashedDate());
             $payment->setComment($updateDonationFDO->getComment());
 
             $em->persist($payment);
 
             // Putting data used for the receipt in vars
-            $thisYear = (new \DateTime())->format('Y');
+            $donationYear = $donationDate->format('Y');
             $lastOrderNumber = $em->getRepository(Receipt::class)
-                    ->findLastOrderNumberForAYear($thisYear);
+                    ->findLastOrderNumberForAYear($donationYear);
 
             // -- RECEIPT -- //
             $receipt = new Receipt();
 
             $receipt->setPayment($payment);
             $receipt->setOrderNumber($lastOrderNumber + 1);
-            $receipt->setYear($thisYear);
+            $receipt->setYear($donationYear);
             $receipt->setOrderCode();
 
             $em->persist($receipt);
