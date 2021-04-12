@@ -1,5 +1,62 @@
 $(document).ready(function () {
     $(function () {
+        /* Displaying revenues graph */
+        var chart = $('#revenues-chart');
+        var labels = ['','','','','','','','','','','','']
+        var donationRevenues = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var membershipRevenues = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var cumulatedRevenues = [0,0,0,0,0,0,0,0,0,0,0,0]
+        $.ajax({
+            url: chart.data('url-data'),
+            datatype: 'json'
+        })
+        .done(function (jsonResponse) {
+            labels = jsonResponse.data.labels;
+            donationRevenues = jsonResponse.data.donation_revenues;
+            membershipRevenues = jsonResponse.data.membership_revenues;
+            cumulatedRevenues = jsonResponse.data.cumulated_revenues;
+
+            var myChart = new Chart(chart, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                            label: 'Adhésions (€)',
+                            data: membershipRevenues,
+                            borderColor: 'rgba(1, 186, 239, 1)',
+                            backgroundColor: 'rgba(1, 186, 239, 0.3)',
+                        }, {
+                            label: 'Dons (€)',
+                            data: donationRevenues,
+                            borderColor: 'rgba(37, 78, 112, 1)',
+                            backgroundColor: 'rgba(37, 78, 112, 0.3)',
+                        },
+                        {
+                            label: 'Cumulé (€)',
+                            data: cumulatedRevenues,
+                            borderColor: 'rgba(175, 78, 122, 1)',
+                            backgroundColor: 'rgba(175, 78, 122, 0.3)',
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    },
+                    elements: {
+                        point: {
+                            radius: 2
+                        }
+                    }
+                }
+            })
+        });
+
+        /* Opening and closing datatable rows */
         $('#people-waiting-send-up').DataTable().on('responsive-display', function (e, datatable, row, showHide, update) {
             var row = $(datatable.row(row.index()).node());
             if (showHide) {

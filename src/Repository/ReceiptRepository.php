@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Receipt;
+use App\Entity\PaymentType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -95,10 +96,34 @@ class ReceiptRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('r')
                 ->select('r')
                 ->join('r.payment', 'p')
+                ->join('p.type', 't')
                 ->where('p.date_received >= :fromDate')
-                ->setParameter('fromDate', $fromDate)
                 ->andwhere('p.date_received <= :toDate')
-                ->setParameter('toDate', $toDate);
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('fromDate', $fromDate)
+                ->setParameter('toDate', $toDate)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Return all the receipts for a given year.
+     * @param int $year
+     * @return Receipts[]
+     */
+    public function findByYear(int $year)
+    {
+        $qb = $this->createQueryBuilder('r')
+                ->select('r, p')
+                ->join('r.payment', 'p')
+                ->join('p.type', 't')
+                ->andwhere('r.year = :year')
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('year', $year)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
 
         return $qb->getQuery()->getResult();
     }
@@ -114,10 +139,14 @@ class ReceiptRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('r')
                 ->select('r, p')
                 ->join('r.payment', 'p')
+                ->join('p.type', 't')
                 ->where('p.payer = :people')
-                ->setParameter('people', $people)
                 ->andwhere('r.year = :year')
-                ->setParameter('year', $year);
+                ->andwhere('t.label != :labelHelloAsso')
+                ->setParameter('people', $people)
+                ->setParameter('year', $year)
+                ->setParameter('labelHelloAsso', PaymentType::HELLO_ASSO_LABEL)
+                ;
 
         return $qb->getQuery()->getResult();
     }

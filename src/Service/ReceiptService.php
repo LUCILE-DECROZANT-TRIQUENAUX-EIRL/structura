@@ -51,7 +51,7 @@ class ReceiptService
         Environment $twig,
         FileService $fileService,
         EntityManagerInterface $em,
-        string $projectDir
+        string $projectDir = ''
     )
     {
         $this->twig = $twig;

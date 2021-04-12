@@ -1,6 +1,6 @@
-# Base de données Huntington Avenir   
+# Structura  
 
-[![License : GNU AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)  ![Issues ouvertes](https://img.shields.io/github/issues/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd.svg)
+[![License : GNU AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)  ![Issues ouvertes](https://img.shields.io/github/issues/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura.svg) [![Percentage of issues still open](http://isitmaintained.com/badge/open/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura.svg)](http://isitmaintained.com/project/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura "Percentage of issues still open") [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura.svg)](http://isitmaintained.com/project/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura "Average time to resolve an issue") [![GitHub contributors](https://img.shields.io/github/contributors/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura.svg)](https://GitHub.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura/graphs/contributors/) [![GitHub stars](https://img.shields.io/github/stars/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/structura/stargazers/) [![Tips on Liberapay](https://img.shields.io/liberapay/receives/LucileDT.svg?logo=liberapay)](https://liberapay.com/LucileDT)
 
 Base de donnée / ERP utilisé par l'association Huntington Avenir pour gérer ses adhérent·es, les cotisations et les dons versé·es.          
 
@@ -24,20 +24,3 @@ Un guide de contribution au code complet est présent dans le [wiki](https://git
 Pour suggérer une amélioration ou reporter un bug, des templates d'issues sont mis à disposition. 
 
 Merci de suivre le [Code de Conduite](https://github.com/LUCILE-DECROZANT-TRIQUENAUX-EIRL/huntington-avenir-bdd/blob/master/CODE_OF_CONDUCT.md) quand vous contribuez au code ou soumettez une issue.
-
-### Librairies utilisées
-
-**Back** 
-
-- Symfony 3.4
-- PHPunit
-- Symfony Bridge
-- Doctrine Migrations 
- 
-
-**Front**
-
-- Bootstrap 4
-- jQuery
-- DataTables
-

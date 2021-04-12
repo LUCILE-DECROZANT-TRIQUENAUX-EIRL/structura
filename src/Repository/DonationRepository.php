@@ -19,4 +19,31 @@ class DonationRepository extends ServiceEntityRepository
         parent::__construct($registry, Donation::class);
     }
 
+    /**
+     * @return array Raw data about revenues
+     */
+    public function getRevenuesRecap()
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $currentDate = new \DateTime();
+        $fromDate = strtotime('-11 months', $currentDate->getTimestamp());
+        $fromDateFormated = date('Y-m-', $fromDate) . '01 00:00:00';
+
+        $sql = 'SELECT SUM(donation.amount) as revenues, '
+                . 'DATE_FORMAT(payment.date_cashed, "%Y-%m") as date '
+                . 'FROM payment '
+                . 'JOIN donation on donation.payment_id = payment.id '
+                . 'WHERE payment.date_cashed > ? '
+                . 'GROUP BY DATE_FORMAT(payment.date_cashed, "%Y-%m")';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $fromDateFormated);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
 }

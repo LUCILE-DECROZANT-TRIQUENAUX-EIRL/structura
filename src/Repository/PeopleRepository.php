@@ -7,6 +7,7 @@ namespace App\Repository;
 
 
 use App\Entity\People;
+use App\Entity\PeopleType;
 
 /**
  * PeopleRepository
@@ -96,6 +97,23 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
                 JOIN p2.memberships m
             )'
         );
+
+        return $query->execute();
+    }
+
+    public function findContacts(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // All people with a Contact type
+        $query = $entityManager->createQuery(
+           'SELECT p
+            FROM App\Entity\People p
+            JOIN p.types t
+            WHERE t.code = :code'
+        );
+
+        $query->setParameter(':code', PeopleType::CONTACT_CODE);
 
         return $query->execute();
     }

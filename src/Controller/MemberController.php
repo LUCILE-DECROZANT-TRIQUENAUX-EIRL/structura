@@ -8,6 +8,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\People;
+use App\Entity\PeopleType;
 use App\Entity\Address;
 use App\Entity\Receipt;
 use App\Form\MemberType;
@@ -77,6 +78,30 @@ class MemberController extends AbstractController {
             $member->setDenomination($updateMemberDataFDO->getDenomination());
             $member->setFirstName($updateMemberDataFDO->getFirstName());
             $member->setLastName($updateMemberDataFDO->getLastName());
+
+            $type = $em->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updateMemberDataFDO->isContact())
+            {
+                $member->addType($type);
+            }
+            else
+            {
+                $member->removeType($type);
+            }
+
+            $typeSocialPole = $em->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updateMemberDataFDO->needHelp())
+            {
+                $member->addType($typeSocialPole);
+            }
+            else
+            {
+                $member->removeType($typeSocialPole);
+            }
 
             if ($updateMemberDataFDO->getAddresses()['__name__'] === null) {
                 $address = new Address();
@@ -225,6 +250,31 @@ class MemberController extends AbstractController {
             $individual->setDenomination($updateMemberDataFDO->getDenomination());
             $individual->setFirstName($updateMemberDataFDO->getFirstName());
             $individual->setLastName($updateMemberDataFDO->getLastName());
+
+            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updateMemberDataFDO->isContact())
+            {
+                $individual->addType($type);
+            }
+            else
+            {
+                $individual->removeType($type);
+
+            }
+
+            $typeSocialPole = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updateMemberDataFDO->needHelp())
+            {
+                $individual->addType($typeSocialPole);
+            }
+            else
+            {
+                $individual->removeType($typeSocialPole);
+            }
 
             if ($updateMemberDataFDO->getAddresses() === null)
             {

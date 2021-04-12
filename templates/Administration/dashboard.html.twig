@@ -88,6 +88,36 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4">
+                <div class="flip-card" data-toggle="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="flip-card-icon">
+                                <ion-icon name="business-outline"></ion-icon>
+                                <i class="icon ion-md-business"></i>
+                            </div>
+                            <h4>
+                                {% trans %}Gestion des<br>banques{% endtrans %}
+                            </h4>
+                            <p class="">
+                                {% trans %}Tout ce qui concerne les banques dont les paiements proviennent.{% endtrans %}
+                            </p>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="flip-card-item">
+                                <a class="" href="{{ path('bank_list') }}">
+                                    {% trans %}Liste des banques{% endtrans %}
+                                </a>
+                            </div>
+                            <div>
+                                <a class="btn btn-primary btn-block" href="{{ path('bank_new', {from: 'dashboard'}) }}">
+                                    {% trans %}Enregistrer une nouvelle banque{% endtrans %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

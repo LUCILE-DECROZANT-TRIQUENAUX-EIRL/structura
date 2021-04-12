@@ -61,6 +61,18 @@ class Payment
     private $payer;
 
     /**
+     * When the payment is made by check, save the check number
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $check_number;
+
+    /**
+     * When the payment is made by check, save the bank
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bank", inversedBy="payments")
+     */
+    private $bank;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Receipt", mappedBy="payment", cascade={"persist", "remove"})
      */
     private $receipt;
@@ -194,6 +206,30 @@ class Payment
         return $this;
     }
 
+    function getBank()
+    {
+        return $this->bank;
+    }
+
+    /**
+     * Set Bank for this payment
+     *
+     * @param \App\Entity\Bank $bank Bank to set for this payment
+     * @return \self
+     * @throws \Exception If bank information is not needed in the
+     *                    corresponding payment type, throws an exception
+     */
+    function setBank(?Bank $bank): self
+    {
+        if (!$this->type->isBankneeded() && !is_null($bank))
+        {
+            throw new \Exception('Bank information is not needed in this payment.');
+        }
+        $this->bank = $bank;
+
+        return $this;
+    }
+
     public function getReceipt(): ?Receipt
     {
         return $this->receipt;
@@ -208,6 +244,17 @@ class Payment
             $receipt->setPayment($this);
         }
 
+        return $this;
+    }
+
+    function getCheckNumber(): ?string
+    {
+        return $this->check_number;
+    }
+
+    function setCheckNumber($check_number): self
+    {
+        $this->check_number = $check_number;
         return $this;
     }
 }

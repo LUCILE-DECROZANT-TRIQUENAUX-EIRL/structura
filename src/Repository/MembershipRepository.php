@@ -19,32 +19,30 @@ class MembershipRepository extends ServiceEntityRepository
         parent::__construct($registry, Membership::class);
     }
 
-    // /**
-    //  * @return Membership[] Returns an array of Membership objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return array Raw data about revenues
+     */
+    public function getRevenuesRecap()
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $currentDate = new \DateTime();
+        $fromDate = strtotime('-11 months', $currentDate->getTimestamp());
+        $fromDateFormated = date('Y-m-', $fromDate) . '01 00:00:00';
 
-    /*
-    public function findOneBySomeField($value): ?Membership
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql = 'SELECT SUM(membership.amount) as revenues, '
+                . 'DATE_FORMAT(payment.date_cashed, "%Y-%m") as date '
+                . 'FROM payment '
+                . 'JOIN membership on membership.payment_id = payment.id '
+                . 'WHERE payment.date_cashed > ? '
+                . 'GROUP BY DATE_FORMAT(payment.date_cashed, "%Y-%m")';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $fromDateFormated);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
-    */
 }

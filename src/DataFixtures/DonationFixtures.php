@@ -8,12 +8,13 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use App\Entity\People;
+use App\Entity\Bank;
+use App\Entity\Donation;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
-use App\Entity\Donation;
+use App\Entity\People;
 
 class DonationFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
@@ -34,6 +35,10 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
         // Get the payments bigger than the membership type they were paying for
         $output->writeln('      <comment>></comment> <info>Donations linked to membership payments creation...</info>');
         $paymentTypeRepository = $manager->getRepository(PaymentType::class);
+
+        $bankRepository = $manager->getRepository(Bank::class);
+        $banks = $bankRepository->findAll();
+        $banksCount = count($banks);
 
         $paymentsTooBig = $paymentTypeRepository->findByAmountTooBigForMembership();
         foreach ($paymentsTooBig as $payment)
@@ -56,26 +61,47 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
         $people = $peopleRepository->findAll();
         $paymentTypeCheck = $paymentTypeRepository->findOneBy(['label' => 'Chèque']);
 
-        foreach ($people as $index => $individual)
+        for ($i = 0 ; $i < 5 ; $i++)
         {
-            if ($index % 3 == 0)
+            foreach ($people as $index => $individual)
             {
-                $amountDonation = (float) rand (20, 1000);
-                $dateDonation = rand (2017, 2019) . '-02-15 ' . rand (10, 23) . ':00:00';
+                // Only create donations of 1/3 people
+                if ($index % 3 == 0)
+                {
+                    // Create donations of amount between 5 and 200€
+                    $amountDonation = (float) rand (5, 200);
+                    // Create donation between this year and two years ago
+                    $currentDate = new \DateTime();
+                    $currentYear = date('Y', $currentDate->getTimestamp());
+                    $yearTwoYearsAgo = date('Y', strtotime('-2 years', $currentDate->getTimestamp()));
+                    $dateDonation = rand ($yearTwoYearsAgo, $currentYear)
+                            . '-'
+                            . rand (01, 12)
+                            . '-'
+                            . rand (01, 28)
+                            . ' '
+                            . rand (10, 23)
+                            . ':00:00';
 
-                $paymentDonationCheque = new Payment();
-                $paymentDonationCheque->setAmount($amountDonation);
-                $paymentDonationCheque->setType($paymentTypeCheck);
-                $paymentDonationCheque->setDateReceived(new \DateTime($dateDonation));
-                $paymentDonationCheque->setPayer($individual);
-                $manager->persist($paymentDonationCheque);
+                    $paymentDonationCheque = new Payment();
+                    $paymentDonationCheque->setAmount($amountDonation);
+                    $paymentDonationCheque->setType($paymentTypeCheck);
+                    $paymentDonationCheque->setDateReceived(new \DateTime($dateDonation));
+                    $paymentDonationCheque->setDateCashed(new \DateTime($dateDonation));
+                    $paymentDonationCheque->setPayer($individual);
 
-                $donation = new Donation();
-                $donation->setAmount($amountDonation);
-                $donation->setDonationDate(new \DateTime($dateDonation));
-                $donation->setDonator($individual);
-                $donation->setPayment($paymentDonationCheque);
-                $manager->persist($donation);
+                    $bank = $banks[rand(0, $banksCount - 1)];
+                    $paymentDonationCheque->setBank($bank);
+
+                    $manager->persist($paymentDonationCheque);
+
+                    $donation = new Donation();
+                    $donation->setAmount($amountDonation);
+                    $donation->setDonationDate(new \DateTime($dateDonation));
+                    $donation->setDonator($individual);
+                    $donation->setPayment($paymentDonationCheque);
+                    $manager->persist($donation);
+                }
             }
         }
         $manager->flush();
@@ -87,6 +113,7 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
         return array(
             UserFixtures::class,
             MembershipFixtures::class,
+            BankFixtures::class,
         );
     }
 }

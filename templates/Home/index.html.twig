@@ -71,7 +71,12 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <img src="{{ asset('images/line-chart.jpg') }}" class="border border-primary img-fluid" alt="Des courbes bidons en attendant les vraies.">
+                        <canvas
+                            id="revenues-chart"
+                            width="400"
+                            height="200"
+                            data-url-data="{{ path('ajax_revenues_recap') }}"
+                            ></canvas>
                     </div>
                 </div>
             </div>

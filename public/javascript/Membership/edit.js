@@ -2,13 +2,14 @@
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
+    // Setup payment amount input to avoid NaN error
+    let paymentAmount = parseInt($('#app_membership_paymentAmount').attr('value'));
+    $('#app_membership_paymentAmount').val(paymentAmount);
+
     // -- Initialisation at page loading -- //
     let selectedPeople = $('#app_membership_members').find('input:checked');
 
     let membershipTypeId = $('#app_membership_membershipType').val();
-
-    // Updating payment amount to consider the donation amount
-
 
     getMembershipType(membershipTypeId).then(function(value) {
         // Manually reseting the checkboxes

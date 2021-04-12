@@ -6,12 +6,17 @@
         {% block global_css %}
             <link rel="stylesheet" href="{{ asset('css/library/Bootstrap/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('javascript/library/DataTables/datatables.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('javascript/library/Select2/css/select2.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('javascript/library/Chart.js/chart.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/library/theme.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/global.css') }}">
         {% endblock %}
         {% block global_js %}
             <script src="{{ asset('javascript/library/jQuery/jquery.min.js') }}"></script>
+            <script src="{{ asset('javascript/library/Moment/moment-with-locales.min.js') }}"></script>
             <script src="{{ asset('javascript/library/DataTables/datatables.min.js') }}"></script>
+            <script src="{{ asset('javascript/library/Select2/js/select2.full.min.js') }}"></script>
+            <script src="{{ asset('javascript/library/Chart.js/chart.min.js') }}"></script>
             <script src="{{ asset('javascript/library/Bootstrap/bootstrap.bundle.min.js') }}"></script>
             <script src="{{ asset('javascript/global.js') }}"></script>
         {% endblock %}
@@ -66,6 +71,15 @@
                                                     href="{{ path('member_list') }}"
                                                     >
                                                     {% trans %}Adhérent·es{% endtrans %}
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                            {% endif %}
+                                            {% if is_granted("ROLE_GESTION") %}
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ path('contact_list') }}"
+                                                    >
+                                                    {% trans %}Contacts{% endtrans %}
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                             {% endif %}

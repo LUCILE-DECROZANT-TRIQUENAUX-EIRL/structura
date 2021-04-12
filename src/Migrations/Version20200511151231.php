@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Connection;
 use Doctrine\Migrations\AbstractMigration;
+use Doctrine\Migrations\Tools\Console\ConsoleLogger;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -26,7 +28,7 @@ final class Version20200511151231 extends AbstractMigration implements Container
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         // Add SQL to avoid warning messages thrown by Symfony
-        $this->addSql("SELECT 1;");
+        $this->addSql("-- SELECT 1;");
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $paymentRepository = $em->getRepository(Payment::class);

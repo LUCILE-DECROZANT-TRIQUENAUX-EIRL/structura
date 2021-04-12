@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -56,6 +57,18 @@ class PeopleType extends AbstractType
                 ->add('lastname', TextType::class, [
                     'label' => $this->translator->trans('Nom de famille'),
                     'required' => true
+                ])
+                ->add('firstContactYear', IntegerType::class, [
+                    'label' => $this->translator->trans('Année du premier contact avec cette personne'),
+                    'required' => true,
+                ])
+                ->add('isContact', CheckboxType::class, [
+                    'label' => $this->translator->trans('Cette personne est un contact'),
+                    'required' => false,
+                ])
+                ->add('needHelp', CheckboxType::class, [
+                    'label' => $this->translator->trans('Cette personne est en lien avec le Pôle Social'),
+                    'required' => false,
                 ])
                 ->add('addresses', CollectionType::class, [
                     'label' => false,

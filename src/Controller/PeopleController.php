@@ -10,7 +10,8 @@ use App\Entity\User;
 use App\Entity\People;
 use App\Entity\Address;
 use App\Entity\Receipt;
-use App\Form\PeopleType;
+use App\Entity\PeopleType;
+use App\Form\PeopleType as PeopleForm;
 use App\Form\GenerateTaxReceiptFromYearType;
 use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,6 +57,31 @@ class PeopleController extends AbstractController {
     }
 
     /**
+     * Lists all people entities having Contact type.
+     * @return views
+     * @Route(path="/contact", name="contact_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function listContactsAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $peoples = $em->getRepository(People::class)->findContacts();
+
+        $deleteForms = [];
+
+        foreach ($peoples as $people) {
+            $deleteForm = $this->createDeleteForm($people);
+            $deleteForms[$people->getId()] = $deleteForm->createView();
+        }
+
+
+        return $this->render('Contact/list.html.twig', array(
+                'contacts' => $peoples,
+                'contact_deletion_forms' => $deleteForms,
+        ));
+    }
+
+    /**
      * Creates a new people entity.
      * @return views
      * @param Request $request The request.
@@ -68,7 +94,7 @@ class PeopleController extends AbstractController {
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(PeopleType::class, $updatePeopleDataFDO);
+        $form = $this->createForm(PeopleForm::class, $updatePeopleDataFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,6 +104,32 @@ class PeopleController extends AbstractController {
             $people->setDenomination($updatePeopleDataFDO->getDenomination());
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
+            $people->setFirstContactYear($updatePeopleDataFDO->getFirstContactYear());
+
+            $typeContact = $em->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updatePeopleDataFDO->isContact())
+            {
+                $people->addType($typeContact);
+            }
+            else
+            {
+                $people->removeType($typeContact);
+
+            }
+
+            $typeSocialPole = $em->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updatePeopleDataFDO->needHelp())
+            {
+                $people->addType($typeSocialPole);
+            }
+            else
+            {
+                $people->removeType($typeSocialPole);
+            }
 
             if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
                 $address = new Address();
@@ -206,7 +258,7 @@ class PeopleController extends AbstractController {
 
         $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($people);
-        $editForm = $this->createForm(PeopleType::class, $updatePeopleDataFDO);
+        $editForm = $this->createForm(PeopleForm::class, $updatePeopleDataFDO);
         $editForm->handleRequest($request);
 
         // Submit change of general infos
@@ -219,6 +271,32 @@ class PeopleController extends AbstractController {
             $people->setDenomination($updatePeopleDataFDO->getDenomination());
             $people->setFirstName($updatePeopleDataFDO->getFirstName());
             $people->setLastName($updatePeopleDataFDO->getLastName());
+
+            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::CONTACT_CODE,
+            ]);
+            if ($updatePeopleDataFDO->isContact())
+            {
+                $people->addType($type);
+            }
+            else
+            {
+                $people->removeType($type);
+
+            }
+
+            $typeSocialPole = $entityManager->getRepository(PeopleType::class)->findOneBy([
+                'code' => PeopleType::SOCIAL_POLE_CODE,
+            ]);
+            if ($updatePeopleDataFDO->needHelp())
+            {
+                $people->addType($typeSocialPole);
+            }
+            else
+            {
+                $people->removeType($typeSocialPole);
+
+            }
 
             if ($updatePeopleDataFDO->getAddresses() === null)
             {

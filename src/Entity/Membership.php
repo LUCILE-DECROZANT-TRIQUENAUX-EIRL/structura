@@ -51,12 +51,12 @@ class Membership
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Payment", inversedBy="membership", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Payment", inversedBy="membership")
      */
     private $payment;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="memberships", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="memberships", cascade={"persist"})
      *
      */
     private $members;

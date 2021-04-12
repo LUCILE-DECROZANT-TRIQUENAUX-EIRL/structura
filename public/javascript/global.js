@@ -207,6 +207,23 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 
+    // Toggle all Select2 dropdown of the project
+    $(function () {
+        $('[data-toggle="select2"]').each(function (index) {
+            let $select = $(this);
+
+            // Check if there is a selected option placeholder to add it if needed
+            let placeholder = null;
+            if ($select.data('placeholder')) {
+                placeholder = $select.data('placeholder');
+            }
+
+            $select.select2({
+                'placeholder': placeholder,
+            });
+        });
+    });
+
     // Toggle all flip cards of the project
     $(function () {
         $('[data-toggle="flip-card"]').each(function (index) {
@@ -232,3 +249,50 @@ $(document).ready(function () {
         });
     });
 });
+
+/**
+* Add or remove the d-none class to an element
+* Depending on if it has it or not
+*
+* @param {string} elementSelector The DOM element's id property
+*/
+function toggleDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+    else
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Add the d-none class to an element if it doesn't have it already.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function addDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (!element.hasClass('d-none'))
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Remove the d-none class to an element if it already has it.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function removeDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+}
