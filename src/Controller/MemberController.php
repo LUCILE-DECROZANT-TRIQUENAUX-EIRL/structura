@@ -147,6 +147,10 @@ class MemberController extends AbstractController {
                 $member->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
             }
 
+            if ($updateMemberDataFDO->getFirstContactYear() !== null) {
+                $member->setFirstContactYear($updateMemberDataFDO->getFirstContactYear());
+            }
+
             $em->persist($address);
             $em->persist($member);
             $em->flush();
@@ -330,6 +334,9 @@ class MemberController extends AbstractController {
                 $individual->setNewsletterDematerialization($updateMemberDataFDO->getNewsletterDematerialization());
             }
 
+            if ($updateMemberDataFDO->getFirstContactYear() !== null) {
+                $individual->setFirstContactYear($updateMemberDataFDO->getFirstContactYear());
+            }
 
             // if the connected user does not have the access to the sensible
             // inputs, we need to keep the old data instead of emptying it

@@ -156,6 +156,12 @@
             </div>
 
             <div class="form-group">
+                {{ form_label(form.firstContactYear) }}
+                {{ form_widget(form.firstContactYear) }}
+                {{ form_help(form.firstContactYear) }}
+            </div>
+
+            <div class="form-group">
                 {{ form_label(form.observations)}}
                 {{ form_widget(form.observations)}}
                 {{ form_help(form.observations)}}

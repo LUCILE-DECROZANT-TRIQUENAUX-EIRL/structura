@@ -117,13 +117,11 @@
                     {{ form_help(member_edit.workFaxNumber)}}
                 </div>
 
-                {% if is_granted('ROLE_GESTION_SENSIBLE') %}
-                    <div class="form-group">
-                        {{ form_label(member_edit.firstContactYear)}}
-                        {{ form_widget(member_edit.firstContactYear)}}
-                        {{ form_help(member_edit.firstContactYear)}}
-                    </div>
-                {% endif %}
+                <div class="form-group">
+                    {{ form_label(member_edit.firstContactYear)}}
+                    {{ form_widget(member_edit.firstContactYear)}}
+                    {{ form_help(member_edit.firstContactYear)}}
+                </div>
 
                 <div class="form-group">
                     {{ form_label(member_edit.observations)}}

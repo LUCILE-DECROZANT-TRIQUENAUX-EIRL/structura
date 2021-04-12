@@ -175,6 +175,10 @@ class PeopleController extends AbstractController {
                 $people->setNewsletterDematerialization($updatePeopleDataFDO->getNewsletterDematerialization());
             }
 
+            if ($updatePeopleDataFDO->getFirstContactYear() !== null) {
+                $people->setFirstContactYear($updatePeopleDataFDO->getFirstContactYear());
+            }
+
             $em->persist($address);
             $em->persist($people);
             $em->flush();
@@ -350,6 +354,10 @@ class PeopleController extends AbstractController {
 
             if ($updatePeopleDataFDO->getNewsletterDematerialization() !== null) {
                 $people->setNewsletterDematerialization($updatePeopleDataFDO->getNewsletterDematerialization());
+            }
+
+            if ($updatePeopleDataFDO->getFirstContactYear() !== null) {
+                $people->setFirstContactYear($updatePeopleDataFDO->getFirstContactYear());
             }
 
 
