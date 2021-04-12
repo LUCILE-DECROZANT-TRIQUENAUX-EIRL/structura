@@ -36,7 +36,7 @@
                 </p>
                 <p class="mt-1">
                     <span class="text-underlined">Courriel :</span>
-                    <a href="mailto:contact-amand@gmail.com">contact-amand@gmail.com</a>
+                    <a href="mailto:contact-amand@gmail.com">contact.amand@gmail.com</a>
                 </p>
             </td>
             <td class="payer-address">
@@ -65,7 +65,7 @@
         <tr>
             <td class="font-weight-bold mb-3">
                 Charvieu, le
-                {{ receiptGenerationDate | localizeddate('long', 'none') }}
+                {{ receiptGenerationDate | format_datetime('long', 'none', locale='fr') }}
             </td>
         </tr>
         <tr>
@@ -108,7 +108,7 @@
                 Cotisation ou don de :
                 <span class="font-weight-bold">{{ receipt.payment.amount }} €</span>
                 du
-                <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('short', 'none')}}</span>
+                <span class="font-weight-bold">{{ receipt.payment.dateReceived | format_datetime('short', 'none', locale='fr')}}</span>
                 par
                 <span class="font-weight-bold">{{ receipt.payment.type.label }}</span>
             </td>
@@ -260,11 +260,11 @@
         </div>
         <div>
             Somme en toutes lettres :
-            <span class="font-weight-bold">***&nbsp;{{ receipt.payment.amount | localizednumber('spellout') | upper }}&nbsp;EUROS&nbsp;***</span>
+            <span class="font-weight-bold">***&nbsp;{{ receipt.payment.amount | format_number(style='spellout', locale='fr') | upper }}&nbsp;EUROS&nbsp;***</span>
         </div>
         <div>
             Date du paiement :
-            <span class="font-weight-bold">{{ receipt.payment.dateReceived | localizeddate('long', 'none') }}</span>
+            <span class="font-weight-bold">{{ receipt.payment.dateReceived | format_datetime('long', 'none', locale='fr') }}</span>
         </div>
         <div>
             Mode de versement :
@@ -278,7 +278,7 @@
             <tr>
                 <td class="align-top">
                     Fait à CHARVIEU le
-                    <span class="font-weight-bold">{{ receiptGenerationDate | localizeddate('long', 'none') }}</span>
+                    <span class="font-weight-bold">{{ receiptGenerationDate | format_datetime('long', 'none', locale='fr') }}</span>
                 </td>
                 <td class="text-right align-top">
                     Le Trésorier Christophe LEROY

@@ -62,6 +62,9 @@
     "doctrine/dbal": {
         "version": "v2.9.2"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "1.6",
         "recipe": {
@@ -257,6 +260,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.14"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -524,6 +530,9 @@
     "symfony/property-info": {
         "version": "v4.3.2"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.3.11"
+    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -690,6 +699,9 @@
         "files": [
             "config/packages/twig_extensions.yaml"
         ]
+    },
+    "twig/intl-extra": {
+        "version": "v3.3.0"
     },
     "twig/twig": {
         "version": "v2.11.3"
