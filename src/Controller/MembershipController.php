@@ -29,6 +29,7 @@ class MembershipController extends AbstractController
 {
     /**
      * @Route("/member-selection", name="member-selection")
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function memberSelectionAction(Request $request)
     {
@@ -312,6 +313,7 @@ class MembershipController extends AbstractController
 
     /**
      * @Route("/{id}", name="membership_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function delete(Request $request, Membership $membership, TranslatorInterface $translator): Response
     {

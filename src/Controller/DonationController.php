@@ -9,6 +9,7 @@ use App\Entity\Receipt;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
 use App\Repository\DonationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ class DonationController extends AbstractController
 {
     /**
      * @Route("/", name="donation_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function listAction(DonationRepository $donationRepository): Response
     {
@@ -34,6 +36,7 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/new", name="donation_new", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function new(Request $request): Response
     {
@@ -111,6 +114,7 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_show", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function show(Donation $donation): Response
     {
@@ -121,6 +125,7 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="donation_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function edit(Request $request, Donation $donation): Response
     {
@@ -171,6 +176,7 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function delete(Request $request, Donation $donation, TranslatorInterface $translator): Response
     {

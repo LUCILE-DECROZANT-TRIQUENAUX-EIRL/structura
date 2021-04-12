@@ -54,7 +54,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * Displays a form to edit cpersonal infos of the connected user.
+     * Displays a form to edit personal infos of the connected user.
      * @return views
      * @param Request $request The request.
      * @param People $people The user to edit.
@@ -252,4 +252,3 @@ class ProfileController extends AbstractController
         ]);
     }
 }
-
