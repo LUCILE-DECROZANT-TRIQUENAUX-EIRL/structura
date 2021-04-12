@@ -51,8 +51,8 @@ class DonationController extends AbstractController
         {
             $em = $this->getDoctrine()->getManager();
 
-            $donator = $updateDonationFDO->getDonator();
-            $donationDate = $updateDonationFDO->getDonationDate();
+            $donator = $createDonationFDO->getDonator();
+            $donationDate = $createDonationFDO->getDonationDate();
 
             // -- DONATION -- //
             $donation = new Donation();
