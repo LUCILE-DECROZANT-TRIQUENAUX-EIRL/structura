@@ -75,10 +75,12 @@ class DonationController extends AbstractController
             if ($payment->getType()->isBankneeded())
             {
                 $payment->setBank($createDonationFDO->getBank());
+                $payment->setCheckNumber($createDonationFDO->getCheckNumber());
             }
             else
             {
                 $payment->setBank(null);
+                $payment->setCheckNumber(null);
             }
             $payment->setComment($createDonationFDO->getComment());
 
@@ -153,10 +155,12 @@ class DonationController extends AbstractController
             if ($payment->getType()->isBankneeded())
             {
                 $payment->setBank($updateDonationFDO->getBank());
+                $payment->setCheckNumber($updateDonationFDO->getCheckNumber());
             }
             else
             {
                 $payment->setBank(null);
+                $payment->setCheckNumber(null);
             }
             $payment->setComment($updateDonationFDO->getComment());
 

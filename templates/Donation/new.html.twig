@@ -63,8 +63,17 @@
                         <div class="field-error-spot">
                             {{ form_errors(form.payment_type) }}
                         </div>
-                        <div id="payment-bank" class="form-group d-none">
-                            {{ form_row(form.bank)}}
+                        <div class="check-information form-group d-none">
+                            {{ form_label(form.bank)}}&nbsp;*
+                            {{ form_errors(form.bank)}}
+                            {{ form_widget(form.bank)}}
+                            {{ form_help(form.bank)}}
+                        </div>
+                        <div class="form-group check-information d-none">
+                            {{ form_label(form.check_number)}}&nbsp;*
+                            {{ form_errors(form.check_number)}}
+                            {{ form_widget(form.check_number)}}
+                            {{ form_help(form.check_number)}}
                         </div>
                     </div>
                     <div class="col-12 mt-3">
@@ -104,4 +113,3 @@
         </div>
     </div>
 {% endblock %}
-

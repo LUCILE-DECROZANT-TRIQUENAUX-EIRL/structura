@@ -26,6 +26,8 @@ class UpdateDonationFDO
 
     private $bank;
 
+    private $checkNumber;
+
     public function __construct(Donation $donation = null)
     {
         if ($donation !== null)
@@ -39,6 +41,7 @@ class UpdateDonationFDO
             $this->cashedDate = $payment->getDateCashed();
             $this->comment = $payment->getComment();
             $this->bank = $payment->getBank();
+            $this->checkNumber = $payment->getCheckNumber();
         }
     }
 
@@ -127,6 +130,18 @@ class UpdateDonationFDO
     function setBank(?Bank $bank): self
     {
         $this->bank = $bank;
+
+        return $this;
+    }
+
+    public function getCheckNumber()
+    {
+        return $this->checkNumber;
+    }
+
+    public function setCheckNumber($checkNumber): self
+    {
+        $this->checkNumber = $checkNumber;
 
         return $this;
     }
