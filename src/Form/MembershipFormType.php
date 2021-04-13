@@ -193,6 +193,9 @@ class MembershipFormType extends AbstractType
 
         $builder->add('check_number', TextType::class, [
             'label' => $this->translator->trans('Numéro du chèque'),
+            'attr' => [
+                'maxlength' => 40,
+            ],
         ]);
     }
 
