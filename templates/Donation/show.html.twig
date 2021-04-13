@@ -84,7 +84,7 @@
                                 <td>
                                     {{ donation.payment.type.label }}
                                     {% if(donation.payment.bank is not null) %}
-                                        ({{ donation.payment.bank.name }})
+                                        ({{ donation.payment.bank.name }} - chèque numéro {{ donation.payment.checkNumber }})
                                     {% endif %}
 
                                 </td>
