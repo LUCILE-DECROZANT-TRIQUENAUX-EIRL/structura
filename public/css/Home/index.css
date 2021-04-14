@@ -1,15 +1,13 @@
-.square-btn.huge-button {
-    font-size: 15px;
+.huge-button {
+    font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    padding: .95rem .75rem;
 }
 
-.square-btn.huge-button > div {
-}
-
-.square-btn.huge-button > div > .icon.ion-md-add {
-    display: box;
-    font-size: 50px;
+.huge-button > div > i {
+    font-size: 3rem;
+    line-height: 1;
 }
 
 /* Avoid tooltip break on disabled elements */

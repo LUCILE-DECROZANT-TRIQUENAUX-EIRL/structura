@@ -234,25 +234,6 @@ a {
     margin-bottom: 0;
 }
 
-/* Square btn */
-.square-btn-wrapper {
-    position: relative;
-}
-
-.square-btn-wrapper:before {
-    content:     "";
-    display:     block;
-    padding-top: 100%; /* initial ratio of 1:1*/
-}
-
-.btn.square-btn {
-    position: absolute;
-    top:      0;
-    left:     0;
-    bottom:   0;
-    right:    0;
-}
-
 /* Spinner loader animation */
 .loader-animated {
     display: inline-block;

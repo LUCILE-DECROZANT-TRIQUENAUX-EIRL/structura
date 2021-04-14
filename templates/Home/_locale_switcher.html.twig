@@ -2,7 +2,7 @@
 {% set route_params = app.request.attributes.get('_route_params') %}
 {% set params = route_params|merge(app.request.query.all) %}
 
-<li class="nav-item dropdown">
+<li class="nav-item dropdown d-none">
     {# We show the current locale flag #}
     <a class="nav-link dropdown-toggle locale-link" href="#" id="dropdown-locale" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ app.request.locale }}">
         <img class="h-100" src="{{ asset('images/flags/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}">

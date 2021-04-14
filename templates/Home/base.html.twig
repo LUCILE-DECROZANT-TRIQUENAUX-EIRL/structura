@@ -31,7 +31,7 @@
             {# ------------- Top menu ------------- #}
             {# ------------------------------------ #}
             <header>
-                <div class="container">
+                <div class="container-fluid">
                     <nav id="top-navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                         <a class="navbar-brand" href="{{ path('home') }}">{% trans %}Accueil{% endtrans %} <span class="sr-only">{% trans %}(page courante){% endtrans %}</span></a>
                         <button
@@ -185,7 +185,7 @@
                                     {% endif %}
                                     <li class="nav-item dropdown">
                                         <a
-                                            class="nav-link dropdown-toggle"
+                                            class="nav-link dropdown-toggle p-0 ml-3"
                                             href="#"
                                             id="dropdown-user"
                                             role="button"
@@ -193,7 +193,10 @@
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             >
-                                            {{ app.user.username }}
+                                            <img class="img-thumbnail" src="/images/placeholder-personne.jpg" alt="" width="40" height="40">
+                                            <span class="d-inline pl-1">
+                                                {{ app.user.username }}
+                                            </span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
                                             <a class="dropdown-item" href="{{ path('profile_show', { 'id': app.user.id }) }}">{% trans %}Mon profil{% endtrans %}</a>
@@ -211,7 +214,7 @@
             </header>
 
 
-            <div id="container-alert-messages" class="container">
+            <div id="container-alert-messages" class="container-fluid">
                 {% for type, messages in app.session.flashbag.all() %}
                     {% if type == 'association-data-warning' %}
                         {% if is_granted("ROLE_ADMIN") %}
@@ -233,7 +236,7 @@
                 {% endfor %}
             </div>
 
-            <div class="container">
+            <div class="container-fluid">
                 <nav aria-label="Fil d'ariane">
                     <ol class="breadcrumb">
                         {% block breadcrumb %}

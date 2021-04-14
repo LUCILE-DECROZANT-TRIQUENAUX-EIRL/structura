@@ -40,6 +40,9 @@ $(document).ready(function () {
                     ]
                 },
                 options: {
+                    legend: {
+                        position: 'bottom',
+                    },
                     scales: {
                         yAxes: [{
                                 ticks: {
