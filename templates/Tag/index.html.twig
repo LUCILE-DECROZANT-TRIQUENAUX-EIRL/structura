@@ -1,33 +1,43 @@
 {% extends 'Home/base.html.twig' %}
 
-{% block title %}{% trans %}Étiquettes (70x35mm){% endtrans %}{% endblock %}
+{% block title %}
+	{% trans %}Étiquettes (70x35mm){% endtrans %}
+{% endblock %}
 
 {% block stylesheets %}
-    {# <link rel="stylesheet" href="{{ asset('css/Tag/index.css') }}"> #}
+	{# <link rel="stylesheet" href="{{ asset('css/Tag/index.css') }}"> #}
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item">
-        <a href="/">{% trans %}Accueil{% endtrans %}</a>
-    </li>
-    <li class="breadcrumb-item active">
-        {% trans %}Étiquettes (70x35mm){% endtrans %}
-    </li>
+	<li class="breadcrumb-item">
+		<a href="/">{% trans %}Accueil{% endtrans %}</a>
+	</li>
+	<li class="breadcrumb-item active">
+		{% trans %}Étiquettes (70x35mm){% endtrans %}
+	</li>
 {% endblock %}
 
 {% block body %}
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a
-                    href="{{ path('tag_generate') }}"
-                    class="btn btn-primary"
-                    title="{% trans %}Générer les étiquettes{% endtrans %}"
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<a href="{{ path('tag_generate') }}" class="btn btn-primary" title="{% trans %}Générer les étiquettes{% endtrans %}">
+					Générer les étiquettes
+				</a>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col">
+                <h3>Télécharger les étiquettes</h3>
+                <a href="{{ path('download_tag_pdf') }}"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    title="{% trans %}Télécharger le PDF{% endtrans %}"
                 >
-                    <i class="icon ion-md-download"></i>&nbsp;Générer les étiquettes
+                    <i class="icon ion-md-download"></i>
                 </a>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

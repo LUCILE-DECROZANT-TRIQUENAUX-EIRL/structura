@@ -3,19 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>Étiquettes</title>
-        {% if isFromController %}
-            <!-- when called from a controller -->
             <link rel="stylesheet" href="css/library/bootstrap.min.css">
             <link rel="stylesheet" href="css/library/theme.min.css">
             <link rel="stylesheet" href="css/global.css">
             <link rel="stylesheet" href="css/PDF/tag.css">
-        {% else %}
-            <!-- when called from a service in background -->
-            <link rel="stylesheet" href="public/css/library/bootstrap.min.css">
-            <link rel="stylesheet" href="public/css/library/theme.min.css">
-            <link rel="stylesheet" href="public/css/global.css">
-            <link rel="stylesheet" href="public/css/PDF/tag.css">
-        {% endif %}
     </head>
     <body>
         <table>
