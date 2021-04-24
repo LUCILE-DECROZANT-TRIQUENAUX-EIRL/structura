@@ -48,13 +48,13 @@ ask_user_input() {
 
     if [ $env = "test" ]
     then
-        # Ask and read database_name with default value erp-asso-test
-        read -p 'Database name [erp-asso-test] : ' database_name
-        database_name=${database_name:-erp-asso-test}
+        # Ask and read database_name with default value structura-test
+        read -p 'Database name [structura-test] : ' database_name
+        database_name=${database_name:-structura-test}
     else
-        # Ask and read database_name with default value erp-asso
-        read -p 'Database name [erp-asso] : ' database_name
-        database_name=${database_name:-erp-asso}
+        # Ask and read database_name with default value structura
+        read -p 'Database name [structura] : ' database_name
+        database_name=${database_name:-structura}
     fi
 
     # Concatening previous data to form the database connection string (also named url) for doctrine
