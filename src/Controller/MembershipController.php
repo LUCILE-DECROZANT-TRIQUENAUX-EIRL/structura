@@ -216,7 +216,8 @@ class MembershipController extends AbstractController
         $updateMembershipFDO = new UpdateMembershipFDO($membership);
 
         $membershipEditForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
-            'selectablePeople' => $selectablePeople
+            'selectablePeople' => $selectablePeople,
+            'payers' => $oldMembers,
         ]);
 
         $membershipEditForm->handleRequest($request);

@@ -82,7 +82,7 @@ $(document).ready(function() {
             // We only add it if it's not already checked
             if (selectedPeopleCheckbox.prop('checked') != true)
             {
-                selectPeople(selectedPeopleId, selectedPeopleName);
+                selectPeople(selectedPeopleId, selectedPeopleName, true);
             }
         }
     });
@@ -324,8 +324,9 @@ function handlePeopleDeletion(peopleId)
  *
  * @param {number} selectedPeopleId The id of the person you want to select.
  * @param {string} selectedPeopleName The fullname of the person you want to select.
+ * @param {boolean} addToPayerList True if you want to add the selectedPeople to the payer list.
  */
-function selectPeople(selectedPeopleId, selectedPeopleName)
+function selectPeople(selectedPeopleId, selectedPeopleName, addToPayerList)
 {
     let selectedPeopleCheckbox = $('#app_membership_members_' + selectedPeopleId);
 
@@ -339,9 +340,11 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // Updating the selection list by removing the selected people
     removePeopleFromSelectionList(selectedPeopleId);
 
-    // We're adding the selected people to the payer list
-    $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
-    $('#app_membership_payer').trigger('change');
+    // We're adding the selected people to the payer list if the passed parameter is true
+    if (addToPayerList) {
+        $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+        $('#app_membership_payer').trigger('change');
+    }
     $('#check-issuer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
     $('#check-issuer').trigger('change');
 
