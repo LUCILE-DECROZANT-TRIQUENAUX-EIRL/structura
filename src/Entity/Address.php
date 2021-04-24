@@ -154,6 +154,10 @@ class Address
      */
     public function getPostalCode()
     {
+        if (strlen($this->postalCode) == 4)
+        {
+            $this->postalCode = '0' . $this->postalCode;
+        }
         return $this->postalCode;
     }
 

@@ -35,7 +35,7 @@ class AddressType extends AbstractType
             ->add('lineTwo', TextType::class, [
                 'label' => $this->translator->trans('Adresse, deuxième ligne')
             ])
-            ->add('postalCode', NumberType::class, [
+            ->add('postalCode', TextType::class, [
                 'label' => $this->translator->trans('Code Postal')
             ])
             ->add('city', TextType::class, [
