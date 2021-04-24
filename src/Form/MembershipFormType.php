@@ -138,10 +138,9 @@ class MembershipFormType extends AbstractType
             'attr' => [
                 'autocomplete' => 'off',
             ],
-            'choices' => $options['selectablePeople'],
+            'choices' => $options['payers'],
             'choice_label' => function (People $people) {
-                $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
-                return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
+                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
             },
             'placeholder' => 'Choisissez une personne',
             'multiple' => false,
@@ -153,7 +152,7 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                return $people->getFirstName() . ' ' . $people->getLastName();
+                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
             },
             'multiple' => true,
             'expanded' => true,
@@ -164,8 +163,7 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
-                return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
+                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
             },
             'multiple' => false,
             'expanded' => false,
@@ -206,7 +204,8 @@ class MembershipFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UpdateMembershipFDO::class,
-            'selectablePeople' => null
+            'selectablePeople' => null,
+            'payers' => []
         ]);
     }
 

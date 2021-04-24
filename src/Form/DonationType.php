@@ -58,7 +58,7 @@ class DonationType extends AbstractType
                     ],
                     // uses firstname and lastname as the visible option string
                     'choice_label' => function($people) {
-                        return $people->getFirstName() . ' ' . $people->getLastName();
+                        return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
                     },
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('p')

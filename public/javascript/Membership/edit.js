@@ -21,7 +21,7 @@ $(document).ready(function() {
             let selectedPeopleOption = $('#app_membership_newMember option[value="' + selectedPeopleId + '"]');
             let selectedPeopleName = selectedPeopleOption.html();
 
-            selectPeople(selectedPeopleId, selectedPeopleName);
+            selectPeople(selectedPeopleId, selectedPeopleName, false);
         });
     });
 });
