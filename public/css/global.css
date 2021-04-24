@@ -15,6 +15,11 @@ header {
   transition: 0.2s;
 }
 
+/* Avoid icons having a rectangular container */
+i {
+    line-height: 1;
+}
+
 /* make footer going to the bottom of the page even if there is not much content */
 html, body {
   height: 100%;

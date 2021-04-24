@@ -1,5 +1,5 @@
 {
-    "sProcessing": "Traitement en cours...",
+    "sProcessing": "Chargement en cours...",
     "sSearch": "",
     "searchPlaceholder": "Rechercher",
     "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -25,6 +25,6 @@
             "_": "%d lignes séléctionnées",
             "0": "Aucune ligne séléctionnée",
             "1": "1 ligne séléctionnée"
-        } 
+        }
     }
 }
