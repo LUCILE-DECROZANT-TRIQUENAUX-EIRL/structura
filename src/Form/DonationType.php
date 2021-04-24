@@ -7,6 +7,7 @@ use App\Entity\Donation;
 use App\Entity\People;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -58,6 +59,10 @@ class DonationType extends AbstractType
                     // uses firstname and lastname as the visible option string
                     'choice_label' => function($people) {
                         return $people->getFirstName() . ' ' . $people->getLastName();
+                    },
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('p')
+                            ->orderBy('p.lastName', 'ASC');
                     },
                     'multiple' => false,
                     'expanded' => false,

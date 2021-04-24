@@ -40,7 +40,7 @@ class PeopleController extends AbstractController {
     public function listAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $peoples = $em->getRepository(People::class)->findAll();
+        $peoples = $em->getRepository(People::class)->findBy([], ['lastName' => 'ASC']);
 
         $deleteForms = [];
 

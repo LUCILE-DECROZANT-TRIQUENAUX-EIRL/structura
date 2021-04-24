@@ -20,6 +20,21 @@ class DonationRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find all donations ordered by their donator last name then the donation date.
+     *
+     * @return array The donation list ordered by theit donator last name then the donation date.
+     */
+    public function findOrderedDonations()
+    {
+        return $this->createQueryBuilder('d')
+            ->leftJoin('d.donator','p')
+            ->orderBy('p.lastName')
+            ->orderBy('d.donation_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @return array Raw data about revenues
      */
     public function getRevenuesRecap()
