@@ -68,6 +68,55 @@ class PeopleAjaxController extends FOSRestController
     }
 
     /**
+     * List all people who habe been members but not anymore and return
+     * the list as a formatted array
+     * @return json
+     * @Route("/list/old-members", name="list_old_members", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getOldMembersListAction()
+    {
+        // Entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $people = $em->getRepository(People::class)->findWithOutdatedMembership();
+
+        $peopleData = [];
+        foreach ($people as $individual) {
+            $individualAddress = $individual->getAddresses()[0];
+            $individualData = [
+                'id' => $individual->getId(),
+                'denomination' => $individual->getDenomination()->getLabel(),
+                'firstname' => $individual->getFirstName(),
+                'lastname' => $individual->getLastName(),
+                'email_address' => $individual->getEmailAddress(),
+                'home_phone_number' => $individual->getHomePhoneNumber(),
+                'cell_phone_number' => $individual->getCellPhoneNumber(),
+                'work_phone_number' => $individual->getWorkPhoneNumber(),
+                'address' => [
+                    'line' => $individualAddress->getLine(),
+                    'line_two' => $individualAddress->getLineTwo(),
+                    'postal_code' => $individualAddress->getPostalCode(),
+                    'city' => $individualAddress->getCity(),
+                    'country' => $individualAddress->getCountry(),
+                ],
+                'last_membership_year' => '2021',
+            ];
+
+            $peopleData[] = $individualData;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $peopleData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * Generate and return the PDF containing all the receipts for a given year
      *
      * @param Request $request The request.

@@ -17,7 +17,7 @@ $(document).ready(function () {
             cumulatedRevenues = jsonResponse.data.cumulated_revenues;
 
             var myChart = new Chart(chart, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
@@ -87,4 +87,6 @@ $(document).ready(function () {
             }
         });
     });
+
+
 });
