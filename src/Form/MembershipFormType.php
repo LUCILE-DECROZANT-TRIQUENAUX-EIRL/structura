@@ -140,7 +140,7 @@ class MembershipFormType extends AbstractType
             ],
             'choices' => $options['payers'],
             'choice_label' => function (People $people) {
-                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
             'placeholder' => 'Choisissez une personne',
             'multiple' => false,
@@ -152,7 +152,7 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
             'multiple' => true,
             'expanded' => true,
@@ -163,7 +163,7 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                return strtoupper($people->getLastName()) . ' ' . $people->getFirstName();
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
             'multiple' => false,
             'expanded' => false,
