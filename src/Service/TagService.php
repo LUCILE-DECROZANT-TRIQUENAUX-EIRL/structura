@@ -27,7 +27,7 @@ class TagService
     private $fileService;
 
     /**
-     * @var ParameterBagInterface $params
+     * @var string $projectDir
      */
     private $projectDir;
 
@@ -70,7 +70,7 @@ class TagService
         $fullFilename = $filename . '.pdf';
 
         // We render the twig template of a tax receipt into pure html
-        $htmlNeedingConversion = $this->twig->render('PDF/Tag/_tag.html.twig', [
+        $htmlNeedingConversion = $this->twig->render('PDF/Tag/_tag_base.html.twig', [
             'people' => $people,
         ]);
 

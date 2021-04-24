@@ -38,7 +38,7 @@ class ReceiptService
     private $em;
 
     /**
-     * @var ParameterBagInterface $params
+     * @var string $projectDir
      */
     private $projectDir;
 
