@@ -71,6 +71,7 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCheque50->setDateCashed(new \DateTime('2017-02-17 16:01:57'));
         $bank = $banks[rand(0, $banksCount - 1)];
         $paymentAdhesionCheque50->setBank($bank);
+        $paymentAdhesionCheque50->setCheckNumber('000111222333');
 
         $manager->persist($paymentAdhesionCheque50);
 
