@@ -109,6 +109,8 @@ class PeopleAjaxController extends FOSRestController
                     'country' => $individualAddress->getCountry(),
                 ],
                 'last_membership_year' => $membershipYears[0],
+                'show_individual_url' => $this->generateUrl('people_show', ['id' => $individual->getId()]),
+                'edit_individual_url' => $this->generateUrl('people_edit', ['id' => $individual->getId()]),
             ];
 
             $peopleData[] = $individualData;
