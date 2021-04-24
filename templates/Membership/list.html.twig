@@ -35,6 +35,7 @@
                 <tr>
                     <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Numéro d'ordre{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Dates de la dernière adhésion{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Type d'adhésion{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Montant{% endtrans %}</th>
@@ -49,6 +50,7 @@
                     <tr>
                         <td class="align-middle text-uppercase">{{ member.lastname }}</td>
                         <td class="align-middle">{{ member.firstname }}</td>
+                        <td class="align-middle text-center">{{ member.getActiveMembership.payment.receipt.orderCode }}</td>
                         <td class="align-middle text-center">
                             {% trans %}Du{% endtrans %} {{ member.getActiveMembership.getDateStart | date('d M. Y') }}
                             <br>
