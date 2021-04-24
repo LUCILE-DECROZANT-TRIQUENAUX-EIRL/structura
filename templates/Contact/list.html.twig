@@ -48,7 +48,7 @@
             <tbody class="d-none">
                 {% for contact in contacts %}
                     <tr>
-                        <td class="align-middle">{{ contact.lastname }}</td>
+                        <td class="align-middle text-uppercase">{{ contact.lastname }}</td>
                         <td class="align-middle">{{ contact.firstname }}</td>
                         <td class="align-middle">
                             {% if contact.emailAddress is empty %}
