@@ -120,6 +120,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Reçu fiscal
+                            </h4>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5>
+                                        Année fiscale&nbsp;:
+                                        {{ membership.payment.receipt.year }}
+                                    </h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>
+                                        Numéro d'ordre&nbsp;:
+                                        {{ membership.payment.receipt.orderCode }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% if membership.payment.donation is not null %}
                     <div class="row">
                         <div class="col-12">
