@@ -63,8 +63,7 @@ class TagService
     public function generateTagsPdf(
         array $people,
         string $filename = 'etiquettes',
-        bool $isStreamed = false,
-        bool $isFromController = false
+        bool $isStreamed = false
     )
     {
         // File fullname, which includes the file's extension
@@ -73,13 +72,14 @@ class TagService
         // We render the twig template of a tax receipt into pure html
         $htmlNeedingConversion = $this->twig->render('PDF/Tag/_tag.html.twig', [
             'people' => $people,
-            'isFromController' => $isFromController,
         ]);
 
         // PDF generator object instantiation
         $dompdf = new Dompdf();
 
         // Loading previously rendered html
+        $dompdf->getOptions()->setChroot($this->projectDir . '/public');
+
         $dompdf->loadHtml($htmlNeedingConversion);
 
         // Set the page format and orientation
@@ -101,6 +101,12 @@ class TagService
 
             // Saving the generated file on the server
             $fileLocation = $this->projectDir . '/pdf/' . $fullFilename;
+
+            if (file_exists($fileLocation))
+            {
+                unlink($fileLocation);
+            }
+
             $this->fileService->file_force_contents($fileLocation, $output);
 
             return $fullFilename;

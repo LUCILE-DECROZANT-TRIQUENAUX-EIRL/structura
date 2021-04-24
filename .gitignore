@@ -45,3 +45,8 @@ pdf/
 /nbproject/private/
 /nbproject/
 ###< Netbeans config ###
+
+###> vscode config ###
+.vscode/
+structura.code-workspace
+###< vscode config ###
