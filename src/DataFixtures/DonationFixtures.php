@@ -92,6 +92,7 @@ class DonationFixtures extends Fixture implements FixtureGroupInterface, Depende
 
                     $bank = $banks[rand(0, $banksCount - 1)];
                     $paymentDonationCheque->setBank($bank);
+                    $paymentDonationCheque->setCheckNumber('000111222' . rand(001, 999));
 
                     $manager->persist($paymentDonationCheque);
 
