@@ -96,7 +96,7 @@ class PeopleAjaxController extends FOSRestController
                 'id' => $individual->getId(),
                 'denomination' => $individual->getDenomination()->getLabel(),
                 'firstname' => $individual->getFirstName(),
-                'lastname' => $individual->getLastName(),
+                'lastname' => mb_strtoupper($individual->getLastName(), 'UTF-8'),
                 'email_address' => $individual->getEmailAddress(),
                 'home_phone_number' => $individual->getHomePhoneNumber(),
                 'cell_phone_number' => $individual->getCellPhoneNumber(),
