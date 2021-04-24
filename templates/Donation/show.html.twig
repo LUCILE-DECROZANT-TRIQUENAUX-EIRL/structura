@@ -1,7 +1,9 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€
+    du{% endtrans %} {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }}
+    {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -18,7 +20,7 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
     </li>
 {% endblock %}
 
@@ -31,73 +33,120 @@
             </div>
 
             <div class="col-12 col-md-10">
-                <h1>
-                    {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
-                </h1>
-                <br>
-                <div class="container styledtable">
-                <br>
-                <h3>{% trans %}Informations du don{% endtrans %}</h3>
-                    <br>
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>{% trans %}Montant{% endtrans %}</th>
-                                <td>{{ donation.amount }}&nbsp;€</td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Date de règlement{% endtrans %}</th>
-                                <td>{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Donateurice{% endtrans %}</th>
-                                <td>
-                                    <a  href="{{ path('people_show', { 'id': donation.donator.id }) }}"
-                                        data-toggle="tooltip"
-                                        title="{% trans %}Voir le profil de {% endtrans %} {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}"
-                                        >
-                                        {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <h3>{% trans %}Informations du paiement{% endtrans %}</h3>
-                    <br>
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>{% trans %}Montant{% endtrans %}</th>
-                                <td>{{ donation.payment.amount }}&nbsp;€</td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Date de réception{% endtrans %}</th>
-                                <td>{{ donation.payment.dateReceived | date('d M. Y') }}</td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Date d'encaissement{% endtrans %}</th>
-                                <td>{{ donation.payment.dateCashed | date('d M. Y') }}</td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Réglé via...{% endtrans %}</th>
-                                <td>
-                                    {{ donation.payment.type.label }}
-                                    {% if(donation.payment.bank is not null) %}
-                                        ({{ donation.payment.bank.name }} - chèque numéro {{ donation.payment.checkNumber }})
+                <div class="row">
+                    <div class="col">
+                        <div class="bg-light p-4 mb-4">
+                            <h3 class="text-center">{% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;€
+                            </h3>
+                            <div class="lead text-center">
+                                {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }},
+                                le {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Mécène
+                            </h4>
+                            <div class="row">
+                                {% include 'People/_people-summary.html.twig' with {'people': donation.donator} %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Paiement
+                            </h4>
+                            <div class="lead text-center mb-4">
+                                {% if donation.payment.dateCashed is null %}
+                                    <i class="icon ion-md-warning text-info"></i>&nbsp;Paiement pas encore encaissé
+                                {% else %}
+                                    Encaissé le {{ donation.payment.dateCashed | localizeddate('long', 'none') }}
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5>
+                                        Montant&nbsp;:
+                                        {{ donation.payment.amount }}&nbsp;€
+                                    </h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>
+                                        Reçu le&nbsp;:
+                                        {{ donation.payment.dateReceived | localizeddate('long', 'none') }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-center">
+                                    <h5 class="mb-0">
+                                        Effectué par&nbsp;:
+                                    </h5>
+                                    <div class="row">
+                                        {% include 'People/_people-summary.html.twig' with {'people': donation.payment.payer} %}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h5 class="mb-0 text-center">
+                                        Réglé via&nbsp;:
+                                        {{ donation.payment.type.label }}
+                                    </h5>
+                                    {% if (donation.payment.type.isBankNeeded) %}
+                                        {% include 'Payment/_check-summary.html.twig' with {'payment': donation.payment} %}
                                     {% endif %}
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% trans %}Commentaire{% endtrans %}</th>
-                                <td>{{ donation.payment.comment ? donation.payment.comment : '-' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if donation.payment.membership is not null %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="bg-light p-4 mb-4">
+                                <h4 class="text-center mb-4">
+                                    Une adhésion {{ donation.payment.membership.type.label }} est liée à ce don
+                                </h4>
+                                <div>
+                                    <a class="btn btn-block btn-lg btn-primary"
+                                        href="{{ path('membership_show', { 'id': donation.payment.membership.id }) }}"
+                                        >
+                                        {% trans %}Voir l'adhésion{% endtrans %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Commentaire
+                            </h4>
+                            <div class="row">
+                                <div class="col">
+                                    {% if donation.payment.comment != '' %}
+                                        {{ donation.payment.comment }}
+                                    {% else  %}
+                                        <div class="text-center">
+                                            <span class="text-italic text-muted">
+                                                Pas de commentaire.
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
-
                 <div class="row">
                     {% if is_granted("ROLE_GESTION") %}
                     <div class="col">
