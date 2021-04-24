@@ -84,6 +84,14 @@ class PeopleAjaxController extends FOSRestController
         $peopleData = [];
         foreach ($people as $individual) {
             $individualAddress = $individual->getAddresses()[0];
+            // Sort membership years
+            $membershipYears = [];
+            foreach ($individual->getMemberships() as $individualMembership) {
+                $membershipYears[] = $individualMembership->getDateEnd()->format('Y');
+            }
+            rsort($membershipYears);
+
+            // Format data
             $individualData = [
                 'id' => $individual->getId(),
                 'denomination' => $individual->getDenomination()->getLabel(),
@@ -100,7 +108,9 @@ class PeopleAjaxController extends FOSRestController
                     'city' => $individualAddress->getCity(),
                     'country' => $individualAddress->getCountry(),
                 ],
-                'last_membership_year' => '2021',
+                'last_membership_year' => $membershipYears[0],
+                'show_individual_url' => $this->generateUrl('people_show', ['id' => $individual->getId()]),
+                'edit_individual_url' => $this->generateUrl('people_edit', ['id' => $individual->getId()]),
             ];
 
             $peopleData[] = $individualData;

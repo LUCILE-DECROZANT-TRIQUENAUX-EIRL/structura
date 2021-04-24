@@ -249,6 +249,9 @@ $(document).ready(function () {
                             $(tr).attr('title', $(tr).data('title-opened'));
                             $(tr).tooltip('dispose');
                             $(tr).tooltip();
+                            // Toggle tooltips on generated child row items
+                            $(row.child()).find('[data-toggle="tooltip"]').tooltip('dispose');
+                            $(row.child()).find('[data-toggle="tooltip"]').tooltip();
                         }
                     });
                 } else {
@@ -377,8 +380,10 @@ function formatTableChildRow(data) {
             dataId.forEach(function (identifier) {
                 content = content[identifier];
             })
-            if (content !== null) {
+            if (content !== null && !$(this).data('is-url')) {
                 $(this).html(content);
+            } else if (content !== null && $(this).data('is-url')) {
+                $(this).attr('href', content);
             } else if ($(this).data('empty-field-needed')) {
                 $(this).html('-');
             } else {
