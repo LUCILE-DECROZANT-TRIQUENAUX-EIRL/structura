@@ -30,7 +30,7 @@ class DonationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('Donation/list.html.twig', [
-            'donations' => $em->getRepository(Donation::class)->findAll(),
+            'donations' => $donationRepository->findOrderedDonations()
         ]);
     }
 
