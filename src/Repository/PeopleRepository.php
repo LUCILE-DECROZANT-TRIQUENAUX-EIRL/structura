@@ -122,4 +122,22 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->execute();
     }
+
+    public function findPeopleWithAddress(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // All people with a Contact type
+        $query = $entityManager->createQuery(
+           'SELECT p, a
+            FROM App\Entity\People p
+            LEFT JOIN p.addresses a
+            WHERE a.line IS NOT NULL
+            AND a.postalCode IS NOT NULL
+            AND a.city IS NOT NULL
+            ORDER BY p.lastName ASC'
+        );
+
+        return $query->execute();
+    }
 }
