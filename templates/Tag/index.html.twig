@@ -6,6 +6,11 @@
 
 {% block stylesheets %}
 	{# <link rel="stylesheet" href="{{ asset('css/Tag/index.css') }}"> #}
+	<link rel="stylesheet" href="{{ asset('css/PDF/tag.css') }}">
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('javascript/Tag/index.js') }}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -18,25 +23,70 @@
 {% endblock %}
 
 {% block body %}
-	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<a href="{{ path('tag_generate') }}" class="btn btn-primary" title="{% trans %}Générer les étiquettes{% endtrans %}">
-					Générer les étiquettes
+	<div class="container-fluid">
+		<div class="row mt-3">
+			<div class="col-2">
+				<a
+					href="{{ path('tag_generate') }}"
+					class="btn btn-primary btn-block huge-button mb-4"
+					role="button"
+				>
+					<div>
+						{% trans %}Générer les étiquettes{% endtrans %}
+					</div>
+					<div class="pt-2">
+						<i class="icon ion-md-cog"></i>
+					</div>
 				</a>
+				{% if fileExists %}
+					<a href="{{ path('download_tag_pdf') }}"
+						class="btn btn-primary btn-block huge-button"
+						role="button"
+					>
+						<div>
+							{% trans %}Télécharger le PDF{% endtrans %}
+						</div>
+						<div class="pt-2">
+							<i class="icon ion-md-download"></i>
+						</div>
+					</a>
+				{% else %}
+					<div
+						data-toggle="tooltip"
+						title="Générez les étiquettes pour pouvoir télécharger le PDF"
+					>
+						<a href="{{ path('download_tag_pdf') }}"
+							class="btn btn-primary btn-block huge-button disabled"
+							role="button"
+						>
+							<div>
+								{% trans %}Télécharger le PDF{% endtrans %}
+							</div>
+							<div class="pt-2">
+								<i class="icon ion-md-download"></i>
+							</div>
+						</a>
+					</div>
+					{% if tagsAreGenerating %}
+						<div id="check-generation-tag-pdf" class="d-none" data-url="{{ path('check_generation_tag_pdf') }}"></div>
+						<div id="tag-generation-complete" class="d-none" data-url="{{ path('tag_generation_complete') }}"></div>
+					{% endif %}
+				{% endif %}
+			</div>
+			<div class="col">
+				<div class="bg-light d-flex justify-content-center flex-wrap px-4 py-3">
+					<h3 class="text-center pb-2 w-100">{% trans %}Aperçu de la génération{% endtrans %}</h3>
+					<div class="d-inline-block bg-white">
+						{% include 'PDF/Tag/_tag.html.twig' with {
+							'people': people,
+						} %}
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row mt-4">
 			<div class="col">
-                <h3>Télécharger les étiquettes</h3>
-                <a href="{{ path('download_tag_pdf') }}"
-                    class="btn btn-secondary"
-                    data-toggle="tooltip"
-                    title="{% trans %}Télécharger le PDF{% endtrans %}"
-                >
-                    <i class="icon ion-md-download"></i>
-                </a>
+
 			</div>
 		</div>
 	</div>

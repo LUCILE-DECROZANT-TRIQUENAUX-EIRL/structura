@@ -138,7 +138,7 @@ class MembershipFormType extends AbstractType
             'attr' => [
                 'autocomplete' => 'off',
             ],
-            'choices' => $options['payers'],
+            'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
                 return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
@@ -205,7 +205,6 @@ class MembershipFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => UpdateMembershipFDO::class,
             'selectablePeople' => null,
-            'payers' => []
         ]);
     }
 
