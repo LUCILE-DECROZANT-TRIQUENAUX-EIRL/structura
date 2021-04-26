@@ -1,0 +1,153 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Liste des contacts{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Liste des contacts{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Liste des contacts{% endtrans %}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-filter-bar="toggle"
+            data-copy-button="toggle"
+            data-csv-button="toggle"
+            data-pdf-button="toggle"
+            >
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th data-exportable="true">{% trans %}Mail{% endtrans %}</th>
+                    <th data-exportable="true" class="text-center">{% trans %}Téléphone fixe{% endtrans %}</th>
+                    <th data-exportable="true" class="text-center">{% trans %}Téléphone portable{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Code postal{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Ville{% endtrans %}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="d-none">
+                {% for contact in contacts %}
+                    <tr>
+                        <td class="align-middle text-uppercase">{{ contact.lastname }}</td>
+                        <td class="align-middle">{{ contact.firstname }}</td>
+                        <td class="align-middle">
+                            {% if contact.emailAddress is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="">{{ contact.emailAddress }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if contact.homePhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ contact.homePhoneNumber }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if contact.cellPhoneNumber is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ contact.cellPhoneNumber }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if contact.addresses[0].postalCode is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="">{{ contact.addresses[0].postalCode }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            {% if contact.addresses[0].city is empty %}
+                                <span class="">-</span>
+                            {% else %}
+                                <span class="phone">{{ contact.addresses[0].city }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('people_show', { 'id': contact.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Voir le profil{% endtrans %}"
+                                >
+                                <i class="icon ion-md-eye"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('people_edit', { 'id': contact.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Éditer le profil{% endtrans %}"
+                                >
+                                <i class="icon ion-md-create"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal-deletion-contact-{{ contact.id }}">
+                            <a
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Supprimer le profil{% endtrans %}"
+                                >
+                                <i class="icon ion-md-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    {# Creation of the confirmation modals, one per contact #}
+    {% for contact in contacts %}
+        {% set delete_contact_form = contact_deletion_forms[contact.id] %}
+        <div id="confirmation-modal-deletion-contact-{{ contact.id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>
+                            {% trans %}Souhaitez-vous réellement supprimer les données de{% endtrans %} <strong>{{ contact.firstName }} {{ contact.lastName }}</strong>&nbsp;?
+                        </p>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
+                        </div>
+                        <div class="col text-right">
+                        {{ form_start(delete_contact_form) }}
+                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;{% trans %}Supprimer{% endtrans %} </button>
+                        {{ form_end(delete_contact_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

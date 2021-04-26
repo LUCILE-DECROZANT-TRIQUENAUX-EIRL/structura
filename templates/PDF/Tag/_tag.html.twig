@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Étiquettes</title>
-        {% if isFromController %}
-            <!-- when called from a controller -->
-            <link rel="stylesheet" href="css/library/bootstrap.min.css">
-            <link rel="stylesheet" href="css/library/theme.min.css">
-            <link rel="stylesheet" href="css/global.css">
-            <link rel="stylesheet" href="css/PDF/tag.css">
-        {% else %}
-            <!-- when called from a service in background -->
-            <link rel="stylesheet" href="public/css/library/bootstrap.min.css">
-            <link rel="stylesheet" href="public/css/library/theme.min.css">
-            <link rel="stylesheet" href="public/css/global.css">
-            <link rel="stylesheet" href="public/css/PDF/tag.css">
-        {% endif %}
-    </head>
-    <body>
-        <table>
-            {% set count = 0 %}
-            {% for index, person in people %}
-                {% if not person.hasNoAddressDefined() %}
-                    {% for address in person.addresses %}
-                        {% set count = count + 1 %}
-                        {% if count == 1 %}
-            <tr>
-                        {% endif %}
+<table>
+	{% set count = 0 %}
+	{% for index, person in people %}
+		{% if not person.hasNoAddressDefined() %}
+			{% for address in person.addresses %}
+				{% set count = count + 1 %}
+				{% if count == 1 %}
+					<tr>
+                {% endif %}
                 <td class="tag">
                     <span class="font-weight-bold">
-                        {{ person.denomination ? person.denomination.label : "" }} {{ person.firstname }} {{ person.lastname | upper }}
+                        {{ person.denomination ? person.denomination.label : "" }}
+                        {{ person.firstname }}
+                        {{ person.lastname | upper }}
                     </span>
                     <br>
                     {{address.line | upper }}
@@ -39,19 +21,18 @@
                         <br>
                     {% endif %}
                     <span class="font-weight-bold">
-                        {{address.postalCode}} {{address.city | upper }}
+                        {{address.postalCode}}
+                        {{address.city | upper }}
                     </span>
                 </td>
-                        {% if count == 3 %}
-            </tr>
-                            {% set count = 0 %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-            {% if count != 0 %}
-            </tr>
-            {% endif %}
-        </table>
-    </body>
-</html>
+                {% if count == 3 %}
+					</tr>
+					{% set count = 0 %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+	{% if count != 0 %}
+        </tr>
+    {% endif %}
+</table>

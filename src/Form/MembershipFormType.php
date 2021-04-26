@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\People;
-use App\Entity\PaymentType;
+use App\Entity\Bank;
 use App\Entity\MembershipType;
+use App\Entity\PaymentType;
+use App\Entity\People;
 use App\Repository\PeopleRepository;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MembershipFormType extends AbstractType
@@ -71,7 +73,7 @@ class MembershipFormType extends AbstractType
         ]);
 
         $builder->add('paymentType', EntityType::class, [
-            'label' => $this->translator->trans('Via'),
+            'label' => $this->translator->trans('Le paiement est réalisé par'),
             'choice_label' => 'label',
             'class' => PaymentType::class,
             'multiple' => false,
@@ -79,6 +81,12 @@ class MembershipFormType extends AbstractType
             'attr' => [
                 'autocomplete' => 'off',
             ],
+            'choice_attr' => function(PaymentType $paymentType)
+            {
+                return [
+                    'data-is-bank-needed' => $paymentType->isBankneeded(),
+                ];
+            },
             'required' => true,
         ]);
 
@@ -99,7 +107,7 @@ class MembershipFormType extends AbstractType
         ]);
 
         $builder->add('paymentAmount', MoneyType::class, [
-            'label' => $this->translator->trans('Le règlement est de'),
+            'label' => $this->translator->trans('Le montant du paiement est de'),
             'required' => true,
             'attr' => [
                 'min' => '1',
@@ -132,9 +140,9 @@ class MembershipFormType extends AbstractType
             ],
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
-                return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
+            'placeholder' => 'Choisissez une personne',
             'multiple' => false,
             'expanded' => false,
             'required' => true,
@@ -144,7 +152,7 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                return $people->getFirstName() . ' ' . $people->getLastName();
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
             'multiple' => true,
             'expanded' => true,
@@ -155,23 +163,37 @@ class MembershipFormType extends AbstractType
             'class' => People::class,
             'choices' => $options['selectablePeople'],
             'choice_label' => function (People $people) {
-                $peopleDenomination = ($people->getDenomination() != null) ? $people->getDenomination()->getLabel() . ' ' : '';
-                return $peopleDenomination . $people->getFirstName() . ' ' . strtoupper($people->getLastName());
+                return mb_strtoupper($people->getLastName(), 'UTF-8') . ' ' . $people->getFirstName();
             },
             'multiple' => false,
             'expanded' => false,
             'attr' => [
-                'class' => 'selectpicker',
-                'data-live-search' => 'true',
-                'data-live-search-normalize' => 'true',
-                'data-live-search-placeholder' => $this->translator->trans('Rechercher...'),
-                'data-size' => '6',
-                'title' => $this->translator->trans('Sélectionnez une personne pour l\'ajouter'),
-                'data-style-base' => 'custom-form-dropdown',
-                'data-style' => 'btn',
+                'data-toggle' => 'select2',
+                'data-placeholder' => 'Sélectionnez une personne pour l\'ajouter',
+                'data-disabled-placeholder' => 'Nombre maximum d\'adhérent·e atteint',
             ],
             'required' => false,
             'help' => $this->translator->trans('adhérent·e·s maximum pour une adhésion de type')
+        ]);
+
+        $builder->add('bank', EntityType::class, [
+            'class' => Bank::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false,
+            'required' => false,
+            'label' => $this->translator->trans('Banque'),
+            'attr' => [
+                'data-toggle' => 'select2',
+            ],
+            'placeholder' => $this->translator->trans('Sélectionnez une banque'),
+        ]);
+
+        $builder->add('check_number', TextType::class, [
+            'label' => $this->translator->trans('Numéro du chèque'),
+            'attr' => [
+                'maxlength' => 40,
+            ],
         ]);
     }
 
@@ -182,7 +204,7 @@ class MembershipFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UpdateMembershipFDO::class,
-            'selectablePeople' => null
+            'selectablePeople' => null,
         ]);
     }
 

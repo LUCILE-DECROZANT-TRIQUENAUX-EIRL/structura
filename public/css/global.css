@@ -1,5 +1,10 @@
 @import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
 
+/* make input placeholders a bit lighter */
+.form-control::placeholder {
+    opacity: 0.4;
+}
+
 /* avoid content being hidden behind the top navbar */
 header {
     height: 56px;
@@ -8,6 +13,11 @@ header {
 /* add shadow on navbar if scrolled down */
 #top-navbar {
   transition: 0.2s;
+}
+
+/* Avoid icons having a rectangular container */
+i {
+    line-height: 1;
 }
 
 /* make footer going to the bottom of the page even if there is not much content */
@@ -109,6 +119,57 @@ a {
     text-align: center;
 }
 
+/* Select2 dropdowns Bootstrap 4 style */
+/* Select element */
+.select2-container
+{
+    width: 100% !important;
+}
+.select2-container .select2-selection--single
+{
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    height: calc(2.25rem + 2px);
+    padding: 4px 3px 3px 8px;
+}
+/* Select element arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow
+{
+    top: 6px;
+}
+/* Opened dropdown */
+.select2-dropdown
+{
+    border-radius: 0;
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+}
+/* Search input */
+.select2-container--default .select2-search--dropdown .select2-search__field
+{
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+    border-radius: 0;
+}
+/* Dropdown options */
+.select2-results__option
+{
+    padding: 8px 17px;
+}
+/* Dropdown option hovered */
+.select2-container--default .select2-results__option--highlighted[aria-selected]
+{
+    background-color: #af4e7a;
+}
+
 /* set spaces every two numbers on 10 character phone numbers */
 .phone
 {
@@ -178,25 +239,6 @@ a {
     margin-bottom: 0;
 }
 
-/* Square btn */
-.square-btn-wrapper {
-    position: relative;
-}
-
-.square-btn-wrapper:before {
-    content:     "";
-    display:     block;
-    padding-top: 100%; /* initial ratio of 1:1*/
-}
-
-.btn.square-btn {
-    position: absolute;
-    top:      0;
-    left:     0;
-    bottom:   0;
-    right:    0;
-}
-
 /* Spinner loader animation */
 .loader-animated {
     display: inline-block;
@@ -238,4 +280,28 @@ a {
 /* set default size for form error message */
 .field-error-spot {
     min-height: 24px;
+}
+
+.people-summary:hover > div {
+    color: #212529;
+    background-color: #f6f6f6 !important;
+    cursor: pointer;
+}
+
+.people-summary img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* Big buttons for main action in dashboard */
+.huge-button {
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding: .95rem .75rem;
+}
+
+.huge-button > div > i {
+    font-size: 3rem;
+    line-height: 1;
 }

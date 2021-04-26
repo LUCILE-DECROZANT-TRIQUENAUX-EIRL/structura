@@ -3,6 +3,7 @@ namespace App\FormDataObject;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
+use App\Entity\PeopleType;
 
 class UpdatePeopleDataFDO
 {
@@ -32,6 +33,13 @@ class UpdatePeopleDataFDO
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     */
+    private $firstContactYear;
+
+    /**
      * The email address of the people.
      * @var string
      */
@@ -42,6 +50,18 @@ class UpdatePeopleDataFDO
      * @var boolean
      */
     private $isReceivingNewsletter = false;
+
+    /**
+     * A boolean used to check if the people has PeopleType contact.
+     * @var boolean
+     */
+    private $isContact = false;
+
+    /**
+     * A boolean used to check if the people has PeopleType social pole.
+     * @var boolean
+     */
+    private $needHelp = false;
 
     /**
      * A boolean used to check if the people want to receive the newletter
@@ -99,6 +119,11 @@ class UpdatePeopleDataFDO
      */
     private $addresses;
 
+    function __construct()
+    {
+        $this->firstContactYear = (int) date('Y');
+    }
+
     /**
      *
      */
@@ -110,6 +135,16 @@ class UpdatePeopleDataFDO
         $updatePeopleDataFDO->denomination = $people->getDenomination();
         $updatePeopleDataFDO->firstName = $people->getFirstName();
         $updatePeopleDataFDO->lastName = $people->getLastName();
+        if (empty($people->getFirstContactYear()))
+        {
+            $updatePeopleDataFDO->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $updatePeopleDataFDO->firstContactYear = $people->getFirstContactYear();
+        }
+        $updatePeopleDataFDO->isContact = $people->isContact();
+        $updatePeopleDataFDO->needHelp = $people->needHelp();
         $updatePeopleDataFDO->emailAddress = $people->getEmailAddress();
         $updatePeopleDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
         $updatePeopleDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
@@ -205,6 +240,31 @@ class UpdatePeopleDataFDO
     }
 
     /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(?int $firstContactYear): self
+    {
+        if (empty($firstContactYear))
+        {
+            $this->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $this->firstContactYear = $firstContactYear;
+        }
+        return $this;
+    }
+
+    /**
      * Get the value of emailAddress
      *
      * @return string
@@ -249,6 +309,28 @@ class UpdatePeopleDataFDO
     {
         $this->isReceivingNewsletter = $isReceivingNewsletter;
 
+        return $this;
+    }
+
+    function isContact(): ?bool
+    {
+        return $this->isContact;
+    }
+
+    function setIsContact(bool $isContact): self
+    {
+        $this->isContact = $isContact;
+        return $this;
+    }
+
+    function needHelp(): ?bool
+    {
+        return $this->needHelp;
+    }
+
+    function setNeedHelp(bool $needHelp): self
+    {
+        $this->needHelp = $needHelp;
         return $this;
     }
 

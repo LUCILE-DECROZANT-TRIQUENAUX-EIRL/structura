@@ -1,0 +1,81 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Détails de la banque{% endtrans %} {{ bank.name }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
+    {% endif %}
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('bank_list') }}">{% trans %}Liste des banques{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Détails de la banque{% endtrans %} {{ bank.name }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('Bank/_menu-bank.html.twig', { show_bank: 'active' }) }}
+            </div>
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col">
+                        <h1>{{ bank.name }}</h1>
+                        <p>{% trans %}Identifiant :{% endtrans %} {{ bank.id }}</p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('bank_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des banques{% endtrans %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{#
+
+<title>Bank</title>
+
+{% block body %}
+    <h1>Bank</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bank.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ bank.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('bank_index') }}">back to list</a>
+
+    <a href="{{ path('bank_edit', {'id': bank.id}) }}">edit</a>
+
+    {{ include('Bank/_delete_form.html.twig') }}
+{% endblock %}
+#}

@@ -135,10 +135,28 @@ $(document).ready(function () {
                 }
             }
 
-            // Check which columns are sortable
-            let sortableColumns = [];
+            // Setup columns using settings
+            let columns = [];
             $table.find('th').each(function (index) {
-                sortableColumns.push({orderable: $(this).data('sortable') === true});
+                let column = {};
+
+                // Get AJAX data id if set
+                if ($(this).data('json-id')) {
+                    column.data = $(this).data('json-id');
+                } else if ($table.data('ajax-url')) {
+                    // If data is loaded using AJAX but column does not use it to display data,
+                    // setup column as empty
+                    column.data = null;
+                    column.defaultContent = '';
+                }
+
+                // Setup column as sortable
+                column.orderable = $(this).data('sortable') === true;
+
+                // Add custom classes
+                column.className = $(this).data('class')
+
+                columns.push(column);
             });
 
             // Select which column will be sorted at start
@@ -158,35 +176,15 @@ $(document).ready(function () {
             let orderedColumn = [[orderedColumnIndex, 'asc']];
 
             // Check if rows are openable
-            let openable = {};
             let isRowsOpenable = $table.data('rows'); // Get the custom setting
-
-            if (isRowsOpenable) {
-                if (isRowsOpenable === 'openable') {
-                    openable = {
-                        details: {
-                            type: 'column',
-                            target: 'tr'
-                        }
-                    };
-                    orderedColumnIndex = customOrderedColumnIndex;
-                } else {
-                    openable = false;
-                    console.debug('The rows will not be openable on click.');
-                }
-            } else {
-                openable = false;
-                console.debug('The rows will not be openable on click.');
-            }
-
-            // Instanciate the DataTable
-            $table.DataTable({
+            // Compute all settings
+            let datatableSettings = {
                 colReorder: {
                     fixedColumnsRight: countFixedColumnsRight,
                 },
                 order: orderedColumn,
-                columns: sortableColumns,
-                responsive: openable,
+                columns: columns,
+                processing: true,
                 language: {
                     url: '/json/datatable/fr_FR.json',
                 },
@@ -197,14 +195,96 @@ $(document).ready(function () {
                     // We show the table that was hidden while datatable was initializing
                     // This prevents the table's raw HTML to be visible before the datatable is fully loaded
                     $table.children('tbody').removeClass('d-none');
+                },
+                createdRow: function (row, data, dataIndex) {
+                    if (isRowsOpenable) {
+                        $(row).attr('title', 'Cliquer pour afficher plus de détails');
+                        $(row).attr('data-title-opened', 'Cliquer pour cacher les détails');
+                        $(row).attr('data-title-closed', 'Cliquer pour afficher plus de détails');
+                        $(row).attr('data-toggle', 'tooltip');
+                        $(row).tooltip();
+
+                        $('td:last-of-type', row).html('<i class="icon ion-ios-arrow-down"></i>');
+                    }
+                },
+            };
+
+            // Add AJAX url if specified
+            if ($table.data('ajax-url')) {
+                datatableSettings.ajax = $table.data('ajax-url');
+            }
+
+            // Instanciate the DataTable
+            let table = $table.DataTable(datatableSettings);
+
+            // Open rows if needed
+            if (isRowsOpenable) {
+                if (isRowsOpenable === 'openable') {
+                    // Add event listener for opening and closing details
+                    $table.on('click', 'tr:not(.child-row)', function () {
+                        let tr = $(this);
+                        let row = table.row(tr);
+
+                        if (row.child.isShown()) {
+                            // This row is already open - close it
+                            row.child.hide();
+                            tr.removeClass('shown');
+                            tr.removeClass('bg-secondary');
+                            $(tr).find('.ion-ios-arrow-up').addClass('ion-ios-arrow-down');
+                            $(tr).find('.ion-ios-arrow-up').removeClass('ion-ios-arrow-up');
+                            $(tr).attr('title', $(tr).data('title-closed'));
+                            $(tr).tooltip('dispose');
+                            $(tr).tooltip();
+                        } else {
+                            // Close other rows opened
+                            if (table.row('.shown').length) {
+                                $(table.row('.shown').node()).click();
+                            }
+                            // Open this row
+                            row.child(formatTableChildRow(row.data()), 'child-row').show();
+                            tr.addClass('shown');
+                            tr.addClass('bg-secondary');
+                            $(tr).find('.ion-ios-arrow-down').addClass('ion-ios-arrow-up');
+                            $(tr).find('.ion-ios-arrow-down').removeClass('ion-ios-arrow-down');
+                            $(tr).attr('title', $(tr).data('title-opened'));
+                            $(tr).tooltip('dispose');
+                            $(tr).tooltip();
+                            // Toggle tooltips on generated child row items
+                            $(row.child()).find('[data-toggle="tooltip"]').tooltip('dispose');
+                            $(row.child()).find('[data-toggle="tooltip"]').tooltip();
+                        }
+                    });
+                } else {
+                    openable = false;
+                    console.debug('The rows will not be openable on click.');
                 }
-            });
+            } else {
+                openable = false;
+                console.debug('The rows will not be openable on click.');
+            }
         });
     });
 
     // Toggle all tooltips of the project
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    // Toggle all Select2 dropdown of the project
+    $(function () {
+        $('[data-toggle="select2"]').each(function (index) {
+            let $select = $(this);
+
+            // Check if there is a selected option placeholder to add it if needed
+            let placeholder = null;
+            if ($select.data('placeholder')) {
+                placeholder = $select.data('placeholder');
+            }
+
+            $select.select2({
+                'placeholder': placeholder,
+            });
+        });
     });
 
     // Toggle all flip cards of the project
@@ -232,3 +312,84 @@ $(document).ready(function () {
         });
     });
 });
+
+/**
+ * Add or remove the d-none class to an element
+ * Depending on if it has it or not
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function toggleDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+    else
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Add the d-none class to an element if it doesn't have it already.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function addDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (!element.hasClass('d-none'))
+    {
+        element.addClass('d-none');
+    }
+}
+
+/**
+ * Remove the d-none class to an element if it already has it.
+ *
+ * @param {string} elementSelector The DOM element's id property
+ */
+function removeDisplayNone(elementSelector)
+{
+    let element = $(elementSelector);
+    if (element.hasClass('d-none'))
+    {
+        element.removeClass('d-none');
+    }
+}
+
+/**
+ * Format HTML using in child rows of an openable DataTable row
+ *
+ * @param DataTable table
+ * @param Object data
+ * @returns raw HTML
+ */
+function formatTableChildRow(data) {
+    // Get HTML structure and clone it to fill it with data
+    let childRowContent = $('div.childrow-structure').clone();
+
+    // Get settings for each column needing to be filled
+    childRowContent.find('*').each(function (index) {
+        if ($(this).data('json-id')) {
+            let dataId = $(this).data('json-id').split('.');
+
+            let content = data;
+            dataId.forEach(function (identifier) {
+                content = content[identifier];
+            })
+            if (content !== null && !$(this).data('is-url')) {
+                $(this).html(content);
+            } else if (content !== null && $(this).data('is-url')) {
+                $(this).attr('href', content);
+            } else if ($(this).data('empty-field-needed')) {
+                $(this).html('-');
+            } else {
+                $(this).remove();
+            }
+        }
+    });
+    return childRowContent.html();
+}

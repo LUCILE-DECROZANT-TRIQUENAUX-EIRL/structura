@@ -9,6 +9,7 @@ use App\Entity\Receipt;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
 use App\Repository\DonationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,56 +23,66 @@ class DonationController extends AbstractController
 {
     /**
      * @Route("/", name="donation_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function listAction(DonationRepository $donationRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('Donation/list.html.twig', [
-            'donations' => $em->getRepository(Donation::class)->findAll(),
+            'donations' => $donationRepository->findOrderedDonations()
         ]);
     }
 
     /**
      * @Route("/new", name="donation_new", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function new(Request $request): Response
     {
-        $updateDonationFDO = new UpdateDonationFDO();
+        $createDonationFDO = new UpdateDonationFDO();
 
         // Preselect check payment type
         $em = $this->getDoctrine()->getManager();
         $checkPaymentType = $em->getRepository(PaymentType::class)->find(4);
-        $updateDonationFDO->setPaymentType($checkPaymentType);
+        $createDonationFDO->setPaymentType($checkPaymentType);
 
-        $form = $this->createForm(DonationType::class, $updateDonationFDO);
+        $form = $this->createForm(DonationType::class, $createDonationFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
 
-            $donator = $updateDonationFDO->getDonator();
-            $donationDate = $updateDonationFDO->getDonationDate();
+            $donator = $createDonationFDO->getDonator();
+            $donationDate = $createDonationFDO->getDonationDate();
 
             // -- DONATION -- //
             $donation = new Donation();
 
-            $donation->setAmount($updateDonationFDO->getAmount());
+            $donation->setAmount($createDonationFDO->getAmount());
             $donation->setDonator($donator);
             $donation->setDonationDate($donationDate);
-
-
 
             // -- PAYMENT -- //
             $payment = new Payment();
 
             $payment->setPayer($donator);
-            $payment->setType($updateDonationFDO->getPaymentType());
-            $payment->setAmount($updateDonationFDO->getAmount());
-            $payment->setDateReceived($donationDate);
-            $payment->setDateCashed($updateDonationFDO->getCashedDate());
-            $payment->setComment($updateDonationFDO->getComment());
+            $payment->setType($createDonationFDO->getPaymentType());
+            $payment->setAmount($createDonationFDO->getAmount());
+            $payment->setDateReceived($createDonationFDO->getDonationDate());
+            $payment->setDateCashed($createDonationFDO->getCashedDate());
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($createDonationFDO->getBank());
+                $payment->setCheckNumber($createDonationFDO->getCheckNumber());
+            }
+            else
+            {
+                $payment->setBank(null);
+                $payment->setCheckNumber(null);
+            }
+            $payment->setComment($createDonationFDO->getComment());
 
             $em->persist($payment);
 
@@ -105,6 +116,7 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_show", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function show(Donation $donation): Response
     {
@@ -115,30 +127,42 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="donation_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function edit(Request $request, Donation $donation): Response
     {
-        $updatePeopleDataFDO = new UpdateDonationFDO($donation);
+        $updateDonationFDO = new UpdateDonationFDO($donation);
 
-        $form = $this->createForm(DonationType::class, $updatePeopleDataFDO);
+        $form = $this->createForm(DonationType::class, $updateDonationFDO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $donator = $updatePeopleDataFDO->getDonator();
+            $donator = $updateDonationFDO->getDonator();
 
-            $donation->setAmount($updatePeopleDataFDO->getAmount());
+            $donation->setAmount($updateDonationFDO->getAmount());
             $donation->setDonator($donator);
-            $donation->setDonationDate($updatePeopleDataFDO->getDonationDate());
+            $donation->setDonationDate($updateDonationFDO->getDonationDate());
 
             $payment = $donation->getPayment();
 
             $payment->setPayer($donator);
-            $payment->setType($updatePeopleDataFDO->getPaymentType());
-            $payment->setAmount($updatePeopleDataFDO->getAmount());
-            $payment->setDateReceived($updatePeopleDataFDO->getDonationDate());
-            $payment->setDateCashed($updatePeopleDataFDO->getCashedDate());
+            $payment->setType($updateDonationFDO->getPaymentType());
+            $payment->setAmount($updateDonationFDO->getAmount());
+            $payment->setDateReceived($updateDonationFDO->getDonationDate());
+            $payment->setDateCashed($updateDonationFDO->getCashedDate());
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($updateDonationFDO->getBank());
+                $payment->setCheckNumber($updateDonationFDO->getCheckNumber());
+            }
+            else
+            {
+                $payment->setBank(null);
+                $payment->setCheckNumber(null);
+            }
+            $payment->setComment($updateDonationFDO->getComment());
 
             $em->persist($payment);
             $em->persist($donation);
@@ -156,12 +180,27 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function delete(Request $request, Donation $donation, TranslatorInterface $translator): Response
     {
         if ($this->isCsrfTokenValid('delete'.$donation->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($donation);
+
+            $payment = $donation->getPayment();
+            if ($donation->getAmount() === $payment->getAmount())
+            {
+                $entityManager->remove($payment);
+                $entityManager->remove($donation);
+            }
+            else
+            {
+                $payment->setAmount($payment->getAmount() - $donation->getAmount());
+                $entityManager->persist($payment);
+                $entityManager->remove($donation);
+            }
+
             $entityManager->flush();
             $this->addFlash(
                     'success', $translator->trans('Don supprimé.')

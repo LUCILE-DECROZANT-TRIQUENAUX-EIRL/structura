@@ -14,6 +14,7 @@ use App\Form\MembershipFormType;
 use App\FormDataObject\MemberSelectionFDO;
 use App\FormDataObject\UpdateMembershipFDO;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +29,7 @@ class MembershipController extends AbstractController
 {
     /**
      * @Route("/member-selection", name="member-selection")
+     * @Security("is_granted('ROLE_GESTION')")
      */
     public function memberSelectionAction(Request $request)
     {
@@ -96,7 +98,7 @@ class MembershipController extends AbstractController
         $updateMembershipFDO->setPaymentType($checkPaymentType);
 
         $membershipCreationForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
-            'selectablePeople' => $peopleWithNoActiveMembership
+            'selectablePeople' => $peopleWithNoActiveMembership,
         ]);
 
         $membershipCreationForm->handleRequest($request);
@@ -122,7 +124,15 @@ class MembershipController extends AbstractController
             $payment->setAmount($updateMembershipFDO->getPaymentAmount());
             $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
             $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
-
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($updateMembershipFDO->getBank());
+                $payment->setCheckNumber($updateMembershipFDO->getCheckNumber());
+            }
+            else
+            {
+                $payment->setBank(null);
+            }
             $payment->setPayer($updateMembershipFDO->getPayer());
             $payment->setMembership($membership);
 
@@ -206,7 +216,7 @@ class MembershipController extends AbstractController
         $updateMembershipFDO = new UpdateMembershipFDO($membership);
 
         $membershipEditForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
-            'selectablePeople' => $selectablePeople
+            'selectablePeople' => $selectablePeople,
         ]);
 
         $membershipEditForm->handleRequest($request);
@@ -240,7 +250,15 @@ class MembershipController extends AbstractController
             $payment->setAmount($updateMembershipFDO->getPaymentAmount());
             $payment->setDateReceived($updateMembershipFDO->getPaymentDateReceived());
             $payment->setDateCashed($updateMembershipFDO->getPaymentDateCashed());
-
+            if ($payment->getType()->isBankneeded())
+            {
+                $payment->setBank($updateMembershipFDO->getBank());
+                $payment->setCheckNumber($updateMembershipFDO->getCheckNumber());
+            }
+            else
+            {
+                $payment->setBank(null);
+            }
             $payment->setPayer($updateMembershipFDO->getPayer());
 
             // Donation
@@ -291,5 +309,42 @@ class MembershipController extends AbstractController
             'membership' => $membership,
             'membership_edit_form' => $membershipEditForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="membership_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function delete(Request $request, Membership $membership, TranslatorInterface $translator): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$membership->getId(), $request->request->get('_token'))) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $payment = $membership->getPayment();
+            if ($membership->getAmount() === $payment->getAmount())
+            {
+                $entityManager->remove($payment);
+                $entityManager->remove($membership);
+            }
+            else
+            {
+                $payment->setAmount($payment->getAmount() - $membership->getAmount());
+                $entityManager->persist($payment);
+                $entityManager->remove($membership);
+            }
+
+
+            $entityManager->flush();
+            $this->addFlash(
+                    'success', $translator->trans('Adhésion supprimée.')
+            );
+        } else {
+            $this->addFlash(
+                    'danger', $translator->trans('Une erreur est survenue.')
+            );
+        }
+
+        return $this->redirectToRoute('membership_list');
     }
 }

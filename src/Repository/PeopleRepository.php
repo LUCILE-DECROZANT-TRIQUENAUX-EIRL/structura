@@ -7,6 +7,7 @@ namespace App\Repository;
 
 
 use App\Entity\People;
+use App\Entity\PeopleType;
 
 /**
  * PeopleRepository
@@ -27,7 +28,8 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
                 JOIN p2.memberships m
                 WHERE m.date_start <= :now
                 AND m.date_end > :now
-            )'
+            )
+            ORDER BY p.lastName'
         );
 
         $query->setParameter(':now', new \DateTime());
@@ -44,7 +46,8 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
            'SELECT p2, m FROM App\Entity\People p2
             JOIN p2.memberships m
             WHERE m.date_start <= :now
-            AND m.date_end > :now'
+            AND m.date_end > :now
+            ORDER BY p2.lastName'
         );
 
         $query->setParameter(':now', new \DateTime());
@@ -75,7 +78,8 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
             AND p.id IN (
                 SELECT p3.id FROM App\Entity\People p3
                 JOIN p3.memberships m2
-            )'
+            )
+            ORDER BY p.lastName'
         );
 
         $query->setParameter(':now', new \DateTime());
@@ -94,7 +98,45 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
             WHERE p.id NOT IN (
                 SELECT p2.id FROM App\Entity\People p2
                 JOIN p2.memberships m
-            )'
+            )
+            ORDER BY p.lastName'
+        );
+
+        return $query->execute();
+    }
+
+    public function findContacts(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // All people with a Contact type
+        $query = $entityManager->createQuery(
+           'SELECT p
+            FROM App\Entity\People p
+            JOIN p.types t
+            WHERE t.code = :code
+            ORDER BY p.lastName'
+        );
+
+        $query->setParameter(':code', PeopleType::CONTACT_CODE);
+
+        return $query->execute();
+    }
+
+    public function findPeopleWithAddress(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // All people with a Contact type
+        $query = $entityManager->createQuery(
+           'SELECT p, a, d
+            FROM App\Entity\People p
+            LEFT JOIN p.addresses a
+            LEFT JOIN p.denomination d
+            WHERE a.line IS NOT NULL
+            AND a.postalCode IS NOT NULL
+            AND a.city IS NOT NULL
+            ORDER BY p.lastName ASC'
         );
 
         return $query->execute();

@@ -35,9 +35,10 @@
             >
             <thead>
                 <tr>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
                     <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Montant{% endtrans %}</th>
                     <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Date de règlement{% endtrans %}</th>
-                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Donateurice{% endtrans %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -46,9 +47,10 @@
             <tbody class="d-none">
                 {% for donation in donations %}
                     <tr>
+                        <td class="align-middle text-center text-uppercase">{{ donation.donator.lastName }}</td>
+                        <td class="align-middle text-center">{{ donation.donator.firstName }}</td>
                         <td class="align-middle text-center">{{ donation.amount }}&nbsp;€</td>
                         <td class="align-middle text-center">{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }} </td>
-                        <td class="align-middle text-center">{{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.LastName | upper }} </td>
                         <td class="align-middle column-action">
                             <a
                                 href="{{ path('donation_show', { 'id': donation.id }) }}"

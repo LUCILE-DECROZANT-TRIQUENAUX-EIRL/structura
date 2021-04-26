@@ -12,6 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class PaymentType
 {
+    const HELLO_ASSO_LABEL = 'HelloAsso';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,6 +37,16 @@ class PaymentType
      * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="type")
      */
     private $payments;
+
+    /**
+     * Boolean to check in the Payment of this type if Bank information
+     * is needed.
+     *
+     * @var boolean True is Bank is needed in payment, false otherwise
+     *
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $isBankneeded;
 
     public function __construct()
     {
@@ -97,6 +109,18 @@ class PaymentType
                 $payment->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    function isBankneeded(): bool
+    {
+        return $this->isBankneeded;
+    }
+
+    function setIsBankneeded(bool $isBankneeded): self
+    {
+        $this->isBankneeded = $isBankneeded;
 
         return $this;
     }

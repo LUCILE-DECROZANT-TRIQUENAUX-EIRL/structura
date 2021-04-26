@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Étiquettes</title>
+            <link rel="stylesheet" href="public/css/library/bootstrap.min.css">
+            <link rel="stylesheet" href="public/css/library/theme.min.css">
+            <link rel="stylesheet" href="public/css/global.css">
+            <link rel="stylesheet" href="public/css/PDF/tag.css">
+    </head>
+    <body>
+        {% include 'PDF/Tag/_tag.html.twig' with {
+            'people': people,
+        } %}
+    </body>
+</html>

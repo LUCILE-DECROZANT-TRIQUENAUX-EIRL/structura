@@ -32,6 +32,25 @@ class UpdateMemberDataFDO
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     */
+    private $firstContactYear;
+
+    /**
+     * A boolean used to check if the people has PeopleType contact.
+     * @var boolean
+     */
+    private $isContact = false;
+
+    /**
+     * A boolean used to check if the people has PeopleType social pole.
+     * @var boolean
+     */
+    private $needHelp = false;
+
+    /**
      * The email address of the people.
      * @var string
      */
@@ -99,6 +118,11 @@ class UpdateMemberDataFDO
      */
     private $addresses;
 
+    function __construct()
+    {
+        $this->firstContactYear = (int) date('Y');
+    }
+
     /**
      *
      */
@@ -110,6 +134,16 @@ class UpdateMemberDataFDO
         $updateMemberDataFDO->denomination = $people->getDenomination();
         $updateMemberDataFDO->firstName = $people->getFirstName();
         $updateMemberDataFDO->lastName = $people->getLastName();
+        $updateMemberDataFDO->isContact = $people->isContact();
+        if (empty($people->getFirstContactYear()))
+        {
+            $updateMemberDataFDO->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $updateMemberDataFDO->firstContactYear = $people->getFirstContactYear();
+        }
+        $updateMemberDataFDO->needHelp = $people->needHelp();
         $updateMemberDataFDO->emailAddress = $people->getEmailAddress();
         $updateMemberDataFDO->isReceivingNewsletter = $people->getIsReceivingNewsletter();
         $updateMemberDataFDO->newsletterDematerialization = $people->getNewsletterDematerialization();
@@ -201,6 +235,53 @@ class UpdateMemberDataFDO
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(?int $firstContactYear): self
+    {
+        if (empty($firstContactYear))
+        {
+            $this->firstContactYear = (int) date('Y');
+        }
+        else
+        {
+            $this->firstContactYear = $firstContactYear;
+        }
+        return $this;
+    }
+
+    function isContact(): ?bool
+    {
+        return $this->isContact;
+    }
+
+    function setIsContact(bool $isContact): self
+    {
+        $this->isContact = $isContact;
+        return $this;
+    }
+
+    function needHelp(): ?bool
+    {
+        return $this->needHelp;
+    }
+
+    function setNeedHelp(bool $needHelp): self
+    {
+        $this->needHelp = $needHelp;
         return $this;
     }
 

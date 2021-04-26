@@ -1,17 +1,3 @@
-.square-btn.huge-button {
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-}
-
-.square-btn.huge-button > div {
-}
-
-.square-btn.huge-button > div > .icon.ion-md-add {
-    display: box;
-    font-size: 50px;
-}
-
 /* Avoid tooltip break on disabled elements */
 .tooltip-wrapper {
     display: inline-block;
@@ -27,28 +13,44 @@ table.dataTable > tbody > tr.child span.dtr-title {
     display: none;
 }
 
-/* make buttons full width */
-table.dataTable > tbody > tr span,
-table.dataTable > tbody > tr span > .btn {
-    width: 100%;
-}
-
 /* Add specific cursor on openable rows */
-table.dataTable[data-rows="openable"] > tbody > tr,
-table.dataTable[data-rows="openable"] > tbody > tr > td {
+table.dataTable[data-rows="openable"] > tbody > tr:not(.child-row),
+table.dataTable[data-rows="openable"] > tbody > tr:not(.child-row) > td {
     cursor: pointer;
 }
 
+/* Animate transition color on openable rows */
+table.dataTable[data-rows="openable"] > tbody > tr:not(.child-row) {
+    transition-property: background-color color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+/* Setup hover color on openable rows */
+table.dataTable[data-rows="openable"] > tbody > tr:not(.child-row):hover {
+    background-color: #eee;
+}
+
+/* Setup hover color on openable rows */
+table.dataTable[data-rows="openable"] > tbody > tr:not(.child-row).bg-secondary:hover {
+    background-color: #e1aa1f !important;
+}
+
+/* Animate default transition color on stiped tables */
 .table-striped tbody tr {
     transition-property: background-color color;
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
 }
 
-.table-striped tbody tr.row-opened {
+.table-striped tbody tr:not(.child-row) {
     transition-property: background-color color;
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
-    background-color: #af4e7a;
     color: #fff;
+}
+
+/* Background icon in ex member details child row */
+i.ex-member-details-background-icon {
+    font-size: 4.5rem;
 }

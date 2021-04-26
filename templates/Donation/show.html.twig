@@ -81,7 +81,13 @@
                             </tr>
                             <tr>
                                 <th>{% trans %}Réglé via...{% endtrans %}</th>
-                                <td>{{ donation.payment.type.label }}</td>
+                                <td>
+                                    {{ donation.payment.type.label }}
+                                    {% if(donation.payment.bank is not null) %}
+                                        ({{ donation.payment.bank.name }} - chèque numéro {{ donation.payment.checkNumber }})
+                                    {% endif %}
+
+                                </td>
                             </tr>
                             <tr>
                                 <th>{% trans %}Commentaire{% endtrans %}</th>

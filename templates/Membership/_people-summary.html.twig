@@ -1,0 +1,68 @@
+<div
+    class="col mt-3 people-summary"
+    onclick="location.href='{{ path('people_show', { 'id': people.id }) }}'"
+    data-toggle="tooltip"
+    title="{% trans %}Voir le profil de {% endtrans %} {{ people.denomination.label }} {{ people.firstName }} {{ people.lastName }}"
+    >
+    <div class="bg-white border p-3 h-100">
+        <div class="d-flex">
+            <div class="mr-4">
+                <img class="img-thumbnail" src="{{ asset('images/placeholder-personne.jpg') }}" alt="">
+            </div>
+            <div class="">
+                <div class="row pt-2"> <!--row name -->
+                    <div class="col font-weight-bold">
+                        <h5>
+                            {{ people.denomination ? people.denomination.label : "" }}
+                            {{ people.firstname }}
+                            <span class="text-uppercase">
+                                {{ people.lastname }}
+                            </span>
+                        </h5>
+                    </div>
+                </div>
+                <div class="row"> <!--row address -->
+                    {% if not people.hasNoAddressDefined() %}
+                        {% for address in people.addresses %}
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col">
+                                        {{ address.line }}
+                                    </div>
+                                </div>
+                                {% if not address.lineTwo is null %}
+                                    <div class="row">
+                                        <div class="col">
+                                            {{ address.lineTwo }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col">
+                                        {{ address.postalCode }}
+                                        <span class="text-uppercase">
+                                            {{ address.city }}
+                                        </span>
+                                    </div>
+                                </div>
+                                {% if address.country != 'France' %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="text-uppercase">
+                                                {{ address.country }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col">
+                            Pas d'adresse enregistrée.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

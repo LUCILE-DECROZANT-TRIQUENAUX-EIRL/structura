@@ -8,11 +8,12 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\People;
+use App\Entity\Bank;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
+use App\Entity\People;
 
 class MembershipFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
@@ -32,6 +33,10 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
         // Creating MembershipType
         $output->writeln('      <comment>></comment> <info>Membership types creation...</info>');
+        $bankRepository = $manager->getRepository(Bank::class);
+        $banks = $bankRepository->findAll();
+        $banksCount = count($banks);
+
         $MembershipTypeFamily = new MembershipType();
         $MembershipTypeFamily->setDefaultAmount(30.0);
         $MembershipTypeFamily->setLabel('Famille');
@@ -64,6 +69,9 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCheque50->setType($paymentTypeCheck);
         $paymentAdhesionCheque50->setDateReceived(new \DateTime('2017-02-17 16:01:57'));
         $paymentAdhesionCheque50->setDateCashed(new \DateTime('2017-02-17 16:01:57'));
+        $bank = $banks[rand(0, $banksCount - 1)];
+        $paymentAdhesionCheque50->setBank($bank);
+        $paymentAdhesionCheque50->setCheckNumber('000111222333');
 
         $manager->persist($paymentAdhesionCheque50);
 
@@ -92,7 +100,6 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
         $paymentAdhesionCard20->setType($paymentTypeCard);
         $paymentAdhesionCard20->setDateReceived(new \DateTime('2018-05-11 08:28:09'));
         $paymentAdhesionCard20->setDateCashed(new \DateTime('2018-05-11 08:28:09'));
-
 
 
         // Fifth payment (transfer)
@@ -218,6 +225,12 @@ class MembershipFixtures extends Fixture implements FixtureGroupInterface, Depen
 
             // Card payment generated for this membership
             $payment = clone $paymentAdhesionCard20;
+            // Change date received and date cashed to add more diversity and cohesion
+            $days = rand(1, 200);
+            $paymentDateTimestamp = strtotime('-' . $days . ' days', $now->getTimestamp());
+            $paymentDate = new \DateTime('@' . $paymentDateTimestamp);
+            $payment->setDateReceived($paymentDate);
+            $payment->setDateCashed($paymentDate);
 
             // Create and associate active and inactive memberships evenly on members
             if ($index % 2 == 0)

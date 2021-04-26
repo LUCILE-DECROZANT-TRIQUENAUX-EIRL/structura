@@ -272,7 +272,9 @@ fi
 cp ".env.local_for_${env}" .env.local
 
 # Launching the messenger process that consume messages in a new terminal
-x-terminal-emulator -e php bin/console messenger:consume async -vv
+# x-terminal-emulator -e symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async -vv
+x-terminal-emulator -e symfony run --watch=config,src,templates,vendor symfony console messenger:consume async -vv
 
 # Starting the symfony server with the newly created env file
-symfony server:start
+symfony self:update --yes
+symfony server:start --no-interaction

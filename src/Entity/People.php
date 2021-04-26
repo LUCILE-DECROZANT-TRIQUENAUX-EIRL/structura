@@ -68,6 +68,15 @@ class People
     private $lastName;
 
     /**
+     * Year of the first contact of the people
+     *
+     * @var int
+     *
+     * @ORM\Column(name="first_contact_year", type="integer")
+     */
+    private $firstContactYear;
+
+    /**
      * The email address of the people.
      *
      * @var string
@@ -174,6 +183,16 @@ class People
     private $addresses;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PeopleType", inversedBy="peoples", cascade={"persist", "remove"})
+     * @ORM\JoinTable(
+     *      name="peoples_people_types",
+     *      joinColumns={@JoinColumn(name="people_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="people_type_id", referencedColumnName="id")}
+     * )
+     */
+    private $types;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Membership", inversedBy="members", cascade={"persist", "remove"})
      * @ORM\OrderBy({"date_start" = "DESC"})
      * @ORM\JoinTable(
@@ -206,6 +225,7 @@ class People
         $this->lastName = $lastName;
         $this->memberships = new ArrayCollection();
         $this->donations = new ArrayCollection();
+        $this->firstContactYear = (int) date('Y');
     }
 
     /**
@@ -282,6 +302,24 @@ class People
     {
         $this->lastName = $lastName;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    function getFirstContactYear(): int
+    {
+        return $this->firstContactYear;
+    }
+
+    /**
+     * @param int $firstContactYear
+     * @return \self
+     */
+    function setFirstContactYear(int $firstContactYear): self
+    {
+        $this->firstContactYear = $firstContactYear;
         return $this;
     }
 
@@ -645,6 +683,56 @@ class People
         return null;
     }
 
+    function getTypes()
+    {
+        return $this->types;
+    }
+
+    function setTypes($types): void
+    {
+        $this->types = $types;
+    }
+
+    /**
+     * Add a type to the person
+     *
+     * @param Type $type The type to add.
+     */
+    public function addType($type)
+    {
+        $this->types[] = $type;
+    }
+
+    /**
+     * Remove a type from the person
+     *
+     * @param Type $typeToRemove The typte to remove.
+     */
+    public function removeType($typeToRemove)
+    {
+        $typeToRemoveIndex = null;
+
+        if (empty($this->types))
+        {
+            return $this;
+        }
+
+        foreach ($this->types as $index => $type)
+        {
+            if ($type->getId() == $typeToRemove->getId())
+            {
+                $typeToRemoveIndex = $index;
+                break;
+            }
+        }
+
+        if ($typeToRemoveIndex !== null)
+        {
+            $this->types->remove($typeToRemoveIndex);
+        }
+        return $this;
+    }
+
     public function getMemberships()
     {
         return $this->memberships;
@@ -720,5 +808,39 @@ class People
         }
 
         return $this;
+    }
+
+    /**
+     * Check is this people has a Contact type
+     *
+     * @return bool True if people has Contact type, false otherwise
+     */
+    public function isContact(): bool
+    {
+        foreach ($this->getTypes() as $type)
+        {
+            if ($type->getCode() === PeopleType::CONTACT_CODE)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check is this people has a Social Pole type
+     *
+     * @return bool True if people has Social Pole type, false otherwise
+     */
+    public function needHelp(): bool
+    {
+        foreach ($this->getTypes() as $type)
+        {
+            if ($type->getCode() === PeopleType::SOCIAL_POLE_CODE)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

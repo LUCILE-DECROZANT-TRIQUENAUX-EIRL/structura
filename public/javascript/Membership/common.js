@@ -8,45 +8,68 @@ var selectedPeopleCount = 0;
 // -- Document ready listener -- //
 ///////////////////////////////////
 $(document).ready(function() {
-    // -- Precising the Bootstrap version for the bootstrap-select plugin -- //
-    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+    /*
+     * Show bank select if payment type needs it
+     */
+    let isBankNeeded = $("option:selected", '#app_membership_paymentType').data('is-bank-needed') === undefined ? false : true;
+    isBankNeeded ? showCheckInformationForm() : hideCheckInformationForm();
 
     // -- Changing the paymentAmount type by cloning it, to add html5 validation -- //
     // Note : In symfony 5.2 the type can be set in the FormType
     // We'll need TODO this when we will update our version
-    $('#app_membership_paymentAmount').clone().attr('type','number').insertAfter('#app_membership_paymentAmount').prev().remove();
+    $('#app_membership_paymentAmount')
+            .clone()
+            .attr('type','number')
+            .insertAfter('#app_membership_paymentAmount')
+            .prev()
+            .remove();
 
     // -- Declaration of the event listeners -- //
     $('#app_membership_paymentAmount').keyup(function() {
         updatePaymentAmount();
     });
+    $('#app_membership_membershipAmount').keyup(function() {
+        updatePaymentAmount();
+    });
 
+    /*
+     * Setting the payment amount to null on focus if value is 0
+     */
     $('#app_membership_paymentAmount').focus(function() {
-        // Setting the payment amount to null on focus if value is 0
         if ($('#app_membership_paymentAmount').val() == 0) {
             $('#app_membership_paymentAmount').val('');
         }
     });
 
-    $('#app_membership_membershipAmount').keyup(function() {
-        updatePaymentAmount();
-    });
-
+    /*
+     * Update the form when user change the membership type
+     */
     $('#app_membership_membershipType').change(function(event) {
         // If it's not the placeholder that have been selected
         if ($(this).val() > 0)
         {
             getMembershipType($(this).val());
-            removeDisplayNone('member-selection-part');
-            addDisplayNone('payment-part');
+            removeDisplayNone('#member-selection-part');
+            addDisplayNone('#payment-part');
         }
         else
         {
-            addDisplayNone('member-selection-part');
-            addDisplayNone('payment-part');
+            addDisplayNone('#member-selection-part');
+            addDisplayNone('#payment-part');
         }
     });
 
+    /*
+     * Show or hide the check information depending on payment type
+     */
+    $('#app_membership_paymentType').change(function(event) {
+        let isBankNeeded = $("option:selected", this).data('is-bank-needed') === undefined ? false : true;
+        isBankNeeded ? showCheckInformationForm() : hideCheckInformationForm();
+    });
+
+    /*
+     * Udpate the form when user select a new people for the membership
+     */
     $('#app_membership_newMember').change(function() {
         let selectedPeopleId = $(this).val();
 
@@ -59,7 +82,7 @@ $(document).ready(function() {
             // We only add it if it's not already checked
             if (selectedPeopleCheckbox.prop('checked') != true)
             {
-                selectPeople(selectedPeopleId, selectedPeopleName);
+                selectPeople(selectedPeopleId, selectedPeopleName, true);
             }
         }
     });
@@ -72,8 +95,34 @@ $(document).ready(function() {
     helpMessage = '<span id="newMember-help-number"></span> ' + helpMessage + ' <span id="newMember-help-type"></span>';
     $('#app_membership_newMember_help').html(helpMessage);
 
-    // Empty the payer selection list
-    $('#app_membership_payer').empty();
+    /*
+     * Copy check date values into payment date input
+     */
+    $('#check-date').val($('#app_membership_paymentDate_received').val());
+    $('#check-date').on('input', function () {
+        $('#app_membership_paymentDate_received').val($(this).val());
+    });
+    $('#app_membership_paymentDate_received').on('input', function () {
+        $('#check-date').val($(this).val());
+    });
+
+    /*
+     * Copy check issuer values into payment payer input
+     */
+    $('#check-issuer').val($('#app_membership_payer').val());
+    $('#check-issuer').on('change', function () {
+        $('#app_membership_payer').val($(this).val());
+    });
+    $('#app_membership_payer').on('change', function () {
+        $('#check-issuer').val($(this).val());
+    });
+
+    /*
+     * Catch form submission to reenable select (readonly not available for this element)
+     */
+    $('form').on('submit', function () {
+        $('#app_membership_payer').prop('disabled', false);
+    });
 });
 
 //////////////////////////////////
@@ -275,8 +324,9 @@ function handlePeopleDeletion(peopleId)
  *
  * @param {number} selectedPeopleId The id of the person you want to select.
  * @param {string} selectedPeopleName The fullname of the person you want to select.
+ * @param {boolean} addToPayerList True if you want to add the selectedPeople to the payer list.
  */
-function selectPeople(selectedPeopleId, selectedPeopleName)
+function selectPeople(selectedPeopleId, selectedPeopleName, addToPayerList)
 {
     let selectedPeopleCheckbox = $('#app_membership_members_' + selectedPeopleId);
 
@@ -290,9 +340,13 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // Updating the selection list by removing the selected people
     removePeopleFromSelectionList(selectedPeopleId);
 
-    // We're adding the selected people to the payer list
-    $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
-    $('#app_membership_payer').trigger('change');
+    // We're adding the selected people to the payer list if the passed parameter is true
+    if (addToPayerList) {
+        $('#app_membership_payer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+        $('#app_membership_payer').trigger('change');
+    }
+    $('#check-issuer').append('<option value="' + selectedPeopleId + '">' + selectedPeopleName + '</option>');
+    $('#check-issuer').trigger('change');
 
     // Increasing the counter.
     selectedPeopleCount++;
@@ -301,13 +355,18 @@ function selectPeople(selectedPeopleId, selectedPeopleName)
     // And update the title to help the user
     if (selectedPeopleCount == currentMembershipType.number_max_members)
     {
+        $('#app_membership_newMember').select2({
+            placeholder: $('#app_membership_newMember').data('disabled-placeholder'),
+            templateSelection: function () {
+                return $('#app_membership_newMember').data('disabled-placeholder');
+            }
+        });
         $('#app_membership_newMember').prop('disabled', true);
-        $('#app_membership_newMember').selectpicker({title: 'Nombre maximum d\'adhérent·e atteint'});
-        $('#app_membership_newMember').selectpicker('refresh');
 
-        removeDisplayNone('payment-part');
-        removeDisplayNone('member-creation-submit-button');
+        removeDisplayNone('#payment-part');
+        removeDisplayNone('#member-creation-submit-button');
     }
+    $('#app_membership_newMember').prop('selectedIndex', 0);
 }
 
 /**
@@ -335,16 +394,22 @@ function deselectPeople(peopleId)
     if (selectedPeopleCount < currentMembershipType.number_max_members)
     {
         $('#app_membership_newMember').prop('disabled', false);
-        $('#app_membership_newMember').selectpicker({title: 'Sélectionnez une personne pour l\'ajouter'});
-        $('#app_membership_newMember').selectpicker('refresh');
+        $('#app_membership_newMember').select2({
+            placeholder: $('#app_membership_newMember').data('placeholder'),
+            templateSelection: function () {
+                return $('#app_membership_newMember').data('placeholder');
+            }
+        });
 
-        addDisplayNone('payment-part');
-        addDisplayNone('member-creation-submit-button');
+        addDisplayNone('#payment-part');
+        addDisplayNone('#member-creation-submit-button');
     }
 
     // We're removing the selected people from the payer list
     $('#app_membership_payer option[value="' + peopleId + '"]').remove();
     $('#app_membership_payer').trigger('change');
+    $('#check-issuer option[value="' + peopleId + '"]').remove();
+    $('#check-issuer').trigger('change');
 }
 
 /**
@@ -354,26 +419,8 @@ function deselectPeople(peopleId)
  */
 function addPeopleToSelectionList(peopleId)
 {
-    let peopleName = $('#people-recap-name-'+peopleId).html();
-
-    // Adding the people in the select list
-    $('#app_membership_newMember').append('<option value="'+peopleId+'">' + peopleName + '</option>');
-
-    let selectList = $('#app_membership_newMember option');
-
-    // Sorting by value (Aka, People's id)
-    selectList.sort(function(a, b) {
-        a = a.value;
-        b = b.value;
-
-        return a-b;
-    });
-
-    // Replacing the list by the sorted list
-    $('#app_membership_newMember').html(selectList);
-
-    // Selectiong the blank value
-    $('.selectpicker').selectpicker('val', '');
+    $('#app_membership_newMember option[value="' + peopleId + '"]')
+            .prop('disabled', false);
 }
 
 /**
@@ -383,8 +430,8 @@ function addPeopleToSelectionList(peopleId)
  */
 function removePeopleFromSelectionList(peopleId)
 {
-    $('#app_membership_newMember option[value="' + peopleId + '"]').remove();
-    $('.selectpicker').selectpicker('refresh');
+    $('#app_membership_newMember option[value="' + peopleId + '"]')
+            .prop('disabled', true);
 }
 
 /**
@@ -405,52 +452,20 @@ function resetSelectedPeople()
     });
 }
 
-/**
- * Add or remove the d-none class to an element
- * Depending on if it has it or not
- *
- * @param {string} elementId The DOM element's id property
- */
-function toggleDisplayNone(elementId)
+function showCheckInformationForm()
 {
-    let element = $('#' + elementId);
-
-    if (element.hasClass('d-none'))
-    {
-        element.removeClass('d-none');
-    }
-    else
-    {
-        element.addClass('d-none');
-    }
+    removeDisplayNone('.check-information');
+    $('.check-information input').prop('required', true)
+    $('.check-information select').prop('required', true)
+    $('#app_membership_paymentDate_received').prop('readonly', 'readonly');
+    $('#app_membership_payer').prop('disabled', 'disabled');
 }
 
-/**
- * Add the d-none class to an element if it doesn't have it already.
- *
- * @param {string} elementId The DOM element's id property
- */
-function addDisplayNone(elementId)
+function hideCheckInformationForm()
 {
-    let element = $('#' + elementId);
-
-    if (!element.hasClass('d-none'))
-    {
-        element.addClass('d-none');
-    }
-}
-
-/**
- * Remove the d-none class to an element if it already has it.
- *
- * @param {string} elementId The DOM element's id property
- */
-function removeDisplayNone(elementId)
-{
-    let element = $('#' + elementId);
-
-    if (element.hasClass('d-none'))
-    {
-        element.removeClass('d-none');
-    }
+    addDisplayNone('.check-information');
+    $('.check-information input').prop('required', false)
+    $('.check-information select').prop('required', false)
+    $('#app_membership_paymentDate_received').prop('readonly', false);
+    $('#app_membership_payer').prop('disabled', false);
 }

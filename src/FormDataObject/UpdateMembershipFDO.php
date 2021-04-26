@@ -2,11 +2,12 @@
 namespace App\FormDataObject;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\People;
-use App\Entity\Payment;
-use App\Entity\PaymentType;
+use App\Entity\Bank;
 use App\Entity\Membership;
 use App\Entity\MembershipType;
+use App\Entity\Payment;
+use App\Entity\PaymentType;
+use App\Entity\People;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class UpdateMembershipFDO
@@ -39,6 +40,10 @@ class UpdateMembershipFDO
 
     private $newMember;
 
+    private $bank;
+
+    private $checkNumber;
+
     public function __construct(Membership $membership = null)
     {
         if ($membership !== null)
@@ -59,6 +64,8 @@ class UpdateMembershipFDO
             $this->paymentDate_received = $payment->getDateReceived();
             $this->paymentDate_cashed = $payment->getDateCashed();
             $this->payer = $payment->getPayer();
+            $this->bank = $payment->getBank();
+            $this->checkNumber = $payment->getCheckNumber();
 
             $donation = $payment->getDonation();
 
@@ -316,6 +323,40 @@ class UpdateMembershipFDO
     {
         $this->payer = $payer;
 
+        return $this;
+    }
+
+    /**
+     * Return membership payment bank
+     *
+     * @return Bank
+     */
+    function getBank(): ?Bank
+    {
+        return $this->bank;
+    }
+
+    /**
+     * Set membership payment bank
+     *
+     * @param Bank $bank
+     * @return \self
+     */
+    function setBank(?Bank $bank): self
+    {
+        $this->bank = $bank;
+
+        return $this;
+    }
+
+    function getCheckNumber(): ?string
+    {
+        return $this->checkNumber;
+    }
+
+    function setCheckNumber($checkNumber): self
+    {
+        $this->checkNumber = $checkNumber;
         return $this;
     }
 }

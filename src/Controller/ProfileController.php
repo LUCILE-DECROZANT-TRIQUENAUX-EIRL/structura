@@ -34,7 +34,7 @@ class ProfileController extends AbstractController
      * @return views
      * @param User $currentUser The user to display.
      * @Route("/{id}", name="profile_show", methods={"GET"})
-     * @Security("(user.getId() == id)")
+     * @Security("not is_anonymous() && (user.getId() == id)")
      */
     public function showAction(User $currentUser)
     {
@@ -54,12 +54,12 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * Displays a form to edit cpersonal infos of the connected user.
+     * Displays a form to edit personal infos of the connected user.
      * @return views
      * @param Request $request The request.
      * @param People $people The user to edit.
      * @Route("/{id}/editpersonal", name="profile_edit_personal_data", methods={"GET", "POST"})
-     * @Security("(user.getId() == id)")
+     * @Security("not is_anonymous() && (user.getId() == id)")
      */
     public function editPersonalAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
@@ -99,7 +99,7 @@ class ProfileController extends AbstractController
      * @param Request $request The request.
      * @param User $currentUser The user to edit.
      * @Route("/{id}/editpseudonym", name="profile_edit_pseudonym", methods={"GET", "POST"})
-     * @Security("user.getId() == id")
+     * @Security("not is_anonymous() && user.getId() == id")
      */
     public function editPseudonymAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
@@ -154,7 +154,7 @@ class ProfileController extends AbstractController
      * @param User $currentUser The user to edit.
      * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/editpassword", name="profile_edit_password", methods={"GET", "POST"})
-     * @Security("user.getId() == id")
+     * @Security("not is_anonymous() && user.getId() == id")
      */
     public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
     {
@@ -217,7 +217,7 @@ class ProfileController extends AbstractController
      * @param Request $request The request.
      * @param User $currentUser The user to edit.
      * @Route("/{id}/editnewsletter", name="profile_edit_newsletter", methods={"GET", "POST"})
-     * @Security("user.getId() == id")
+     * @Security("not is_anonymous() && user.getId() == id")
      */
     public function editNewsletterSubscriptionAction(Request $request, User $currentUser, TranslatorInterface $translator)
     {
@@ -252,4 +252,3 @@ class ProfileController extends AbstractController
         ]);
     }
 }
-
