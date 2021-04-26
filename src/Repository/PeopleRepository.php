@@ -129,9 +129,10 @@ class PeopleRepository extends \Doctrine\ORM\EntityRepository
 
         // All people with a Contact type
         $query = $entityManager->createQuery(
-           'SELECT p, a
+           'SELECT p, a, d
             FROM App\Entity\People p
             LEFT JOIN p.addresses a
+            LEFT JOIN p.denomination d
             WHERE a.line IS NOT NULL
             AND a.postalCode IS NOT NULL
             AND a.city IS NOT NULL
