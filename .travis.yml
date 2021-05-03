@@ -19,6 +19,7 @@ install:
   - echo "database_url=\"mysql://root:travis@127.0.0.1:3306/structura\"" >> .env.test
   - cat .env 2>/dev/null
   - cat .env.test 2>/dev/null
+  - cat phpunit.xml.dist
   - sleep 5
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:migration:migrate --no-interaction
