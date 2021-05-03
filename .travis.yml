@@ -11,14 +11,11 @@ install:
   - export PATH="$HOME/.symfony/bin:$PATH"
   - composer install --no-interaction
   - echo "USE mysql;\nSET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - echo "DATABASE_URL=mysql://root:${MYSQL_PASSWORD}@127.0.0.1:3306/structura" >> .env.local_for_test
-  - echo "MAILER_URL=null://localhost" >> .env.local_for_test
-  - ./server_start_aaasso.sh --env=dev --database-host=127.0.0.1 --database-port=3306 --database-name=structura --database-user=root --database-password=travis
+  - echo "DATABASE_URL=mysql://root:${MYSQL_PASSWORD}@127.0.0.1:3306/structura" >> .env
+  - echo "MAILER_URL=null://localhost" >> .env
+  - echo "database_url=\"mysql://root:travis@127.0.0.1:3306/structura\"" >> .env
   - cat .env 2>/dev/null
-  - cat .env.local_for_test 2>/dev/null
-  - cat .env.local 2>/dev/null
   - sleep 5
-  - cat .env.local 2>/dev/null
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:migration:migrate --no-interaction
 
