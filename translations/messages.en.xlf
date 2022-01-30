@@ -499,7 +499,7 @@
       </trans-unit>
       <trans-unit id="BbKygTx" resname="Téléphone et email">
         <source>Téléphone et email</source>
-        <target state="translated">Phone &amp; Email</target>
+        <target state="translated"><![CDATA[Phone & Email]]></target>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
