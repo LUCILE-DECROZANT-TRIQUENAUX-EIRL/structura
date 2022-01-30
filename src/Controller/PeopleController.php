@@ -49,7 +49,6 @@ class PeopleController extends AbstractController {
             $deleteForms[$people->getId()] = $deleteForm->createView();
         }
 
-
         return $this->render('People/list.html.twig', array(
                 'peoples' => $peoples,
                 'people_deletion_forms' => $deleteForms,

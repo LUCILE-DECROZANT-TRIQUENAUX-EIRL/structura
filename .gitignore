@@ -50,3 +50,7 @@ pdf/
 .vscode/
 structura.code-workspace
 ###< vscode config ###
+
+###> phpstorm config ###
+.idea
+###< vscode config ###
