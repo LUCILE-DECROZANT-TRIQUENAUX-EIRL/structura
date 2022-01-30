@@ -49,7 +49,6 @@ class PeopleController extends AbstractController {
             $deleteForms[$people->getId()] = $deleteForm->createView();
         }
 
-
         return $this->render('People/list.html.twig', array(
                 'peoples' => $peoples,
                 'people_deletion_forms' => $deleteForms,
@@ -377,14 +376,14 @@ class PeopleController extends AbstractController {
                 'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('people_edit', ['id' => $people->getId()]);
+            return $this->redirectToRoute('people_show', ['id' => $people->getId()]);
         }
 
-        return $this->render('People/edit.html.twig', array(
+        return $this->render('People/edit.html.twig', [
                 'people' => $people,
                 'people_edit' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**

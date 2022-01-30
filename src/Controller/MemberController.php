@@ -354,14 +354,14 @@ class MemberController extends AbstractController {
                 'success', $translator->trans('Les informations ont bien été modifiées')
             );
 
-            return $this->redirectToRoute('member_edit', ['id' => $individual->getId()]);
+            return $this->redirectToRoute('member_show', ['id' => $individual->getId()]);
         }
 
-        return $this->render('Member/edit.html.twig', array(
+        return $this->render('Member/edit.html.twig', [
                 'member' => $individual,
                 'member_edit' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**

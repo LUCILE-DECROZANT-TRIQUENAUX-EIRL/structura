@@ -170,15 +170,6 @@ a {
     background-color: #af4e7a;
 }
 
-/* set spaces every two numbers on 10 character phone numbers */
-.phone
-{
-    width: 6em;
-    word-wrap: break-word;
-    columns: 5;
-    column-gap: 0.2em;
-}
-
 /* Flip card */
 .flip-card
 {

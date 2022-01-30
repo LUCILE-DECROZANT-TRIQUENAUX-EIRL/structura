@@ -402,7 +402,9 @@ class People
      */
     public function getHomePhoneNumber()
     {
-        return $this->homePhoneNumber;
+        // Format phone number for display purpose
+        $chunks = str_split($this->homePhoneNumber, 2);
+        return implode(' ', $chunks);
     }
 
     /**
@@ -432,7 +434,9 @@ class People
      */
     public function getCellPhoneNumber()
     {
-        return $this->cellPhoneNumber;
+        // Format phone number for display purpose
+        $chunks = str_split($this->cellPhoneNumber, 2);
+        return implode(' ', $chunks);
     }
 
     /**
@@ -462,7 +466,9 @@ class People
      */
     public function getWorkPhoneNumber()
     {
-        return $this->workPhoneNumber;
+        // Format phone number for display purpose
+        $chunks = str_split($this->workPhoneNumber, 2);
+        return implode(' ', $chunks);
     }
 
     /**
@@ -492,7 +498,9 @@ class People
      */
     public function getWorkFaxNumber()
     {
-        return $this->workFaxNumber;
+        // Format phone number for display purpose
+        $chunks = str_split($this->workFaxNumber, 2);
+        return implode(' ', $chunks);
     }
 
     /**

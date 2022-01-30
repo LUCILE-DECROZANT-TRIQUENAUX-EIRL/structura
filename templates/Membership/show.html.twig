@@ -65,7 +65,7 @@
                             </h4>
                             <div class="row">
                                 {% for member in membership.members %}
-                                    {% include 'Membership/_people-summary.html.twig' with {'people': member} %}
+                                    {% include 'People/_people-summary.html.twig' with {'people': member} %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                         Effectué par&nbsp;:
                                     </h5>
                                     <div class="row">
-                                        {% include 'Membership/_people-summary.html.twig' with {'people': membership.payment.payer} %}
+                                        {% include 'People/_people-summary.html.twig' with {'people': membership.payment.payer} %}
                                     </div>
                                 </div>
                                 <div class="col">
@@ -115,6 +115,29 @@
                                     {% if (membership.payment.type.isBankNeeded) %}
                                         {% include 'Payment/_check-summary.html.twig' with {'payment': membership.payment} %}
                                     {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-4 mb-4">
+                            <h4 class="text-center">
+                                Reçu fiscal
+                            </h4>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5>
+                                        Année fiscale&nbsp;:
+                                        {{ membership.payment.receipt.year }}
+                                    </h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>
+                                        Numéro d'ordre&nbsp;:
+                                        {{ membership.payment.receipt.orderCode }}
+                                    </h5>
                                 </div>
                             </div>
                         </div>

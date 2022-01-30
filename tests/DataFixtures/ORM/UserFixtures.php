@@ -4,7 +4,7 @@ namespace Tests\App\DataFixtures\ORM;
 // use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 // use Doctrine\Common\DataFixtures\FixtureInterface;
 // use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-// use Doctrine\Common\Persistence\ObjectManager;
+// use Doctrine\Persistence\ObjectManager;
 // use App\Entity\User;
 // use App\Entity\People;
 // use App\Entity\Responsibility;
