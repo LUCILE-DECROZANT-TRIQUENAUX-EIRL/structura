@@ -2,20 +2,16 @@
 
 namespace App\Service;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Association;
 use App\Entity\User;
-use App\Entity\Payment;
 use App\Entity\Receipt;
-use App\Entity\ReceiptsGroupingFile;
 use App\Entity\ReceiptsFromYearGroupingFile;
 use App\Entity\ReceiptsFromTwoDatesGroupingFile;
 use App\Service\Utils\FileService;
 use Dompdf\Dompdf;
-use Dompdf\Options;
 
 /**
  * Class containing methods used to handle receipts.
@@ -94,6 +90,9 @@ class ReceiptService
 
         // PDF generator object instantiation
         $dompdf = new Dompdf();
+
+        // Set the generation root
+        $dompdf->getOptions()->setChroot($this->projectDir . '/public/');
 
         // Loading previously rendered html
         $dompdf->loadHtml($htmlNeedingConversion);

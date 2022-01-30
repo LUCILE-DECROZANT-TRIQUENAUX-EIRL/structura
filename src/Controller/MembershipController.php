@@ -98,7 +98,7 @@ class MembershipController extends AbstractController
         $updateMembershipFDO->setPaymentType($checkPaymentType);
 
         $membershipCreationForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
-            'selectablePeople' => $peopleWithNoActiveMembership
+            'selectablePeople' => $peopleWithNoActiveMembership,
         ]);
 
         $membershipCreationForm->handleRequest($request);
@@ -217,7 +217,6 @@ class MembershipController extends AbstractController
 
         $membershipEditForm = $this->createForm(MembershipFormType::class, $updateMembershipFDO, [
             'selectablePeople' => $selectablePeople,
-            'payers' => $oldMembers,
         ]);
 
         $membershipEditForm->handleRequest($request);
