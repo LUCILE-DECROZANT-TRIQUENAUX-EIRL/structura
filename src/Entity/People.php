@@ -402,6 +402,16 @@ class People
      */
     public function getHomePhoneNumber()
     {
+        return $this->homePhoneNumber;
+    }
+
+    /**
+     * Get the formated value of homePhoneNumber for display
+     *
+     * @return string
+     */
+    public function getDisplayHomePhoneNumber()
+    {
         // Format phone number for display purpose
         $chunks = str_split($this->homePhoneNumber, 2);
         return implode(' ', $chunks);
@@ -435,6 +445,17 @@ class People
     public function getCellPhoneNumber()
     {
         // Format phone number for display purpose
+        $this->cellPhoneNumber;
+    }
+
+    /**
+     * Get the formated value of cellPhoneNumber for display
+     *
+     * @return string
+     */
+    public function getDisplayCellPhoneNumber()
+    {
+        // Format phone number for display purpose
         $chunks = str_split($this->cellPhoneNumber, 2);
         return implode(' ', $chunks);
     }
@@ -465,6 +486,16 @@ class People
      * @return string
      */
     public function getWorkPhoneNumber()
+    {
+        return $this->workPhoneNumber;
+    }
+
+    /**
+     * Get the formated value of cellPhoneNumber for display
+     *
+     * @return string
+     */
+    public function getDisplayWorkPhoneNumber()
     {
         // Format phone number for display purpose
         $chunks = str_split($this->workPhoneNumber, 2);
@@ -498,8 +529,18 @@ class People
      */
     public function getWorkFaxNumber()
     {
+        return $this->workFaxNumber;
+    }
+
+     /**
+     * Get the formated value of cellPhoneNumber for display
+     *
+     * @return string
+     */
+    public function getDisplayWorkFaxNumber()
+    {
         // Format phone number for display purpose
-        $chunks = str_split($this->workFaxNumber, 2);
+        $chunks = str_split($this->cellPhoneNumber, 2);
         return implode(' ', $chunks);
     }
 
