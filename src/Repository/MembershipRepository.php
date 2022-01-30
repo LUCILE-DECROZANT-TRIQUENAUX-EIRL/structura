@@ -31,18 +31,15 @@ class MembershipRepository extends ServiceEntityRepository
         $fromDateFormated = date('Y-m-', $fromDate) . '01 00:00:00';
 
         $sql = 'SELECT SUM(membership.amount) as revenues, '
-                . 'DATE_FORMAT(payment.date_cashed, "%Y-%m") as date '
-                . 'FROM payment '
-                . 'JOIN membership on membership.payment_id = payment.id '
-                . 'WHERE payment.date_cashed > ? '
-                . 'GROUP BY DATE_FORMAT(payment.date_cashed, "%Y-%m")';
+            . 'DATE_FORMAT(payment.date_cashed, "%Y-%m") as date '
+            . 'FROM payment '
+            . 'JOIN membership on membership.payment_id = payment.id '
+            . 'WHERE payment.date_cashed > :date_cashed '
+            . 'GROUP BY DATE_FORMAT(payment.date_cashed, "%Y-%m")';
 
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(1, $fromDateFormated);
-        $stmt->execute();
+        $result = $stmt->executeQuery(['date_cashed' => $fromDateFormated]);
 
-        $result = $stmt->fetchAll();
-
-        return $result;
+        return $result->fetchAllAssociative();
     }
 }
