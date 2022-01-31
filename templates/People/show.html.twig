@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/User/show.css') }}">
 {% endblock %}
 
+{% block javascript %}
+    <script src="{{ asset('javascript/People/generate-from-year.js') }}"></script>
+    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">
         <a href="/">{% trans %}Accueil{% endtrans %}</a>
@@ -34,15 +39,12 @@
     <br>
     <div class="container">
         <div class="row">
-
-            <div class="col-8 col-md-2">
-                {{ include('People/_menu-people.html.twig', { show_profile: 'active' }) }}
-            </div>
-
-            <div class="col-12 col-md-10">
+            <div class="col">
                 {{ include('People/partials/people_contact_information.html.twig', { people: people }) }}
 
                 {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
+
+                {{ include('People/partials/people_fiscal_receipt_generation.html.twig', { people: people }) }}
 
                 {{ include('People/partials/people_donation_membership_create.html.twig', { people: people, hasActiveMembership: hasActiveMembership }) }}
 
