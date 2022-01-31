@@ -14,7 +14,7 @@
                 data-ajax-url="/ajax/people/{{ people.id }}/list/memberships">
                 <thead class="border-bottom-0">
                     <tr>
-                        <th scope="col" style="width: 10%">
+                        <th scope="col" style="width: 15%">
                             Type
                         </th>
                         <th class="text-center" scope="col" style="width: 10%">
@@ -29,15 +29,85 @@
                         <th scope="col" style="width: 15%">
                             Réglé via
                         </th>
-                        <th scope="col" style="width: 15%">
-                            Dates du paiement
-                        </th>
-                        <th class="text-center" scope="col" style="width: 20%">
+                        <th class="text-center" scope="col" style="width: 25%">
                             Commentaire
                         </th>
+                        <th class="text-center" scope="col" style="width: 5%"></th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
             </table>
+            <div
+                id="childrow-structure"
+                class="d-none">
+                <div class="container-fluid bg-white">
+                    <div class="row">
+                        <div class="col px-1">
+                            <div class="text-center p-2">
+                                <div class="row">
+                                    <div id="members-container" class="col align-self-stretch d-none">
+                                        <div class="bg-light py-2 h-100">
+                                            <div class="mb-2">
+                                                <strong>Membres adhérant</strong>
+                                            </div>
+                                            <div id="members-list">
+                                                <div id="member-information-container" class="member-information">
+                                                    <span class="denomination"></span>
+                                                    <span class="firstname"></span>
+                                                    <span class="lastname text-uppercase"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="payment-container" class="col align-self-stretch">
+                                        <div class="bg-light py-2 h-100">
+                                            <div class="mb-2">
+                                                <strong>Paiement</strong>
+                                            </div>
+                                            <div id="paiement-information-container">
+                                                Effectué par <span class="made-by"></span><br>
+                                                Reçu le <span class="date-received"></span><br>
+                                                Encaissé le <span class="date-cashed"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="fiscal-receipt-container" class="col align-self-stretch">
+                                        <div class="bg-light py-2 h-100">
+                                            <div class="mb-2">
+                                                <strong>Reçu fiscal</strong>
+                                            </div>
+                                            <div id="fiscal-receipt-container">
+                                                Année fiscale&nbsp;: <span class="fiscal-year"></span><br>
+                                                Numéro d'ordre&nbsp;: <span class="order-code"></span><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col align-self-stretch">
+                                        <div class="bg-light py-2 h-100">
+                                            <div class="mb-2">
+                                                <strong>Commentaire</strong>
+                                            </div>
+                                            <div id="comment-container" class="font-italic"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

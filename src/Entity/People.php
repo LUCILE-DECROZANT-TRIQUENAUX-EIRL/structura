@@ -241,7 +241,7 @@ class People
     /**
      * Get the value of denomination
      */
-    public function getDenomination()
+    public function getDenomination(): ?Denomination
     {
         return $this->denomination;
     }
@@ -720,7 +720,7 @@ class People
         return true;
     }
 
-    public function getActiveMembership()
+    public function getActiveMembership(): ?Membership
     {
         foreach ($this->memberships as $membership)
         {

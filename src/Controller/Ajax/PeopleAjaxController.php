@@ -136,6 +136,19 @@ class PeopleAjaxController extends FOSRestController
     {
         $membershipsData = [];
         foreach ($people->getMemberships() as $membership) {
+            $formattedMembers = null;
+            foreach ($membership->getMembers() as $member) {
+                $formattedMember = [
+                    'id' => $member->getId(),
+                    'denomination' => $member->getDenomination()->getLabel(),
+                    'firstname' => $member->getFirstName(),
+                    'lastname' => $member->getLastName(),
+                ];
+
+                $formattedMembers[] = $formattedMember;
+            }
+
+            $payment = $membership->getPayment();
             $formattedMembership = [
                 'id' => $membership->getId(),
                 'type_label' => $membership->getType()->getLabel(),
@@ -143,12 +156,28 @@ class PeopleAjaxController extends FOSRestController
                 'price' => $membership->getType()->getDefaultAmount(),
                 'date_start' => $membership->getDateStart()->format('d/m/Y'),
                 'date_end' => $membership->getDateEnd()->format('d/m/Y'),
-                'payment_amount' => $membership->getPayment()->getAmount(),
-                'payment_mean' => $membership->getPayment()->getType()->getLabel(),
-                'payment_date_received' => $membership->getPayment()->getDateReceived()->format('d/m/Y'),
-                'payment_date_cashed' => $membership->getPayment()->getDateCashed()->format('d/m/Y'),
+                'payment' => [
+                    'amount' => $payment->getAmount(),
+                    'mean' => $payment->getType()->getLabel(),
+                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'payer' => [
+                        'id' => $payment->getPayer()->getId(),
+                        'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
+                        'firstname' => $payment->getPayer()->getFirstName(),
+                        'lastname' => $payment->getPayer()->getLastName(),
+                    ],
+                    'fiscal_receipt' => [
+                        'fiscal_year' => $payment->getReceipt()->getYear(),
+                        'order_code' => $payment->getReceipt()->getOrderCode(),
+                    ],
+                    'comment' => $payment->getComment(),
+                ],
                 'comment' => $membership->getComment(),
+                'members' => $formattedMembers,
+                'is_current' => $membership->getId() === $people->getActiveMembership()->getId(),
             ];
+
             $membershipsData[] = $formattedMembership;
         }
 
