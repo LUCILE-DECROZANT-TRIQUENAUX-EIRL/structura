@@ -540,7 +540,7 @@ class People
     public function getDisplayWorkFaxNumber()
     {
         // Format phone number for display purpose
-        $chunks = str_split($this->cellPhoneNumber, 2);
+        $chunks = str_split($this->workFaxNumber, 2);
         return implode(' ', $chunks);
     }
 
