@@ -1,7 +1,5 @@
 {% block body %}
     {% set show_profile = show_profile is defined ? show_profile : null %}
-    {% set show_memberships = show_memberships is defined ? show_memberships : null %}
-    {% set show_donations = show_donations is defined ? show_donations : null %}
     {% set edit_profile = edit_profile is defined ? edit_profile : null %}
     {% set generate_receipt_by_year = generate_receipt_by_year is defined ? generate_receipt_by_year : null %}
 
@@ -10,18 +8,6 @@
            class="list-group-item list-group-item-action {{ show_profile }}"
            >
             {% trans %}Profil{% endtrans %}
-        </a>
-        <a href="{{ path('people_memberships_show', { 'id': people.id }) }}"
-           class="list-group-item list-group-item-action {{ show_memberships }}"
-           >
-            {% trans %}Adhésions{% endtrans %}
-        </a>
-        <a href="#"
-           class="list-group-item list-group-item-action disabled {{ show_donations }}"
-           data-toggle="tooltip"
-           title="Work in progress"
-           >
-            {% trans %}Dons{% endtrans %}
         </a>
     </ul>
     <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>

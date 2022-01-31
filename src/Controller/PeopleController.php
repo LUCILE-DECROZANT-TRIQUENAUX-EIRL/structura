@@ -234,21 +234,6 @@ class PeopleController extends AbstractController {
     }
 
     /**
-     * Finds and displays a People memberships.
-     *
-     * @return views
-     * @param People $individual The user corresponding to the wanted memberships.
-     * @Route("/{id}/memberships", name="people_memberships_show", methods={"GET"})
-     * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
-     */
-    public function showMembershipsAction(People $individual) {
-        return $this->render('People/show-memberships.html.twig', [
-                'people' => $individual,
-                'member' => $individual,
-        ]);
-    }
-
-    /**
      * Displays a form to edit an existing People entity.
      * @return views
      * @param Request $request The request.
