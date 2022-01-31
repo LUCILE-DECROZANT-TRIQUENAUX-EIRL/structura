@@ -7,6 +7,7 @@ use App\Entity\Payment;
 use App\Entity\Receipt;
 use App\Entity\Donation;
 use App\Entity\Membership;
+use App\Entity\MembershipType;
 use App\Entity\PaymentType;
 use App\Form\MemberSelectionType;
 use App\Form\MembershipFormType;
@@ -92,6 +93,38 @@ class MembershipController extends AbstractController
         $peopleWithNoActiveMembership = $em->getRepository(People::class)->findWithNoActiveMembership();
 
         $updateMembershipFDO = new UpdateMembershipFDO();
+
+        // Preselect member if optional parameter is not null
+        $personId = $request->get('person-id');
+
+        if (!is_null($personId))
+        {
+            $newMember = $em->getRepository(People::class)->find($personId);
+
+            if (is_null($newMember))
+            {
+                $this->addFlash(
+                    'danger', 'La personne pré-sélectionnée n\'existe pas en base de donnée.'
+                );
+            }
+            // We make sure that this person has no active membership
+            else if (in_array($newMember, $peopleWithNoActiveMembership))
+            {
+                $updateMembershipFDO->setMembers([$newMember]);
+                $updateMembershipFDO->setNewMember($newMember);
+
+                $defaultMembership = $em->getRepository(MembershipType::class)->findBy([
+                    'isMultiMembers' => 0
+                ], null, 1)[0];
+                $updateMembershipFDO->setMembershipType($defaultMembership);
+            }
+            else
+            {
+                $this->addFlash(
+                    'danger', 'La personne pré-sélectionnée a déjà une adhésion active.'
+                );
+            }
+        }
 
         // Preselect check payment type
         $checkPaymentType = $em->getRepository(PaymentType::class)->find(4);
