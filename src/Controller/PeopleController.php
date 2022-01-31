@@ -228,6 +228,7 @@ class PeopleController extends AbstractController {
 
         return $this->render('People/show.html.twig', array(
                 'people' => $people,
+                'hasActiveMembership' => $people->hasActiveMembership(),
                 'delete_form' => $deleteForm->createView(),
         ));
     }

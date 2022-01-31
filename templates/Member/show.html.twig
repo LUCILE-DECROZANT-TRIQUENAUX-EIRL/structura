@@ -44,6 +44,14 @@
 
                 {{ include('People/partials/people_memberships_list.html.twig', { people: member }) }}
 
+                {% if is_granted("ROLE_GESTION") %}
+                    <div class="row">
+                        <div class="col-md">
+                            <a href="{{ path('donation_new', {'person-id': member.id}) }}" class="btn btn-primary"><i class="icon ion-md-cash"></i>&nbsp;{% trans %}Enregistrer un don{% endtrans %}</a>
+                        </div>
+                    </div>
+                {% endif %}
+
                 <div class="row mt-3">
                     {% if is_granted("ROLE_GESTION") %}
                         <div class="col-md">

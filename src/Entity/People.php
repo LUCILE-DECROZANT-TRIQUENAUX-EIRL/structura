@@ -732,6 +732,11 @@ class People
         return null;
     }
 
+    public function hasActiveMembership()
+    {
+        return $this->getActiveMembership() !== null;
+    }
+
     function getTypes()
     {
         return $this->types;
