@@ -177,7 +177,7 @@ class UpdateMembershipFDO
         return $this->members;
     }
 
-    public function setMembers(?People $members): self
+    public function setMembers($members): self
     {
         $this->members = $members;
 

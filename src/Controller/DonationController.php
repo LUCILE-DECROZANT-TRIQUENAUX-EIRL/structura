@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Donation;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
+use App\Entity\People;
 use App\Entity\Receipt;
 use App\Form\DonationType;
 use App\FormDataObject\UpdateDonationFDO;
@@ -40,10 +41,30 @@ class DonationController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
         $createDonationFDO = new UpdateDonationFDO();
 
+        // Preselect member if optional parameter is not null
+        $personId = $request->get('person-id');
+
+        if (!is_null($personId))
+        {
+            $newDonator = $em->getRepository(People::class)->find($personId);
+
+            if (is_null($newDonator))
+            {
+                $this->addFlash(
+                    'danger', 'La personne pré-sélectionnée n\'existe pas en base de donnée.'
+                );
+            }
+            else
+            {
+                $createDonationFDO->setDonator($newDonator);
+            }
+        }
+
         // Preselect check payment type
-        $em = $this->getDoctrine()->getManager();
         $checkPaymentType = $em->getRepository(PaymentType::class)->find(4);
         $createDonationFDO->setPaymentType($checkPaymentType);
 
