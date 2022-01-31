@@ -44,28 +44,7 @@
 
                 {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
 
-                {% if is_granted("ROLE_GESTION") %}
-                    <div class="row">
-                        <div class="col-md">
-                            <a href="{{ path('donation_new', {'person-id': people.id}) }}" class="btn btn-primary">
-                                <i class="icon ion-md-cash"></i>&nbsp;{% trans %}Enregistrer un don{% endtrans %}
-                            </a>
-                        </div>
-                        {% if not hasActiveMembership %}
-                            <div class="col-md text-right">
-                                <a href="{{ path('membership_create', {'person-id': people.id}) }}" class="btn btn-primary">
-                                    <i class="icon ion-md-filing"></i>&nbsp;{% trans %}Enregistrer une adhésion{% endtrans %}
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="col-md text-right">
-                                <button class="btn btn-primary" disabled="disabled" data-toggle="tooltip" title="" data-original-title="Cette personne a déjà une adhésion active">
-                                    <i class="icon ion-md-filing"></i>&nbsp;{% trans %}Enregistrer une adhésion{% endtrans %}
-                                </button>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                {{ include('People/partials/people_donation_membership_create.html.twig', { people: people, hasActiveMembership: hasActiveMembership }) }}
 
                 <div class="row mt-3">
                     {% if is_granted("ROLE_GESTION") %}

@@ -203,6 +203,7 @@ class MemberController extends AbstractController {
 
         return $this->render('Member/show.html.twig', array(
                 'member' => $individual,
+                'hasActiveMembership' => $individual->hasActiveMembership(),
                 'delete_form' => $deleteForm->createView(),
         ));
     }
