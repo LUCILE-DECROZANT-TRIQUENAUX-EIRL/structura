@@ -57,6 +57,18 @@ a {
     border-radius: 0px;
 }
 
+/* Rework Bootstrap default table settings */
+.table thead th {
+    border-bottom: none;
+    vertical-align: middle;
+}
+
+.table td,
+.table tbody td,
+.table tbody tr td {
+    vertical-align: middle;
+}
+
 /* Default theme of the DataTables */
 .dataTables_wrapper > table
 {
