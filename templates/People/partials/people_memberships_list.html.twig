@@ -1,64 +1,42 @@
+{% block javascript %}
+    <script src="{{ asset('javascript/People/partials/people_memberships_list.js') }}"></script>
+{% endblock %}
+
 <div class="row">
     <div class="col">
         <div class="bg-light p-4 mb-4">
             <h4 class="text-center mb-5">
                 Toutes les adhésions
             </h4>
-            <table class="table table-sm bg-white">
+            <table
+                id="memberships-list"
+                class="table table-sm bg-white"
+                data-ajax-url="/ajax/people/{{ people.id }}/list/memberships">
                 <thead class="border-bottom-0">
                     <tr>
-                        <th scope="col" style="width: 10%">Type</th>
-                        <th class="text-center" scope="col" style="width: 10%">Prix</th>
-                        <th scope="col" style="width: 15%">Dates</th>
-                        <th class="text-center" scope="col" style="width: 15%">Montant<br>du paiement</th>
-                        <th scope="col" style="width: 15%">Réglé via</th>
-                        <th scope="col" style="width: 15%">Dates du paiement</th>
-                        <th class="text-center" scope="col" style="width: 20%">Commentaire</th>
+                        <th scope="col" style="width: 10%">
+                            Type
+                        </th>
+                        <th class="text-center" scope="col" style="width: 10%">
+                            Prix
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            Dates
+                        </th>
+                        <th class="text-center" scope="col" style="width: 15%">
+                            Montant<br>du paiement
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            Réglé via
+                        </th>
+                        <th scope="col" style="width: 15%">
+                            Dates du paiement
+                        </th>
+                        <th class="text-center" scope="col" style="width: 20%">
+                            Commentaire
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for membership in people.memberships %}
-                        <tr>
-                            <td data-toggle="tooltip" title="{{ membership.type.description }}">
-                                {{ membership.type.label }}
-                            </td>
-                            <td class="text-center">{{ membership.type.defaultAmount }}&nbsp;€</td>
-                            <td>
-                                Du {{ membership.getDateStart | date('d/m/Y') }}
-                                <br>
-                                au {{ membership.getDateEnd | date('d/m/Y') }}
-                            </td>
-                            <td class="text-center">
-                                {{ membership.payment.amount }}&nbsp;€
-                            </td>
-                            <td>
-                                {{ membership.payment.type.label }}
-                            </td>
-                            <td>
-                                <small>
-                                    {% if membership.payment.dateReceived is null %}
-                                        <i class="icon ion-md-warning"></i>&nbsp;Paiement pas encore reçu
-                                    {% else %}
-                                        Reçu le {{ membership.payment.dateReceived | date('d/m/Y') }}
-                                    {% endif %}
-                                    <br>
-                                    {% if membership.payment.dateCashed is null %}
-                                        <i class="icon ion-md-warning"></i>&nbsp;Paiement pas encore encaissé
-                                    {% else %}
-                                        Encaissé le {{ membership.payment.dateCashed | date('d/m/Y') }}
-                                    {% endif %}
-                                </small>
-                            </td>
-                            <td class="text-center">
-                                <small>
-                                    <i>
-                                        {{ membership.comment is null ? '-' : membership.comment }}
-                                    </i>
-                                </small>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
             </table>
         </div>
     </div>

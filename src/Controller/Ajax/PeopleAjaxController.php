@@ -68,7 +68,7 @@ class PeopleAjaxController extends FOSRestController
     }
 
     /**
-     * List all people who habe been members but not anymore and return
+     * List all people who have been members but not anymore and return
      * the list as a formatted array
      * @return json
      * @Route("/list/old-members", name="list_old_members", methods={"GET"})
@@ -119,6 +119,42 @@ class PeopleAjaxController extends FOSRestController
         $response = new Response();
         $response->setContent(json_encode([
             'data' => $peopleData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * List all memberships for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/memberships", name="list_memberships", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getMembershipsListAction(People $people)
+    {
+        $membershipsData = [];
+        foreach ($people->getMemberships() as $membership) {
+            $formattedMembership = [
+                'id' => $membership->getId(),
+                'type_label' => $membership->getType()->getLabel(),
+                'type_description' => $membership->getType()->getDescription(),
+                'price' => $membership->getType()->getDefaultAmount(),
+                'date_start' => $membership->getDateStart()->format('d/m/Y'),
+                'date_end' => $membership->getDateEnd()->format('d/m/Y'),
+                'payment_amount' => $membership->getPayment()->getAmount(),
+                'payment_mean' => $membership->getPayment()->getType()->getLabel(),
+                'payment_date_received' => $membership->getPayment()->getDateReceived()->format('d/m/Y'),
+                'payment_date_cashed' => $membership->getPayment()->getDateCashed()->format('d/m/Y'),
+                'comment' => $membership->getComment(),
+            ];
+            $membershipsData[] = $formattedMembership;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $membershipsData,
         ]));
 
         $response->headers->set('Content-Type', 'application/json');

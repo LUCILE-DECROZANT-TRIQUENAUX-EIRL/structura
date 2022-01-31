@@ -782,6 +782,9 @@ class People
         return $this;
     }
 
+    /**
+     * @return ArrayCollection|Membership[]
+     */
     public function getMemberships()
     {
         return $this->memberships;
