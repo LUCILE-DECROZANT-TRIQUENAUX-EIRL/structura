@@ -94,7 +94,7 @@ class MembershipController extends AbstractController
 
         $updateMembershipFDO = new UpdateMembershipFDO();
 
-        // Preselect member if optional parameter is not null
+        // Preselect donator if optional parameter is not null
         $personId = $request->get('person-id');
 
         if (!is_null($personId))
