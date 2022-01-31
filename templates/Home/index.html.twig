@@ -1,6 +1,6 @@
 {% extends 'Home/base.html.twig' %}
 
-{% block title %}{% trans %}Accueil{% endtrans %}{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/Home/index.css') }}">
@@ -8,7 +8,7 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Accueil{% endtrans %}
+        Accueil
     </li>
 {% endblock %}
 
@@ -26,8 +26,8 @@
                            href="{{ path('people_create') }}"
                            role="button">
                             <div>
-                                {% trans %}Renseigner{% endtrans %}
-                                {% trans %}l'annuaire{% endtrans %}
+                                Renseigner
+                                l'annuaire
                             </div>
                             <div class="pt-2">
                                 <i class="icon ion-md-person-add"></i>
@@ -39,8 +39,8 @@
                            href="{{ path('membership_create') }}"
                            role="button">
                             <div>
-                                {% trans %}Enregistrer{% endtrans %}
-                                {% trans %}une adhésion{% endtrans %}
+                                Enregistrer
+                                une adhésion
                             </div>
                             <div class="pt-2">
                                 <i class="icon ion-md-filing"></i>
@@ -52,8 +52,8 @@
                            href="{{ path('donation_new') }}"
                            role="button">
                             <div>
-                                {% trans %}Enregistrer{% endtrans %}
-                                {% trans %}un don{% endtrans %}
+                                Enregistrer
+                                un don
                             </div>
                             <div class="pt-2">
                                 <i class="icon ion-md-cash"></i>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-10 pl-0">
                 <div class="bg-light h-100 px-4 py-3">
-                    <h3 class="text-center pb-2">{% trans %}Ex-Membres à relancer{% endtrans %}</h4>
+                    <h3 class="text-center pb-2">Ex-Membres à relancer</h4>
                     <table
                         id="people-waiting-send-up"
                         class="table bg-white table-sm"
@@ -76,19 +76,19 @@
                         <thead>
                             <tr>
                                 <th data-exportable="true" data-sortable="true" data-json-id="lastname" class="text-uppercase">
-                                    {% trans %}Nom{% endtrans %}
+                                    Nom
                                 </th>
                                 <th data-exportable="true" data-sortable="true" data-json-id="firstname">
-                                    {% trans %}Prénom{% endtrans %}
+                                    Prénom
                                 </th>
                                 <th data-exportable="true" class="text-center" data-json-id="home_phone_number" data-class="text-center">
-                                    {% trans %}Téléphone fixe{% endtrans %}
+                                    Téléphone fixe
                                 </th>
                                 <th data-exportable="true" class="text-center" data-json-id="cell_phone_number" data-class="text-center">
-                                    {% trans %}Téléphone portable{% endtrans %}
+                                    Téléphone portable
                                 </th>
                                 <th data-exportable="true" class="text-center" data-json-id="email_address" data-class="text-center">
-                                    {% trans %}Adresse mail{% endtrans %}
+                                    Adresse mail
                                 </th>
                                 <th data-class="details-control text-center"></th>
                             </tr>
@@ -131,13 +131,13 @@
                                             </div>
                                             <div class="col text-right pr-1">
                                                 <strong>
-                                                    {% trans %}Fixe{% endtrans %}&nbsp;:
+                                                    Fixe&nbsp;:
                                                 </strong><br>
                                                 <strong>
-                                                    {% trans %}Portable{% endtrans %}&nbsp;:
+                                                    Portable&nbsp;:
                                                 </strong><br>
                                                 <strong>
-                                                    {% trans %}Professionnel{% endtrans %}&nbsp;:
+                                                    Professionnel&nbsp;:
                                                 </strong><br>
                                             </div>
                                             <div class="col text-left pl-1">
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="col pl-0 d-flex align-items-center">
                                                 <div class="text-center w-100">
-                                                    <strong class="text-center">{% trans %}Dernière<br>adhésion{% endtrans %}</strong><br>
+                                                    <strong class="text-center">Dernière<br>adhésion</strong><br>
                                                     <span data-json-id="last_membership_year"></span>
                                                 </div>
                                             </div>
@@ -186,7 +186,7 @@
                                                 data-toggle="tooltip"
                                                 data-is-url="true"
                                                 data-json-id="show_individual_url"
-                                                title="{% trans %}Voir le profil{% endtrans %}"
+                                                title="Voir le profil"
                                                 >
                                                 <i class="icon ion-md-eye"></i>
                                             </a>
@@ -198,7 +198,7 @@
                                                 data-toggle="tooltip"
                                                 data-is-url="true"
                                                 data-json-id="edit_individual_url"
-                                                title="{% trans %}Éditer le profil{% endtrans %}"
+                                                title="Éditer le profil"
                                                 >
                                                 <i class="icon ion-md-create"></i>
                                             </a>
@@ -214,7 +214,7 @@
         <div class="row">
             <div class="col">
                 <div class="bg-light p-4">
-                    <h3 class="text-center pb-3">{% trans %}Revenus de l'association{% endtrans %}</h4>
+                    <h3 class="text-center pb-3">Revenus de l'association</h4>
                     <canvas
                         id="revenues-chart"
                         width="1200"
