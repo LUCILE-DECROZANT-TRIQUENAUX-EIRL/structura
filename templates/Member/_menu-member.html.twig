@@ -1,20 +1,11 @@
 {% block body %}
     {% set show_profile = show_profile is defined ? show_profile : null %}
-    {% set edit_profile = edit_profile is defined ? edit_profile : null %}
     {% set generate_receipt_by_year = generate_receipt_by_year is defined ? generate_receipt_by_year : null %}
     <ul class="list-group">
         <a href="{{ path('member_show', { 'id': member.id }) }}"
            class="list-group-item list-group-item-action {{ show_profile }}"
            >
             {% trans %}Profil{% endtrans %}
-        </a>
-    </ul>
-    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
-    <ul class="list-group">
-        <a href="{{ path('member_edit', { 'id': member.id }) }}"
-           class="list-group-item list-group-item-action {{ edit_profile }}"
-           >
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Profil{% endtrans %}
         </a>
     </ul>
     <h4 class="mt-4">{% trans %}Reçus fiscaux{% endtrans %}</h4>
