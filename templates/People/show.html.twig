@@ -44,6 +44,8 @@
 
                 {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
 
+                {{ include('People/partials/people_donations_list.html.twig', { people: people }) }}
+
                 {{ include('People/partials/people_fiscal_receipt_generation.html.twig', { people: people }) }}
 
                 {{ include('People/partials/people_donation_membership_create.html.twig', { people: people, hasActiveMembership: hasActiveMembership }) }}
