@@ -152,6 +152,12 @@
 
 <div class="row mb-4">
     <div class="col">
+        {{ include('People/partials/people_payments_list.html.twig', { people: people }) }}
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col">
         {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
     </div>
     <div class="col">

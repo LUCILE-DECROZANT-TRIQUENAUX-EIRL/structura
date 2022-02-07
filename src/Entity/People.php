@@ -362,7 +362,7 @@ class People
      *
      * @param boolean $isReceivingNewsletter If the person receives the newsletter.
      *
-     * @return User
+     * @return People
      */
     public function setIsReceivingNewsletter(bool $isReceivingNewsletter)
     {
@@ -386,7 +386,7 @@ class People
      *
      * @param boolean $newsletterDematerialization Is the newsletter received by mail.
      *
-     * @return User
+     * @return People
      */
     public function setNewsletterDematerialization(bool $newsletterDematerialization)
     {
@@ -422,7 +422,7 @@ class People
      *
      * @param string $homePhoneNumber Home Number.
      *
-     * @return User
+     * @return People
      */
     public function setHomePhoneNumber(string $homePhoneNumber)
     {
@@ -445,7 +445,7 @@ class People
     public function getCellPhoneNumber()
     {
         // Format phone number for display purpose
-        $this->cellPhoneNumber;
+        return $this->cellPhoneNumber;
     }
 
     /**
@@ -465,7 +465,7 @@ class People
      *
      * @param string $cellPhoneNumber Cell Number.
      *
-     * @return User
+     * @return People
      */
     public function setCellPhoneNumber(string $cellPhoneNumber)
     {
@@ -507,7 +507,7 @@ class People
      *
      * @param string $workPhoneNumber Work Number.
      *
-     * @return User
+     * @return People
      */
     public function setWorkPhoneNumber(string $workPhoneNumber)
     {
@@ -549,7 +549,7 @@ class People
      *
      * @param string $workFaxNumber Fax Number.
      *
-     * @return User
+     * @return People
      */
     public function setWorkFaxNumber(string $workFaxNumber)
     {
@@ -580,7 +580,7 @@ class People
      *
      * @param string $observations Observations on the person.
      *
-     * @return User
+     * @return People
      */
     public function setObservations(string $observations)
     {
@@ -604,7 +604,7 @@ class People
      *
      * @param UserUpdater[] $updaters People that updated the profile.
      *
-     * @return User
+     * @return People
      */
     public function setUpdaters(array $updaters)
     {
@@ -638,7 +638,7 @@ class People
      *
      * @param Address[] $addresses Adresses of the person.
      *
-     * @return User
+     * @return People
      */
     public function setAddresses(array $addresses)
     {
@@ -692,7 +692,7 @@ class People
      *
      * @param string $sensitiveObservations Sensitve observations.
      *
-     * @return User
+     * @return People
      */
     public function setSensitiveObservations(string $sensitiveObservations)
     {
@@ -899,5 +899,23 @@ class People
             }
         }
         return false;
+    }
+
+    /**
+     * @return Collection|Payment[]
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    /**
+     * @param mixed $payments
+     * @return $this
+     */
+    public function setPayments($payments)
+    {
+        $this->payments = $payments;
+        return $this;
     }
 }

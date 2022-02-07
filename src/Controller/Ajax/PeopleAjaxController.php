@@ -239,6 +239,60 @@ class PeopleAjaxController extends FOSRestController
     }
 
     /**
+     * List all payments for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/payments", name="list_payments", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getPaymentsListAction(People $people)
+    {
+        $paymentsData = [];
+        foreach ($people->getPayments() as $payment) {
+            $usedForLabel = '';
+            if (empty($payment->getDonation())) {
+                $usedForLabel = sprintf(
+                    'Adhésion (%s, %s €)',
+                    $payment->getMembership()->getType()->getLabel(),
+                    $payment->getMembership()->getType()->getDefaultAmount()
+                );
+            } else {
+                if (!empty($payment->getMembership())) {
+                    $usedForLabel = sprintf(
+                        'Adhésion (%s, %s €) et don (%s €)',
+                        $payment->getMembership()->getType()->getLabel(),
+                        $payment->getMembership()->getType()->getDefaultAmount(),
+                        $payment->getDonation()->getAmount()
+                    );
+                } else {
+                    $usedForLabel = 'Don';
+                }
+            }
+            $formattedDonation = [
+                'id' => $payment->getId(),
+                'usage' => $usedForLabel,
+                'amount' => $payment->getAmount(),
+                'mean' => $payment->getType()->getLabel(),
+                'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                'fiscal_year' => $payment->getReceipt()->getYear(),
+                'order_code' => $payment->getReceipt()->getOrderCode(),
+                'comment' => $payment->getComment(),
+            ];
+
+            $paymentsData[] = $formattedDonation;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $paymentsData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * Generate and return the PDF containing all the receipts for a given year
      *
      * @param Request $request The request.
