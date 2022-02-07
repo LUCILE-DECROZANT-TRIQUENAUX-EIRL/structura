@@ -110,7 +110,10 @@ class PeopleAjaxController extends FOSRestController
                 ],
                 'last_membership_year' => $membershipYears[0],
                 'show_individual_url' => $this->generateUrl('people_show', ['id' => $individual->getId()]),
-                'edit_individual_url' => $this->generateUrl('people_edit', ['id' => $individual->getId()]),
+                'add_membership_individual_url' => $this->generateUrl(
+                    'membership_create',
+                    ['person-id' => $individual->getId()]
+                ),
             ];
 
             $peopleData[] = $individualData;
