@@ -37,16 +37,12 @@
 
 {% block body %}
     <br>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                {{ include('People/partials/people_contact_information.html.twig', { people: people }) }}
+                {{ include('People/partials/people_details_page.html.twig', { people: people }) }}
 
                 {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
-
-                {{ include('People/partials/people_fiscal_receipt_generation.html.twig', { people: people }) }}
-
-                {{ include('People/partials/people_donation_membership_create.html.twig', { people: people, hasActiveMembership: hasActiveMembership }) }}
 
                 <div class="row mt-3">
                     {% if is_granted("ROLE_GESTION") %}
