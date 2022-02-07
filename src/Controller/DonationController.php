@@ -71,6 +71,10 @@ class DonationController extends AbstractController
         $form = $this->createForm(DonationType::class, $createDonationFDO);
         $form->handleRequest($request);
 
+        if (!$form->isValid()) {
+            dump((string) $form->getErrors(true, false));die;
+        }
+
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();

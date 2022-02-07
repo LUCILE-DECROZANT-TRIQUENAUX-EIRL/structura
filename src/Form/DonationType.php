@@ -33,6 +33,7 @@ class DonationType extends AbstractType
                 ->add('amount', MoneyType::class, [
                     'attr' => ['placeholder' => '15,50'],
                     'required' => true,
+                    'invalid_message' => 'Vous devez entrer une valeur comprise entre 1 € et 9 000 000 €.',
                     'constraints' => [
                         new Range([
                             'min' => 1,
