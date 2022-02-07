@@ -24,124 +24,137 @@
         </div>
     </div>
 </div>
-<div class="row">
+
+<div class="row mb-4">
     <div class="col-2">
         {{ include('People/partials/people_action_buttons.html.twig', { people: people, hasActiveMembership: hasActiveMembership }) }}
     </div>
     <div class="col">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="bg-light p-4 h-100">
-                    <h4 class="text-center mb-4">
-                        Informations de contact
-                    </h4>
-                    <div class="row">
-                        <div class="col text-center">
-                            <strong>
-                                Adresse postale&nbsp;:
-                            </strong>
-                            <br>
-                            {% if people.hasNoAddressDefined() %}
-                                <i>Ce membre n'a pas d'adresse enregistrée.</i>
-                            {% else %}
-                                {% for address in people.addresses %}
-                                    {{address.line}}
-                                    <br>
-                                    {% if not address.lineTwo is null %}
-                                        {{ address.lineTwo }}<br>
-                                    {% endif %}
-                                    {{address.postalCode}}, {{address.city}}, {{address.country}}
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="col text-center">
-                            <strong>
-                                Adresse mail&nbsp;:
-                            </strong>
-                            <br>
-                            {{ people.emailAddress }}
-                            {% if people.isReceivingNewsletter %}
-                                <span data-toggle="tooltip" title="Abonné-e à la newsletter" >
-                            <i class="icon ion-md-paper"></i>
-                        </span>
-                            {% endif %}
-                            {% if people.newsletterDematerialization %}
-                                <span data-toggle="tooltip" title="Newsletter envoyée sous format dématérialisé" >
-                            <i class="icon ion-md-mail"></i>
-                        </span>
-                            {% endif %}
-                        </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col text-center mb-2">
-                                    <strong>
-                                        Téléphone fixe&nbsp;:
-                                    </strong>
-                                    <br>
-                                    {{ people.displayHomePhoneNumber }}
-                                </div>
-                                <div class="col text-center">
-                                    <strong>
-                                        Téléphone professionnel&nbsp;:
-                                    </strong>
-                                    <br>
-                                    {{ people.displayWorkPhoneNumber }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col text-center mb-2">
-                                    <strong>
-                                        Téléphone portable&nbsp;:
-                                    </strong>
-                                    <br>
-                                    {{ people.displayCellPhoneNumber }}
-                                </div>
-                                <div class="col text-center">
-                                    <strong>
-                                        Fax&nbsp;:
-                                    </strong>
-                                    <br>
-                                    {{ people.displayWorkFaxNumber }}
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="bg-light p-4 h-100">
-                    <h4 class="text-center mb-4">
-                        Autres informations
-                    </h4>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <strong>
-                                Année de premier contact&nbsp;:
-                            </strong>
-                            {{ people.firstContactYear }}
-                        </div>
-                        <div class="col-12 text-center mt-2">
-                            <strong>
-                                Observations&nbsp;:
-                            </strong>
-                            <br>
-                            {{ people.observations}}
-                        </div>
-                        {% if is_granted("ROLE_GESTION_SENSIBLE") %}
-                            <div class="col-12 text-center mt-2">
+        <div class="d-flex flex-column h-100">
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="bg-light p-4 h-100">
+                        <h4 class="text-center mb-4">
+                            Informations de contact
+                        </h4>
+                        <div class="row">
+                            <div class="col text-center">
                                 <strong>
-                                    Détails médicaux&nbsp;:
+                                    Adresse postale&nbsp;:
                                 </strong>
                                 <br>
-                                {{ people.sensitiveObservations }}
+                                {% if people.hasNoAddressDefined() %}
+                                    <i>Ce membre n'a pas d'adresse enregistrée.</i>
+                                {% else %}
+                                    {% for address in people.addresses %}
+                                        {{address.line}}
+                                        <br>
+                                        {% if not address.lineTwo is null %}
+                                            {{ address.lineTwo }}<br>
+                                        {% endif %}
+                                        {{address.postalCode}}, {{address.city}}, {{address.country}}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
-                        {% endif %}
+                            <div class="col text-center">
+                                <strong>
+                                    Adresse mail&nbsp;:
+                                </strong>
+                                <br>
+                                {{ people.emailAddress }}
+                                {% if people.isReceivingNewsletter %}
+                                    <span data-toggle="tooltip" title="Abonné-e à la newsletter" >
+                                <i class="icon ion-md-paper"></i>
+                            </span>
+                                {% endif %}
+                                {% if people.newsletterDematerialization %}
+                                    <span data-toggle="tooltip" title="Newsletter envoyée sous format dématérialisé" >
+                                <i class="icon ion-md-mail"></i>
+                            </span>
+                                {% endif %}
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col text-center mb-2">
+                                        <strong>
+                                            Téléphone fixe&nbsp;:
+                                        </strong>
+                                        <br>
+                                        {{ people.displayHomePhoneNumber }}
+                                    </div>
+                                    <div class="col text-center">
+                                        <strong>
+                                            Téléphone professionnel&nbsp;:
+                                        </strong>
+                                        <br>
+                                        {{ people.displayWorkPhoneNumber }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center mb-2">
+                                        <strong>
+                                            Téléphone portable&nbsp;:
+                                        </strong>
+                                        <br>
+                                        {{ people.displayCellPhoneNumber }}
+                                    </div>
+                                    <div class="col text-center">
+                                        <strong>
+                                            Fax&nbsp;:
+                                        </strong>
+                                        <br>
+                                        {{ people.displayWorkFaxNumber }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="bg-light p-4 h-100">
+                        <h4 class="text-center mb-4">
+                            Autres informations
+                        </h4>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <strong>
+                                    Année de premier contact&nbsp;:
+                                </strong>
+                                {{ people.firstContactYear }}
+                            </div>
+                            <div class="col-12 text-center mt-2">
+                                <strong>
+                                    Observations&nbsp;:
+                                </strong>
+                                <br>
+                                {{ people.observations}}
+                            </div>
+                            {% if is_granted("ROLE_GESTION_SENSIBLE") %}
+                                <div class="col-12 text-center mt-2">
+                                    <strong>
+                                        Détails médicaux&nbsp;:
+                                    </strong>
+                                    <br>
+                                    {{ people.sensitiveObservations }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="flex-grow-1">
+                {{ include('People/partials/people_fiscal_receipt_generation.html.twig', { people: people }) }}
+            </div>
         </div>
-        {{ include('People/partials/people_fiscal_receipt_generation.html.twig', { people: people }) }}
     </div>
+</div>
 
+<div class="row mb-4">
+    <div class="col">
+        {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
+    </div>
+    <div class="col">
+        {{ include('People/partials/people_donations_list.html.twig', { people: people }) }}
+    </div>
 </div>

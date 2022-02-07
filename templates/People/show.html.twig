@@ -42,10 +42,6 @@
             <div class="col">
                 {{ include('People/partials/people_details_page.html.twig', { people: people }) }}
 
-                {{ include('People/partials/people_memberships_list.html.twig', { people: people }) }}
-
-                {{ include('People/partials/people_donations_list.html.twig', { people: people }) }}
-
                 <div class="row mt-3">
                     {% if is_granted("ROLE_GESTION") %}
                         <div class="col-md">
