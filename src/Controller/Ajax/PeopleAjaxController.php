@@ -148,6 +148,10 @@ class PeopleAjaxController extends FOSRestController
                 $formattedMembers[] = $formattedMember;
             }
 
+            $isCurrent = false;
+            if (!empty($people->getActiveMembership())) {
+                $isCurrent = $membership->getId() === $people->getActiveMembership()->getId();
+            }
             $payment = $membership->getPayment();
             $formattedMembership = [
                 'id' => $membership->getId(),
@@ -175,7 +179,7 @@ class PeopleAjaxController extends FOSRestController
                 ],
                 'comment' => $membership->getComment(),
                 'members' => $formattedMembers,
-                'is_current' => $membership->getId() === $people->getActiveMembership()->getId(),
+                'is_current' => $isCurrent,
             ];
 
             $membershipsData[] = $formattedMembership;
