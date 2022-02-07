@@ -192,6 +192,53 @@ class PeopleAjaxController extends FOSRestController
     }
 
     /**
+     * List all donations for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/donations", name="list_donations", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getDonationsListAction(People $people)
+    {
+        $donationsData = [];
+        foreach ($people->getDonations() as $donation) {
+            $payment = $donation->getPayment();
+            $formattedDonation = [
+                'id' => $donation->getId(),
+                'price' => $donation->getAmount(),
+                'date' => $donation->getDonationDate()->format('d/m/Y'),
+                'payment' => [
+                    'amount' => $payment->getAmount(),
+                    'mean' => $payment->getType()->getLabel(),
+                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'payer' => [
+                        'id' => $payment->getPayer()->getId(),
+                        'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
+                        'firstname' => $payment->getPayer()->getFirstName(),
+                        'lastname' => $payment->getPayer()->getLastName(),
+                    ],
+                    'fiscal_receipt' => [
+                        'fiscal_year' => $payment->getReceipt()->getYear(),
+                        'order_code' => $payment->getReceipt()->getOrderCode(),
+                    ],
+                    'comment' => $payment->getComment(),
+                ],
+            ];
+
+            $donationsData[] = $formattedDonation;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $donationsData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * Generate and return the PDF containing all the receipts for a given year
      *
      * @param Request $request The request.
