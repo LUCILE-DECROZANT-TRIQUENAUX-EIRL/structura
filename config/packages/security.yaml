@@ -23,13 +23,13 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                success_handler: App\Security\AuthenticationSuccessHandler
+                success_handler: 'security.authentication.success_handler'
 
             # activate the logout page as page to logout
             logout:
                 path: logout
-                target: home
-                success_handler: App\Security\LogoutSuccessHandler
+                target: "%logout_success_target%"
+                success_handler: 'security.logout.success_handler'
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
