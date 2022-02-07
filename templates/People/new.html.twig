@@ -28,172 +28,30 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <p> Les champs notés avec * sont requis. </p>
-        {{ form_start(form, {'attr': {'id': 'form-create-people'}}) }}
-            <div class="form-row">
-                <div class="col-3">
-                    <div class="form-group">
-                        {{ form_label(form.denomination)}} *
-                        {{ form_widget(form.denomination)}}
+            <div class="col-12">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
                     </div>
                 </div>
 
-                <div class="col-4">
-                    <div class="form-group">
-                        {{ form_label(form.firstname)}} *
-                        {{ form_widget(form.firstname)}}
-                    </div>
-                </div>
+                {{ include('People/partials/people_information_form.html.twig', { people_edit_form: form }) }}
 
-                <div class="col-5">
-                    <div class="form-group">
-                        {{ form_label(form.lastname)}} *
-                        {{ form_widget(form.lastname)}}
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.isContact)}}
-                        {{ form_widget(form.isContact)}}
-                    </div>
-                </div>
-
-                {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE')%}
+                <div class="row">
                     <div class="col">
-                        <div class="form-group">
-                            {{ form_label(form.needHelp)}}
-                            {{ form_widget(form.needHelp)}}
-                        </div>
+                        <a href="{{ path('people_list') }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire généraliste
+                        </a>
                     </div>
-                {% endif %}
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.addresses.vars.prototype.children.line) }}
-                        {{ form_widget(form.addresses.vars.prototype.children.line) }}
+                    <div class="col text-right">
+                        <button
+                        id="create-people-submit-button"
+                        type="submit" form="form-create-people"
+                        class="btn btn-primary">
+                            <i class="icon ion-md-add"></i>&nbsp;Créer
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col-2">
-                    <div class="form-group">
-                        {{ form_label(form.addresses.vars.prototype.children.postalCode) }}
-                        {{ form_widget(form.addresses.vars.prototype.children.postalCode) }}
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="form-group">
-                        {{ form_label(form.addresses.vars.prototype.children.city) }}
-                        {{ form_widget(form.addresses.vars.prototype.children.city) }}
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="form-group">
-                        {{ form_label(form.addresses.vars.prototype.children.country) }}
-                        {{ form_widget(form.addresses.vars.prototype.children.country) }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.emailAddress)}}
-                {{ form_widget(form.emailAddress)}}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.isReceivingNewsletter)}}
-                {{ form_widget(form.isReceivingNewsletter)}}
-                {{ form_label(form.newsletterDematerialization)}}
-                {{ form_widget(form.newsletterDematerialization)}}
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.homePhoneNumber)}}
-                        {{ form_widget(form.homePhoneNumber)}}
-                        {{ form_help(form.homePhoneNumber)}}
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.cellPhoneNumber)}}
-                        {{ form_widget(form.cellPhoneNumber)}}
-                        {{ form_help(form.cellPhoneNumber)}}
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.workPhoneNumber)}}
-                        {{ form_widget(form.workPhoneNumber)}}
-                        {{ form_help(form.workPhoneNumber)}}
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        {{ form_label(form.workFaxNumber)}}
-                        {{ form_widget(form.workFaxNumber)}}
-                        {{ form_help(form.workFaxNumber)}}
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.firstContactYear) }}
-                {{ form_widget(form.firstContactYear) }}
-                {{ form_help(form.firstContactYear) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.observations)}}
-                {{ form_widget(form.observations)}}
-                {{ form_help(form.observations)}}
-            </div>
-
-            {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE')%}
-                <div class="form-group">
-                    {{ form_label(form.sensitiveObservations)}}
-                    {{ form_widget(form.sensitiveObservations)}}
-                    {{ form_help(form.sensitiveObservations)}}
-                </div>
-            {% endif %}
-            {% do form.sensitiveObservations.setRendered %}
-            {% do form.needHelp.setRendered %}
-            {% do form.firstContactYear.setRendered %}
-
-        {{ form_end(form) }}
-    </div>
-    <br>
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="{{ path('people_list') }}" class="btn btn-secondary">
-                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire généraliste
-                </a>
-            </div>
-            <div class="col text-right">
-                <button
-                id="create-people-submit-button"
-                type="submit" form="form-create-people"
-                class="btn btn-primary">
-                    <i class="icon ion-md-add"></i>&nbsp;Créer
-                </button>
             </div>
         </div>
     </div>
