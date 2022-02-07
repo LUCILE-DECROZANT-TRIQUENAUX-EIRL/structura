@@ -1,6 +1,6 @@
 {% extends 'Home/base.html.twig' %}
 
-{% block title %}{% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}{% endblock %}
+{% block title %}Enregistrer une nouvelle personne dans l'annuaire{% endblock %}
 
 {% block javascript %}
     <script src="{{ asset('javascript/User/new.js') }}"></script>
@@ -14,13 +14,13 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+        <a href="/">Accueil</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('people_list') }}">{% trans %}Annuaire généraliste{% endtrans %}</a>
+        <a href="{{ path('people_list') }}">Annuaire généraliste</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}
+        Enregistrer une nouvelle personne dans l'annuaire
     </li>
 {% endblock %}
 
@@ -29,15 +29,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>{% trans %}Enregistrer une nouvelle personne dans l'annuaire{% endtrans %}</h1>
-            </div>
-            <div class="col text-right">
+                <h1>Enregistrer une nouvelle personne dans l'annuaire</h1>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+        <p> Les champs notés avec * sont requis. </p>
         {{ form_start(form, {'attr': {'id': 'form-create-people'}}) }}
             <div class="form-row">
                 <div class="col-3">
@@ -186,7 +184,7 @@
         <div class="row">
             <div class="col">
                 <a href="{{ path('people_list') }}" class="btn btn-secondary">
-                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à l'annuaire généraliste{% endtrans %}
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à l'annuaire généraliste
                 </a>
             </div>
             <div class="col text-right">
@@ -194,7 +192,7 @@
                 id="create-people-submit-button"
                 type="submit" form="form-create-people"
                 class="btn btn-primary">
-                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
+                    <i class="icon ion-md-add"></i>&nbsp;Créer
                 </button>
             </div>
         </div>
