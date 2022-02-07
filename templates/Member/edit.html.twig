@@ -1,7 +1,7 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-    {% trans %}Éditer le profil de{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+    Éditer le profil de {{ member.firstName }} {{ member.lastName }}
 {% endblock %}
 
 {% block javascript %}
@@ -16,20 +16,20 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+        <a href="/">Accueil</a>
     </li>
     {% if is_granted("ROLE_GESTION") %}
         <li class="breadcrumb-item">
-            <a href="{{ path('member_list') }}">{% trans %}Liste des adhérent·es{% endtrans %}</a>
+            <a href="{{ path('member_list') }}">Liste des adhérent·es</a>
         </li>
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('member_show', { 'id': member.id }) }}">
-            {% trans %}Profil de{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+            Profil de {{ member.firstName }} {{ member.lastName }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Éditer le profil de{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+        Éditer le profil de {{ member.firstName }} {{ member.lastName }}
     </li>
 {% endblock %}
 
@@ -38,8 +38,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>{% trans %}Édition de l'adhérent.e{% endtrans %}</h1>
-                <p>{% trans %}Les champs notés avec * sont requis.{% endtrans %}</p>
+                <h1>Édition de l'adhérent.e</h1>
+                <p>Les champs notés avec * sont requis.</p>
 
                 {{ form_start(member_edit, {'attr': {'id': 'form-edit-member'}}) }}
                 <div class="form-group">
@@ -141,7 +141,7 @@
                 <div class="row">
                     <div class="col">
                         <a href="{{ path('member_show', { 'id': member.id }) }}" class="btn btn-secondary">
-                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au profil de l'adhérent⋅e{% endtrans %}
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner au profil de l'adhérent⋅e
                         </a>
                     </div>
                     <div class="col text-right">
@@ -150,7 +150,7 @@
                             type="submit"
                             form="form-edit-member"
                             class="btn btn-primary">
-                            <i class="icon ion-md-save"></i>&nbsp;{% trans %}Enregistrer les modifications{% endtrans %}
+                            <i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications
                         </button>
                     </div>
                 </div>

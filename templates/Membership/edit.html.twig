@@ -1,7 +1,7 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-    {% trans %}Édition de l'adhésion{% endtrans %}
+    Édition de l'adhésion
 {% endblock %}
 
 {% block javascript %}
@@ -18,13 +18,13 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+        <a href="/">Accueil</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
+        <a href="{{ path('membership_list') }}">Adhésions</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Édition de l'adhésion{% endtrans %}
+        Édition de l'adhésion
     </li>
 {% endblock %}
 
@@ -38,10 +38,10 @@
             <div class="col-12 col-md-10">
                 <h1 class="pl-3 pr-3">
                     {% if membership.dateStart and membership.dateEnd %}
-                        {% trans %}Édition de l'adhésion du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
-                        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+                        Édition de l'adhésion du {{ membership.getDateStart | date('d M. Y') }}
+                        au {{ membership.getDateEnd | date('d M. Y') }}
                     {% else %}
-                        {% trans %}Cette adhésion n'est pas définie dans le temps{% endtrans %}
+                        Cette adhésion n'est pas définie dans le temps
                     {% endif %}
                 </h1>
                 {{ form_start(membership_edit_form, {'attr': {'id': 'membership-edit-form'}}) }}
@@ -75,7 +75,7 @@
                     <div class="container mt-3">
                         <div class="row justify-content-between">
                             <div class="col">
-                                <p>{% trans %}Les champs notés avec * sont requis.{% endtrans %}</p>
+                                <p>Les champs notés avec * sont requis.</p>
                             </div>
                         </div>
                         <div class="row">
@@ -221,14 +221,14 @@
                     <div class="row">
                         <div class="col">
                             <a href="{{ path('membership_list') }}" class="btn btn-secondary">
-                                <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions{% endtrans %}
+                                <i class="icon ion-md-arrow-back"></i>&nbsp;Retourner à la liste des adhésions
                             </a>
                         </div>
                         <div class="col text-right">
                             <button id="member-creation-submit-button"
                                     class="btn btn-primary d-none"
                                     type="submit" form="membership-edit-form">
-                                {% trans %}Enregistrer les modifications{% endtrans %}
+                                Enregistrer les modifications
                             </button>
                         </div>
                     </div>
