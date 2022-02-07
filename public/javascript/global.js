@@ -154,7 +154,7 @@ $(document).ready(function () {
                 column.orderable = $(this).data('sortable') === true;
 
                 // Add custom classes
-                column.className = $(this).data('class')
+                column.className = $(this).data('class');
 
                 columns.push(column);
             });
