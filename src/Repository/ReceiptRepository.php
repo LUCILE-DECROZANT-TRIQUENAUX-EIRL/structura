@@ -162,9 +162,9 @@ class ReceiptRepository extends ServiceEntityRepository
             ->getConnection();
         $sql = 'SELECT * FROM receipt';
         $query = $connexion->prepare($sql);
-        $query->execute();
+        $execute = $query->execute();
 
-        return $query->fetchAll();
+        return $execute->fetchAll();
     }
 
     /**

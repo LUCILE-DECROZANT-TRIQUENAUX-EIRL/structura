@@ -68,7 +68,7 @@ class PeopleAjaxController extends FOSRestController
     }
 
     /**
-     * List all people who habe been members but not anymore and return
+     * List all people who have been members but not anymore and return
      * the list as a formatted array
      * @return json
      * @Route("/list/old-members", name="list_old_members", methods={"GET"})
@@ -110,7 +110,10 @@ class PeopleAjaxController extends FOSRestController
                 ],
                 'last_membership_year' => $membershipYears[0],
                 'show_individual_url' => $this->generateUrl('people_show', ['id' => $individual->getId()]),
-                'edit_individual_url' => $this->generateUrl('people_edit', ['id' => $individual->getId()]),
+                'add_membership_individual_url' => $this->generateUrl(
+                    'membership_create',
+                    ['person-id' => $individual->getId()]
+                ),
             ];
 
             $peopleData[] = $individualData;
@@ -119,6 +122,176 @@ class PeopleAjaxController extends FOSRestController
         $response = new Response();
         $response->setContent(json_encode([
             'data' => $peopleData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * List all memberships for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/memberships", name="list_memberships", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getMembershipsListAction(People $people)
+    {
+        $membershipsData = [];
+        foreach ($people->getMemberships() as $membership) {
+            $formattedMembers = null;
+            foreach ($membership->getMembers() as $member) {
+                $formattedMember = [
+                    'id' => $member->getId(),
+                    'denomination' => $member->getDenomination()->getLabel(),
+                    'firstname' => $member->getFirstName(),
+                    'lastname' => $member->getLastName(),
+                ];
+
+                $formattedMembers[] = $formattedMember;
+            }
+
+            $isCurrent = false;
+            if (!empty($people->getActiveMembership())) {
+                $isCurrent = $membership->getId() === $people->getActiveMembership()->getId();
+            }
+            $payment = $membership->getPayment();
+            $formattedMembership = [
+                'id' => $membership->getId(),
+                'type_label' => $membership->getType()->getLabel(),
+                'type_description' => $membership->getType()->getDescription(),
+                'price' => $membership->getType()->getDefaultAmount(),
+                'date_start' => $membership->getDateStart()->format('d/m/Y'),
+                'date_end' => $membership->getDateEnd()->format('d/m/Y'),
+                'payment' => [
+                    'amount' => $payment->getAmount(),
+                    'mean' => $payment->getType()->getLabel(),
+                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'payer' => [
+                        'id' => $payment->getPayer()->getId(),
+                        'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
+                        'firstname' => $payment->getPayer()->getFirstName(),
+                        'lastname' => $payment->getPayer()->getLastName(),
+                    ],
+                    'fiscal_receipt' => [
+                        'fiscal_year' => $payment->getReceipt()->getYear(),
+                        'order_code' => $payment->getReceipt()->getOrderCode(),
+                    ],
+                    'comment' => $payment->getComment(),
+                ],
+                'comment' => $membership->getComment(),
+                'members' => $formattedMembers,
+                'is_current' => $isCurrent,
+            ];
+
+            $membershipsData[] = $formattedMembership;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $membershipsData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * List all donations for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/donations", name="list_donations", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getDonationsListAction(People $people)
+    {
+        $donationsData = [];
+        foreach ($people->getDonations() as $donation) {
+            $payment = $donation->getPayment();
+            $formattedDonation = [
+                'id' => $donation->getId(),
+                'price' => $donation->getAmount(),
+                'date' => $donation->getDonationDate()->format('d/m/Y'),
+                'payment' => [
+                    'amount' => $payment->getAmount(),
+                    'mean' => $payment->getType()->getLabel(),
+                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'payer' => [
+                        'id' => $payment->getPayer()->getId(),
+                        'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
+                        'firstname' => $payment->getPayer()->getFirstName(),
+                        'lastname' => $payment->getPayer()->getLastName(),
+                    ],
+                    'fiscal_receipt' => [
+                        'fiscal_year' => $payment->getReceipt()->getYear(),
+                        'order_code' => $payment->getReceipt()->getOrderCode(),
+                    ],
+                    'comment' => $payment->getComment(),
+                ],
+            ];
+
+            $donationsData[] = $formattedDonation;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $donationsData,
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * List all payments for a given people as a formatted array
+     * @return json
+     * @Route("/{id}/list/payments", name="list_payments", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function getPaymentsListAction(People $people)
+    {
+        $paymentsData = [];
+        foreach ($people->getPayments() as $payment) {
+            $usedForLabel = '';
+            if (empty($payment->getDonation())) {
+                $usedForLabel = sprintf(
+                    'Adhésion (%s, %s €)',
+                    $payment->getMembership()->getType()->getLabel(),
+                    $payment->getMembership()->getType()->getDefaultAmount()
+                );
+            } else {
+                if (!empty($payment->getMembership())) {
+                    $usedForLabel = sprintf(
+                        'Adhésion (%s, %s €) et don (%s €)',
+                        $payment->getMembership()->getType()->getLabel(),
+                        $payment->getMembership()->getType()->getDefaultAmount(),
+                        $payment->getDonation()->getAmount()
+                    );
+                } else {
+                    $usedForLabel = 'Don';
+                }
+            }
+            $formattedDonation = [
+                'id' => $payment->getId(),
+                'usage' => $usedForLabel,
+                'amount' => $payment->getAmount(),
+                'mean' => $payment->getType()->getLabel(),
+                'date_received' => $payment->getDateReceived()->format('d/m/Y'),
+                'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                'fiscal_year' => $payment->getReceipt()->getYear(),
+                'order_code' => $payment->getReceipt()->getOrderCode(),
+                'comment' => $payment->getComment(),
+            ];
+
+            $paymentsData[] = $formattedDonation;
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'data' => $paymentsData,
         ]));
 
         $response->headers->set('Content-Type', 'application/json');

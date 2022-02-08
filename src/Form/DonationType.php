@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DonationType extends AbstractType
@@ -31,6 +32,15 @@ class DonationType extends AbstractType
         $builder
                 ->add('amount', MoneyType::class, [
                     'attr' => ['placeholder' => '15,50'],
+                    'required' => true,
+                    'invalid_message' => 'Vous devez entrer une valeur comprise entre 1 € et 9 000 000 €.',
+                    'constraints' => [
+                        new Range([
+                            'min' => 1,
+                            'max' => 9000000,
+                            'maxMessage' => 'Vous devez entrer une valeur comprise entre 1 € et 9 000 000 €.',
+                        ])
+                    ],
                 ])
                 ->add('payment_type', EntityType::class, [
                     'label' => $this->translator->trans('Via'),

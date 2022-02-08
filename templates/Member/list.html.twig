@@ -26,6 +26,7 @@
         <table
             class="table table-striped"
             data-toggle="datatable"
+            data-ordered-column-index="1"
             data-filter-bar="toggle"
             data-copy-button="toggle"
             data-csv-button="toggle"
@@ -33,8 +34,8 @@
             >
             <thead>
                 <tr>
-                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
                     <th data-exportable="true">{% trans %}Mail{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone fixe{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone portable{% endtrans %}</th>
@@ -48,8 +49,8 @@
             <tbody class="d-none">
                 {% for member in members %}
                     <tr>
-                        <td class="align-middle text-uppercase">{{ member.lastname }}</td>
                         <td class="align-middle">{{ member.firstname }}</td>
+                        <td class="align-middle text-uppercase">{{ member.lastname }}</td>
                         <td class="align-middle">
                             {% if member.emailAddress is empty %}
                                 <span class="">-</span>

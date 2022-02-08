@@ -34,7 +34,7 @@
             <div class="col-md-6">
                 <div class="border p-3">
                     <div class="col-12">
-                        <label for="donation_amount">{% trans %}Fait un don de{% endtrans %}</label>
+                        <label for="donation_amount">{% trans %}Fait un don de{% endtrans %} *</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.amount) }}
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-3">
-                        <label for="donation_donation_date">{% trans %}Le{% endtrans %}</label>
+                        <label for="donation_donation_date">{% trans %}Le{% endtrans %} *</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.donation_date) }}
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <div class="border p-3">
                     <div class="col-12">
-                        <label for="donation_payment_type">{% trans %}Règle via{% endtrans %}</label>
+                        <label for="donation_payment_type">{% trans %}Règle via{% endtrans %} *</label>
                     </div>
                     <div class="col-12">
                         {{ form_widget(form.payment_type) }}

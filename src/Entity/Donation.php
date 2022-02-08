@@ -31,7 +31,7 @@ class Donation
      * @ORM\OneToOne(targetEntity="App\Entity\Payment", inversedBy="donation")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $payment;
+    private ?Payment $payment = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\People", inversedBy="donations")

@@ -1,0 +1,58 @@
+{% block javascript %}
+    <script src="{{ asset('javascript/People/partials/people_payments_list.js') }}"></script>
+{% endblock %}
+
+<div class="row">
+    <div class="col">
+        <div class="bg-light p-4 mb-4">
+            <h4 class="text-center mb-5">
+                Tous les paiements
+            </h4>
+            <table
+                id="payments-list"
+                class="table table-sm bg-white"
+                data-ajax-url="/ajax/people/{{ people.id }}/list/payments">
+                <thead class="border-bottom-0">
+                    <tr>
+                        <th scope="col" style="width: 18%">
+                            Règle un·e...
+                        </th>
+                        <th scope="col" style="width: 6%">
+                            Montant
+                        </th>
+                        <th scope="col" style="width: 6%">
+                            Réglé via
+                        </th>
+                        <th scope="col" style="width: 10%">
+                            Reçu le
+                        </th>
+                        <th scope="col" style="width: 10%">
+                            Encaissé le
+                        </th>
+                        <th scope="col" style="width: 10%">
+                            Année fiscale
+                        </th>
+                        <th scope="col" style="width: 10%">
+                            Numéro d'ordre
+                        </th>
+                        <th scope="col" style="width: 30%">
+                            Commentaire
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

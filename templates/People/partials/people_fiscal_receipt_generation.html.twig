@@ -1,0 +1,25 @@
+<div class="row h-100">
+    <div class="col h-100">
+        <div class="bg-light h-100 p-4">
+            <h4 class="text-center mb-4">
+                Télécharger un reçu fiscal
+            </h4>
+
+                {{ form_start(from_year_form, {'attr': {'id': 'from-year-form', 'class': 'form-inline w-100 d-flex'}}) }}
+                    {{ form_label(from_year_form.year, 'Reçu fiscal pour l\'année', {'label_attr': {'class': 'mr-2'}}) }}
+                    {{ form_widget(from_year_form.year, {'attr': {'class': 'custom-select mr-2 flex-fill'}}) }}
+
+                    <button
+                        id="from-year-form-button"
+                        type="submit"
+                        form="from-year-form"
+                        data-submit-path="{{ path('ajax_people_generate_from_year', { 'id': people.id }) }}"
+                        class="btn btn-primary">
+                        <i class="icon ion-md-document"></i>
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        Générer
+                    </button>
+                {{ form_end(from_year_form) }}
+        </div>
+    </div>
+</div>

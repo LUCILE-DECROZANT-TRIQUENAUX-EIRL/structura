@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app_locales: [fr, en]
+    logout_success_target: 'home'
 
 services:
     # default configuration for services in *this* file
@@ -45,3 +46,13 @@ services:
     App\Migrations\Factory\MigrationFactoryDecorator:
         decorates: Doctrine\Migrations\Version\DbalMigrationFactory
         arguments: ['@App\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+
+    # Authentication Success Handler wiring
+    security.authentication.success_handler:
+        class: App\Security\AuthenticationSuccessHandler
+        arguments: [ "@security.http_utils", {} ]
+
+    # Logout Success Handler wiring
+    security.logout.success_handler:
+        class: App\Security\LogoutSuccessHandler
+        arguments: [ "@security.http_utils", "%logout_success_target%" ]

@@ -1,0 +1,51 @@
+{% if is_granted("ROLE_GESTION") %}
+    <div class="row">
+        <div class="col">
+            <a
+                {% if member is defined %}
+                    href="{{ path('member_edit', { 'id': people.id }) }}"
+                {% else %}
+                    href="{{ path('people_edit', { 'id': people.id }) }}"
+                {% endif %}
+                class="btn btn-primary btn-block huge-button mb-4"
+            >
+                <div>Éditer ce profil</div>
+                <div class="pt-2">
+                    <i class="icon ion-md-create"></i>
+                </div>
+            </a>
+            <a
+                href="{{ path('donation_new', {'person-id': people.id}) }}"
+                class="btn btn-primary btn-block huge-button mb-4"
+            >
+                <div>Enregistrer un don</div>
+                <div class="pt-2">
+                    <i class="icon ion-md-cash"></i>
+                </div>
+            </a>
+            {% if not hasActiveMembership %}
+                <a
+                    href="{{ path('membership_create', {'person-id': people.id}) }}"
+                    class="btn btn btn-primary btn-block huge-button"
+                >
+                    <div>Enregistrer une adhésion</div>
+                    <div class="pt-2">
+                        <i class="icon ion-md-filing"></i>
+                    </div>
+                </a>
+            {% else %}
+                <button
+                    class="btn btn-primary btn-block huge-button"
+                    disabled="disabled"
+                    data-toggle="tooltip"
+                    title="Cette personne a déjà une adhésion active"
+                >
+                    <div>Enregistrer une adhésion</div>
+                    <div class="pt-2">
+                        <i class="icon ion-md-filing"></i>
+                    </div>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

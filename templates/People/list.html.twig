@@ -30,6 +30,7 @@
         <table
             class="table table-striped"
             data-toggle="datatable"
+            data-ordered-column-index="1"
             data-filter-bar="toggle"
             data-create-label="Enregistrer un·e nouvel·le personne dans l'annuaire"
             data-create-path="{{ path('people_create') }}"
@@ -40,8 +41,8 @@
             >
             <thead>
                 <tr>
-                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
                     <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
                     <th data-exportable="true">{% trans %}Mail{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone fixe{% endtrans %}</th>
                     <th data-exportable="true" class="text-center">{% trans %}Téléphone portable{% endtrans %}</th>
@@ -55,8 +56,8 @@
             <tbody class="d-none">
                 {% for people in peoples %}
                     <tr>
-                        <td class="align-middle text-uppercase">{{ people.lastname }}</td>
                         <td class="align-middle">{{ people.firstname }}</td>
+                        <td class="align-middle text-uppercase">{{ people.lastname }}</td>
                         <td class="align-middle">
                             {% if people.emailAddress is empty %}
                                 <span class="">-</span>

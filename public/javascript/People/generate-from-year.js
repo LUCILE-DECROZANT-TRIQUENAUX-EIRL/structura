@@ -3,11 +3,12 @@
 ///////////////////////////////////
 $(document).ready(function() {
     $("#from-year-form").submit(function(e) {
-        e.preventDefault(); //Prevent Default action.
+        e.preventDefault(); // prevent form submission
 
-        // We show the loading message
-        $('.loader-animated').removeClass('d-none');
-        $('#from-year-form-button').addClass('d-none');
+        // show the loading message
+        $('#from-year-form-button').attr('disabled', 'disable');
+        $('#from-year-form-button .spinner-border').removeClass('d-none');
+        $('#from-year-form-button .ion-md-document').addClass('d-none');
 
         let formURL = $('#from-year-form-button').data('submit-path');
         let formData = new FormData(this);
@@ -27,9 +28,6 @@ $(document).ready(function() {
             },
             success: function(data, textStatus, jqXHR)
             {
-                $('.loader-animated').addClass('d-none');
-                $('#from-year-form-button').removeClass('d-none');
-
                 if(jqXHR.status === 200)
                 {
                     // Try to find out the filename from the content disposition `filename` value
@@ -50,11 +48,12 @@ $(document).ready(function() {
                     document.body.removeChild(link);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown)
+            complete: function(jqXHR, textStatus, errorThrown)
             {
-                $('.loader-animated').addClass('d-none');
-                $('#from-year-form-button').removeClass('d-none');
-            }
+                $('button .spinner-border').addClass('d-none');
+                $('button .ion-md-document').removeClass('d-none');
+                $('#from-year-form-button').removeAttr('disabled');
+            },
         });
     });
 });
