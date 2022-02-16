@@ -1,6 +1,7 @@
 <?php
 namespace App\FormDataObject;
 
+use App\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\People;
 use App\Entity\PeopleType;
@@ -121,7 +122,13 @@ class UpdatePeopleDataFDO
 
     function __construct()
     {
+        // Default contact year
         $this->firstContactYear = (int) date('Y');
+
+        // Add an empty address for the creation form
+        $this->addresses = [];
+        $newAddress = new Address();
+        $this->addAddress($newAddress);
     }
 
     /**
