@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                {{ include('People/partials/people_information_form.html.twig', { people_edit_form: people_edit }) }}
+                {{ include('People/partials/people_information_form.html.twig', { people_form: people_edit }) }}
 
                 <div class="row">
                     <div class="col">
@@ -56,7 +56,7 @@
                         <button
                             id="edit-people-submit-button"
                             type="submit"
-                            form="form-edit-people"
+                            form="form-people"
                             class="btn btn-primary">
                             {% trans %}Enregistrer les modifications{% endtrans %}
                         </button>

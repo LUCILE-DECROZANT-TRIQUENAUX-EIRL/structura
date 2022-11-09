@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                {{ include('People/partials/people_information_form.html.twig', { people_edit_form: form }) }}
+                {{ include('People/partials/people_information_form.html.twig', { people_form: form }) }}
 
                 <div class="row">
                     <div class="col">
@@ -46,7 +46,7 @@
                     <div class="col text-right">
                         <button
                         id="create-people-submit-button"
-                        type="submit" form="form-create-people"
+                        type="submit" form="form-people"
                         class="btn btn-primary">
                             <i class="icon ion-md-add"></i>&nbsp;Créer
                         </button>
