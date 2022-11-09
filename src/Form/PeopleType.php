@@ -79,7 +79,8 @@ class PeopleType extends AbstractType
                 ])
                 ->add('emailAddress', EmailType::class, [
                     'label' => $this->translator->trans('Adresse mail'),
-                    'required' => false
+                    'required' => false,
+                    'empty_data' => '',
                 ])
                 ->add('isReceivingNewsletter', CheckboxType::class, [
                     'required' => false,

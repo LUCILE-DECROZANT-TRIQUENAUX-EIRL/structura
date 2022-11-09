@@ -85,7 +85,8 @@ class PeoplePersonalDataType extends AbstractType
                 ])
                 ->add('emailAddress', EmailType::class, [
                     'label' => $this->translator->trans('Adresse mail'),
-                    'required' => false
+                    'required' => false,
+                    'empty_data' => '',
                 ])
                 ->add('observations', TextareaType::class, [
                     'label' => $this->translator->trans('Observations'),
