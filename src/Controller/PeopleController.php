@@ -131,7 +131,7 @@ class PeopleController extends AbstractController {
                 $people->removeType($typeSocialPole);
             }
 
-            if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
+            if (empty($updatePeopleDataFDO->getAddresses()['__name__'])) {
                 $address = new Address();
                 $people->setAddresses([$address]);
             } else {
