@@ -319,7 +319,7 @@ $(document).ready(function () {
  *
  * @param {string} elementSelector The DOM element's id property
  */
-function toggleDisplayNone(elementSelector)
+global.toggleDisplayNone = function(elementSelector)
 {
     let element = $(elementSelector);
     if (element.hasClass('d-none'))
@@ -337,7 +337,7 @@ function toggleDisplayNone(elementSelector)
  *
  * @param {string} elementSelector The DOM element's id property
  */
-function addDisplayNone(elementSelector)
+global.addDisplayNone = function(elementSelector)
 {
     let element = $(elementSelector);
     if (!element.hasClass('d-none'))
@@ -351,7 +351,7 @@ function addDisplayNone(elementSelector)
  *
  * @param {string} elementSelector The DOM element's id property
  */
-function removeDisplayNone(elementSelector)
+global.removeDisplayNone = function(elementSelector)
 {
     let element = $(elementSelector);
     if (element.hasClass('d-none'))
@@ -367,7 +367,7 @@ function removeDisplayNone(elementSelector)
  * @param Object data
  * @returns raw HTML
  */
-function formatTableChildRow(data) {
+global.formatTableChildRow = function(data) {
     // Get HTML structure and clone it to fill it with data
     let childRowContent = $('div.childrow-structure').clone();
 

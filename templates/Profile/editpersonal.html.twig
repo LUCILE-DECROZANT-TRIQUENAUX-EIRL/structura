@@ -3,7 +3,7 @@
 {% block title %}{% trans %}Modifier mes informations personnelles{% endtrans %}{% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/User/edit.js') }}"></script>
+    {{ encore_entry_script_tags('user_edit') }}
 {% endblock %}
 
 {% block stylesheets %}

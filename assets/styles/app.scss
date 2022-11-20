@@ -1,0 +1,281 @@
+@import url(https://unpkg.com/ionicons@4.4.6/dist/css/ionicons.min.css);
+
+/* import boostrap style */
+@import '~bootstrap/scss/bootstrap';
+
+/* import datatables style */
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+
+/* import Select2 style */
+@import '~select2';
+
+/* make input placeholders a bit lighter */
+.form-control::placeholder {
+    opacity: 0.4;
+}
+
+/* avoid content being hidden behind the top navbar */
+header {
+    height: 56px;
+}
+
+/* add shadow on navbar if scrolled down */
+#top-navbar {
+  transition: 0.2s;
+}
+
+/* Avoid icons having a rectangular container */
+i {
+    line-height: 1;
+}
+
+/* make footer going to the bottom of the page even if there is not much content */
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+#main-content {
+  flex: 1 0 auto;
+}
+footer {
+  flex-shrink: 0;
+}
+
+.navbar-shadowed {
+  box-shadow: 0px -2px 10px #999;
+}
+
+a {
+   outline: 0;
+}
+.modal-footer > .col
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.column-action {
+    width: 36px;
+}
+
+.alert
+{
+    border-radius: 0px;
+}
+
+/* Rework Bootstrap default table settings */
+.table thead th {
+    border-bottom: none;
+    vertical-align: middle;
+}
+
+.table td,
+.table tbody td,
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+/* Default theme of the DataTables */
+.dataTables_wrapper > table
+{
+    border: 1px solid #ddd;
+}
+.dataTables_wrapper > table > thead > tr > th
+{
+    border: none;
+}
+.dataTables_wrapper > .datatable-header
+{
+    display: flex;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter
+{
+    flex-grow: 1;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons
+{
+    flex-grow: 0;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div
+{
+    text-align: initial;
+    height: 100%;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label
+{
+    margin-bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label > input
+{
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
+    border-color: #ddd;
+}
+.dataTables_wrapper > .datatable-header > .datatable-filter > div > label > input::placeholder
+{
+    color: #bbb;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons
+{
+    text-align: right;
+}
+.dataTables_wrapper > .datatable-header > .datatable-buttons > div > button
+{
+    margin-left: 10px;
+}
+.dataTables_wrapper > .datatable-footer > div > ul.pagination
+{
+    justify-content: center !important;
+}
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.previous > a,
+.dataTables_wrapper > .datatable-footer > div > ul.pagination > .page-item.next > a
+{
+    min-width: 85px;
+    text-align: center;
+}
+
+/* Select2 dropdowns Bootstrap 4 style */
+/* Select element */
+.select2-container
+{
+    width: 100% !important;
+}
+.select2-container .select2-selection--single
+{
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    height: calc(2.25rem + 2px);
+    padding: 4px 3px 3px 8px;
+}
+/* Select element arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow
+{
+    top: 6px;
+}
+/* Opened dropdown */
+.select2-dropdown
+{
+    border-radius: 0;
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+}
+/* Search input */
+.select2-container--default .select2-search--dropdown .select2-search__field
+{
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: #fff;
+    border-radius: 0;
+}
+/* Dropdown options */
+.select2-results__option
+{
+    padding: 8px 17px;
+}
+/* Dropdown option hovered */
+.select2-container--default .select2-results__option--highlighted[aria-selected]
+{
+    background-color: #af4e7a;
+}
+
+/* Flip card */
+.flip-card
+{
+    perspective: 1000px;
+}
+.flip-card-inner
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner
+{
+    transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back
+{
+    backface-visibility: hidden;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.125);
+    padding: 1.25rem;
+    background-color: #eee;
+    visibility: hidden;
+    opacity: 0;
+}
+.flip-card-back
+{
+    transform: rotateY(180deg);
+}
+.flip-card-front.visible,
+.flip-card-back.visible
+{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+}
+.flip-card-front > .flip-card-icon
+{
+    font-size: 6em;
+    line-height: 0;
+    color: #8c3e61;
+}
+.flip-card-inner > div > .flip-card-item
+{
+    width: 100%;
+    margin: 1em 0;
+}
+.flip-card-inner > div > .flip-card-item:first-of-type
+{
+    margin-top: 0;
+}
+.flip-card-inner > div > .flip-card-item:last-of-type
+{
+    margin-bottom: 0;
+}
+
+/* set default size for form error message */
+.field-error-spot {
+    min-height: 24px;
+}
+
+.people-summary:hover > div {
+    color: #212529;
+    background-color: #f6f6f6 !important;
+    cursor: pointer;
+}
+
+.people-summary img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* Big buttons for main action in dashboard */
+.huge-button {
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding: .95rem .75rem;
+}
+
+.huge-button > div > i {
+    font-size: 3rem;
+    line-height: 1;
+}

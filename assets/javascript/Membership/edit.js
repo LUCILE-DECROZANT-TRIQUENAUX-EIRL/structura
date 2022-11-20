@@ -1,3 +1,5 @@
+import { getMembershipType, selectPeople } from './common';
+
 ///////////////////////////////////
 // -- Document ready listener -- //
 ///////////////////////////////////

@@ -233,7 +233,7 @@ function setPeoplePlaceholders(placeholderQuantityWanted)
  * @param {number} membershipTypeId The id of the membership which you want the data.
  * @returns {Promise} A promise that resolves if the call worked as intended or rejects elsewhere.
  */
-function getMembershipType(membershipTypeId)
+export function getMembershipType(membershipTypeId)
 {
     return new Promise(function (resolve, reject)
     {
@@ -326,7 +326,7 @@ function handlePeopleDeletion(peopleId)
  * @param {string} selectedPeopleName The fullname of the person you want to select.
  * @param {boolean} addToPayerList True if you want to add the selectedPeople to the payer list.
  */
-function selectPeople(selectedPeopleId, selectedPeopleName, addToPayerList)
+export function selectPeople(selectedPeopleId, selectedPeopleName, addToPayerList)
 {
     let selectedPeopleCheckbox = $('#app_membership_members_' + selectedPeopleId);
 

@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/User/edit.js') }}"></script>
-    <script src="{{ asset('javascript/People/phone.js') }}"></script>
-    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+    {{ encore_entry_script_tags('user_edit') }}
+    {{ encore_entry_script_tags('people_phone') }}
 {% endblock %}
 
 {% block stylesheets %}
