@@ -175,7 +175,7 @@
       </trans-unit>
       <trans-unit id="NfDiyO7" resname="Renseigner">
         <source>Renseigner</source>
-        <target state="translated">Contact</target>
+        <target state="translated">Fill in the</target>
       </trans-unit>
       <trans-unit id="m1IYGUz" resname="l'annuaire">
         <source>l'annuaire</source>
@@ -235,11 +235,11 @@
       </trans-unit>
       <trans-unit id="22_.E_R" resname="Portable">
         <source>Portable</source>
-        <target state="translated">Mobile</target>
+        <target state="translated">Mobile number</target>
       </trans-unit>
       <trans-unit id="G7k0ZFu" resname="Professionnel">
         <source>Professionnel</source>
-        <target state="translated">Professional</target>
+        <target state="translated">Work phone number</target>
       </trans-unit>
       <trans-unit id="AeT9nGC" resname="Work in progress...">
         <source>Work in progress...</source>
@@ -255,7 +255,7 @@
       </trans-unit>
       <trans-unit id="fYVNZe_" resname="Annuaire généraliste">
         <source>Annuaire généraliste</source>
-        <target state="translated">Global Directory</target>
+        <target state="needs-translation">Annuaire généraliste</target>
       </trans-unit>
       <trans-unit id="ZIztra7" resname="Profil de">
         <source>Profil de</source>
@@ -295,7 +295,7 @@
       </trans-unit>
       <trans-unit id="ANhKtG5" resname="Fax">
         <source>Fax</source>
-        <target state="translated">Fax</target>
+        <target state="translated">Fax number</target>
       </trans-unit>
       <trans-unit id="o6NscQv" resname="Champs de saisie libre">
         <source>Champs de saisie libre</source>
@@ -339,7 +339,7 @@
       </trans-unit>
       <trans-unit id="KI5Hthm" resname="Retourner à l'annuaire généraliste">
         <source>Retourner à l'annuaire généraliste</source>
-        <target state="translated">Return to global directory</target>
+        <target state="needs-translation">Retourner à l'annuaire généraliste</target>
       </trans-unit>
       <trans-unit id="lpQY9NW" resname="Créer">
         <source>Créer</source>
@@ -835,11 +835,11 @@
       </trans-unit>
       <trans-unit id="kdKrWvQ" resname="Fax de travail">
         <source>Fax de travail</source>
-        <target state="translated">Work Fax</target>
+        <target state="translated">Work fax number</target>
       </trans-unit>
       <trans-unit id="V1IBTMy" resname="Enregister une adhésion de type">
         <source>Enregister une adhésion de type</source>
-        <target state="translated">Select membership type</target>
+        <target state="translated">Select type of membership</target>
       </trans-unit>
       <trans-unit id="CexrPcQ" resname="L'adhésion est valable du">
         <source>L'adhésion est valable du</source>
@@ -855,19 +855,19 @@
       </trans-unit>
       <trans-unit id="Lti4BmJ" resname="Via">
         <source>Via</source>
-        <target state="translated">Using</target>
+        <target state="translated">Via</target>
       </trans-unit>
       <trans-unit id="0AXZwv5" resname="Soit une adhésion d'un montant de">
         <source>Soit une adhésion d'un montant de</source>
-        <target state="translated">Thereby a membership amount of</target>
+        <target state="translated">Therefore a membership fee of</target>
       </trans-unit>
       <trans-unit id="BRe1zee" resname="Et un don d'un montant de">
         <source>Et un don d'un montant de</source>
-        <target state="translated">And a donation amount of</target>
+        <target state="translated">And a donation of</target>
       </trans-unit>
       <trans-unit id="21nAkoQ" resname="Le règlement est de">
         <source>Le règlement est de</source>
-        <target state="translated">The payment amount is</target>
+        <target state="translated">A payment of</target>
       </trans-unit>
       <trans-unit id="CmhED0Z" resname="Encaissés le">
         <source>Encaissés le</source>
@@ -875,11 +875,11 @@
       </trans-unit>
       <trans-unit id="czcIBrU" resname="Effectué par">
         <source>Effectué par</source>
-        <target state="translated">Paid by</target>
+        <target state="translated">Made by</target>
       </trans-unit>
       <trans-unit id="N.OzWcd" resname="Choisir les personnes concernées">
         <source>Choisir les personnes concernées</source>
-        <target state="translated">Select involved people</target>
+        <target state="translated">Select the persons involved</target>
       </trans-unit>
       <trans-unit id="iYQkfj9" resname="Rechercher...">
         <source>Rechercher...</source>
@@ -891,7 +891,7 @@
       </trans-unit>
       <trans-unit id="6c9UNzD" resname="adhérent·e·s maximum pour une adhésion de type">
         <source>adhérent·e·s maximum pour une adhésion de type</source>
-        <target state="translated">members maximum for a membership</target>
+        <target state="translated">Maximum members reached for a membership type</target>
       </trans-unit>
       <trans-unit id="8uMSzlt" resname="Recevoir la newsletter">
         <source>Recevoir la newsletter</source>
@@ -1007,7 +1007,7 @@
       </trans-unit>
       <trans-unit id="1Jh1jhy" resname="&quot;Reçoit la newsletter&quot;">
         <source>"Reçoit la newsletter"</source>
-        <target state="translated">"Receive newsletter"</target>
+        <target state="translated">Receive newsletter</target>
       </trans-unit>
       <trans-unit id="AVTeb07" resname="&quot;Newsletter envoyée sous format dématérialisé&quot;">
         <source>"Newsletter envoyée sous format dématérialisé"</source>
@@ -1015,51 +1015,51 @@
       </trans-unit>
       <trans-unit id="dTITH6J" resname="&quot;Nom d'utilisateurice&quot;">
         <source>"Nom d'utilisateurice"</source>
-        <target state="translated">"Username"</target>
+        <target state="translated">Username</target>
       </trans-unit>
       <trans-unit id="h.mSYX6" resname="&quot;Mot de passe&quot;">
         <source>"Mot de passe"</source>
-        <target state="translated">"Password"</target>
+        <target state="translated">Password</target>
       </trans-unit>
       <trans-unit id="clWqFLd" resname="Sélectionnez un type d'adhésion">
         <source>Sélectionnez un type d'adhésion</source>
-        <target>Select membership type</target>
+        <target state="translated">Select type of membership</target>
       </trans-unit>
       <trans-unit id="7OpcVRe" resname="Création d'une adhésion">
         <source>Création d'une adhésion</source>
-        <target>Creation of a new membership</target>
+        <target state="translated">Creation of a membership</target>
       </trans-unit>
       <trans-unit id="KAVM6ir" resname="Retourner à la liste des adhésions">
         <source>Retourner à la liste des adhésions</source>
-        <target>Return to memberships list</target>
+        <target state="translated">Back to membership list</target>
       </trans-unit>
       <trans-unit id="A9HmEM8" resname="Enregistrer l'adhésion">
         <source>Enregistrer l'adhésion</source>
-        <target>Save membership</target>
+        <target state="translated">Register membership</target>
       </trans-unit>
       <trans-unit id="X6b.lRq" resname="Confirmez l'enregistrement">
         <source>Confirmez l'enregistrement</source>
-        <target>Confirm registration</target>
+        <target state="translated">Confirm the registration</target>
       </trans-unit>
       <trans-unit id="SkxgHUO" resname="de l'adhésion de">
         <source>de l'adhésion de</source>
-        <target>of the membership of</target>
+        <target state="translated">of the membership of</target>
       </trans-unit>
       <trans-unit id="0hyTy0y" resname="de type">
         <source>de type</source>
-        <target>of type</target>
+        <target state="translated">for the following type of membership</target>
       </trans-unit>
       <trans-unit id="o.WtiY_" resname="et d'un don d'un montant de">
         <source>et d'un don d'un montant de</source>
-        <target>and of the donation of an amount of</target>
+        <target state="translated">and a donation of</target>
       </trans-unit>
       <trans-unit id="pOnZCOU" resname="réglé par">
         <source>réglé par</source>
-        <target>paid by</target>
+        <target state="translated">paid by</target>
       </trans-unit>
       <trans-unit id="MKi3hGl" resname="Confirmer">
         <source>Confirmer</source>
-        <target>Confirm</target>
+        <target state="translated">Confirm</target>
       </trans-unit>
     </body>
   </file>
