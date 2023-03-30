@@ -2,6 +2,7 @@
 
 namespace App\Controller\Ajax;
 
+use App\Entity\Address;
 use App\Entity\People;
 use App\Form\GenerateTaxReceiptFromYearType;
 use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
@@ -212,12 +213,12 @@ class PeopleAjaxController extends FOSRestController
             $formattedDonation = [
                 'id' => $donation->getId(),
                 'price' => $donation->getAmount(),
-                'date' => $donation->getDonationDate()->format('d/m/Y'),
+                'date' => $donation->getDonationDate()?->format('d/m/Y'),
                 'payment' => [
                     'amount' => $payment->getAmount(),
                     'mean' => $payment->getType()->getLabel(),
-                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
-                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'date_received' => $payment->getDateReceived()?->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()?->format('d/m/Y'),
                     'payer' => [
                         'id' => $payment->getPayer()->getId(),
                         'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
@@ -279,8 +280,8 @@ class PeopleAjaxController extends FOSRestController
                 'usage' => $usedForLabel,
                 'amount' => $payment->getAmount(),
                 'mean' => $payment->getType()->getLabel(),
-                'date_received' => $payment->getDateReceived()->format('d/m/Y'),
-                'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                'date_received' => $payment->getDateReceived()?->format('d/m/Y'),
+                'date_cashed' => $payment->getDateCashed()?->format('d/m/Y'),
                 'fiscal_year' => $payment->getReceipt()->getYear(),
                 'order_code' => $payment->getReceipt()->getOrderCode(),
                 'comment' => $payment->getComment(),
