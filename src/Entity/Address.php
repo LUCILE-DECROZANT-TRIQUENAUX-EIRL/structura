@@ -92,7 +92,7 @@ class Address
      *
      * @return Address
      */
-    public function setLine(string $line)
+    public function setLine(?string $line)
     {
         $this->line = $line;
 
@@ -116,7 +116,7 @@ class Address
      *
      * @return Address
      */
-    public function setLineTwo(string $lineTwo)
+    public function setLineTwo(?string $lineTwo)
     {
         $this->lineTwo = $lineTwo;
 
@@ -140,7 +140,7 @@ class Address
      *
      * @return Address
      */
-    public function setPostalCode(string $postalCode)
+    public function setPostalCode(?string $postalCode)
     {
         $this->postalCode = $postalCode;
 
@@ -168,7 +168,7 @@ class Address
      *
      * @return Address
      */
-    public function setCity(string $city)
+    public function setCity(?string $city)
     {
         $this->city = $city;
 
@@ -192,7 +192,7 @@ class Address
      *
      * @return Address
      */
-    public function setCountry(string $country)
+    public function setCountry(?string $country)
     {
         $this->country = $country;
 
@@ -207,5 +207,13 @@ class Address
     public function getCountry()
     {
         return $this->country;
+    }
+
+    public function isEmpty(): bool {
+        return $this->line == null
+            && $this->lineTwo == null
+            && $this->postalCode == null
+            && $this->city == null
+            && $this->country == null;
     }
 }

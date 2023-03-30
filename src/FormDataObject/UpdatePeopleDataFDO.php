@@ -161,7 +161,9 @@ class UpdatePeopleDataFDO
         $updatePeopleDataFDO->workPhoneNumber = $people->getWorkPhoneNumber();
         $updatePeopleDataFDO->observations = $people->getObservations();
         $updatePeopleDataFDO->sensitiveObservations = $people->getSensitiveObservations();
-        $updatePeopleDataFDO->addresses = $people->getAddresses();
+        if (count($people->getAddresses()) > 0) {
+            $updatePeopleDataFDO->addresses = $people->getAddresses();
+        }
 
         return $updatePeopleDataFDO;
     }
