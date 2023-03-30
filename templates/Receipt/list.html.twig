@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/Receipt/list.js') }}"></script>
+    {{ encore_entry_script_tags('receipt_list') }}
 {% endblock %}
 
 {% block body %}

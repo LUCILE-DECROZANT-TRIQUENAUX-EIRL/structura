@@ -1,4 +1,4 @@
-{{ form_start(people_edit_form, {'attr': {'id': 'form-edit-people'}}) }}
+{{ form_start(people_form, {'attr': {'id': 'form-people'}}) }}
     <div class="row justify-content-between">
         <div class="col">
             <p>Les champs notés avec * sont requis.</p>
@@ -9,43 +9,43 @@
             <div class="p-3 bg-light">
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.denomination) }} *
-                        {{ form_errors(people_edit_form.denomination) }}
-                        {{ form_widget(people_edit_form.denomination) }}
-                        {{ form_help(people_edit_form.denomination) }}
+                        {{ form_label(people_form.denomination) }} *
+                        {{ form_errors(people_form.denomination) }}
+                        {{ form_widget(people_form.denomination) }}
+                        {{ form_help(people_form.denomination) }}
                     </div>
 
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.firstname) }} *
-                        {{ form_errors(people_edit_form.firstname) }}
-                        {{ form_widget(people_edit_form.firstname) }}
-                        {{ form_help(people_edit_form.firstname) }}
+                        {{ form_label(people_form.firstname) }} *
+                        {{ form_errors(people_form.firstname) }}
+                        {{ form_widget(people_form.firstname) }}
+                        {{ form_help(people_form.firstname) }}
                     </div>
 
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.lastname) }} *
-                        {{ form_errors(people_edit_form.lastname) }}
-                        {{ form_widget(people_edit_form.lastname) }}
-                        {{ form_help(people_edit_form.lastname) }}
+                        {{ form_label(people_form.lastname) }} *
+                        {{ form_errors(people_form.lastname) }}
+                        {{ form_widget(people_form.lastname) }}
+                        {{ form_help(people_form.lastname) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.firstContactYear) }}
-                        {{ form_widget(people_edit_form.firstContactYear) }}
-                        {{ form_help(people_edit_form.firstContactYear) }}
+                        {{ form_label(people_form.firstContactYear) }}
+                        {{ form_widget(people_form.firstContactYear) }}
+                        {{ form_help(people_form.firstContactYear) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.isContact) }}
-                        {{ form_widget(people_edit_form.isContact) }}
+                        {{ form_label(people_form.isContact) }}
+                        {{ form_widget(people_form.isContact) }}
                     </div>
 
                     {% if is_granted('ROLE_GESTION_SENSIBLE') or is_granted('ROLE_ADMIN_SENSIBLE') %}
                         <div class="form-group col h-100">
-                            {{ form_label(people_edit_form.needHelp) }}
-                            {{ form_widget(people_edit_form.needHelp) }}
+                            {{ form_label(people_form.needHelp) }}
+                            {{ form_widget(people_form.needHelp) }}
                         </div>
                     {% endif %}
                 </div>
@@ -56,7 +56,7 @@
         <div class="mb-3 col">
             <div class="p-3 bg-light">
                 <div class="row">
-                    {% for address in people_edit_form.addresses %}
+                    {% for address in people_form.addresses %}
                         <div class="form-group col h-100 mb-0">
                             {{ form_label(address) }}
                             {{ form_errors(address) }}
@@ -73,18 +73,18 @@
             <div class="p-3 bg-light">
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.emailAddress) }}
-                        {{ form_widget(people_edit_form.emailAddress) }}
+                        {{ form_label(people_form.emailAddress) }}
+                        {{ form_widget(people_form.emailAddress) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.isReceivingNewsletter) }}
-                        {{ form_widget(people_edit_form.isReceivingNewsletter) }}
+                        {{ form_label(people_form.isReceivingNewsletter) }}
+                        {{ form_widget(people_form.isReceivingNewsletter) }}
                     </div>
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.newsletterDematerialization) }}
-                        {{ form_widget(people_edit_form.newsletterDematerialization) }}
+                        {{ form_label(people_form.newsletterDematerialization) }}
+                        {{ form_widget(people_form.newsletterDematerialization) }}
                     </div>
                 </div>
             </div>
@@ -95,27 +95,27 @@
             <div class="p-3 bg-light">
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.homePhoneNumber) }}
-                        {{ form_widget(people_edit_form.homePhoneNumber) }}
-                        {{ form_help(people_edit_form.homePhoneNumber) }}
+                        {{ form_label(people_form.homePhoneNumber) }}
+                        {{ form_widget(people_form.homePhoneNumber) }}
+                        {{ form_help(people_form.homePhoneNumber) }}
                     </div>
 
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.cellPhoneNumber) }}
-                        {{ form_widget(people_edit_form.cellPhoneNumber) }}
-                        {{ form_help(people_edit_form.cellPhoneNumber) }}
+                        {{ form_label(people_form.cellPhoneNumber) }}
+                        {{ form_widget(people_form.cellPhoneNumber) }}
+                        {{ form_help(people_form.cellPhoneNumber) }}
                     </div>
 
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.workPhoneNumber) }}
-                        {{ form_widget(people_edit_form.workPhoneNumber) }}
-                        {{ form_help(people_edit_form.workPhoneNumber) }}
+                        {{ form_label(people_form.workPhoneNumber) }}
+                        {{ form_widget(people_form.workPhoneNumber) }}
+                        {{ form_help(people_form.workPhoneNumber) }}
                     </div>
 
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.workFaxNumber) }}
-                        {{ form_widget(people_edit_form.workFaxNumber) }}
-                        {{ form_help(people_edit_form.workFaxNumber) }}
+                        {{ form_label(people_form.workFaxNumber) }}
+                        {{ form_widget(people_form.workFaxNumber) }}
+                        {{ form_help(people_form.workFaxNumber) }}
                     </div>
                 </div>
             </div>
@@ -126,17 +126,17 @@
         <div class="p-3 bg-light">
             <div class="row">
                 <div class="form-group col h-100">
-                    {{ form_label(people_edit_form.observations) }}
-                    {{ form_widget(people_edit_form.observations) }}
-                    {{ form_help(people_edit_form.observations) }}
+                    {{ form_label(people_form.observations) }}
+                    {{ form_widget(people_form.observations) }}
+                    {{ form_help(people_form.observations) }}
                 </div>
             </div>
             {% if is_granted('ROLE_GESTION_SENSIBLE') %}
                 <div class="row">
                     <div class="form-group col h-100">
-                        {{ form_label(people_edit_form.sensitiveObservations) }}
-                        {{ form_widget(people_edit_form.sensitiveObservations) }}
-                        {{ form_help(people_edit_form.sensitiveObservations) }}
+                        {{ form_label(people_form.sensitiveObservations) }}
+                        {{ form_widget(people_form.sensitiveObservations) }}
+                        {{ form_help(people_form.sensitiveObservations) }}
                     </div>
                 </div>
             {% endif %}
@@ -144,7 +144,7 @@
     </div>
 </div>
 
-    {% do people_edit_form.sensitiveObservations.setRendered %}
-    {% do people_edit_form.needHelp.setRendered %}
-    {% do people_edit_form.firstContactYear.setRendered %}
-{{ form_end(people_edit_form) }}
+{% do people_form.sensitiveObservations.setRendered %}
+{% do people_form.needHelp.setRendered %}
+{% do people_form.firstContactYear.setRendered %}
+{{ form_end(people_form) }}

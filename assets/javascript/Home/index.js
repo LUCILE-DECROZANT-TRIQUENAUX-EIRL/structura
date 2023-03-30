@@ -1,3 +1,5 @@
+import Chart from 'chart.js';
+
 $(document).ready(function () {
     $(function () {
         /* Displaying revenues graph */

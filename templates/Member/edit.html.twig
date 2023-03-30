@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/User/edit.js') }}"></script>
-    <script src="{{ asset('javascript/People/phone.js') }}"></script>
-    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+    {{ encore_entry_script_tags('user_edit') }}
+    {{ encore_entry_script_tags('people_phone') }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -40,7 +39,7 @@
             <div class="col-12">
                 <h1>Édition de l'adhérent.e</h1>
 
-                {{ include('People/partials/people_information_form.html.twig', { people_edit_form: member_edit }) }}
+                {{ include('People/partials/people_information_form.html.twig', { people_form: member_edit }) }}
 
                 <div class="row">
                     <div class="col">
@@ -52,7 +51,7 @@
                         <button
                             id="edit-member-submit-button"
                             type="submit"
-                            form="form-edit-people"
+                            form="form-people"
                             class="btn btn-primary">
                             <i class="icon ion-md-save"></i>&nbsp;Enregistrer les modifications
                         </button>

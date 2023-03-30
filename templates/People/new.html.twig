@@ -3,9 +3,8 @@
 {% block title %}Enregistrer une nouvelle personne dans l'annuaire{% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/User/new.js') }}"></script>
-    <script src="{{ asset('javascript/People/phone.js') }}"></script>
-    <script src="{{ asset('javascript/library/jQuery-Mask-1.14/jquery.mask.js') }}"></script>
+    {{ encore_entry_script_tags('user_new') }}
+    {{ encore_entry_script_tags('people_phone') }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -35,7 +34,7 @@
                     </div>
                 </div>
 
-                {{ include('People/partials/people_information_form.html.twig', { people_edit_form: form }) }}
+                {{ include('People/partials/people_information_form.html.twig', { people_form: form }) }}
 
                 <div class="row">
                     <div class="col">
@@ -46,7 +45,7 @@
                     <div class="col text-right">
                         <button
                         id="create-people-submit-button"
-                        type="submit" form="form-create-people"
+                        type="submit" form="form-people"
                         class="btn btn-primary">
                             <i class="icon ion-md-add"></i>&nbsp;Créer
                         </button>

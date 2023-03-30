@@ -131,13 +131,17 @@ class PeopleController extends AbstractController {
                 $people->removeType($typeSocialPole);
             }
 
-            if ($updatePeopleDataFDO->getAddresses()['__name__'] === null) {
-                $address = new Address();
-                $people->setAddresses([$address]);
-            } else {
-                $address = $updatePeopleDataFDO->getAddresses()['__name__'];
-                $people->setAddresses([$address]);
+            $addresses = [];
+
+            foreach ($updatePeopleDataFDO->getAddresses() as $address)
+            {
+                if (!$address->isEmpty()) {
+                    $em->persist($address);
+                    $addresses[] = $address;
+                }
             }
+
+            $people->setAddresses($addresses);
 
             if ($updatePeopleDataFDO->getCellPhoneNumber() !== null) {
                 $people->setCellPhoneNumber($updatePeopleDataFDO->getCellPhoneNumber());
@@ -179,7 +183,6 @@ class PeopleController extends AbstractController {
                 $people->setFirstContactYear($updatePeopleDataFDO->getFirstContactYear());
             }
 
-            $em->persist($address);
             $em->persist($people);
             $em->flush();
 
@@ -308,23 +311,17 @@ class PeopleController extends AbstractController {
 
             }
 
-            if ($updatePeopleDataFDO->getAddresses() === null)
-            {
-                $address = new Address();
-                $people->setAddresses([$address]);
-            }
-            else
-            {
-                $addresses = [];
+            $addresses = [];
 
-                foreach ($updatePeopleDataFDO->getAddresses() as $address)
-                {
+            foreach ($updatePeopleDataFDO->getAddresses() as $address)
+            {
+                if (!$address->isEmpty()) {
                     $entityManager->persist($address);
                     $addresses[] = $address;
                 }
-
-                $people->setAddresses($addresses);
             }
+
+            $people->setAddresses($addresses);
 
             if ($updatePeopleDataFDO->getCellPhoneNumber() !== null) {
                 $people->setCellPhoneNumber($updatePeopleDataFDO->getCellPhoneNumber());

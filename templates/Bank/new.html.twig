@@ -3,7 +3,7 @@
 {% block title %}{% trans %}Enregistrer une nouvelle banque{% endtrans %}{% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/User/new.js') }}"></script>
+    {{ encore_entry_script_tags('user_new') }}
 {% endblock %}
 
 {% block stylesheets %}

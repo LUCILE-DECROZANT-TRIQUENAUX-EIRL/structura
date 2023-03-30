@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/Home/index.js') }}"></script>
+    {{ encore_entry_script_tags('home_index') }}
 {% endblock %}
 
 {% block body %}

@@ -3,7 +3,7 @@ $(document).ready(function () {
     // For each file waiting its generation, run an ajax call each 60sec
     // to check if the generation is complete
     $('.waiting-generation').each(function () {
-        checkGenerationCompleteTimersIdentifier[$(this).data('file-id')] = setInterval(checkIfGenerationHasFinished, 30000, $(this));
+        checkGenerationCompleteTimersIdentifier[$(this).data('file-id')] = setInterval(checkIfGenerationHasFinished, 5000, $(this));
     });
 });
 

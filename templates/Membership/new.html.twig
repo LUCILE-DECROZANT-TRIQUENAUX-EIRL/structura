@@ -6,8 +6,8 @@
 
 {% block javascript %}
     <!-- Custom JS for this page -->
-    <script src="{{ asset('javascript/Membership/common.js') }}"></script>
-    <script src="{{ asset('javascript/Membership/new.js') }}"></script>
+    {{ encore_entry_script_tags('membership_common') }}
+    {{ encore_entry_script_tags('membership_new') }}
 {% endblock %}
 
 {% block stylesheets %}

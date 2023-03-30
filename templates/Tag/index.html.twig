@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/Tag/index.js') }}"></script>
+    {{ encore_entry_script_tags('tag_index') }}
 {% endblock %}
 
 {% block breadcrumb %}

@@ -22,8 +22,8 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('javascript/Donation/common.js') }}"></script>
-    <script src="{{ asset('javascript/Donation/edit.js') }}"></script>
+    {{ encore_entry_script_tags('donation_common') }}
+    {{ encore_entry_script_tags('donation_edit') }}
 {% endblock %}
 
 {% block body %}
