@@ -84,7 +84,11 @@ class PeopleAjaxController extends FOSRestController
 
         $peopleData = [];
         foreach ($people as $individual) {
-            $individualAddress = $individual->getAddresses()[0];
+             if (count($individual->getAddresses()) > 0) {
+                $individualAddress = $individual->getAddresses()[0];
+            } else {
+                $individualAddress = new Address();
+            }
             // Sort membership years
             $membershipYears = [];
             foreach ($individual->getMemberships() as $individualMembership) {

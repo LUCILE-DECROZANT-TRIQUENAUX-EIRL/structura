@@ -80,14 +80,14 @@
                             {% endif %}
                         </td>
                         <td class="align-middle text-center">
-                            {% if people.addresses[0].postalCode is empty %}
+                            {% if people.addresses|length == 0 or people.addresses[0].postalCode is empty %}
                                 <span class="">-</span>
                             {% else %}
                                 <span class="">{{ people.addresses[0].postalCode }}</span>
                             {% endif %}
                         </td>
                         <td class="align-middle text-center">
-                            {% if people.addresses[0].city is empty %}
+                            {% if people.addresses|length == 0 or people.addresses[0].city is empty %}
                                 <span class="">-</span>
                             {% else %}
                                 <span class="phone">{{ people.addresses[0].city }}</span>

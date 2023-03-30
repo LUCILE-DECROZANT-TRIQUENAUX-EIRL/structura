@@ -44,18 +44,20 @@
                     <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
                     {{ receipt.payment.payer.firstName }}
                 </p>
-                <p>
-                    {{ receipt.payment.payer.addresses[0].line }}
-                </p>
-                {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
+                {% if not receipt.payment.payer.addresses|length == 0 %}
                     <p>
-                        {{ receipt.payment.payer.addresses[0].lineTwo }}
+                        {{ receipt.payment.payer.addresses[0].line }}
+                    </p>
+                    {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
+                        <p>
+                            {{ receipt.payment.payer.addresses[0].lineTwo }}
+                        </p>
+                    {% endif %}
+                    <p>
+                        {{ receipt.payment.payer.addresses[0].postalCode }}
+                        <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                     </p>
                 {% endif %}
-                <p>
-                    {{ receipt.payment.payer.addresses[0].postalCode }}
-                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
-                </p>
             </td>
         </tr>
     </table>
@@ -233,20 +235,22 @@
 
     {#--- CUTABLE PART DONATOR INFORMATION ---#}
     <div class="border-left border-right pt-2 pb-2 pr-3 pl-3">
-        <table>
+        <table class="w-auto">
             <tr>
                 <td class="font-weight-bold">
                     Mécène&nbsp;:
                 </td>
-                <td class="text-center font-weight-bold">
+                <td class="text-left font-weight-bold">
                     <span class="text-uppercase">{{ receipt.payment.payer.lastName }}</span>
-                    {{ receipt.payment.payer.firstName }},
-                    {{ receipt.payment.payer.addresses[0].line }}
-                    {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
-                        {{ receipt.payment.payer.addresses[0].lineTwo }}
+                    {{ receipt.payment.payer.firstName }}
+                    {% if not receipt.payment.payer.addresses|length == 0 %}
+                        , {{ receipt.payment.payer.addresses[0].line }}
+                        {% if not receipt.payment.payer.addresses[0].lineTwo is null %}
+                            {{ receipt.payment.payer.addresses[0].lineTwo }}
+                        {% endif %}
+                        {{ receipt.payment.payer.addresses[0].postalCode }}
+                        <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                     {% endif %}
-                    {{ receipt.payment.payer.addresses[0].postalCode }}
-                    <span class="text-uppercase">{{ receipt.payment.payer.addresses[0].city }}</span>
                 </td>
             </tr>
         </table>
