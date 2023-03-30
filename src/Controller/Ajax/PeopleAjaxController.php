@@ -166,13 +166,13 @@ class PeopleAjaxController extends FOSRestController
                 'type_label' => $membership->getType()->getLabel(),
                 'type_description' => $membership->getType()->getDescription(),
                 'price' => $membership->getType()->getDefaultAmount(),
-                'date_start' => $membership->getDateStart()->format('d/m/Y'),
-                'date_end' => $membership->getDateEnd()->format('d/m/Y'),
+                'date_start' => $membership->getDateStart()?->format('d/m/Y'),
+                'date_end' => $membership->getDateEnd()?->format('d/m/Y'),
                 'payment' => [
                     'amount' => $payment->getAmount(),
                     'mean' => $payment->getType()->getLabel(),
-                    'date_received' => $payment->getDateReceived()->format('d/m/Y'),
-                    'date_cashed' => $payment->getDateCashed()->format('d/m/Y'),
+                    'date_received' => $payment->getDateReceived()?->format('d/m/Y'),
+                    'date_cashed' => $payment->getDateCashed()?->format('d/m/Y'),
                     'payer' => [
                         'id' => $payment->getPayer()->getId(),
                         'denomination' => $payment->getPayer()->getDenomination()->getLabel(),
