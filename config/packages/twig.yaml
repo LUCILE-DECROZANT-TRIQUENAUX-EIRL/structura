@@ -5,3 +5,4 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
         locales: "%app_locales%"
+    exception_controller: null
