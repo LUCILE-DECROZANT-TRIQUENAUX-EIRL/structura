@@ -38,7 +38,7 @@ class DonationType extends AbstractType
                         new Range([
                             'min' => 1,
                             'max' => 9000000,
-                            'maxMessage' => 'Vous devez entrer une valeur comprise entre 1 € et 9 000 000 €.',
+                            'notInRangeMessage' => 'Vous devez entrer une valeur comprise entre 1 € et 9 000 000 €.',
                         ])
                     ],
                 ])
