@@ -386,6 +386,7 @@ class UpdatePeopleDataFDO
      */
     public function setHomePhoneNumber(string $homePhoneNumber)
     {
+        $homePhoneNumber = str_replace(' ', '', $homePhoneNumber);
         if (!is_numeric($homePhoneNumber))
         {
             throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
@@ -416,6 +417,8 @@ class UpdatePeopleDataFDO
      */
     public function setCellPhoneNumber(string $cellPhoneNumber)
     {
+        $cellPhoneNumber = str_replace(' ', '', $cellPhoneNumber);
+
         if (!is_numeric($cellPhoneNumber))
         {
             throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
@@ -446,6 +449,8 @@ class UpdatePeopleDataFDO
      */
     public function setWorkPhoneNumber(string $workPhoneNumber)
     {
+        $workPhoneNumber = str_replace(' ', '', $workPhoneNumber);
+
         if (!is_numeric($workPhoneNumber))
         {
             throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
@@ -476,6 +481,8 @@ class UpdatePeopleDataFDO
      */
     public function setWorkFaxNumber(string $workFaxNumber)
     {
+        $workFaxNumber = str_replace(' ', '', $workFaxNumber);
+
         if (!is_numeric($workFaxNumber))
         {
             throw new \InvalidArgumentException('The input given is not a phone number, only numbers allowed');
