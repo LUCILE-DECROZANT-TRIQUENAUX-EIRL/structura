@@ -9,7 +9,7 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-locale">
         {# Foreach project locales except the current #}
-        {% for locale in locales if locale != app.request.locale %}
+        {% for locale in locales|filter(locale => locale != app.request.locale) %}
             <a class="dropdown-item locale-link text-center" title="{{ locale }}" href="{{ path(route, params|merge({ _locale: locale })) }}">
                 <img class="h-100" src="{{ asset('images/flags/' ~ locale ~ '.png') }}" alt="{{ locale }}">
             </a>
