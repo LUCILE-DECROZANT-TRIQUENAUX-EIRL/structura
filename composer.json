@@ -16,7 +16,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "dompdf/dompdf": "^2.0.1",
-        "friendsofsymfony/rest-bundle": "^2.6",
+        "friendsofsymfony/rest-bundle": "^3.0.0",
         "jms/serializer-bundle": "^3.5",
         "phpdocumentor/reflection-docblock": "^5.3",
         "sensio/framework-extra-bundle": "^5.4",

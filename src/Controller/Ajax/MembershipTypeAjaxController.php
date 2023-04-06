@@ -3,25 +3,19 @@
 namespace App\Controller\Ajax;
 
 use App\Entity\MembershipType;
-
-use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\View;
 
 /**
  * @Route("/ajax/membership-type", name="ajax_membership-type_")
  */
-class MembershipTypeAjaxController extends FOSRestController
+class MembershipTypeAjaxController extends AbstractFOSRestController
 {
     /**
-     * @Rest\Get(
-     *     path = "/{id}",
-     *     name = "show",
-     *     requirements = {"id"="\d+"}
-     * )
-     * @Rest\View
+     * @Route("/{id}", name="show", requirements = {"id"="\d+"})
+     * @View()
      * @Security("is_granted('ROLE_GESTION')")
      */
     public function getMembershipTypeAction(MembershipType $membershipType)

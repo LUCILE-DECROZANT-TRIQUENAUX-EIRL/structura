@@ -4,30 +4,23 @@ namespace App\Controller\Ajax;
 
 use App\Entity\Address;
 use App\Entity\People;
-use App\Form\GenerateTaxReceiptFromYearType;
-use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 use App\Service\ReceiptService;
 use App\Entity\Receipt;
-
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/ajax/people", name="ajax_people_")
  */
-class PeopleAjaxController extends FOSRestController
+class PeopleAjaxController extends AbstractFOSRestController
 {
     /**
-     * @Rest\Get(
-     *     path = "/{id}",
-     *     name = "show",
-     *     requirements = {"id"="\d+"}
-     * )
-     * @Rest\View
+     * @Route("/{id}", name="show", requirements = {"id"="\d+"})
+     * @View()
      * @Security("is_granted('ROLE_GESTION')")
      */
     public function getPeopleAction(People $people)
