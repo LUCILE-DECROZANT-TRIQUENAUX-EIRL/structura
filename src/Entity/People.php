@@ -412,6 +412,10 @@ class People
      */
     public function getDisplayHomePhoneNumber()
     {
+        if ($this->homePhoneNumber === null) {
+            return null;
+        }
+
         // Format phone number for display purpose
         $chunks = str_split($this->homePhoneNumber, 2);
         return implode(' ', $chunks);
@@ -455,6 +459,10 @@ class People
      */
     public function getDisplayCellPhoneNumber()
     {
+        if ($this->cellPhoneNumber === null) {
+            return null;
+        }
+
         // Format phone number for display purpose
         $chunks = str_split($this->cellPhoneNumber, 2);
         return implode(' ', $chunks);
@@ -497,6 +505,10 @@ class People
      */
     public function getDisplayWorkPhoneNumber()
     {
+        if ($this->workPhoneNumber === null) {
+            return null;
+        }
+
         // Format phone number for display purpose
         $chunks = str_split($this->workPhoneNumber, 2);
         return implode(' ', $chunks);
@@ -539,6 +551,10 @@ class People
      */
     public function getDisplayWorkFaxNumber()
     {
+        if ($this->workFaxNumber === null) {
+            return null;
+        }
+
         // Format phone number for display purpose
         $chunks = str_split($this->workFaxNumber, 2);
         return implode(' ', $chunks);
