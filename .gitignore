@@ -53,7 +53,12 @@ structura.code-workspace
 
 ###> phpstorm config ###
 .idea
-###< vscode config ###
+###< phpstorm config ###
+
+###> yarn ###
+.yarnrc.yml
+.yarn/
+###< yarn ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
