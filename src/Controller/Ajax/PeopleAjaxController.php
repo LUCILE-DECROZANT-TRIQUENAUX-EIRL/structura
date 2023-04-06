@@ -320,8 +320,8 @@ class PeopleAjaxController extends AbstractFOSRestController
         // Generate the PDF and stream it
         $receiptService->generateTaxReceiptPdf(
             $receipts,
-            $filename,
             new \DateTime(),
+            $filename,
             true,
             true
         );

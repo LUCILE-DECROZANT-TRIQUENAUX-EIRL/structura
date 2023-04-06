@@ -25,7 +25,7 @@ implements AuthenticationSuccessHandlerInterface
     /**
      * Constructor
      */
-    public function __construct(HttpUtils $httpUtils, array $options = array(), FlashBagInterface $flashBag)
+    public function __construct(HttpUtils $httpUtils, array $options, FlashBagInterface $flashBag)
     {
         parent::__construct($httpUtils, $options);
 

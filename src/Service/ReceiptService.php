@@ -68,8 +68,8 @@ class ReceiptService
      */
     public function generateTaxReceiptPdf(
         array $receipts,
-        string $filename = 'tax_receipts',
         \DateTime $receiptGenerationDate,
+        string $filename = 'tax_receipts',
         bool $isStreamed = false,
         bool $isFromController = false
     )
@@ -137,8 +137,8 @@ class ReceiptService
 
         $fullFilename = $this->generateTaxReceiptPdf(
             $receipts,
-            'recus-fiscaux_' . $year,
-            $receiptsGroupingFile->getGenerationDateStart()
+            $receiptsGroupingFile->getGenerationDateStart(),
+            'recus-fiscaux_' . $year
         );
 
 
@@ -165,8 +165,8 @@ class ReceiptService
 
         $fullFilename = $this->generateTaxReceiptPdf(
             $receipts,
-            'recus-fiscaux_du-' . $fromDate->format('Ymd') . '-au-' . $toDate->format('Ymd'),
-            $receiptsGroupingFile->getGenerationDateStart()
+            $receiptsGroupingFile->getGenerationDateStart(),
+            'recus-fiscaux_du-' . $fromDate->format('Ymd') . '-au-' . $toDate->format('Ymd')
         );
 
         // Update the receipts grouping file
