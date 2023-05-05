@@ -218,6 +218,7 @@ class PeopleAjaxController extends FOSRestController
                 'id' => $donation->getId(),
                 'price' => $donation->getAmount(),
                 'date' => $donation->getDonationDate()?->format('d/m/Y'),
+                'origin' => $donation->getDonationOrigin()?->getLabel(),
                 'payment' => [
                     'amount' => $payment->getAmount(),
                     'mean' => $payment->getType()->getLabel(),

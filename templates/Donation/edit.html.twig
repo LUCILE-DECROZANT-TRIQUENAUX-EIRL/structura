@@ -70,6 +70,15 @@
                                     {{ form_errors(form.donation_date) }}
                                 </div>
                             </div>
+                            <div class="col-12 mt-3">
+                                <label for="donation_donation_origin">{% trans %}Provenance{% endtrans %}</label>
+                            </div>
+                            <div class="col-12">
+                                {{ form_widget(form.donation_origin) }}
+                                <div class="field-error-spot">
+                                    {{ form_errors(form.donation_origin) }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">

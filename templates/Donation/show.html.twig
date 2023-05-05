@@ -42,6 +42,16 @@
                                 {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }},
                                 le {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }}
                             </div>
+
+                            {% if donation.donationOrigin %}
+                            <div class="text-center mt-2">
+                                <h4 class="mb-0">
+                                    <span class="badge badge-pill badge-info">
+                                        {{ donation.donationOrigin ? donation.donationOrigin.label }}
+                                    </span>
+                                </h4>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
