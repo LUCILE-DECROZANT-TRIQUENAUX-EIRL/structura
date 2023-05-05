@@ -39,6 +39,11 @@ class Donation
      */
     private $donator;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DonationOrigin::class, inversedBy="donations")
+     */
+    private $donationOrigin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Donation
     public function setDonator(?People $donator): self
     {
         $this->donator = $donator;
+
+        return $this;
+    }
+
+    public function getDonationOrigin(): ?DonationOrigin
+    {
+        return $this->donationOrigin;
+    }
+
+    public function setDonationOrigin(?DonationOrigin $donationOrigin): self
+    {
+        $this->donationOrigin = $donationOrigin;
 
         return $this;
     }
