@@ -1,0 +1,56 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Détails de la provenance{% endtrans %} {{ donationOrigin.label }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
+    {% endif %}
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('donation_origin_list') }}">{% trans %}Liste des provenances d'un don{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Détails de la provenance{% endtrans %} {{ donationOrigin.label }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('DonationOrigin/_menu-donation-origin.html.twig', { show_donation_origin: 'active' }) }}
+            </div>
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col">
+                        <h1>{{ donationOrigin.label }}</h1>
+                        <p>{% trans %}Identifiant :{% endtrans %} {{ donationOrigin.id }}</p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ path('donation_origin_list') }}" class="btn btn-secondary">
+                            <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des provenances{% endtrans %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

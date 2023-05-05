@@ -1,0 +1,80 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+    {% trans %}Éditer la provenance{% endtrans %} {{ donationOrigin.label }}
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+        </li>
+    {% endif %}
+    {% if is_granted("ROLE_GESTION") %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('donation_origin_list') }}">{% trans %}Liste des provenances d'un don{% endtrans %}</a>
+        </li>
+    {% endif %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('donation_origin_show', { 'id': donationOrigin.id }) }}">
+            {{ donationOrigin.label }}
+        </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Éditer la provenance{% endtrans %} {{ donationOrigin.label }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 col-md-2">
+                {{ include('DonationOrigin/_menu-donation-origin.html.twig', { edit_donation_origin: 'active' }) }}
+            </div>
+            <br>
+            <div class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col text-left">
+                        <h1>{% trans %}Éditer la provenance{% endtrans %} {{ donationOrigin.label }}</h1>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+                        <div>
+                            {{ form_start(form, {'attr': {'id': 'form-edit-donation-origin'}}) }}
+                                <div class="form-group">
+                                    {{ form_label(form.label) }} *
+                                    {{ form_widget(form.label) }}
+                                </div>
+                                {{ form_widget(form._token) }}
+                            {{ form_end(form, {'render_rest': false}) }}
+                        </div>
+                        <div class="col text-right">
+                            <button
+                                id="edit-donation-origin-submit-button"
+                                type="submit"
+                                form="form-edit-donation-origin"
+                                class="btn btn-primary"
+                                >
+                                {% trans %}Enregistrer les modifications{% endtrans %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
