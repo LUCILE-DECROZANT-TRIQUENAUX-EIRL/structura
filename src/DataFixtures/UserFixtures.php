@@ -6,22 +6,21 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User;
 use App\Entity\People;
 use App\Entity\Responsibility;
 use App\Entity\Address;
 use App\Entity\Denomination;
 use App\Repository\ResponsibilityRepository;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
-    private $encoder;
+    private $hasher;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->encoder = $encoder;
+        $this->hasher = $hasher;
     }
 
     public static function getGroups(): array
@@ -80,7 +79,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdminSensible = new User();
         $userAdminSensible->setUsername('adminSensible');
 
-        $passwordAdminSensible = $this->encoder->encodePassword($userAdminSensible, 'a');
+        $passwordAdminSensible = $this->hasher->hashPassword($userAdminSensible, 'a');
         $userAdminSensible->setPassword($passwordAdminSensible);
 
         $peopleAdminSensible = new People();
@@ -123,7 +122,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
 
-        $passwordAdmin = $this->encoder->encodePassword($userAdmin, 'a');
+        $passwordAdmin = $this->hasher->hashPassword($userAdmin, 'a');
         $userAdmin->setPassword($passwordAdmin);
 
         $peopleAdmin = new People();
@@ -164,7 +163,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdminUniquement = new User();
         $userAdminUniquement ->setUsername('adminUniquement');
 
-        $passwordAdminUniquement = $this->encoder->encodePassword($userAdminUniquement, 'a');
+        $passwordAdminUniquement = $this->hasher->hashPassword($userAdminUniquement, 'a');
         $userAdminUniquement->setPassword($passwordAdminUniquement);
 
         $peopleAdminUniquement = new People();
@@ -203,7 +202,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userGestionnaireSensible = new User();
         $userGestionnaireSensible->setUsername('gestiSensible');
 
-        $passwordGestionnaireSensible = $this->encoder->encodePassword($userGestionnaireSensible, 'a');
+        $passwordGestionnaireSensible = $this->hasher->hashPassword($userGestionnaireSensible, 'a');
         $userGestionnaireSensible->setPassword($passwordGestionnaireSensible);
 
         $peopleGestionnaireSensible = new People();
@@ -245,7 +244,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userGestionnaire1 = new User();
         $userGestionnaire1->setUsername('gest1');
 
-        $passwordGestionnaire1 = $this->encoder->encodePassword($userGestionnaire1, 'a');
+        $passwordGestionnaire1 = $this->hasher->hashPassword($userGestionnaire1, 'a');
         $userGestionnaire1->setPassword($passwordGestionnaire1);
 
         $peopleGestionnaire1 = new People();
@@ -285,7 +284,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userGestionnaire2 = new User();
         $userGestionnaire2->setUsername('gest2');
 
-        $passwordGestionnaire2 = $this->encoder->encodePassword($userGestionnaire2, 'a');
+        $passwordGestionnaire2 = $this->hasher->hashPassword($userGestionnaire2, 'a');
         $userGestionnaire2->setPassword($passwordGestionnaire2);
 
         $peopleGestionnaire2 = new People();
@@ -326,7 +325,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userInformateurice = new User();
         $userInformateurice->setUsername('info');
 
-        $passwordInformateurice = $this->encoder->encodePassword($userInformateurice, 'a');
+        $passwordInformateurice = $this->hasher->hashPassword($userInformateurice, 'a');
         $userInformateurice->setPassword($passwordInformateurice);
 
         $peopleInformateurice = new People();
@@ -366,7 +365,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE1 = new User();
         $userAdherentE1->setUsername('adhe1');
 
-        $passwordAdherentE1 = $this->encoder->encodePassword($userAdherentE1, 'a');
+        $passwordAdherentE1 = $this->hasher->hashPassword($userAdherentE1, 'a');
         $userAdherentE1->setPassword($passwordAdherentE1);
 
         $peopleAdherentE1 = new People();
@@ -404,7 +403,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE2 = new User();
         $userAdherentE2->setUsername('adhe2');
 
-        $passwordAdherentE2 = $this->encoder->encodePassword($userAdherentE2, 'a');
+        $passwordAdherentE2 = $this->hasher->hashPassword($userAdherentE2, 'a');
         $userAdherentE2->setPassword($passwordAdherentE2);
 
         $peopleAdherentE2 = new People();
@@ -442,7 +441,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE3 = new User();
         $userAdherentE3->setUsername('adhe3');
 
-        $passwordAdherentE3 = $this->encoder->encodePassword($userAdherentE3, 'a');
+        $passwordAdherentE3 = $this->hasher->hashPassword($userAdherentE3, 'a');
         $userAdherentE3->setPassword($passwordAdherentE3);
 
         $peopleAdherentE3 = new People();
@@ -480,7 +479,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE4 = new User();
         $userAdherentE4->setUsername('adhe4');
 
-        $passwordAdherentE4 = $this->encoder->encodePassword($userAdherentE4, 'a');
+        $passwordAdherentE4 = $this->hasher->hashPassword($userAdherentE4, 'a');
         $userAdherentE4->setPassword($passwordAdherentE4);
 
         $peopleAdherentE4 = new People();
@@ -518,7 +517,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE5 = new User();
         $userAdherentE5->setUsername('adhe5');
 
-        $passwordAdherentE5 = $this->encoder->encodePassword($userAdherentE5, 'a');
+        $passwordAdherentE5 = $this->hasher->hashPassword($userAdherentE5, 'a');
         $userAdherentE5->setPassword($passwordAdherentE5);
 
         $peopleAdherentE5 = new People();
@@ -556,7 +555,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE6 = new User();
         $userAdherentE6->setUsername('adhe6');
 
-        $passwordAdherentE6 = $this->encoder->encodePassword($userAdherentE6, 'a');
+        $passwordAdherentE6 = $this->hasher->hashPassword($userAdherentE6, 'a');
         $userAdherentE6->setPassword($passwordAdherentE6);
 
         $peopleAdherentE6 = new People();
@@ -590,7 +589,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE7 = new User();
         $userAdherentE7->setUsername('adhe7');
 
-        $passwordAdherentE7 = $this->encoder->encodePassword($userAdherentE7, 'a');
+        $passwordAdherentE7 = $this->hasher->hashPassword($userAdherentE7, 'a');
         $userAdherentE7->setPassword($passwordAdherentE7);
 
         $peopleAdherentE7 = new People();
@@ -624,7 +623,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE8 = new User();
         $userAdherentE8->setUsername('adhe8');
 
-        $passwordAdherentE8 = $this->encoder->encodePassword($userAdherentE8, 'a');
+        $passwordAdherentE8 = $this->hasher->hashPassword($userAdherentE8, 'a');
         $userAdherentE8->setPassword($passwordAdherentE8);
 
         $peopleAdherentE8 = new People();
@@ -658,7 +657,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE9 = new User();
         $userAdherentE9->setUsername('adhe9');
 
-        $passwordAdherentE9 = $this->encoder->encodePassword($userAdherentE9, 'a');
+        $passwordAdherentE9 = $this->hasher->hashPassword($userAdherentE9, 'a');
         $userAdherentE9->setPassword($passwordAdherentE9);
 
         $peopleAdherentE9 = new People();
@@ -692,7 +691,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE10 = new User();
         $userAdherentE10->setUsername('adhe10');
 
-        $passwordAdherentE10 = $this->encoder->encodePassword($userAdherentE10, 'a');
+        $passwordAdherentE10 = $this->hasher->hashPassword($userAdherentE10, 'a');
         $userAdherentE10->setPassword($passwordAdherentE10);
 
         $peopleAdherentE10 = new People();
@@ -726,7 +725,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE11 = new User();
         $userAdherentE11->setUsername('adhe11');
 
-        $passwordAdherentE11 = $this->encoder->encodePassword($userAdherentE11, 'a');
+        $passwordAdherentE11 = $this->hasher->hashPassword($userAdherentE11, 'a');
         $userAdherentE11->setPassword($passwordAdherentE11);
 
         $peopleAdherentE11 = new People();
@@ -760,7 +759,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE12 = new User();
         $userAdherentE12->setUsername('adhe12');
 
-        $passwordAdherentE12 = $this->encoder->encodePassword($userAdherentE12, 'a');
+        $passwordAdherentE12 = $this->hasher->hashPassword($userAdherentE12, 'a');
         $userAdherentE12->setPassword($passwordAdherentE12);
 
         $peopleAdherentE12 = new People();
@@ -794,7 +793,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE13 = new User();
         $userAdherentE13->setUsername('adhe13');
 
-        $passwordAdherentE13 = $this->encoder->encodePassword($userAdherentE13, 'a');
+        $passwordAdherentE13 = $this->hasher->hashPassword($userAdherentE13, 'a');
         $userAdherentE13->setPassword($passwordAdherentE13);
 
         $peopleAdherentE13 = new People();
@@ -828,7 +827,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE14 = new User();
         $userAdherentE14->setUsername('adhe14');
 
-        $passwordAdherentE14 = $this->encoder->encodePassword($userAdherentE14, 'a');
+        $passwordAdherentE14 = $this->hasher->hashPassword($userAdherentE14, 'a');
         $userAdherentE14->setPassword($passwordAdherentE14);
 
         $peopleAdherentE14 = new People();
@@ -862,7 +861,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userAdherentE15 = new User();
         $userAdherentE15->setUsername('adhe15');
 
-        $passwordAdherentE15 = $this->encoder->encodePassword($userAdherentE15, 'a');
+        $passwordAdherentE15 = $this->hasher->hashPassword($userAdherentE15, 'a');
         $userAdherentE15->setPassword($passwordAdherentE15);
 
         $peopleAdherentE15 = new People();
@@ -897,7 +896,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userSupportive = new User();
         $userSupportive->setUsername('supp1');
 
-        $passwordSupportive = $this->encoder->encodePassword($userSupportive, 'a');
+        $passwordSupportive = $this->hasher->hashPassword($userSupportive, 'a');
         $userSupportive->setPassword($passwordSupportive);
 
         $peopleSupportive = new People();
@@ -935,7 +934,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userRich = new User();
         $userRich->setUsername('rich1');
 
-        $passwordRich = $this->encoder->encodePassword($userRich, 'a');
+        $passwordRich = $this->hasher->hashPassword($userRich, 'a');
         $userRich->setPassword($passwordRich);
 
         $peopleRich = new People();
@@ -975,7 +974,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userRegistered = new User();
         $userRegistered ->setUsername('inscr');
 
-        $passwordRegistered = $this->encoder->encodePassword($userRegistered, 'a');
+        $passwordRegistered = $this->hasher->hashPassword($userRegistered, 'a');
         $userRegistered->setPassword($passwordRegistered);
 
         $peopleRegistered = new People();
@@ -1012,7 +1011,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userTest = new User();
         $userTest ->setUsername('test');
 
-        $passwordTest = $this->encoder->encodePassword($userTest, 'a');
+        $passwordTest = $this->hasher->hashPassword($userTest, 'a');
         $userTest->setPassword($passwordTest);
 
         $peopleTest = new People();
@@ -1050,7 +1049,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $userTest2 = new User();
         $userTest2 ->setUsername('test2');
 
-        $password = $this->encoder->encodePassword($userTest2, 'a');
+        $password = $this->hasher->hashPassword($userTest2, 'a');
         $userTest2->setPassword($password);
 
         $peopleTest2 = new People();
