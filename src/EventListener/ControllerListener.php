@@ -2,33 +2,28 @@
 
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use App\Entity\Association;
+use App\Repository\AssociationRepository;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ControllerListener
 {
-
-    private $session;
-    private $em;
-
-    public function __construct($session, $em)
+    public function __construct(private AssociationRepository $associationRepository)
     {
-        $this->session = $session;
-        $this->em = $em;
     }
 
     public function onKernelController(ControllerEvent $event)
     {
+        /** @var Session $session */
+        $session = $event->getRequest()->getSession();
+
         // Check if the association data is filled, if not, add a flashbag
-        $association = $this->em->getRepository(Association::class)->findAll();
+        $association = $this->associationRepository->findAll();
         if (empty($association)) {
-            $this->session->getFlashBag()->set(
+            $session->getFlashBag()->set(
                     'association-data-warning',
                     ''
             );
         }
     }
-
 }
