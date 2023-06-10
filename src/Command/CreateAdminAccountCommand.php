@@ -3,22 +3,23 @@
 namespace App\Command;
 
 use App\Service\UserService;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'app:create-admin-account',
+    description: 'Creates an admin account.',
+)]
 class CreateAdminAccountCommand extends Command
 {
     /**
      * @var App\Service\UserService
      */
     private $userService;
-
-    /**
-     * @var string Name of the command (used in console)
-     */
-    protected static $defaultName = 'app:create-admin-account';
 
     public function __construct(UserService $userService)
     {
@@ -45,16 +46,18 @@ class CreateAdminAccountCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Admin account creation started...');
+        $io = new SymfonyStyle($input, $output);
+        $io->info('Admin account creation started...');
 
         $this->userService->createFirstAdminAccount(
                 $input->getArgument('admin-username'),
                 $input->getArgument('admin-password')
         );
 
-        $output->writeln('User successfully generated!');
-    }
+        $io->success('User successfully generated!');
 
+        return Command::SUCCESS;
+    }
 }
