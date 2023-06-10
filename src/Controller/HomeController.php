@@ -33,7 +33,7 @@ class HomeController extends AbstractController
      * @param Request $request The request.
      * @param UserInterface $user The user.
      * @return views
-     * @Security("not is_anonymous()")
+     * @Security("is_authenticated()")
      */
     public function indexAction(Request $request, PeopleRepository $peopleRepository)
     {
