@@ -37,7 +37,6 @@ class HomeController extends AbstractController
      */
     public function indexAction(Request $request, PeopleRepository $peopleRepository)
     {
-
         $people = $peopleRepository->findWithOutdatedMembership();
 
         return $this->render('Home/index.html.twig', array(
