@@ -6,15 +6,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Form\FormError;
 use App\Entity\User;
 use App\Entity\Responsibility;
 use App\Exception\FormIsNotSubmitted;
 use App\Exception\FormIsInvalid;
-use App\Service\Utils\RouteService;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class containing methods used to display user's related pages
@@ -37,9 +34,9 @@ class UserService
     private $em;
 
     /**
-     * @var UserPasswordEncoderInterface $em
+     * @var UserPasswordHasherInterface $em
      */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     /**
      * Class constructor with it's dependecy injections
@@ -51,13 +48,13 @@ class UserService
             EntityManagerInterface $em,
             RouterInterface $router,
             RequestStack $requestStack,
-            UserPasswordEncoderInterface $passwordEncoder
+            UserPasswordHasherInterface $passwordHasher
         )
     {
         $this->em = $em;
         $this->router = $router;
         $this->requestStack = $requestStack;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
@@ -85,14 +82,13 @@ class UserService
         else
         {
             $user = new User();
-            $password = $this->passwordEncoder->encodePassword(
+            $password = $this->passwordHasher->hashPassword(
                     $userWaitingCreation,
                     $userWaitingCreation->getPlainPassword()
             );
             $userWaitingCreation->setPassword($password);
 
             $userWaitingCreation = $this->manageResponsibilities($userWaitingCreation);
-
 
             $this->em->persist($userWaitingCreation);
             $this->em->flush();
@@ -125,7 +121,7 @@ class UserService
         $user->setUsername($username);
 
         // Setup password
-        $password = $this->passwordEncoder->encodePassword(
+        $password = $this->passwordHasher->hashPassword(
                 $user,
                 $plainPassword
         );

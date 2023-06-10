@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\People;
+use App\Repository\PeopleRepository;
 
 /**
  * Home controller
@@ -34,12 +35,11 @@ class HomeController extends AbstractController
      * @return views
      * @Security("not is_anonymous()")
      */
-    public function indexAction(Request $request/*, UserInterface $currentuser = null*/)
+    public function indexAction(Request $request, PeopleRepository $peopleRepository)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $people = $em->getRepository(People::class)
-                ->findWithOutdatedMembership();
+        $people = $peopleRepository->findWithOutdatedMembership();
+
         return $this->render('Home/index.html.twig', array(
             'people' => $people
         ));

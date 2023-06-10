@@ -1,9 +1,9 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     # define the algorythm used to hash the password
-    encoders:
+    password_hashers:
         App\Entity\User:
-            algorithm: bcrypt
+            algorithm: auto
 
     # define the class used to login
     providers:
@@ -12,24 +12,20 @@ security:
                 class: App\Entity\User
                 property: username
 
+    enable_authenticator_manager: true
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
-
-            # activate the login page as page to authenticate
-            form_login:
-                login_path: login
-                check_path: login
-                success_handler: 'security.authentication.success_handler'
-
-            # activate the logout page as page to logout
+            lazy: true
+            provider: users
+            custom_authenticator: App\Security\AppAuthenticator
             logout:
                 path: logout
-                target: "%logout_success_target%"
-                success_handler: 'security.logout.success_handler'
+                # where to redirect after logout
+                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

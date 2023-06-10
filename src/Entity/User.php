@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * User is a class used to connect to the application. It contains the basic
@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      message="Ce nom d'utilisateurice n'est pas disponible."
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     /**
@@ -135,6 +135,14 @@ class User implements UserInterface
     }
 
     /**
+     * Get the property used to identify an user.
+     */
+    public function getUserIdentifier()
+    {
+        return $this->username;
+    }
+
+    /**
      * Get plainPassword
      *
      * @return string
@@ -175,7 +183,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -286,9 +294,9 @@ class User implements UserInterface
         $this->updaters[] = $updater;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
-
+        $this->plainPassword = null;
     }
 
     /**
@@ -307,9 +315,9 @@ class User implements UserInterface
         return $roles;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
-
+        return null;
     }
 
     /**
