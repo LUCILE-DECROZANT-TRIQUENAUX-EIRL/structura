@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdatePeopleDataFDO;
 use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
@@ -85,11 +85,11 @@ class PeopleController extends AbstractController {
      * Creates a new people entity.
      * @return views
      * @param Request $request The request.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @param UserPasswordHasherInterface $passwordHasher Encodes the password.
      * @Route("/new", name="people_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator) {
+    public function createAction(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator) {
         $updatePeopleDataFDO = new UpdatePeopleDataFDO();
 
         $em = $this->getDoctrine()->getManager();
@@ -262,11 +262,11 @@ class PeopleController extends AbstractController {
      * @return views
      * @param Request $request The request.
      * @param People $people The user to edit.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @param UserPasswordHasherInterface $passwordHasher Encodes the password.
      * @Route("/{id}/edit", name="people_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(Request $request, People $people, UserPasswordEncoderInterface $passwordEncoder,TranslatorInterface $translator) {
+    public function editAction(Request $request, People $people, UserPasswordHasherInterface $passwordHasher,TranslatorInterface $translator) {
         $updatePeopleDataFDO = UpdatePeopleDataFDO::fromPeople($people);
 
         $entityManager = $this->getDoctrine()->getManager();

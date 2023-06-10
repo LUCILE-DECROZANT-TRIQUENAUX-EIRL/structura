@@ -6,23 +6,22 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\People;
 use App\Entity\PeopleType;
 use App\Entity\Address;
-use App\Entity\Receipt;
 use App\Form\MemberType;
 use App\Form\GenerateTaxReceiptFromYearType;
 use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
-use App\Service\ReceiptService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdateMemberDataFDO;
+use App\Repository\PeopleRepository;
+use App\Repository\PeopleTypeRepository;
+use App\Repository\ReceiptRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
@@ -39,10 +38,9 @@ class MemberController extends AbstractController {
      * @Route(path="/", name="member_list", methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function listAction() {
-        $em = $this->getDoctrine()->getManager();
+    public function list(PeopleRepository $peopleRepository) {
 
-        $people = $em->getRepository(People::class)->findWithActiveMembership();
+        $people = $peopleRepository->findWithActiveMembership();
 
         $deleteForms = [];
         foreach ($people as $individual) {
@@ -60,14 +58,12 @@ class MemberController extends AbstractController {
      * Creates a new person entity.
      * @return views
      * @param Request $request The request.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @param EntityManagerInterface $entityManager
      * @Route("/new", name="member_create", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator) {
+    public function create(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager) {
         $updateMemberDataFDO = new UpdateMemberDataFDO();
-
-        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(MemberType::class, $updateMemberDataFDO);
         $form->handleRequest($request);
@@ -80,7 +76,7 @@ class MemberController extends AbstractController {
             $member->setFirstName($updateMemberDataFDO->getFirstName());
             $member->setLastName($updateMemberDataFDO->getLastName());
 
-            $type = $em->getRepository(PeopleType::class)->findOneBy([
+            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,
             ]);
             if ($updateMemberDataFDO->isContact())
@@ -92,7 +88,7 @@ class MemberController extends AbstractController {
                 $member->removeType($type);
             }
 
-            $typeSocialPole = $em->getRepository(PeopleType::class)->findOneBy([
+            $typeSocialPole = $entityManager->getRepository(PeopleType::class)->findOneBy([
                 'code' => PeopleType::SOCIAL_POLE_CODE,
             ]);
             if ($updateMemberDataFDO->needHelp())
@@ -152,9 +148,9 @@ class MemberController extends AbstractController {
                 $member->setFirstContactYear($updateMemberDataFDO->getFirstContactYear());
             }
 
-            $em->persist($address);
-            $em->persist($member);
-            $em->flush();
+            $entityManager->persist($address);
+            $entityManager->persist($member);
+            $entityManager->flush();
 
             $userTranslation = $translator->trans('L\'utilisateurice');
             $hasBeenCreatedTranslation = $translator->trans('a été créé.e');
@@ -199,13 +195,11 @@ class MemberController extends AbstractController {
      * @Route("/{id}", name="member_show", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function showAction(Request $request, People $individual) {
+    public function show(Request $request, People $individual, ReceiptRepository $receiptRepository) {
         $deleteForm = $this->createDeleteForm($individual);
 
-        $em = $this->getDoctrine()->getManager();
-
         // Find fiscal years for which there is receipts to generate
-        $availableYears = $em->getRepository(Receipt::class)->findAvailableYearsByPeople($individual);
+        $availableYears = $receiptRepository->findAvailableYearsByPeople($individual);
 
         // Creating an empty FDO
         $generateTaxReceiptFromYearFDO = new GenerateTaxReceiptFromYearFDO();
@@ -234,20 +228,20 @@ class MemberController extends AbstractController {
      * @return views
      * @param Request $request The request.
      * @param People $individual The user to edit.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
      * @Route("/{id}/edit", name="member_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function editAction(
+    public function edit(
         Request $request,
         People $individual,
-        UserPasswordEncoderInterface $passwordEncoder,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        PeopleRepository $peopleRepository,
+        PeopleTypeRepository $peopleTypeRepository,
+        EntityManagerInterface $entityManager,
     )
     {
         $updateMemberDataFDO = UpdateMemberDataFDO::fromMember($individual);
 
-        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($individual);
         $editForm = $this->createForm(MemberType::class, $updateMemberDataFDO);
         $editForm->handleRequest($request);
@@ -255,7 +249,7 @@ class MemberController extends AbstractController {
         // Submit change of general infos
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             // Get the existing people to keep the sensible data it has if necessary
-            $individual = $entityManager->getRepository(People::class)->findOneBy([
+            $individual = $peopleRepository->findOneBy([
                 'id' => $individual->getId(),
             ]);
 
@@ -263,7 +257,7 @@ class MemberController extends AbstractController {
             $individual->setFirstName($updateMemberDataFDO->getFirstName());
             $individual->setLastName($updateMemberDataFDO->getLastName());
 
-            $type = $entityManager->getRepository(PeopleType::class)->findOneBy([
+            $type = $peopleTypeRepository->findOneBy([
                 'code' => PeopleType::CONTACT_CODE,
             ]);
             if ($updateMemberDataFDO->isContact())
@@ -276,7 +270,7 @@ class MemberController extends AbstractController {
 
             }
 
-            $typeSocialPole = $entityManager->getRepository(PeopleType::class)->findOneBy([
+            $typeSocialPole = $peopleTypeRepository->findOneBy([
                 'code' => PeopleType::SOCIAL_POLE_CODE,
             ]);
             if ($updateMemberDataFDO->needHelp())
@@ -380,7 +374,7 @@ class MemberController extends AbstractController {
      * @Route("/{id}", name="member_delete", methods={"DELETE"})
      * @Security("is_granted('ROLE_GESTION') || (is_granted('ROLE_INSCRIT_E') && (user.getId() == id))")
      */
-    public function deleteAction(Request $request, People $individual, TranslatorInterface $translator) {
+    public function delete(Request $request, People $individual, TranslatorInterface $translator, EntityManagerInterface $entityManager) {
         $form = $this->createDeleteForm($individual);
         $form->handleRequest($request);
 
@@ -388,9 +382,8 @@ class MemberController extends AbstractController {
             $firstname = $individual->getFirstName();
             $lastname = $individual->getLastName();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($individual);
-            $em->flush();
+            $entityManager->remove($individual);
+            $entityManager->flush();
 
             $dataOfTranslation = $translator->trans('Les informations de');
             $hasBeenDeletedTranslation = $translator->trans('ont bien été supprimées');

@@ -1,7 +1,7 @@
 <?php
 namespace Tests\App\DataFixtures\ORM;
 
-// use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+// use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 // use Doctrine\Common\DataFixtures\FixtureInterface;
 // use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 // use Doctrine\Persistence\ObjectManager;
@@ -15,11 +15,11 @@ namespace Tests\App\DataFixtures\ORM;
 
 // class UserFixtures implements FixtureInterface
 // {
-//     private $encoder;
+//     private $hasher;
 
-//     public function __construct(UserPasswordEncoderInterface $encoder)
+//     public function __construct(UserPasswordHasherInterface $hasher)
 //     {
-//         $this->encoder = $encoder;
+//         $this->hasher = $hasher;
 //     }
 
 //     public function load(ObjectManager $manager)
@@ -214,7 +214,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdminSensible = new User();
 //         $userAdminSensible->setUsername('adminSensible');
 
-//         $password = $this->encoder->encodePassword($userAdminSensible, 'a');
+//         $password = $this->hasher->hashPassword($userAdminSensible, 'a');
 //         $userAdminSensible->setPassword($password);
 
 //         $peopleAdminSensible = new People();
@@ -253,7 +253,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdmin = new User();
 //         $userAdmin->setUsername('admin');
 
-//         $password = $this->encoder->encodePassword($userAdmin, 'a');
+//         $password = $this->hasher->hashPassword($userAdmin, 'a');
 //         $userAdmin->setPassword($password);
 
 //         $peopleAdmin = new People();
@@ -290,7 +290,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userGestionnaireSensible = new User();
 //         $userGestionnaireSensible->setUsername('gestiSensible');
 
-//         $password = $this->encoder->encodePassword($userGestionnaireSensible, 'a');
+//         $password = $this->hasher->hashPassword($userGestionnaireSensible, 'a');
 //         $userGestionnaireSensible->setPassword($password);
 
 //         $peopleGestionnaireSensible = new People();
@@ -328,7 +328,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userGestionnaire1 = new User();
 //         $userGestionnaire1->setUsername('gest1');
 
-//         $password = $this->encoder->encodePassword($userGestionnaire1, 'a');
+//         $password = $this->hasher->hashPassword($userGestionnaire1, 'a');
 //         $userGestionnaire1->setPassword($password);
 
 //         $peopleGestionnaire1 = new People();
@@ -364,7 +364,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userGestionnaire2 = new User();
 //         $userGestionnaire2->setUsername('gest2');
 
-//         $password = $this->encoder->encodePassword($userGestionnaire2, 'a');
+//         $password = $this->hasher->hashPassword($userGestionnaire2, 'a');
 //         $userGestionnaire2->setPassword($password);
 
 //         $peopleGestionnaire2 = new People();
@@ -400,7 +400,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userInformateurice = new User();
 //         $userInformateurice->setUsername('info');
 
-//         $password = $this->encoder->encodePassword($userInformateurice, 'a');
+//         $password = $this->hasher->hashPassword($userInformateurice, 'a');
 //         $userInformateurice->setPassword($password);
 
 //         $peopleInformateurice = new People();
@@ -437,7 +437,7 @@ namespace Tests\App\DataFixtures\ORM;
 
 //         $peopleAdherentE1 = new People();
 
-//         $password = $this->encoder->encodePassword($userAdherentE1, 'a');
+//         $password = $this->hasher->hashPassword($userAdherentE1, 'a');
 //         $userAdherentE1->setPassword($password);
 
 //         $peopleAdherentE1->setDenomination($madame);
@@ -471,7 +471,7 @@ namespace Tests\App\DataFixtures\ORM;
 
 //         $peopleAdherentE2 = new People();
 
-//         $password = $this->encoder->encodePassword($userAdherentE2, 'a');
+//         $password = $this->hasher->hashPassword($userAdherentE2, 'a');
 //         $userAdherentE2->setPassword($password);
 
 //         $peopleAdherentE2->setDenomination($madame);
@@ -503,7 +503,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdherentE3 = new User();
 //         $userAdherentE3->setUsername('adhe3');
 
-//         $password = $this->encoder->encodePassword($userAdherentE3, 'a');
+//         $password = $this->hasher->hashPassword($userAdherentE3, 'a');
 //         $userAdherentE3->setPassword($password);
 
 //         $peopleAdherentE3 = new People();
@@ -537,7 +537,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdherentE4 = new User();
 //         $userAdherentE4->setUsername('adhe4');
 
-//         $password = $this->encoder->encodePassword($userAdherentE4, 'a');
+//         $password = $this->hasher->hashPassword($userAdherentE4, 'a');
 //         $userAdherentE4->setPassword($password);
 
 //         $peopleAdherentE4 = new People();
@@ -571,7 +571,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdherentE5 = new User();
 //         $userAdherentE5->setUsername('adhe5');
 
-//         $password = $this->encoder->encodePassword($userAdherentE5, 'a');
+//         $password = $this->hasher->hashPassword($userAdherentE5, 'a');
 //         $userAdherentE5->setPassword($password);
 
 //         $peopleAdherentE5 = new People();
@@ -606,7 +606,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userAdminUniquement = new User();
 //         $userAdminUniquement ->setUsername('adminUniquement');
 
-//         $password = $this->encoder->encodePassword($userAdminUniquement, 'a');
+//         $password = $this->hasher->hashPassword($userAdminUniquement, 'a');
 //         $userAdminUniquement->setPassword($password);
 
 //         $peopleAdminUniquement = new People();
@@ -640,7 +640,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userTest = new User();
 //         $userTest ->setUsername('test');
 
-//         $password = $this->encoder->encodePassword($userTest, 'a');
+//         $password = $this->hasher->hashPassword($userTest, 'a');
 //         $userTest->setPassword($password);
 
 //         $peopleTest = new People();
@@ -674,7 +674,7 @@ namespace Tests\App\DataFixtures\ORM;
 //         $userTest2 = new User();
 //         $userTest2 ->setUsername('test2');
 
-//         $password = $this->encoder->encodePassword($userTest2, 'a');
+//         $password = $this->hasher->hashPassword($userTest2, 'a');
 //         $userTest2->setPassword($password);
 
 //         $peopleTest2 = new People();

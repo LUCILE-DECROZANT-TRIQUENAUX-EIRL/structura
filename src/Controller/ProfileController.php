@@ -17,9 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 use App\FormDataObject\UpdateUserGeneralDataFDO;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -152,11 +152,11 @@ class ProfileController extends AbstractController
      * @return views
      * @param Request $request The request.
      * @param User $currentUser The user to edit.
-     * @param UserPasswordEncoderInterface $passwordEncoder Encodes the password.
+     * @param UserPasswordHasherInterface $passwordHasher Encodes the password.
      * @Route("/{id}/editpassword", name="profile_edit_password", methods={"GET", "POST"})
      * @Security("not is_anonymous() && user.getId() == id")
      */
-    public function editProfileAction(Request $request, User $currentUser, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
+    public function editProfileAction(Request $request, User $currentUser, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator)
     {
         if ($currentUser->getPeople() != null)
         {
@@ -185,7 +185,7 @@ class ProfileController extends AbstractController
 
             // If a password is entered and the old password typed in is correct
             if ($plainPassword !== null && password_verify($plainOldPassword,$oldPassword)) {
-                $password = $passwordEncoder->encodePassword($currentUser, $plainPassword);
+                $password = $passwordHasher->hashPassword($currentUser, $plainPassword);
                 $currentUser->setPassword($password);
 
                 $entityManager->persist($currentUser);
