@@ -6,7 +6,7 @@ use RuntimeException;
 /**
  * Triggered when form should be submited.
  */
-class FormIsNotSubmited extends RuntimeException
+class FormIsNotSubmitted extends RuntimeException
 {
 
 }
