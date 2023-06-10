@@ -137,7 +137,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the property used to identify an user.
      */
-    public function getUserIdentifier()
+    public function getUserIdentifier(): string
     {
         return $this->username;
     }
