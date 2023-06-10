@@ -11,6 +11,9 @@ framework:
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
 
+    messenger:
+        reset_on_message: true
+
     #esi: true
     #fragments: true
     php_errors:
