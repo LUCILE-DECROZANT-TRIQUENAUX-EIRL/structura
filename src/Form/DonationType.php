@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bank;
 use App\Entity\Donation;
+use App\Entity\DonationOrigin;
 use App\Entity\People;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
@@ -82,6 +83,18 @@ class DonationType extends AbstractType
                 ])
                 ->add('cashed_date', DateType::class, [
                     'widget' => 'single_text',
+                    'required' => false,
+                ])
+                ->add('donation_origin', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => DonationOrigin::class,
+                    'attr' => [
+                        'data-toggle' => 'select2'
+                    ],
+                    // uses the label property as the visible option string
+                    'choice_label' => 'label',
+                    'multiple' => false,
+                    'expanded' => false,
                     'required' => false,
                 ])
                 ->add('comment', TextareaType::class, [

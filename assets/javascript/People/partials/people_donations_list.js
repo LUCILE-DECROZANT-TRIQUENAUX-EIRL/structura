@@ -41,7 +41,14 @@ $(document).ready(function() {
             $('td:last-of-type', row).html('<i class="icon ion-ios-arrow-down"></i>');
         },
         columns: [
-
+            {
+                data: 'origin',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row) {
+                    return row.origin === null ? '-' : row.origin;
+                },
+            },
             {
                 data: 'price',
                 orderable: false,

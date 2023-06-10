@@ -1,0 +1,79 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Liste des provenances d'un don{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Liste des provenances d'un don{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Liste des provenances d'un don{% endtrans %}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-filter-bar="toggle"
+            data-create-label="Enregistrer une nouvelle provenance"
+            data-create-path="{{ path('donation_origin_new', {from: 'list'}) }}"
+            data-fixed-columns-right="2"
+            >
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Identifiant{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Label{% endtrans %}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set delete_user_form = "" %}
+                {% for donationOrigin in donationOrigins %}
+                    <tr>
+                        <td class="align-middle"><a href="{{ path('donation_origin_show', { 'id': donationOrigin.id }) }}">{{ donationOrigin.id }}</a></td>
+                        <td class="align-middle">{{ donationOrigin.label }}</td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('donation_origin_show', { 'id': donationOrigin.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Voir la provenance{% endtrans %}"
+                                >
+                                <i class="icon ion-md-eye"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle column-action">
+                            <a
+                                href="{{ path('donation_origin_edit', { 'id': donationOrigin.id }) }}"
+                                class="btn btn-secondary"
+                                data-toggle="tooltip"
+                                title="{% trans %}Éditer la provenance{% endtrans %}"
+                                >
+                                <i class="icon ion-md-create"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -77,6 +77,7 @@ class DonationController extends AbstractController
 
             $donator = $createDonationFDO->getDonator();
             $donationDate = $createDonationFDO->getDonationDate();
+            $donationOrigin = $createDonationFDO->getDonationOrigin();
 
             // -- DONATION -- //
             $donation = new Donation();
@@ -84,6 +85,7 @@ class DonationController extends AbstractController
             $donation->setAmount($createDonationFDO->getAmount());
             $donation->setDonator($donator);
             $donation->setDonationDate($donationDate);
+            $donation->setDonationOrigin($donationOrigin);
 
             // -- PAYMENT -- //
             $payment = new Payment();
@@ -161,10 +163,12 @@ class DonationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $donator = $updateDonationFDO->getDonator();
+            $donationOrigin = $updateDonationFDO->getDonationOrigin();
 
             $donation->setAmount($updateDonationFDO->getAmount());
             $donation->setDonator($donator);
             $donation->setDonationDate($updateDonationFDO->getDonationDate());
+            $donation->setDonationOrigin($donationOrigin);
 
             $payment = $donation->getPayment();
 

@@ -118,6 +118,35 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4 mt-3">
+                <div class="flip-card" data-toggle="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="flip-card-icon">
+                                <i class="icon ion-md-cash"></i>
+                            </div>
+                            <h4>
+                                {% trans %}Gestion des dons{% endtrans %}
+                            </h4>
+                            <p class="">
+                                {% trans %}Tout ce qui concerne les donations à l'association.{% endtrans %}
+                            </p>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="flip-card-item">
+                                <a class="" href="{{ path('donation_origin_list') }}">
+                                    {% trans %}Liste des provenances de dons{% endtrans %}
+                                </a>
+                            </div>
+                            <div>
+                                <a class="btn btn-primary btn-block" href="{{ path('donation_origin_new', {from: 'dashboard'}) }}">
+                                    {% trans %}Enregistrer une nouvelle provenance{% endtrans %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

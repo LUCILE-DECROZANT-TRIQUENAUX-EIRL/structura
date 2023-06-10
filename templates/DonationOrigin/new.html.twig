@@ -1,0 +1,74 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Enregistrer une nouvelle provenance d'un don{% endtrans %}{% endblock %}
+
+{% block javascript %}
+    {{ encore_entry_script_tags('user_new') }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/User/new.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">{% trans %}Accueil{% endtrans %}</a>
+    </li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('administration_dashboard') }}">{% trans %}Administration{% endtrans %}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Enregistrer une nouvelle provenance d'un don{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Enregistrer une nouvelle provenance d'un don{% endtrans %}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <p> {% trans %}Les champs notés avec * sont requis.{% endtrans %} </p>
+
+        {{ form_start(form, {'attr': {'id': 'form-register-donation-origin'}}) }}
+            <div class="form-group">
+                {{ form_label(form.label) }} *
+                {{ form_widget(form.label) }}
+            </div>
+            {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a
+                    id="return-button"
+                    href="{{ path('administration_dashboard') }}"
+                    class="btn btn-secondary"
+                    >
+                    <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner au tableau de bord{% endtrans %}
+                </a>
+            </div>
+            <div class="col text-right">
+                <button
+                    id="register-donation-origin-submit-button"
+                    type="submit"
+                    form="form-register-donation-origin"
+                    class="btn btn-primary"
+                    >
+                    <i class="icon ion-md-add"></i>&nbsp;{% trans %}Créer{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

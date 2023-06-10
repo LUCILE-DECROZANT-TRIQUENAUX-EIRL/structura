@@ -1,0 +1,20 @@
+{% block body %}
+    {% set show_donation_origin = show_donation_origin is defined ? show_donation_origin : null %}
+    {% set edit_donation_origin = edit_donation_origin is defined ? edit_donation_origin : null %}
+
+    <ul class="list-group">
+        <a href="{{ path('donation_origin_show', { 'id': donationOrigin.id }) }}"
+           class="list-group-item list-group-item-action {{ show_donation_origin }}"
+           >
+            {% trans %}Provenance d'un don{% endtrans %}
+        </a>
+    </ul>
+    <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
+    <ul class="list-group">
+        <a href="{{ path('donation_origin_edit', { 'id': donationOrigin.id }) }}"
+           class="list-group-item list-group-item-action {{ edit_donation_origin }}"
+           >
+            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Provenance d'un don{% endtrans %}
+        </a>
+    </ul>
+{% endblock %}

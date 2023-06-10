@@ -5,6 +5,7 @@ namespace App\FormDataObject;
 use Symfony\Component\Validator\Constraints as Assert;
 use \App\Entity\Bank;
 use \App\Entity\Donation;
+use App\Entity\DonationOrigin;
 use \App\Entity\Payment;
 
 class UpdateDonationFDO
@@ -28,6 +29,8 @@ class UpdateDonationFDO
 
     private $checkNumber;
 
+    private $donationOrigin;
+
     public function __construct(Donation $donation = null)
     {
         if ($donation !== null)
@@ -42,6 +45,7 @@ class UpdateDonationFDO
             $this->comment = $payment->getComment();
             $this->bank = $payment->getBank();
             $this->checkNumber = $payment->getCheckNumber();
+            $this->donationOrigin = $donation->getDonationOrigin();
         }
     }
 
@@ -142,6 +146,18 @@ class UpdateDonationFDO
     public function setCheckNumber($checkNumber): self
     {
         $this->checkNumber = $checkNumber;
+
+        return $this;
+    }
+
+    public function getDonationOrigin(): ?DonationOrigin
+    {
+        return $this->donationOrigin;
+    }
+
+    public function setDonationOrigin(?DonationOrigin $donationOrigin): self
+    {
+        $this->donationOrigin = $donationOrigin;
 
         return $this;
     }
