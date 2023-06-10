@@ -10,7 +10,7 @@ use App\FormDataObject\GenerateTaxReceiptFromYearFDO;
 
 class GenerateTaxReceiptFromYearType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('year', ChoiceType::class, [
@@ -23,7 +23,7 @@ class GenerateTaxReceiptFromYearType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => GenerateTaxReceiptFromYearFDO::class,

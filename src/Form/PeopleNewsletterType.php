@@ -31,7 +31,7 @@ class PeopleNewsletterType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
                 ->add('isReceivingNewsletter', CheckboxType::class, [
@@ -49,7 +49,7 @@ class PeopleNewsletterType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\Entity\People'
@@ -59,7 +59,7 @@ class PeopleNewsletterType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'app_user';
     }

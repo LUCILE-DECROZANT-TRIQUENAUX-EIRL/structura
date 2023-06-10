@@ -21,12 +21,12 @@ class UserRolesType extends AbstractType
     public function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
     }
-    
+
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
                 ->add('responsibilities', EntityType::class, [
@@ -47,7 +47,7 @@ class UserRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\Entity\User'
@@ -57,7 +57,7 @@ class UserRolesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'app_user';
     }

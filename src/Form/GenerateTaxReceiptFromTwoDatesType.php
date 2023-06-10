@@ -16,7 +16,7 @@ class GenerateTaxReceiptFromTwoDatesType extends AbstractType
         $this->translator = $translator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('from', DateType::class, [
@@ -30,7 +30,7 @@ class GenerateTaxReceiptFromTwoDatesType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => 'App\FormDataObject\GenerateTaxReceiptFromTwoDatesFDO',
