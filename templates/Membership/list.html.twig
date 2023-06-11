@@ -68,7 +68,7 @@
                         </td>
                         <td class="align-middle text-center" data-sort="{{ member.getActiveMembership.payment.dateCashed | date('Ymd') }}">
                             {% if member.getActiveMembership.payment.dateCashed is null %}
-                                <span class=""><i class="icon ion-md-warning"></i> {% trans %}Pas encore encaissé{% endtrans %}</span>
+                                <span class=""><i class="ri-error-warning-fill"></i> {% trans %}Pas encore encaissé{% endtrans %}</span>
                             {% else %}
                                 {{ member.getActiveMembership.payment.dateCashed | date('d M. Y') }}
                             {% endif %}
@@ -80,7 +80,7 @@
                                 data-toggle="tooltip"
                                 title="{% trans %}Voir les détails de l'adhésion{% endtrans %}"
                                 >
-                                <i class="icon ion-md-eye"></i>
+                                <i class="ri-eye-fill"></i>
                             </a>
                         </td>
                         <td class="align-middle column-action">
@@ -90,7 +90,7 @@
                                 data-toggle="tooltip"
                                 title="{% trans %}Éditer l'adhésion{% endtrans %}"
                                 >
-                                <i class="icon ion-md-create"></i>
+                                <i class="ri-edit-2-fill"></i>
                             </a>
                         </td>
                     </tr>

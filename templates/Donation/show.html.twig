@@ -75,7 +75,7 @@
                             </h4>
                             <div class="lead text-center mb-4">
                                 {% if donation.payment.dateCashed is null %}
-                                    <i class="icon ion-md-warning text-info"></i>&nbsp;Paiement pas encore encaissé
+                                    <i class="ri-error-warning-fill text-info"></i>&nbsp;Paiement pas encore encaissé
                                 {% else %}
                                     Encaissé le {{ donation.payment.dateCashed | localizeddate('long', 'none') }}
                                 {% endif %}
@@ -183,12 +183,12 @@
                 <div class="row">
                     {% if is_granted("ROLE_GESTION") %}
                     <div class="col">
-                        <a href="{{ path('donation_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
+                        <a href="{{ path('donation_list') }}" class="btn btn-secondary"><i class="ri-arrow-left-line"></i>&nbsp;{% trans %}Retourner à la liste des utilisateurices{% endtrans %}</a>
                     </div>
                     {% endif %}
                     <div class="col text-right">
                         <button data-toggle="modal" data-target="#confirmation-modal-deletion-donation-{{ donation.id }}" class="btn btn-danger">
-                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
+                            <i class="ri-delete-bin-7-fill"></i>&nbsp;{% trans %}Supprimer le don{% endtrans %}
                         </button>
                     </div>
                 </div>
@@ -204,12 +204,12 @@
                         {% trans %}Souhaitez-vous réellement supprimer ce don de{% endtrans %} <strong>{{ donation.amount }}&nbsp;€</strong>&nbsp;?
                     </p>
                     <div class="alert alert-warning" role="alert">
-                        <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                        <i class="ri-error-warning-fill"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="col">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-arrow-left-line"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
                     </div>
                     <div class="col text-right">
                         {{ include('Donation/_delete_form_button.html.twig') }}

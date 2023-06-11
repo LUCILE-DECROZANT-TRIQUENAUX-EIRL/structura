@@ -6479,6 +6479,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remixicon@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "remixicon@npm:3.3.0"
+  checksum: 751fbf0b67efa85b7048c498eb80ac5f28cc8cae5668602940c8443c7e9449766093bfe7faba88216fb72d077f4a2cea575e5c5fa9b1f9bc0beec885f37fc870
+  languageName: node
+  linkType: hard
+
 "renderkid@npm:^2.0.6":
   version: 2.0.7
   resolution: "renderkid@npm:2.0.7"
@@ -6666,6 +6673,7 @@ __metadata:
     pdfmake: ^0.2.6
     popper.js: ^1.16.1
     regenerator-runtime: ^0.13.2
+    remixicon: ^3.3.0
     sass: ^1.56.1
     sass-loader: ^12.0.0
     select2: ^4.1.0-rc.0

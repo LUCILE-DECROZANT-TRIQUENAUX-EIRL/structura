@@ -4,5 +4,5 @@
       >
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ membership.id) }}">
-    <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;{% trans %}Supprimer{% endtrans %}</button>
+    <button type="submit" class="btn btn-danger" id="delete_button"><i class="ri-delete-bin-7-fill"></i>&nbsp;{% trans %}Supprimer{% endtrans %}</button>
 </form>

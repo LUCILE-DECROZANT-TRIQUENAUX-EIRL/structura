@@ -55,7 +55,7 @@ $(document).ready(function() {
             $(row).attr('data-toggle', 'tooltip');
             $(row).tooltip();
 
-            $('td:last-of-type', row).html('<i class="icon ion-ios-arrow-down"></i>');
+            $('td:last-of-type', row).html('<i class="ri-arrow-down-s-line"></i>');
         },
         columns: [
             {

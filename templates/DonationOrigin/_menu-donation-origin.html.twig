@@ -5,16 +5,17 @@
     <ul class="list-group">
         <a href="{{ path('donation_origin_show', { 'id': donationOrigin.id }) }}"
            class="list-group-item list-group-item-action {{ show_donation_origin }}"
-           >
+        >
             {% trans %}Provenance d'un don{% endtrans %}
         </a>
     </ul>
     <h4 class="mt-4">{% trans %}Édition{% endtrans %}</h4>
     <ul class="list-group">
-        <a href="{{ path('donation_origin_edit', { 'id': donationOrigin.id }) }}"
-           class="list-group-item list-group-item-action {{ edit_donation_origin }}"
-           >
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Provenance d'un don{% endtrans %}
+        <a
+                href="{{ path('donation_origin_edit', { 'id': donationOrigin.id }) }}"
+                class="list-group-item list-group-item-action {{ edit_donation_origin }}"
+        >
+            <i class="ri-edit-2-fill"></i>&nbsp;{% trans %}Provenance d'un don{% endtrans %}
         </a>
     </ul>
 {% endblock %}

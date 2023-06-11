@@ -32,13 +32,13 @@
                             <br>
                             <div class="col-6">
                                 {% if member.activeMembership.payment.dateReceived is null %}
-                                    <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
+                                    <i class="ri-error-warning-fill"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
                                 {% else %}
                                     {% trans %}Paiement reçu le{% endtrans %} {{ member.activeMembership.payment.dateReceived | date('d M. Y') }}
                                 {% endif %}
                                 <br>
                                 {% if member.activeMembership.payment.dateCashed is null %}
-                                    <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
+                                    <i class="ri-error-warning-fill"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
                                 {% else %}
                                     {% trans %}Paiement encaissé le{% endtrans %} {{ member.activeMembership.payment.dateCashed | date('d M. Y') }}
                                 {% endif %}
@@ -147,13 +147,13 @@
                                     <br>
                                     <div class="col-6">
                                         {% if membership.payment.dateReceived is null %}
-                                            <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
+                                            <i class="ri-error-warning-fill"></i> {% trans %}Paiement pas encore reçu{% endtrans %}
                                         {% else %}
                                             {% trans %}Paiement reçu le{% endtrans %} {{ membership.payment.dateReceived | date('d M. Y') }}
                                         {% endif %}
                                         <br>
                                         {% if membership.payment.dateCashed is null %}
-                                            <i class="icon ion-md-warning"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
+                                            <i class="ri-error-warning-fill"></i> {% trans %}Paiement pas encore encaissé{% endtrans %}
                                         {% else %}
                                             {% trans %}Paiement encaissé le{% endtrans %} {{ membership.payment.dateCashed | date('d M. Y') }}
                                         {% endif %}

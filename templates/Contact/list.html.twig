@@ -93,7 +93,7 @@
                                 data-toggle="tooltip"
                                 title="{% trans %}Voir le profil{% endtrans %}"
                                 >
-                                <i class="icon ion-md-eye"></i>
+                                <i class="ri-eye-fill"></i>
                             </a>
                         </td>
                         <td class="align-middle column-action">
@@ -103,7 +103,7 @@
                                 data-toggle="tooltip"
                                 title="{% trans %}Éditer le profil{% endtrans %}"
                                 >
-                                <i class="icon ion-md-create"></i>
+                                <i class="ri-edit-2-fill"></i>
                             </a>
                         </td>
                         <td class="align-middle column-action" data-toggle="modal" data-target="#confirmation-modal-deletion-contact-{{ contact.id }}">
@@ -112,7 +112,7 @@
                                 data-toggle="tooltip"
                                 title="{% trans %}Supprimer le profil{% endtrans %}"
                                 >
-                                <i class="icon ion-md-trash"></i>
+                                <i class="ri-delete-bin-7-fill"></i>
                             </a>
                         </td>
                     </tr>
@@ -133,16 +133,16 @@
                             {% trans %}Souhaitez-vous réellement supprimer les données de{% endtrans %} <strong>{{ contact.firstName }} {{ contact.lastName }}</strong>&nbsp;?
                         </p>
                         <div class="alert alert-warning" role="alert">
-                            <i class="icon ion-md-alert"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
+                            <i class="ri-error-warning-fill"></i>&nbsp;{% trans %}Les données seront supprimées de manière définitive.{% endtrans %}
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="col">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-arrow-left-line"></i>&nbsp;{% trans %}Annuler{% endtrans %}</button>
                         </div>
                         <div class="col text-right">
                         {{ form_start(delete_contact_form) }}
-                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="icon ion-md-trash" ></i>&nbsp;{% trans %}Supprimer{% endtrans %} </button>
+                        <button type="submit" class="btn btn-danger" id="delete_button"><i class="ri-delete-bin-7-fill"></i>&nbsp;{% trans %}Supprimer{% endtrans %} </button>
                         {{ form_end(delete_contact_form) }}
                         </div>
                     </div>

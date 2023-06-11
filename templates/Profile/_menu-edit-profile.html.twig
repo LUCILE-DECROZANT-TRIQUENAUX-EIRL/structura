@@ -16,23 +16,23 @@
             href="{{ path('profile_edit_pseudonym', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ pseudonym }}"
             >
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Pseudonyme{% endtrans %}
+            <i class="ri-edit-2-fill"></i>&nbsp;{% trans %}Pseudonyme{% endtrans %}
         </a>
         <a
             href="{{ path('profile_edit_password', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ password }}"
             >
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Mot de passe{% endtrans %}
+            <i class="ri-edit-2-fill"></i>&nbsp;{% trans %}Mot de passe{% endtrans %}
         </a>
         <a
             href="{{ path('profile_edit_personal_data', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ personal }}">
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Informations personnelles{% endtrans %}
+            <i class="ri-edit-2-fill"></i>&nbsp;{% trans %}Informations personnelles{% endtrans %}
         </a>
         <a
             href="{{ path('profile_edit_newsletter', { 'id': user.id }) }}"
             class="list-group-item list-group-item-action {{ newsletter }}">
-            <i class="icon ion-md-create"></i>&nbsp;{% trans %}Abonnement aux newsletter{% endtrans %}
+            <i class="ri-edit-2-fill"></i>&nbsp;{% trans %}Abonnement aux newsletter{% endtrans %}
         </a>
     </ul>
 {% endblock %}
