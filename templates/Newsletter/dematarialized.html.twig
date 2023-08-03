@@ -1,0 +1,35 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}
+	{% trans %}Newsletter dématarializée{% endtrans %}
+{% endblock %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item">
+		<a href="/">{% trans %}Accueil{% endtrans %}</a>
+	</li>
+	<li class="breadcrumb-item active">
+		{% trans %}Newsletter dématarializée{% endtrans %}
+	</li>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row mt-3">
+			<div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Liste de diffusion de la newsletter dématarializée</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {% for person in people %}
+                                {{ person.emailAddress }},
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

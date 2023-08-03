@@ -8,13 +8,19 @@ namespace App\Repository;
 
 use App\Entity\People;
 use App\Entity\PeopleType;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * PeopleRepository
- *
  */
-class PeopleRepository extends \Doctrine\ORM\EntityRepository
+class PeopleRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, People::class);
+    }
+
     public function findWithNoActiveMembership(): array
     {
         $entityManager = $this->getEntityManager();
