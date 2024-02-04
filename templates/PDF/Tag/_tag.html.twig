@@ -9,7 +9,7 @@
                 {% endif %}
                 <td class="tag">
                     <span class="font-weight-bold">
-                        {{ person.denomination ? person.denomination.label : "" }}
+                        {{ person.denomination ? (person.denomination.shortLabel ?? person.denomination.label) : "" }}
                         {{ person.lastname | upper }}
                         {{ person.firstname }}
                     </span>

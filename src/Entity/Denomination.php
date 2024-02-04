@@ -31,6 +31,14 @@ class Denomination
     private $label;
 
     /**
+     * @var string|null
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="short_label", type="string", length=255, nullable=true)
+     */
+    private $shortLabel;
+
+    /**
      * Class constructor
      */
     public function __construct($label)
@@ -71,5 +79,29 @@ class Denomination
     public function getLabel()
     {
         return $this->label;
+    }
+
+    /**
+     * Set short label
+     *
+     * @param string $label The short version of this denomination's label.
+     *
+     * @return self
+     */
+    public function setShortLabel(?string $shortLabel): self
+    {
+        $this->shortLabel = $shortLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get shortLabel
+     *
+     * @return string|null
+     */
+    public function getShortLabel(): ?string
+    {
+        return $this->shortLabel;
     }
 }
