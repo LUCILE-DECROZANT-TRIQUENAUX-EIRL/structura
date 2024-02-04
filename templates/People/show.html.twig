@@ -4,7 +4,7 @@
     {% if people.user != null and app.user.username == people.user.username %}
         {% trans %}Mon profil{% endtrans %}
     {% else %}
-        {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+        {% trans %}Profil de{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
     {% endif %}
 {% endblock %}
 
@@ -30,7 +30,7 @@
         {% if people.user != null and app.user.username == people.user.username %}
             {% trans %}Mon profil{% endtrans %}
         {% else %}
-            {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+            {% trans %}Profil de{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
         {% endif %}
     </li>
 {% endblock %}
@@ -50,7 +50,7 @@
                     {% endif %}
                     <div class="col-md text-right">
                         <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+                            <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
                         </button>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         <div class="col text-right">
                             {{ form_start(delete_form) }}
                             <button type="submit" class="btn btn-danger" id="delete_button">
-                                <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+                                <i class="icon ion-md-trash"></i>&nbsp;{% trans %}Supprimer{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
                             </button>
                             {{ form_end(delete_form) }}
                         </div>

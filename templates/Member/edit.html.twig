@@ -1,7 +1,7 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-    Éditer le profil de {{ member.firstName }} {{ member.lastName }}
+    Éditer le profil de {{ member.lastName|upper }} {{ member.firstName }}
 {% endblock %}
 
 {% block javascript %}
@@ -24,11 +24,11 @@
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('member_show', { 'id': member.id }) }}">
-            Profil de {{ member.firstName }} {{ member.lastName }}
+            Profil de {{ member.lastName|upper }} {{ member.firstName }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        Éditer le profil de {{ member.firstName }} {{ member.lastName }}
+        Éditer le profil de {{ member.lastName|upper }} {{ member.firstName }}
     </li>
 {% endblock %}
 

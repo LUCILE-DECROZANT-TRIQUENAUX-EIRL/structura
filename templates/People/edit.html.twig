@@ -1,7 +1,7 @@
 {% extends 'Home/base.html.twig' %}
 
 {% block title %}
-    {% trans %}Éditer le profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+    {% trans %}Éditer le profil de{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
 {% endblock %}
 
 {% block javascript %}
@@ -24,11 +24,11 @@
     {% endif %}
     <li class="breadcrumb-item">
         <a href="{{ path('people_show', { 'id': people.id }) }}">
-            {% trans %}Profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+            {% trans %}Profil de{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Éditer le profil de{% endtrans %} {{ people.firstName }} {{ people.lastName }}
+        {% trans %}Éditer le profil de{% endtrans %} {{ people.lastName|upper }} {{ people.firstName }}
     </li>
 {% endblock %}
 

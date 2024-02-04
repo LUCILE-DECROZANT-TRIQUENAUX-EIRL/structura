@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <h1>
-            {% trans %}Liste des adhésions de{% endtrans %} {{ member.firstName }} {{ member.lastName }}
+            {% trans %}Liste des adhésions de{% endtrans %} {{ member.lastName|upper }} {{ member.firstName }}
         </h1>
     </div>
 </div>
@@ -49,7 +49,7 @@
                                 {% set payer = member.activeMembership.payment.payer %}
                                 <div class="card payer-card">
                                     <div class="card-body p-2">
-                                        <p class="card-title mb-0">{{ payer.denomination.label }} {{ payer.firstName }} {{ payer.lastName }}</p>
+                                        <p class="card-title mb-0">{{ payer.denomination.label }} {{ payer.lastName|upper }} {{ payer.firstName }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -80,9 +80,9 @@
                                                 <a  class="card-body text-white"
                                                     href="{{ path('people_show', { 'id': otherMember.id }) }}"
                                                     data-toggle="tooltip"
-                                                    title="{% trans %}Voir le profil de {% endtrans %} {{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}"
+                                                    title="{% trans %}Voir le profil de {% endtrans %} {{ otherMember.denomination.label }} {{ otherMember.lastName|upper }} {{ otherMember.firstName }}"
                                                     >
-                                                    <h5 class="card-title text-dark">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
+                                                    <h5 class="card-title text-dark">{{ otherMember.denomination.label }} {{ otherMember.lastName|upper }} {{ otherMember.firstName }}</h5>
                                                 </a>
                                             </div>
                                         </div>
@@ -184,7 +184,7 @@
                                                 <div class="col-4">
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.firstName }} {{ otherMember.lastName }}</h5>
+                                                            <h5 class="card-title">{{ otherMember.denomination.label }} {{ otherMember.lastName|upper }} {{ otherMember.firstName }}</h5>
                                                         </div>
                                                     </div>
                                                 </div>

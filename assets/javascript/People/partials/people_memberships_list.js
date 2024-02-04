@@ -25,7 +25,7 @@ $(document).ready(function() {
         let paymentContainer = structure.find('#payment-container');
         paymentContainer.find('.date-received').html(data.payment.date_received);
         paymentContainer.find('.date-cashed').html(data.payment.date_cashed);
-        paymentContainer.find('.made-by').html(data.payment.payer.denomination + ' ' + data.payment.payer.firstname + ' ' + data.payment.payer.lastname);
+        paymentContainer.find('.made-by').html(data.payment.payer.denomination + ' ' + data.payment.payer.lastname + ' ' + data.payment.payer.firstname);
 
         let fiscalReceiptContainer = structure.find('#fiscal-receipt-container');
         fiscalReceiptContainer.find('.fiscal-year').html(data.payment.fiscal_receipt.fiscal_year);

@@ -26,7 +26,7 @@
             <div class="col-12 col-md-10">
                 <h1>
                     {% if people.denomination or people.firstname or people.lastname %}
-                        {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname }}
+                        {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname|upper }} {{ people.firstname }}
                     {% else %}
                         {% trans %}Ce.tte personne n'a pas de nom{% endtrans %}
                     {% endif %}

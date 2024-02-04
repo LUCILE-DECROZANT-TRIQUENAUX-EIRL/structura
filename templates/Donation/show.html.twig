@@ -3,7 +3,7 @@
 {% block title %}
     {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€
     du{% endtrans %} {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }}
-    {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+    {% trans %} de {% endtrans %} {{ donation.donator.lastName|upper }} {{ donation.donator.firstName }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -20,7 +20,7 @@
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
-        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.firstName }} {{ donation.donator.lastName }}
+        {% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;{% trans %}€ du{% endtrans %} {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }} {% trans %} de {% endtrans %} {{ donation.donator.lastName|upper }} {{ donation.donator.firstName }}
     </li>
 {% endblock %}
 
@@ -39,7 +39,7 @@
                             <h3 class="text-center">{% trans %}Don de{% endtrans %} {{ donation.amount }}&nbsp;€
                             </h3>
                             <div class="lead text-center">
-                                {{ donation.donator.denomination.label }} {{ donation.donator.firstName }} {{ donation.donator.lastName }},
+                                {{ donation.donator.denomination.label }} {{ donation.donator.lastName|upper }} {{ donation.donator.firstName }},
                                 le {{ donation.donationDate ? donation.donationDate | localizeddate('long', 'none') : '' }}
                             </div>
 
