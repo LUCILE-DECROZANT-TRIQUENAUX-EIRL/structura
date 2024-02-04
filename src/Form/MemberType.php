@@ -51,12 +51,12 @@ class MemberType extends AbstractType
                         return ['data-denomination-description' => $denomination->getLabel()];
                     },
                 ])
-                ->add('firstname', TextType::class, [
-                    'label' => $this->translator->trans('Prénom'),
-                    'required' => true
-                ])
                 ->add('lastname', TextType::class, [
                     'label' => $this->translator->trans('Nom de famille'),
+                    'required' => true
+                ])
+                ->add('firstname', TextType::class, [
+                    'label' => $this->translator->trans('Prénom'),
                     'required' => true
                 ])
                 ->add('isContact', CheckboxType::class, [

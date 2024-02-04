@@ -4,7 +4,7 @@
     {% if member.user != NULL and app.user.username == member.user.username %}
         Mon profil
     {% else %}
-        Profil de {{ member.firstName }} {{ member.lastName }}
+        Profil de {{ member.lastName|upper }} {{ member.firstName }}
     {% endif %}
 {% endblock %}
 
@@ -30,7 +30,7 @@
         {% if member.user != NULL and app.user.username == member.user.username %}
             Mon profil
         {% else %}
-            Profil de {{ member.firstName }} {{ member.lastName }}
+            Profil de {{ member.lastName|upper }} {{ member.firstName }}
         {% endif %}
     </li>
 {% endblock %}
@@ -50,7 +50,7 @@
                     {% endif %}
                     <div class="col-md text-right">
                         <button data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger">
-                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }} {{ member.lastName }}
+                            <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.lastName|upper }} {{ member.firstName }}
                         </button>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         <div class="col text-right">
                             {{ form_start(delete_form) }}
                             <button type="submit" class="btn btn-danger" id="delete_button">
-                                <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.firstName }} {{ member.lastName }}
+                                <i class="icon ion-md-trash"></i>&nbsp;Supprimer {{ member.lastName|upper }} {{ member.firstName }}
                             </button>
                             {{ form_end(delete_form) }}
                         </div>

@@ -323,7 +323,7 @@ class PeopleAjaxController extends FOSRestController
         // Get the receipts needed in the file
         $receipts = $em->getRepository(Receipt::class)->findByYearAndPeople($year, $people);
 
-        $filename = 'recus-fiscaux_' . $people->getFirstName() . '-' . $people->getLastName();
+        $filename = 'recus-fiscaux_' . strtoupper($people->getLastName()) . '-' . $people->getFirstName();
 
         // Generate the PDF and stream it
         $receiptService->generateTaxReceiptPdf(

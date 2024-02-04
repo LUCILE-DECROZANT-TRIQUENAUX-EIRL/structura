@@ -2,7 +2,7 @@
     class="col mt-3 people-summary"
     onclick="location.href='{{ path('people_show', { 'id': people.id }) }}'"
     data-toggle="tooltip"
-    title="{% trans %}Voir le profil de {% endtrans %} {{ people.denomination.label }} {{ people.firstName }} {{ people.lastName }}"
+    title="{% trans %}Voir le profil de {% endtrans %} {{ people.denomination.label }} {{ people.lastName|upper }} {{ people.firstName }}"
     >
     <div class="bg-white border p-3 h-100">
         <div class="d-flex">
@@ -14,10 +14,10 @@
                     <div class="col font-weight-bold">
                         <h5>
                             {{ people.denomination ? people.denomination.label : "" }}
-                            {{ people.firstname }}
                             <span class="text-uppercase">
                                 {{ people.lastname }}
                             </span>
+                            {{ people.firstname }}
                         </h5>
                     </div>
                 </div>

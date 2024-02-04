@@ -192,8 +192,8 @@ class PeopleController extends AbstractController {
             $this->addFlash(
                 'success', sprintf('%s <strong>%s %s</strong> %s',
                     $userTranslation,
-                    $updatePeopleDataFDO->getFirstName(),
                     $updatePeopleDataFDO->getLastName(),
+                    $updatePeopleDataFDO->getFirstName(),
                     $hasBeenCreatedTranslation
                 )
             );
@@ -416,8 +416,8 @@ class PeopleController extends AbstractController {
             $confirmationMessage = sprintf(
                 '%s <strong>%s %s</strong> %s.',
                 $dataOfTranslation,
-                $firstname,
                 $lastname,
+                $firstname,
                 $hasBeenDeletedTranslation
             );
             $this->addFlash(

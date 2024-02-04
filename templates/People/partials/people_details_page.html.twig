@@ -3,7 +3,7 @@
         <div class="bg-light p-4 mb-4">
             <h3 class="text-center">
                 {% if people.denomination or people.firstname or people.lastname %}
-                    {{ people.denomination ? people.denomination.label : "" }} {{ people.firstname }} {{ people.lastname }}
+                    {{ people.denomination ? people.denomination.label : "" }} {{ people.lastname|upper }} {{ people.firstname }}
                 {% else %}
                     Ce·tte membre n'a pas de nom
                 {% endif %}

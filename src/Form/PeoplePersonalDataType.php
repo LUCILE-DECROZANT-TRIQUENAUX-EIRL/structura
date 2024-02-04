@@ -49,12 +49,12 @@ class PeoplePersonalDataType extends AbstractType
                         return ['data-denomination-description' => $denomination->getLabel()];
                     },
                 ])
-                ->add('firstName', TextType::class, [
-                    'label' => $this->translator->trans('Prénom'),
-                    'required' => true
-                ])
                 ->add('lastName', TextType::class, [
                     'label' => $this->translator->trans('Nom de famille'),
+                    'required' => true
+                ])
+                ->add('firstName', TextType::class, [
+                    'label' => $this->translator->trans('Prénom'),
                     'required' => true
                 ])
                 ->add('addresses', CollectionType::class, [

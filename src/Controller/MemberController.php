@@ -162,8 +162,8 @@ class MemberController extends AbstractController {
             $this->addFlash(
                 'success', sprintf('%s <strong>%s %s</strong> %s',
                     $userTranslation,
-                    $updateMemberDataFDO->getFirstName(),
                     $updateMemberDataFDO->getLastName(),
+                    $updateMemberDataFDO->getFirstName(),
                     $hasBeenCreatedTranslation
                 )
             );
@@ -398,8 +398,8 @@ class MemberController extends AbstractController {
             $confirmationMessage = sprintf(
                 '%s <strong>%s %s</strong> %s.',
                 $dataOfTranslation,
-                $firstname,
                 $lastname,
+                $firstname,
                 $hasBeenDeletedTranslation
             );
             $this->addFlash(
