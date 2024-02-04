@@ -29,7 +29,7 @@ final class Version20240204132311 extends AbstractMigration
         $this->addSql("UPDATE denomination SET short_label = 'Dr' WHERE label = 'Docteur'");
         $this->addSql("UPDATE denomination SET short_label = 'Me' WHERE label = 'Maître'");
         $this->addSql("UPDATE denomination SET short_label = 'Sté' WHERE label = 'Société'");
-        $this->addSql("UPDATE denomination SET short_label = 'Assoc.' WHERE label = 'Association'");
+        $this->addSql("UPDATE denomination SET short_label = 'Asso' WHERE label = 'Association'");
     }
 
     public function down(Schema $schema): void
