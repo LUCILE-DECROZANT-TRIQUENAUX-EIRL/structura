@@ -50,7 +50,7 @@ class PeopleType
     private $isSensible;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="types", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\People", mappedBy="types", cascade={"persist"})
      *
      */
     private $peoples;

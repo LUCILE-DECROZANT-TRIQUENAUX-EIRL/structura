@@ -183,7 +183,7 @@ class People
     private $addresses;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\PeopleType", inversedBy="peoples", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\PeopleType", inversedBy="peoples", cascade={"persist"})
      * @ORM\JoinTable(
      *      name="peoples_people_types",
      *      joinColumns={@JoinColumn(name="people_id", referencedColumnName="id")},
