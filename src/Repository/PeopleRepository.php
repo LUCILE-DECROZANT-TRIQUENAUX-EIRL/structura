@@ -8,6 +8,7 @@ namespace App\Repository;
 
 use App\Entity\People;
 use App\Entity\PeopleType;
+use App\FormDataObject\GenerateTagFDO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -146,5 +147,70 @@ class PeopleRepository extends ServiceEntityRepository
         );
 
         return $query->execute();
+    }
+
+    public function findPeopleWithAddressAndFilters($filters): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->addSelect('a')
+            ->addSelect('d')
+            ->leftJoin('p.addresses', 'a')
+            ->leftJoin('p.denomination', 'd')
+            ->where('a.line IS NOT NULL')
+            ->andWhere('a.postalCode IS NOT NULL')
+            ->andWhere('a.city IS NOT NULL')
+            ->orderBy('p.lastName', 'ASC');
+        ;
+
+        if (isset($filters['year']) && $filters['year'] !== null) {
+            $queryBuilder
+                ->leftJoin('p.memberships', 'm')
+                ->andWhere('m.fiscal_year = :year')
+                ->setParameter('year', $filters['year'])
+            ;
+        }
+
+        if (isset($filters['departments']) && $filters['departments'] !== null) {
+            $otherDepartmentsIndex = array_search(GenerateTagFDO::DEPARTMENT_OTHER, $filters['departments']);
+
+            if ($otherDepartmentsIndex !== false) {
+                unset($filters['departments'][$otherDepartmentsIndex]);
+                $filters['departments'] = array_values($filters['departments']);
+
+                $otherDeparmentsFilter =
+                    " NOT IN ('" . GenerateTagFDO::DEPARTMENT_AIN. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_ISERE. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_LOIRE. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_RHONE. "')"
+                ;
+
+                if (count($filters['departments']) > 0) {
+                    $queryBuilder
+                        ->andWhere(
+                            $queryBuilder->expr()->orX(
+                                $queryBuilder->expr()->substring('a.postalCode', 1, 2) . ' IN (:departments)',
+                                $queryBuilder->expr()->substring('a.postalCode', 1, 2) . $otherDeparmentsFilter
+                            )
+                        )
+                        ->setParameter('departments', $filters['departments'])
+                    ;
+                } else {
+                    $queryBuilder
+                        ->andWhere(
+                            $queryBuilder->expr()->substring('a.postalCode', 1, 2) . $otherDeparmentsFilter
+                        )
+                    ;
+                }
+            } else {
+                $queryBuilder
+                    ->andWhere(
+                        $queryBuilder->expr()->substring('a.postalCode', 1, 2) . ' IN (:departments)'
+                    )
+                    ->setParameter('departments', $filters['departments'])
+                ;
+            }
+        }
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

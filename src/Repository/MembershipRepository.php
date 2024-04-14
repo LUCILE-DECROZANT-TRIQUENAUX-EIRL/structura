@@ -19,6 +19,25 @@ class MembershipRepository extends ServiceEntityRepository
         parent::__construct($registry, Membership::class);
     }
 
+    public function getAvailableFiscalYears()
+    {
+        $results = $this->createQueryBuilder('m')
+            ->select('m.fiscal_year')
+            ->distinct()
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $formatedResults = [];
+
+        foreach ($results as $result)
+        {
+            $formatedResults[$result['fiscal_year']] = $result['fiscal_year'];
+        }
+
+        return $formatedResults;
+    }
+
     /**
      * @return array Raw data about revenues
      */
