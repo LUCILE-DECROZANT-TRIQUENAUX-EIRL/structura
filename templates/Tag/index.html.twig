@@ -26,28 +26,37 @@
 	<div class="container-fluid">
 		<div class="row mt-3">
 			<div class="col-2">
-				<a
-					href="{{ path('tag_generate') }}"
-					class="btn btn-primary btn-block huge-button mb-4"
-					role="button"
+				<div class="card mb-3">
+					<div class="card-header">
+						Filtres
+					</div>
+					<div class="card-body pb-0">
+						{{ form_start(generate_tag_form, {'attr': {'id': 'generate-tag-form'}}) }}
+							{{ form_row(generate_tag_form.year, {'attr': {'class': 'custom-select'}}) }}
+							{{ form_row(generate_tag_form.departments) }}
+						{{ form_end(generate_tag_form) }}
+					</div>
+				</div>
+
+				<button
+					id="generate-tag-button"
+					class="btn btn-primary w-100 mb-3"
+					data-tag-index-url="{{ url('tag_index') }}"
+					data-tag-generate-url="{{ url('tag_generate') }}"
 				>
 					<div>
+						<i class="icon ion-md-cog"></i>
 						{% trans %}Générer les étiquettes{% endtrans %}
 					</div>
-					<div class="pt-2">
-						<i class="icon ion-md-cog"></i>
-					</div>
-				</a>
+				</button>
 				{% if fileExists %}
 					<a href="{{ path('download_tag_pdf') }}"
-						class="btn btn-primary btn-block huge-button"
+						class="btn btn-primary w-100"
 						role="button"
 					>
 						<div>
-							{% trans %}Télécharger le PDF{% endtrans %}
-						</div>
-						<div class="pt-2">
 							<i class="icon ion-md-download"></i>
+							{% trans %}Télécharger le PDF{% endtrans %}
 						</div>
 					</a>
 				{% else %}
@@ -56,14 +65,12 @@
 						title="Générez les étiquettes pour pouvoir télécharger le PDF"
 					>
 						<a href="{{ path('download_tag_pdf') }}"
-							class="btn btn-primary btn-block huge-button disabled"
+							class="btn btn-primary w-100"
 							role="button"
 						>
 							<div>
-								{% trans %}Télécharger le PDF{% endtrans %}
-							</div>
-							<div class="pt-2">
 								<i class="icon ion-md-download"></i>
+								{% trans %}Télécharger le PDF{% endtrans %}
 							</div>
 						</a>
 					</div>

@@ -6,12 +6,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Membership;
 use App\Entity\People;
+use App\Form\GenerateTagType;
+use App\FormDataObject\GenerateTagFDO;
 use App\Message\GenerateTagMessage;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -35,17 +39,47 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/", name="tag_index", requirements={"_locale"="en|fr"})
+     * @Route("/", name="tag_index", requirements={"_locale"="en|fr"}, methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function index(SessionInterface $session)
+    public function index(Request $request, SessionInterface $session)
     {
         // Entity manager creation
         $em = $this->getDoctrine()->getManager();
 
-        // Getting all people sorted by last name
-        $people = $em->getRepository(People::class)->findBy([], ['lastName' => 'ASC']);
+        // Creating an FDO with default value
+        $generateTagFDO = new GenerateTagFDO();
 
+        // Year param override
+        $year = $request->get('annee');
+        if ($year) {
+            $generateTagFDO->setYear(intval($year));
+        }
+
+        // Departments param override
+        $departments = $request->get('departements');
+        if ($departments) {
+            $generateTagFDO->setDepartments($departments);
+        }
+
+        // Filtering people for the preview
+        $people = $em->getRepository(People::class)->findPeopleWithAddressAndFilters([
+            'year' => $generateTagFDO->getYear(),
+            'departments' => $generateTagFDO->getDepartments(),
+        ]);
+
+        // Getting all years for which there is membershipsr
+        // It will help setup the year filter when generation the form
+        $options['availableYears'] = $em->getRepository(Membership::class)->getAvailableFiscalYears();
+
+        // Form creation
+        $generateTagForm = $this->createForm(
+            GenerateTagType::class,
+            $generateTagFDO,
+            $options
+        );
+
+        // Tag file managment
         $tagFileFullName = $this->projectDir . '/pdf/tags.pdf';
         $fileExists = file_exists($tagFileFullName);
 
@@ -69,48 +103,73 @@ class TagController extends AbstractController
             'people' => $people,
             'fileExists' => $fileExists,
             'tagsAreGenerating' => $tagsAreGenerating,
+            'generate_tag_form' => $generateTagForm->createView(),
         ]);
     }
 
     /**
-     * @Route("/generate", name="tag_generate", requirements={"_locale"="en|fr"})
+     * @Route("/generate", name="tag_generate", requirements={"_locale"="en|fr"}, methods={"POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function generate(MessageBusInterface $messageBus, SessionInterface $session, LoggerInterface $logger)
+    public function generate(Request $request, MessageBusInterface $messageBus, SessionInterface $session, LoggerInterface $logger)
     {
-        $session->set('tagsAreGenerating', true);
-
         // Entity manager creation
         $em = $this->getDoctrine()->getManager();
 
-        // Getting all people sorted by last name
-        $people = $em->getRepository(People::class)->findPeopleWithAddress();
+        // Setting up tag filters
+        $options['availableYears'] = $em->getRepository(Membership::class)->getAvailableFiscalYears();
 
-        $tagFileFullName = $this->projectDir . '/pdf/tags.pdf';
+        // Creating an empty FDO
+        $generateTagFDO = new GenerateTagFDO();
 
-        if (file_exists($tagFileFullName))
-        {
-            unlink($tagFileFullName);
+        // From creation
+        $generateTagForm = $this->createForm(
+            GenerateTagType::class,
+            $generateTagFDO,
+            $options
+        );
+
+        $generateTagForm->handleRequest($request);
+        if ($generateTagForm->isSubmitted() && $generateTagForm->isValid()) {
+            $session->set('tagsAreGenerating', true);
+
+            $people = $em->getRepository(People::class)->findPeopleWithAddressAndFilters([
+                'year' => $generateTagFDO->getYear(),
+                'departments' => $generateTagFDO->getDepartments(),
+            ]);
+
+            $tagFileFullName = $this->projectDir . '/pdf/tags.pdf';
+
+            if (file_exists($tagFileFullName))
+            {
+                unlink($tagFileFullName);
+            }
+
+            // Launch generation in a job
+            $messageBus->dispatch(new GenerateTagMessage($people));
+
+            $this->addFlash('info', 'Génération du PDF en cours...');
+        } else {
+            $this->addFlash('danger', 'Une erreur est survenue. La génération des étiquettes n\'a pas pû démarrer.');
         }
 
-        // Launch generation in a job
-        $messageBus->dispatch(new GenerateTagMessage($people));
+        $redirectUrl = $request->headers->get('referer');
 
-        $this->addFlash('info', 'Génération du PDF en cours...');
-
-        return $this->redirectToRoute('tag_index');
+        return $this->redirect($redirectUrl);
     }
 
     /**
      * @Route("/generation-complete", name="tag_generation_complete", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function generationComplete(SessionInterface $session)
+    public function generationComplete(Request $request, SessionInterface $session)
     {
         $session->set('tagsAreGenerating', false);
         $this->addFlash('success', 'La génération des étiquettes est terminée !');
 
-        return $this->redirectToRoute('tag_index');
+        $redirectUrl = $request->headers->get('referer');
+
+        return $this->redirect($redirectUrl);
     }
 
     /**
