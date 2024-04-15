@@ -53,11 +53,18 @@
                                     <td class="align-middle">
                                         {{ generatedAnnualReceipt.year }}
                                     </td>
-                                    <td class="align-middle">
-                                        {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                    {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                        <td
+                                            class="align-middle"
+                                            data-sort="{{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart.format('c') }}"
+                                        >
                                             {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('long', 'none') }}
                                             à {{ generatedAnnualReceipt.receiptsGenerationBase.generationDateStart | localizeddate('none', 'short') }}
-                                        {% else %}
+                                    {% else %}
+                                        <td
+                                            class="align-middle"
+                                            data-sort=""
+                                        >
                                             <div
                                                 data-file-id="{{ generatedAnnualReceipt.id }}"
                                                 class="waiting-generation"
@@ -88,8 +95,10 @@
                                     </td>
                                     <td class="align-middle">
                                         {{ generatedAnnualReceipt.receiptsGenerationBase.generator.username }}
-                                        (<span class="text-uppercase">{{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
-                                        {{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                        {% if generatedAnnualReceipt.receiptsGenerationBase.generator.people is not null %}
+                                            (<span class="text-uppercase">{{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
+                                            {{ generatedAnnualReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                        {% endif %}
                                     </td>
                                     <td class="align-middle column-action">
                                         {% if generatedAnnualReceipt.receiptsGenerationBase.generationDateEnd is not null %}
@@ -140,13 +149,24 @@
                         <tbody class="d-none">
                             {% for generatedBetweenTwoDatesReceipt in generatedBetweenTwoDatesReceipts %}
                                 <tr>
-                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.dateFrom | localizeddate('long', 'none') }}</td>
-                                    <td class="align-middle">{{ generatedBetweenTwoDatesReceipt.dateTo | localizeddate('long', 'none') }}</td>
-                                    <td class="align-middle">
-                                        {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                    <td class="align-middle" data-sort="{{ generatedBetweenTwoDatesReceipt.dateFrom.format('c') }}">
+                                        {{ generatedBetweenTwoDatesReceipt.dateFrom | localizeddate('long', 'none') }}
+                                    </td>
+                                    <td class="align-middle" data-sort="{{ generatedBetweenTwoDatesReceipt.dateTo.format('c') }}">
+                                        {{ generatedBetweenTwoDatesReceipt.dateTo | localizeddate('long', 'none') }}
+                                    </td>
+                                    {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateEnd is not null %}
+                                        <td
+                                            class="align-middle"
+                                            data-sort="{{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateStart.format('c') }}"
+                                        >
                                             {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateStart | localizeddate('long', 'none') }}
                                             à {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateStart | localizeddate('none', 'short') }}
-                                        {% else %}
+                                    {% else %}
+                                         <td
+                                            class="align-middle"
+                                            data-sort=""
+                                        >
                                             <div
                                                 data-file-id="{{ generatedBetweenTwoDatesReceipt.id }}"
                                                 class="waiting-generation"
@@ -177,8 +197,10 @@
                                     </td>
                                     <td class="align-middle">
                                         {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.username }}
-                                        (<span class="text-uppercase">{{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
-                                        {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                        {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people is not null %}
+                                            (<span class="text-uppercase">{{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.lastName }}</span>
+                                            {{ generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generator.people.firstName }})
+                                        {% endif %}
                                     </td>
                                     <td class="align-middle column-action">
                                         {% if generatedBetweenTwoDatesReceipt.receiptsGenerationBase.generationDateEnd is not null %}
