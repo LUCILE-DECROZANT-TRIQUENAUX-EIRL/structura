@@ -262,24 +262,28 @@ class PeopleAjaxController extends FOSRestController
         $paymentsData = [];
         foreach ($people->getPayments() as $payment) {
             $usedForLabel = '';
-            if (empty($payment->getDonation())) {
+            if (!empty($payment->getMembership()) && empty($payment->getDonation())) {
                 $usedForLabel = sprintf(
                     'Adhésion (%s, %s €)',
                     $payment->getMembership()->getType()->getLabel(),
                     $payment->getMembership()->getType()->getDefaultAmount()
                 );
-            } else {
-                if (!empty($payment->getMembership())) {
+            } else if (!empty($payment->getMembership()) && !empty($payment->getDonation())) {
                     $usedForLabel = sprintf(
                         'Adhésion (%s, %s €) et don (%s €)',
                         $payment->getMembership()->getType()->getLabel(),
                         $payment->getMembership()->getType()->getDefaultAmount(),
                         $payment->getDonation()->getAmount()
                     );
-                } else {
-                    $usedForLabel = 'Don';
-                }
+            } else if (empty($payment->getMembership()) && !empty($payment->getDonation())) {
+                $usedForLabel = sprintf(
+                    'Don (%s €)',
+                    $payment->getDonation()->getAmount()
+                );
+            } else {
+                continue;
             }
+
             $formattedDonation = [
                 'id' => $payment->getId(),
                 'usage' => $usedForLabel,
