@@ -54,7 +54,9 @@
                         <td class="align-middle text-center">{{ donation.donator.firstName }}</td>
                         <td class="align-middle text-center">{{ donation.payment.receipt.orderCode }}</td>
                         <td class="align-middle text-center">{{ donation.amount }}&nbsp;€</td>
-                        <td class="align-middle text-center">{{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}</td>
+                        <td class="align-middle text-center" data-sort="{{ donation.donationDate ? donation.donationDate.format('c') : '' }}">
+                            {{ donation.donationDate ? donation.donationDate | date('d M. Y') : '' }}
+                        </td>
                         <td class="align-middle text-center">{{ donation.donationOrigin ? donation.donationOrigin.label : ' - ' }}</td>
                         <td class="align-middle column-action">
                             <a
