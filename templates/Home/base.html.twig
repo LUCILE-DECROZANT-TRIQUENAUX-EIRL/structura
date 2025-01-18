@@ -113,9 +113,16 @@
                                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdown-directory">
                                                 <a
                                                     class="dropdown-item"
-                                                    href="{{ path('membership_list') }}"
+                                                    href="{{ path('membership_active_list') }}"
                                                     >
                                                     {% trans %}Liste des adhésions actives{% endtrans %}
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ path('membership_past_list') }}"
+                                                    >
+                                                    {% trans %}Liste des adhésions passées{% endtrans %}
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a

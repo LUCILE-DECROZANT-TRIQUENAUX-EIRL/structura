@@ -70,11 +70,40 @@ class MembershipController extends AbstractController
      */
     public function listAction()
     {
+        // Redirect for now, but we need to add a list of all memberships
+        return $this->redirectToRoute('membership_active_list');
+    }
+
+    /**
+     * Lists active memberships entities.
+     * @return views
+     * @Route(path="/active", name="membership_active_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function listActiveAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $members = $em->getRepository(People::class)->findWithActiveMembership();
 
-        return $this->render('Membership/list.html.twig', array(
+        return $this->render('Membership/active_list.html.twig', array(
+            'members' => $members,
+        ));
+    }
+
+    /**
+     * Lists past memberships entities.
+     * @return views
+     * @Route(path="/past", name="membership_past_list", methods={"GET"})
+     * @Security("is_granted('ROLE_GESTION')")
+     */
+    public function listPastAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $members = $em->getRepository(People::class)->findAll();
+
+        return $this->render('Membership/past_list.html.twig', array(
             'members' => $members,
         ));
     }
@@ -379,6 +408,6 @@ class MembershipController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('membership_list');
+        return $this->redirectToRoute('membership_active_list');
     }
 }

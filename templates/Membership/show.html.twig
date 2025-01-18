@@ -16,7 +16,7 @@
     </li>
     {% if is_granted("ROLE_GESTION") %}
     <li class="breadcrumb-item">
-        <a href="{{ path('membership_list') }}">{% trans %}Liste des adhésions actives{% endtrans %}</a>
+        <a href="{{ path('membership_active_list') }}">{% trans %}Adhésions{% endtrans %}</a>
     </li>
     {% endif %}
     <li class="breadcrumb-item active" aria-current="page">
@@ -187,7 +187,7 @@
                 <div class="row">
                     {% if is_granted("ROLE_GESTION") %}
                     <div class="col">
-                        <a href="{{ path('membership_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions actives{% endtrans %}</a>
+                        <a href="{{ path('membership_active_list') }}" class="btn btn-secondary"><i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions actives{% endtrans %}</a>
                     </div>
                     {% endif %}
                     <div class="col text-right">
