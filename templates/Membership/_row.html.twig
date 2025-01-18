@@ -1,0 +1,46 @@
+<tr>
+    <td class="align-middle text-uppercase">{{ member.lastname }}</td>
+    <td class="align-middle">{{ member.firstname }}</td>
+    <td class="align-middle text-center">{{ membership.payment.receipt.orderCode }}</td>
+    <td class="align-middle text-center">
+        {% trans %}Du{% endtrans %} {{ membership.getDateStart | date('d M. Y') }}
+        <br>
+        {% trans %}au{% endtrans %} {{ membership.getDateEnd | date('d M. Y') }}
+    </td>
+    <td class="align-middle text-center">
+        {{ membership.type.label }}
+    </td>
+    <td class="align-middle text-center">
+        {{ membership.type.defaultAmount }}&nbsp;€
+    </td>
+    <td class="align-middle text-center">
+        {{ membership.payment.type.label }}
+    </td>
+    <td class="align-middle text-center" data-sort="{{ membership.payment.dateCashed | date('Ymd') }}">
+        {% if membership.payment.dateCashed is null %}
+            <span class=""><i class="icon ion-md-warning"></i> {% trans %}Pas encore encaissé{% endtrans %}</span>
+        {% else %}
+            {{ membership.payment.dateCashed | date('d M. Y') }}
+        {% endif %}
+    </td>
+    <td class="align-middle column-action">
+        <a
+            href="{{ path('membership_show', { 'id': membership.id }) }}"
+            class="btn btn-secondary"
+            data-toggle="tooltip"
+            title="{% trans %}Voir les détails de l'adhésion{% endtrans %}"
+            >
+            <i class="icon ion-md-eye"></i>
+        </a>
+    </td>
+    <td class="align-middle column-action">
+        <a
+            href="{{ path('membership_edit', { 'id': membership.id }) }}"
+            class="btn btn-secondary"
+            data-toggle="tooltip"
+            title="{% trans %}Éditer l'adhésion{% endtrans %}"
+            >
+            <i class="icon ion-md-create"></i>
+        </a>
+    </td>
+</tr>

@@ -732,6 +732,21 @@ class People
         return null;
     }
 
+    public function getPastMemberships(): array
+    {
+        $pastMemberships = [];
+
+        foreach ($this->memberships as $membership)
+        {
+            if ($membership->getDateEnd() < new \DateTime('now'))
+            {
+                $pastMemberships[] = $membership;
+            }
+        }
+
+        return $pastMemberships;
+    }
+
     public function hasActiveMembership()
     {
         return $this->getActiveMembership() !== null;

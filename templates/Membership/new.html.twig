@@ -21,7 +21,7 @@
         <a href="/">{% trans %}Accueil{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ path('membership_list') }}">{% trans %}Adhésions{% endtrans %}</a>
+        <a href="{{ path('membership_active_list') }}">{% trans %}Adhésions{% endtrans %}</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
         {% trans %}Nouvelle adhésion{% endtrans %}
@@ -205,7 +205,7 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col">
-                <a href="{{ path('membership_list') }}" class="btn btn-secondary">
+                <a href="{{ path('membership_active_list') }}" class="btn btn-secondary">
                     <i class="icon ion-md-arrow-back"></i>&nbsp;{% trans %}Retourner à la liste des adhésions{% endtrans %}
                 </a>
             </div>

@@ -1,0 +1,59 @@
+{% extends 'Home/base.html.twig' %}
+
+{% block title %}{% trans %}Liste des adhésions passées{% endtrans %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="/">Accueil</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% trans %}Liste des adhésions passées{% endtrans %}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{% trans %}Liste des adhésions passées{% endtrans %}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <table
+            class="table table-striped"
+            data-toggle="datatable"
+            data-ordered-column-index="1"
+            data-filter-bar="toggle"
+            data-copy-button="toggle"
+            data-csv-button="toggle"
+            data-pdf-button="toggle"
+            >
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Nom{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true">{% trans %}Prénom{% endtrans %}</th>
+                    <th class="text-center" data-sortable="true" data-exportable="true">{% trans %}Numéro d'ordre{% endtrans %}</th>
+                    <th data-exportable="true" class="text-center">{% trans %}Dates de l'adhésion{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Type d'adhésion{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Montant{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Payée via...{% endtrans %}</th>
+                    <th data-sortable="true" data-exportable="true" class="text-center">{% trans %}Encaissée le...{% endtrans %}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="d-none">
+                {% for member in members %}
+                    {% for pastMembership in member.getPastMemberships %}
+                        {{ include('Membership/_row.html.twig', { member: member, membership: pastMembership }) }}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
