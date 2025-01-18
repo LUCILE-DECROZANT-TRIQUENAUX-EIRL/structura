@@ -139,6 +139,8 @@ class MembershipController extends AbstractController
         // Submit change
         if ($membershipCreationForm->isSubmitted() && $membershipCreationForm->isValid())
         {
+            $fiscalYear = $updateMembershipFDO->getMembershipFiscalYear();
+
             // Membership
             $membership = new Membership();
 
@@ -147,7 +149,7 @@ class MembershipController extends AbstractController
             $membership->setAmount($updateMembershipFDO->getMembershipAmount());
             $membership->setDateStart($updateMembershipFDO->getMembershipDateStart());
             $membership->setDateEnd($updateMembershipFDO->getMembershipDateEnd());
-            $membership->setFiscalYear($updateMembershipFDO->getMembershipFiscalYear());
+            $membership->setFiscalYear($fiscalYear);
             $membership->setComment($updateMembershipFDO->getMembershipComment());
 
             // Payment
@@ -189,16 +191,15 @@ class MembershipController extends AbstractController
             $em->persist($payment);
 
             // Receipt
-            $thisYear = (new \DateTime())->format('Y');
             $lastOrderNumber = $em->getRepository(Receipt::class)
-                    ->findLastOrderNumberForAYear($thisYear);
+                    ->findLastOrderNumberForAYear($fiscalYear);
 
             $receipt = new Receipt();
 
             $receipt->setPayment($payment);
             $receipt->setOrderNumber($lastOrderNumber + 1);
 
-            $receipt->setYear($thisYear);
+            $receipt->setYear($fiscalYear);
             $receipt->setOrderCode();
 
             $em->persist($receipt);
