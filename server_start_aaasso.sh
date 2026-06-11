@@ -276,5 +276,4 @@ cp ".env.local_for_${env}" .env.local
 x-terminal-emulator -e symfony run --watch=config,src,templates,vendor symfony console messenger:consume async -vv
 
 # Starting the symfony server with the newly created env file
-symfony self:update --yes
 symfony server:start --no-interaction
