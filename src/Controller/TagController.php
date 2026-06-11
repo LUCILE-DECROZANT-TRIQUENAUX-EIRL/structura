@@ -6,11 +6,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Membership;
-use App\Entity\People;
 use App\Form\GenerateTagType;
 use App\FormDataObject\GenerateTagFDO;
 use App\Message\GenerateTagMessage;
+use App\Repository\DonationOriginRepository;
+use App\Repository\DonationRepository;
+use App\Repository\MembershipRepository;
+use App\Repository\PeopleRepository;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,18 +44,22 @@ class TagController extends AbstractController
      * @Route("/", name="tag_index", requirements={"_locale"="en|fr"}, methods={"GET"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function index(Request $request, SessionInterface $session)
+    public function index(
+        Request $request,
+        SessionInterface $session,
+        PeopleRepository $peopleRepository,
+        MembershipRepository $membershipRepository,
+        DonationRepository $donationRepository,
+        DonationOriginRepository $donationOriginRepository,
+    )
     {
-        // Entity manager creation
-        $em = $this->getDoctrine()->getManager();
-
         // Creating an FDO with default value
         $generateTagFDO = new GenerateTagFDO();
 
-        // Year param override
-        $year = $request->get('annee');
-        if ($year) {
-            $generateTagFDO->setYear(intval($year));
+        // Membership years param override
+        $membershipYears = $request->get('adhesion_annees');
+        if ($membershipYears) {
+            $generateTagFDO->setMembershipYears($membershipYears);
         }
 
         // Departments param override
@@ -62,15 +68,40 @@ class TagController extends AbstractController
             $generateTagFDO->setDepartments($departments);
         }
 
+        // Physical mail only param override
+        $isPhysicalMailOnly = $request->get('courrier_uniquement');
+        if ($isPhysicalMailOnly) {
+            $generateTagFDO->setPhysicalMailOnly($isPhysicalMailOnly);
+        }
+
+        // Donations years param override
+        $donationYears = $request->get('don_annees');
+        if ($donationYears) {
+            $generateTagFDO->setDonationYears($donationYears);
+        }
+
+        // Donations origins param override
+        $donationOrigins = $request->get('don_origine');
+        if ($donationOrigins) {
+            $generateTagFDO->setDonationOrigins($donationOriginRepository->findByIds($donationOrigins));
+        }
+
         // Filtering people for the preview
-        $people = $em->getRepository(People::class)->findPeopleWithAddressAndFilters([
-            'year' => $generateTagFDO->getYear(),
+        $people = $peopleRepository->filterForTags([
+            'membership_years' => $generateTagFDO->getMembershipYears(),
             'departments' => $generateTagFDO->getDepartments(),
+            'donation_years' => $generateTagFDO->getDonationYears(),
+            'donation_origins' => $generateTagFDO->getDonationOrigins(),
+            'physical_mail_only' => $generateTagFDO->isPhysicalMailOnly(),
         ]);
 
-        // Getting all years for which there is membershipsr
-        // It will help setup the year filter when generation the form
-        $options['availableYears'] = $em->getRepository(Membership::class)->getAvailableFiscalYears();
+        // Getting all years for which there is memberships
+        // It will help setup the membership years filter when generating the form
+        $options['availableMembershipYears'] = $membershipRepository->getAvailableFiscalYears();
+
+        // Getting all years for which there is memberships
+        // It will help setup the membership years filter when generating the form
+        $options['availableDonationYears'] = $donationRepository->getAvailableDonationsYears();
 
         // Form creation
         $generateTagForm = $this->createForm(
@@ -111,13 +142,21 @@ class TagController extends AbstractController
      * @Route("/generate", name="tag_generate", requirements={"_locale"="en|fr"}, methods={"POST"})
      * @Security("is_granted('ROLE_GESTION')")
      */
-    public function generate(Request $request, MessageBusInterface $messageBus, SessionInterface $session, LoggerInterface $logger)
+    public function generate(
+        Request $request,
+        MessageBusInterface $messageBus,
+        SessionInterface $session,
+        PeopleRepository $peopleRepository,
+        MembershipRepository $membershipRepository,
+        DonationRepository $donationRepository
+    )
     {
-        // Entity manager creation
-        $em = $this->getDoctrine()->getManager();
-
         // Setting up tag filters
-        $options['availableYears'] = $em->getRepository(Membership::class)->getAvailableFiscalYears();
+        // Getting all years for which there is memberships
+        $options['availableMembershipYears'] = $membershipRepository->getAvailableFiscalYears();
+
+        // Getting all years for which there is memberships
+        $options['availableDonationYears'] = $donationRepository->getAvailableDonationsYears();
 
         // Creating an empty FDO
         $generateTagFDO = new GenerateTagFDO();
@@ -133,9 +172,12 @@ class TagController extends AbstractController
         if ($generateTagForm->isSubmitted() && $generateTagForm->isValid()) {
             $session->set('tagsAreGenerating', true);
 
-            $people = $em->getRepository(People::class)->findPeopleWithAddressAndFilters([
-                'year' => $generateTagFDO->getYear(),
+            $people = $peopleRepository->filterForTags([
+                'membership_years' => $generateTagFDO->getMembershipYears(),
                 'departments' => $generateTagFDO->getDepartments(),
+                'donation_years' => $generateTagFDO->getDonationYears(),
+                'donation_origins' => $generateTagFDO->getDonationOrigins(),
+                'physical_mail_only' => $generateTagFDO->isPhysicalMailOnly(),
             ]);
 
             $tagFileFullName = $this->projectDir . '/pdf/tags.pdf';
@@ -174,7 +216,6 @@ class TagController extends AbstractController
 
     /**
      * @return BinaryFileResponse
-     * @param Request $request The request.
      * @Route("/download-tag-pdf", name="download_tag_pdf", requirements={"_locale"="en|fr"})
      * @Security("is_granted('ROLE_GESTION')")
      */

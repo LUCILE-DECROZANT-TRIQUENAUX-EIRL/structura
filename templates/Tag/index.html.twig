@@ -32,8 +32,28 @@
 					</div>
 					<div class="card-body pb-0">
 						{{ form_start(generate_tag_form, {'attr': {'id': 'generate-tag-form'}}) }}
-							{{ form_row(generate_tag_form.year, {'attr': {'class': 'custom-select'}}) }}
-							{{ form_row(generate_tag_form.departments) }}
+							<h5 class="mb-0 text-center">Adhésions</h5>
+							{{ form_row(generate_tag_form.membership_years) }}
+							<h5 class="mb-0 text-center">Adresses</h5>
+							<div class="row">
+								<div class="col-6">
+									{{ form_row(generate_tag_form.departments) }}
+								</div>
+								<div class="col-6 text-center">
+									<legend class="col-form-label text-left">Courrier Uniquement</legend>
+									{{ form_row(generate_tag_form.physical_mail_only) }}
+								</div>
+							</div>
+
+							<h5 class="mb-0 text-center">Dons</h5>
+							<div class="row">
+								<div class="col-6">
+									{{ form_row(generate_tag_form.donation_years) }}
+								</div>
+								<div class="col-6">
+									{{ form_row(generate_tag_form.donation_origins) }}
+								</div>
+							</div>
 						{{ form_end(generate_tag_form) }}
 					</div>
 				</div>

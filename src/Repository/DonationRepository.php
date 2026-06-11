@@ -58,4 +58,22 @@ class DonationRepository extends ServiceEntityRepository
         return $result->fetchAllAssociative();
     }
 
+    public function getAvailableDonationsYears()
+    {
+        $results = $this->createQueryBuilder('d')
+            ->select('SUBSTRING(d.donation_date, 1, 4) as year')
+            ->distinct()
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $formatedResults = [];
+
+        foreach ($results as $result)
+        {
+            $formatedResults[$result['year']] = $result['year'];
+        }
+
+        return $formatedResults;
+    }
 }
