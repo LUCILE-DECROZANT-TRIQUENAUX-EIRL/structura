@@ -149,7 +149,7 @@ class PeopleRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function findPeopleWithAddressAndFilters($filters): array
+    public function findPeopleWithAddressAndFilters(array $filters): array
     {
         $queryBuilder = $this->createQueryBuilder('p')
             ->addSelect('a')
@@ -167,6 +167,99 @@ class PeopleRepository extends ServiceEntityRepository
                 ->leftJoin('p.memberships', 'm')
                 ->andWhere('m.fiscal_year = :year')
                 ->setParameter('year', $filters['year'])
+            ;
+        }
+
+        if (isset($filters['departments']) && $filters['departments'] !== null) {
+            $otherDepartmentsIndex = array_search(GenerateTagFDO::DEPARTMENT_OTHER, $filters['departments']);
+
+            if ($otherDepartmentsIndex !== false) {
+                unset($filters['departments'][$otherDepartmentsIndex]);
+                $filters['departments'] = array_values($filters['departments']);
+
+                $otherDeparmentsFilter =
+                    " NOT IN ('" . GenerateTagFDO::DEPARTMENT_AIN. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_ISERE. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_LOIRE. "'," .
+                    "'" . GenerateTagFDO::DEPARTMENT_RHONE. "')"
+                ;
+
+                if (count($filters['departments']) > 0) {
+                    $queryBuilder
+                        ->andWhere(
+                            $queryBuilder->expr()->orX(
+                                $queryBuilder->expr()->substring('a.postalCode', 1, 2) . ' IN (:departments)',
+                                $queryBuilder->expr()->substring('a.postalCode', 1, 2) . $otherDeparmentsFilter
+                            )
+                        )
+                        ->setParameter('departments', $filters['departments'])
+                    ;
+                } else {
+                    $queryBuilder
+                        ->andWhere(
+                            $queryBuilder->expr()->substring('a.postalCode', 1, 2) . $otherDeparmentsFilter
+                        )
+                    ;
+                }
+            } else {
+                $queryBuilder
+                    ->andWhere(
+                        $queryBuilder->expr()->substring('a.postalCode', 1, 2) . ' IN (:departments)'
+                    )
+                    ->setParameter('departments', $filters['departments'])
+                ;
+            }
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function filterForTags(array $filters): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->addSelect('a')
+            ->addSelect('d')
+            ->leftJoin('p.addresses', 'a')
+            ->leftJoin('p.denomination', 'd')
+            ->where('a.line IS NOT NULL')
+            ->andWhere('a.postalCode IS NOT NULL')
+            ->andWhere('a.city IS NOT NULL')
+            ->orderBy('p.lastName', 'ASC');
+        ;
+
+        if (isset($filters['membership_years']) && $filters['membership_years'] !== []) {
+            $queryBuilder
+                ->leftJoin('p.memberships', 'm')
+                ->andWhere('m.fiscal_year IN (:membership_years)')
+                ->setParameter('membership_years', $filters['membership_years'])
+            ;
+        }
+
+        $donationYearsFilterExists = isset($filters['donation_years']) && $filters['donation_years'] !== [];
+        $donationOriginsFilterExists = isset($filters['donation_origins']) && $filters['donation_origins'] !== [];
+
+        if ($donationYearsFilterExists || $donationOriginsFilterExists) {
+            $queryBuilder->leftJoin('p.donations', 'don');
+        }
+
+        if ($donationYearsFilterExists) {
+            $queryBuilder
+                ->andWhere('SUBSTRING(don.donation_date, 1, 4) IN (:donation_years)')
+                ->setParameter('donation_years', $filters['donation_years'])
+            ;
+        }
+
+        if ($donationOriginsFilterExists) {
+            $queryBuilder
+                ->andWhere('don.donationOrigin IN (:donation_origins)')
+                ->setParameter('donation_origins', $filters['donation_origins'])
+            ;
+        }
+
+        if (isset($filters['physical_mail_only']) && $filters['physical_mail_only'] === true) {
+            $queryBuilder
+                ->andWhere('p.isReceivingNewsletter = 1')
+                ->andWhere('p.newsletterDematerialization = 0')
             ;
         }
 

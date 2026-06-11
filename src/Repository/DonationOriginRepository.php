@@ -47,22 +47,19 @@ class DonationOriginRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return DonationOrigin[] Returns an array of DonationOrigin objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return DonationOrigin[] Returns an array of DonationOrigin objects
+     */
+    public function findByIds(array $ids)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('d.id IN (:ids)')
+            ->setParameter('ids', $ids)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?DonationOrigin

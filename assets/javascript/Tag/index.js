@@ -28,8 +28,14 @@ function generateUrlWithFilters() {
     formData.forEach(function(data) {
         if (data.name === 'generate_tag[departments][]') {
             urlWithFilters.searchParams.append('departements[]', data.value);
-        } else if (data.name === 'generate_tag[year]' && data.value != '') {
-            urlWithFilters.searchParams.append('annee', data.value);
+        } else if (data.name === 'generate_tag[membership_years][]') {
+            urlWithFilters.searchParams.append('adhesion_annees[]', data.value);
+        } else if (data.name === 'generate_tag[donation_years][]') {
+            urlWithFilters.searchParams.append('don_annees[]', data.value);
+        } else if (data.name === 'generate_tag[donation_origins][]') {
+            urlWithFilters.searchParams.append('don_origine[]', data.value);
+        } else if (data.name === 'generate_tag[physical_mail_only]') {
+            urlWithFilters.searchParams.append('courrier_uniquement', data.value);
         }
     });
 
