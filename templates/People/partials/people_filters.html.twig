@@ -1,0 +1,33 @@
+<div class="card mb-3">
+    <div class="card-header">
+        Filtres
+    </div>
+    <div class="card-body pb-0">
+        {{ form_start(form, {'attr': {'id': formId}}) }}
+            <h5 class="mb-0 text-center">Adhésions</h5>
+            {{ form_row(form.membership_years) }}
+            <h5 class="mb-0 text-center">Adresses</h5>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.departments) }}
+                </div>
+                {% if form.physical_mail_only is defined %}
+                <div class="col-6 text-center">
+                    <legend class="col-form-label text-left">Courrier Uniquement</legend>
+                    {{ form_row(form.physical_mail_only) }}
+                </div>
+                {% endif %}
+            </div>
+
+            <h5 class="mb-0 text-center">Dons</h5>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.donation_years) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.donation_origins) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

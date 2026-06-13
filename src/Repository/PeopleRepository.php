@@ -8,7 +8,7 @@ namespace App\Repository;
 
 use App\Entity\People;
 use App\Entity\PeopleType;
-use App\FormDataObject\GenerateTagFDO;
+use App\FormDataObject\FilterPeopleFDO;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -171,17 +171,17 @@ class PeopleRepository extends ServiceEntityRepository
         }
 
         if (isset($filters['departments']) && $filters['departments'] !== null) {
-            $otherDepartmentsIndex = array_search(GenerateTagFDO::DEPARTMENT_OTHER, $filters['departments']);
+            $otherDepartmentsIndex = array_search(FilterPeopleFDO::DEPARTMENT_OTHER, $filters['departments']);
 
             if ($otherDepartmentsIndex !== false) {
                 unset($filters['departments'][$otherDepartmentsIndex]);
                 $filters['departments'] = array_values($filters['departments']);
 
                 $otherDeparmentsFilter =
-                    " NOT IN ('" . GenerateTagFDO::DEPARTMENT_AIN. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_ISERE. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_LOIRE. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_RHONE. "')"
+                    " NOT IN ('" . FilterPeopleFDO::DEPARTMENT_AIN. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_ISERE. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_LOIRE. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_RHONE. "')"
                 ;
 
                 if (count($filters['departments']) > 0) {
@@ -263,18 +263,24 @@ class PeopleRepository extends ServiceEntityRepository
             ;
         }
 
+        if (isset($filters['dematerialized_newsletter']) && $filters['dematerialized_newsletter'] === true) {
+            $queryBuilder
+                ->andWhere('p.newsletterDematerialization = 1')
+            ;
+        }
+
         if (isset($filters['departments']) && $filters['departments'] !== null) {
-            $otherDepartmentsIndex = array_search(GenerateTagFDO::DEPARTMENT_OTHER, $filters['departments']);
+            $otherDepartmentsIndex = array_search(FilterPeopleFDO::DEPARTMENT_OTHER, $filters['departments']);
 
             if ($otherDepartmentsIndex !== false) {
                 unset($filters['departments'][$otherDepartmentsIndex]);
                 $filters['departments'] = array_values($filters['departments']);
 
                 $otherDeparmentsFilter =
-                    " NOT IN ('" . GenerateTagFDO::DEPARTMENT_AIN. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_ISERE. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_LOIRE. "'," .
-                    "'" . GenerateTagFDO::DEPARTMENT_RHONE. "')"
+                    " NOT IN ('" . FilterPeopleFDO::DEPARTMENT_AIN. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_ISERE. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_LOIRE. "'," .
+                    "'" . FilterPeopleFDO::DEPARTMENT_RHONE. "')"
                 ;
 
                 if (count($filters['departments']) > 0) {

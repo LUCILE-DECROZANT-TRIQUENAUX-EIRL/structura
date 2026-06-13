@@ -4,6 +4,10 @@
 	{% trans %}Newsletter dématarializée{% endtrans %}
 {% endblock %}
 
+{% block javascript %}
+    {{ encore_entry_script_tags('newsletter_dematerialized') }}
+{% endblock %}
+
 {% block breadcrumb %}
 	<li class="breadcrumb-item">
 		<a href="/">{% trans %}Accueil{% endtrans %}</a>
@@ -14,8 +18,12 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
+	<div class="container-fluid" id="dematerialized-newsletter" data-dematerialized-newsletter-url="{{ url('newsletter_dematerialized') }}">
 		<div class="row mt-3">
+			<div class="col-2">
+				{% include 'People/partials/people_filters.html.twig'
+                    with {'form': dematerialized_newsletter_form, 'formId': 'dematerialized-newsletter-form'} %}
+			</div>
 			<div class="col">
                 <div class="card">
                     <div class="card-header">

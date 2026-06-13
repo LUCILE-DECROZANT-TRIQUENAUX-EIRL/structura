@@ -3,16 +3,16 @@
 namespace App\Form;
 
 use App\Entity\DonationOrigin;
-use App\FormDataObject\GenerateTagFDO;
-use Doctrine\DBAL\Types\BooleanType;
+use App\FormDataObject\FilterPeopleFDO;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GenerateTagType extends AbstractType
+class FilterPeopleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,19 +28,15 @@ class GenerateTagType extends AbstractType
             ->add('departments', ChoiceType::class, [
                 'label' => 'Département',
                 'choices' => [
-                    GenerateTagFDO::DEPARTMENT_AIN => GenerateTagFDO::DEPARTMENT_AIN,
-                    GenerateTagFDO::DEPARTMENT_ISERE => GenerateTagFDO::DEPARTMENT_ISERE,
-                    GenerateTagFDO::DEPARTMENT_LOIRE => GenerateTagFDO::DEPARTMENT_LOIRE,
-                    GenerateTagFDO::DEPARTMENT_RHONE => GenerateTagFDO::DEPARTMENT_RHONE,
-                    GenerateTagFDO::DEPARTMENT_OTHER => GenerateTagFDO::DEPARTMENT_OTHER,
+                    FilterPeopleFDO::DEPARTMENT_AIN => FilterPeopleFDO::DEPARTMENT_AIN,
+                    FilterPeopleFDO::DEPARTMENT_ISERE => FilterPeopleFDO::DEPARTMENT_ISERE,
+                    FilterPeopleFDO::DEPARTMENT_LOIRE => FilterPeopleFDO::DEPARTMENT_LOIRE,
+                    FilterPeopleFDO::DEPARTMENT_RHONE => FilterPeopleFDO::DEPARTMENT_RHONE,
+                    FilterPeopleFDO::DEPARTMENT_OTHER => FilterPeopleFDO::DEPARTMENT_OTHER,
                 ],
                 'multiple' => true,
                 'expanded' => true,
-            ])
-            ->add('physical_mail_only', CheckboxType::class, [
-                'label' => ' ',
-                'label_attr' => ['class' => 'switch-custom'],
-            ])
+            ])            
             ->add('donation_years', ChoiceType::class, [
                 'label' => 'Année',
                 'choices' => $options['availableDonationYears'],
@@ -59,14 +55,22 @@ class GenerateTagType extends AbstractType
                 'expanded' => true,
             ])
         ;
+
+        if ($options['isForTag']) {
+            $builder->add('physical_mail_only', CheckboxType::class, [
+                'label' => ' ',
+                'label_attr' => ['class' => 'switch-custom'],
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => GenerateTagFDO::class,
+            'data_class' => FilterPeopleFDO::class,
             'availableMembershipYears' => null,
             'availableDonationYears' => null,
+            'isForTag' => false,
         ]);
     }
 }
