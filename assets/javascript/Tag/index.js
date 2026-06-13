@@ -8,7 +8,7 @@ $(document).ready(function () {
         checkGenerationCompleteTimersIdentifier = setInterval(checkIfTagGenerationHasFinished, 3000);
     }
 
-    $('[name^="generate_tag"]').on('change', function(event) {
+    $('[name^="filter_people"]').on('change', function(event) {
         let urlWithFilters = generateUrlWithFilters();
         window.location.href = urlWithFilters;
     });
@@ -26,15 +26,15 @@ function generateUrlWithFilters() {
     let formData = $('#generate-tag-form').serializeArray();
 
     formData.forEach(function(data) {
-        if (data.name === 'generate_tag[departments][]') {
+        if (data.name === 'filter_people[departments][]') {
             urlWithFilters.searchParams.append('departements[]', data.value);
-        } else if (data.name === 'generate_tag[membership_years][]') {
+        } else if (data.name === 'filter_people[membership_years][]') {
             urlWithFilters.searchParams.append('adhesion_annees[]', data.value);
-        } else if (data.name === 'generate_tag[donation_years][]') {
+        } else if (data.name === 'filter_people[donation_years][]') {
             urlWithFilters.searchParams.append('don_annees[]', data.value);
-        } else if (data.name === 'generate_tag[donation_origins][]') {
+        } else if (data.name === 'filter_people[donation_origins][]') {
             urlWithFilters.searchParams.append('don_origine[]', data.value);
-        } else if (data.name === 'generate_tag[physical_mail_only]') {
+        } else if (data.name === 'filter_people[physical_mail_only]') {
             urlWithFilters.searchParams.append('courrier_uniquement', data.value);
         }
     });

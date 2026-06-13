@@ -50,6 +50,9 @@ Encore
     // -- TAG -- //
     .addEntry('tag_index', './assets/javascript/Tag/index.js')
 
+    // -- NEWSLETTER -- //
+    .addEntry('newsletter_dematerialized', './assets/javascript/Newsletter/dematerialized.js')
+
     // -- USER -- //
     .addEntry('user_new', './assets/javascript/User/new.js')
     .addEntry('user_edit', './assets/javascript/User/edit.js')

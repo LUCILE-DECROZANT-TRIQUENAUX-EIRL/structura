@@ -4,7 +4,7 @@ namespace App\FormDataObject;
 
 use App\Entity\DonationOrigin;
 
-class GenerateTagFDO
+class FilterPeopleFDO
 {
     const DEPARTMENT_AIN = '01';
     const DEPARTMENT_ISERE = '38';
@@ -22,6 +22,8 @@ class GenerateTagFDO
 
     private bool $physicalMailOnly;
 
+    private bool $dematerializedNewsletter;
+
     function __construct() {
         $this->membershipYears = [];
         $this->donationYears = [];
@@ -34,6 +36,7 @@ class GenerateTagFDO
         ];
         $this->donationOrigins = [];
         $this->physicalMailOnly = false;
+        $this->dematerializedNewsletter = false;
     }
 
     /**
@@ -216,7 +219,8 @@ class GenerateTagFDO
 
     /**
      * Get the value of physicalMailOnly
-     */    public function isPhysicalMailOnly(): bool
+     */
+    public function isPhysicalMailOnly(): bool
     {
         return $this->physicalMailOnly;
     }
@@ -228,6 +232,26 @@ class GenerateTagFDO
      */    public function setPhysicalMailOnly(bool $physicalMailOnly): self
     {
         $this->physicalMailOnly = $physicalMailOnly;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dematerializedNewsletter
+     */ 
+    public function isDematerializedNewsletter(): bool
+    {
+        return $this->dematerializedNewsletter;
+    }
+
+    /**
+     * Set the value of dematerializedNewsletter
+     *
+     * @return  self
+     */ 
+    public function setDematerializedNewsletter(bool $dematerializedNewsletter): self
+    {
+        $this->dematerializedNewsletter = $dematerializedNewsletter;
 
         return $this;
     }

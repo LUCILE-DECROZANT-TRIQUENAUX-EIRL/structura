@@ -6,13 +6,13 @@
 
 namespace App\Controller;
 
-use App\Form\GenerateTagType;
-use App\FormDataObject\GenerateTagFDO;
+use App\Form\FilterPeopleType;
+use App\FormDataObject\FilterPeopleFDO;
 use App\Message\GenerateTagMessage;
-use App\Repository\DonationOriginRepository;
 use App\Repository\DonationRepository;
 use App\Repository\MembershipRepository;
 use App\Repository\PeopleRepository;
+use App\Service\PeopleService;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,53 +47,12 @@ class TagController extends AbstractController
     public function index(
         Request $request,
         SessionInterface $session,
-        PeopleRepository $peopleRepository,
         MembershipRepository $membershipRepository,
         DonationRepository $donationRepository,
-        DonationOriginRepository $donationOriginRepository,
+        PeopleService $peopleService,
     )
     {
-        // Creating an FDO with default value
-        $generateTagFDO = new GenerateTagFDO();
-
-        // Membership years param override
-        $membershipYears = $request->get('adhesion_annees');
-        if ($membershipYears) {
-            $generateTagFDO->setMembershipYears($membershipYears);
-        }
-
-        // Departments param override
-        $departments = $request->get('departements');
-        if ($departments) {
-            $generateTagFDO->setDepartments($departments);
-        }
-
-        // Physical mail only param override
-        $isPhysicalMailOnly = $request->get('courrier_uniquement');
-        if ($isPhysicalMailOnly) {
-            $generateTagFDO->setPhysicalMailOnly($isPhysicalMailOnly);
-        }
-
-        // Donations years param override
-        $donationYears = $request->get('don_annees');
-        if ($donationYears) {
-            $generateTagFDO->setDonationYears($donationYears);
-        }
-
-        // Donations origins param override
-        $donationOrigins = $request->get('don_origine');
-        if ($donationOrigins) {
-            $generateTagFDO->setDonationOrigins($donationOriginRepository->findByIds($donationOrigins));
-        }
-
-        // Filtering people for the preview
-        $people = $peopleRepository->filterForTags([
-            'membership_years' => $generateTagFDO->getMembershipYears(),
-            'departments' => $generateTagFDO->getDepartments(),
-            'donation_years' => $generateTagFDO->getDonationYears(),
-            'donation_origins' => $generateTagFDO->getDonationOrigins(),
-            'physical_mail_only' => $generateTagFDO->isPhysicalMailOnly(),
-        ]);
+        list($people, $filterPeopleFDO) = $peopleService->filterPeopleFromRequest($request);
 
         // Getting all years for which there is memberships
         // It will help setup the membership years filter when generating the form
@@ -102,11 +61,12 @@ class TagController extends AbstractController
         // Getting all years for which there is memberships
         // It will help setup the membership years filter when generating the form
         $options['availableDonationYears'] = $donationRepository->getAvailableDonationsYears();
+        $options['isForTag'] = true;
 
         // Form creation
         $generateTagForm = $this->createForm(
-            GenerateTagType::class,
-            $generateTagFDO,
+            FilterPeopleType::class,
+            $filterPeopleFDO,
             $options
         );
 
@@ -157,14 +117,15 @@ class TagController extends AbstractController
 
         // Getting all years for which there is memberships
         $options['availableDonationYears'] = $donationRepository->getAvailableDonationsYears();
+        $options['isForTag'] = true;
 
         // Creating an empty FDO
-        $generateTagFDO = new GenerateTagFDO();
+        $filterPeopleFDO = new FilterPeopleFDO();
 
         // From creation
         $generateTagForm = $this->createForm(
-            GenerateTagType::class,
-            $generateTagFDO,
+            FilterPeopleType::class,
+            $filterPeopleFDO,
             $options
         );
 
@@ -173,11 +134,11 @@ class TagController extends AbstractController
             $session->set('tagsAreGenerating', true);
 
             $people = $peopleRepository->filterForTags([
-                'membership_years' => $generateTagFDO->getMembershipYears(),
-                'departments' => $generateTagFDO->getDepartments(),
-                'donation_years' => $generateTagFDO->getDonationYears(),
-                'donation_origins' => $generateTagFDO->getDonationOrigins(),
-                'physical_mail_only' => $generateTagFDO->isPhysicalMailOnly(),
+                'membership_years' => $filterPeopleFDO->getMembershipYears(),
+                'departments' => $filterPeopleFDO->getDepartments(),
+                'donation_years' => $filterPeopleFDO->getDonationYears(),
+                'donation_origins' => $filterPeopleFDO->getDonationOrigins(),
+                'physical_mail_only' => $filterPeopleFDO->isPhysicalMailOnly(),
             ]);
 
             $tagFileFullName = $this->projectDir . '/pdf/tags.pdf';
